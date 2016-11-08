@@ -59,5 +59,13 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="library" name="org.grails.ide.eclipse.core.CLASSPATH_CONTAINER" level="application" />
+    <orderEntry type="module-library" exported="">
+      <library name="Grails User Library (Trashpoints)">
+        <CLASSES />
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module" module-name="Trashpoints-grailsPlugins" />
   </component>
 </module>
