@@ -1,0 +1,39 @@
+/* My Style CSS */
+
+/* Footer sticky */
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+/* Footer sticky */
+main {
+	flex: 1 0 auto;
+}
+
+header, main, footer {
+	padding-left: 300px;
+}
+
+/* Removing padding-left  */
+@media only screen and (max-width : 992px) {
+	header, main, footer {
+		padding-left: 0;
+	}
+}
+
+/* Increasing size of container  */
+@media only screen and (min-width: 993px) {
+	.container {
+		width: 85%;
+	}
+}
+
+nav#top-menu a.page-title {
+	font-size: 36px;
+	padding-left: 1em;
+}
+
+.card.horizontal {
+	min-height: 290px !important;
+}
