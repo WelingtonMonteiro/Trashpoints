@@ -3,6 +3,7 @@ package core
 class Company extends User{
 
     String segment
+    String typeOfCompany
     String phone
     String site
     String zipCode
@@ -14,6 +15,7 @@ class Company extends User{
 
     static constraints = {
         segment blank: false, nullable: false
+        typeOfCompany blank: false, nullable: false
         phone blank: false, nullable: false
         site blank: true, nullable: true, url: true
         zipCode blank: true, nullable: true, minSize: 8, maxSize: 9

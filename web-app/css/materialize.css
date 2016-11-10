@@ -5571,8 +5571,8 @@ button.btn-floating {
 }
 
 .chips.focus {
-  border-bottom: 1px solid #26a69a;
-  box-shadow: 0 1px 0 0 #26a69a;
+  border-bottom: 1px solid #536dfe;
+  box-shadow: 0 1px 0 0 #536dfe;
 }
 
 .chips:hover {
@@ -5796,8 +5796,8 @@ input[type=tel]:focus:not([readonly]),
 input[type=number]:focus:not([readonly]),
 input[type=search]:focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]) {
-  border-bottom: 1px solid #26a69a;
-  box-shadow: 0 1px 0 0 #26a69a;
+  border-bottom: 1px solid #536dfe;
+  box-shadow: 0 1px 0 0 #536dfe;
 }
 
 input:not([type]):focus:not([readonly]) + label,
@@ -5813,7 +5813,7 @@ input[type=tel]:focus:not([readonly]) + label,
 input[type=number]:focus:not([readonly]) + label,
 input[type=search]:focus:not([readonly]) + label,
 textarea.materialize-textarea:focus:not([readonly]) + label {
-  color: #26a69a;
+  color: #536dfe;
 }
 
 input:not([type]).valid, input:not([type]):focus.valid,
@@ -6023,7 +6023,7 @@ textarea.materialize-textarea + label:after {
 }
 
 .input-field .prefix.active {
-  color: #26a69a;
+  color: #536dfe;
 }
 
 .input-field .prefix ~ input,
@@ -6201,12 +6201,12 @@ textarea.materialize-textarea {
 [type="radio"]:checked + label:after,
 [type="radio"].with-gap:checked + label:before,
 [type="radio"].with-gap:checked + label:after {
-  border: 2px solid #26a69a;
+  border: 2px solid #536dfe;
 }
 
 [type="radio"]:checked + label:after,
 [type="radio"].with-gap:checked + label:after {
-  background-color: #26a69a;
+  background-color: #536dfe;
 }
 
 [type="radio"]:checked + label:after {
@@ -6431,8 +6431,8 @@ form p:last-child {
   top: 0;
   width: 20px;
   height: 20px;
-  border: 2px solid #26a69a;
-  background-color: #26a69a;
+  border: 2px solid #536dfe;
+  background-color: #536dfe;
   z-index: 0;
 }
 
@@ -6444,8 +6444,8 @@ form p:last-child {
 
 [type="checkbox"].filled-in.tabbed:checked:focus + label:after {
   border-radius: 2px;
-  background-color: #26a69a;
-  border-color: #26a69a;
+  background-color: #536dfe;
+  border-color: #536dfe;
 }
 
 [type="checkbox"].filled-in:disabled:not(:checked) + label:before {
@@ -6492,7 +6492,7 @@ form p:last-child {
 }
 
 .switch label input[type=checkbox]:checked + .lever:after {
-  background-color: #26a69a;
+  background-color: #536dfe;
   left: 24px;
 }
 
@@ -6739,7 +6739,7 @@ input[type=range] + .thumb {
   height: 0;
   width: 0;
   border-radius: 50%;
-  background-color: #26a69a;
+  background-color: #536dfe;
   top: 10px;
   margin-left: -6px;
   -webkit-transform-origin: 50% 50%;
@@ -6752,7 +6752,7 @@ input[type=range] + .thumb .value {
   display: block;
   width: 30px;
   text-align: center;
-  color: #26a69a;
+  color: #536dfe;
   font-size: 0;
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
@@ -6785,7 +6785,7 @@ input[type=range]::-webkit-slider-thumb {
   height: 14px;
   width: 14px;
   border-radius: 50%;
-  background-color: #26a69a;
+  background-color: #536dfe;
   -webkit-transform-origin: 50% 50%;
           transform-origin: 50% 50%;
   margin: -5px 0 0 0;
@@ -6848,7 +6848,7 @@ input[type=range]::-ms-thumb {
   height: 14px;
   width: 14px;
   border-radius: 50%;
-  background: #26a69a;
+  background: #536dfe;
 }
 
 input[type=range]:focus::-ms-fill-lower {
@@ -8282,7 +8282,7 @@ input[type=range]:focus::-ms-fill-upper {
 
 .picker__date-display {
   text-align: center;
-  background-color: #26a69a;
+  background-color: #536dfe;
   color: #fff;
   padding-bottom: 15px;
   font-weight: 300;
@@ -8345,7 +8345,7 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 .picker__day.picker__day--today {
-  color: #26a69a;
+  color: #536dfe;
 }
 
 .picker__day.picker__day--today.picker__day--selected {
@@ -8362,7 +8362,7 @@ input[type=range]:focus::-ms-fill-upper {
   border-radius: 50%;
   -webkit-transform: scale(0.9);
           transform: scale(0.9);
-  background-color: #26a69a;
+  background-color: #536dfe;
   color: #ffffff;
 }
 
@@ -8380,7 +8380,7 @@ input[type=range]:focus::-ms-fill-upper {
 .picker__close, .picker__today {
   font-size: 1.1rem;
   padding: 0 1rem;
-  color: #26a69a;
+  color: #536dfe;
 }
 
 .picker__nav--prev:before,
