@@ -150,7 +150,7 @@
 		clearErrorMessage()
 
 		if(data.error){
-			$('#divMessageError').show()
+			$('#divMessageError').removeClass("hide")
 			$.each(data.error, function (key, value) {
 				var errorMessage = value.defaultMessage.toString().replace("{0}", value.field)
 				errorMessage = errorMessage.replace("{1}", value.objectName)
@@ -159,7 +159,9 @@
 				$('#divMessageError span#messageError').append(p)
 			});
 		}
-		console.log(data)
+		//console.log(data)
+		window.location.hash = '#divMessageError';
+
 	}
 
 	function clearErrorMessage() {
