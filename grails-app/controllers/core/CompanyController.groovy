@@ -14,6 +14,9 @@ class CompanyController {
         company.name = params.name
         company.email = params.email
         company.password = params.password
+        company.passwordConfirmation = params.passwordConfirmation
+        company.identificationNumber = params.identificationNumber
+        company.tradingName = params.tradingName
         company.segment = params.segment
         company.typeOfCompany = params.typeOfCompany
         company.phone = params.phone
@@ -32,7 +35,7 @@ class CompanyController {
             render message as JSON
         }else{
             company.save(flush: true)
-            redirect(view: "create")
+            render(view: "create", controller: "company")
         }
     }
 

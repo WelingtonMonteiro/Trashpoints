@@ -2,8 +2,24 @@
 	<div class="row">
 		<div class="input-field col s12 m6">
 			<i class="fa fa-building-o prefix" aria-hidden="true"></i>
-			<input id="name" name="name" type="text" required class="validate">
-			<label for="name">Nome da empresa <span class="red-text">*</span></label>
+			<input id="name" name="name" type="text" required class="validate" autofocus="autofocus" />
+			<label for="name">Razão social<span class="red-text">*</span></label>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="input-field col s12 m6">
+			<i class="fa fa-building-o prefix" aria-hidden="true"></i>
+			<input id="tradingName" name="tradingName" type="text" required class="validate">
+			<label for="tradingName">Nome fantasia <span class="red-text">*</span></label>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="input-field col s12 m6">
+			<i class="fa fa-id-card prefix"></i>
+			<input id="identificationNumber" name="identificationNumber" type="text" class="validate" required maxlength="18" minlength="18" >
+			<label for="identificationNumber">CNPJ <span class="red-text">*</span></label>
 		</div>
 	</div>
 
@@ -19,11 +35,11 @@
 		<div class="input-field col s12 m3">
 			<br />
 			<p>
-				<input class="with-gap" name="typeOfCompany" type="radio" id="recyclingCompany" value="Empresa de coleta" />
+				<input class="with-gap validate" name="typeOfCompany" type="radio" id="recyclingCompany" value="coleta" required />
 				<label for="recyclingCompany">Empresa de coleta</label>
 			</p>
 			<p>
-				<input class="with-gap" name="typeOfCompany" type="radio" id="partnerCompany" value="Empresa parceira" />
+				<input class="with-gap validate" name="typeOfCompany" type="radio" id="partnerCompany" value="parceira" required />
 				<label for="partnerCompany">Empresa parceira</label>
 			</p>
 			<label>Tipo da Empresa <span class="red-text">*</span></label>
@@ -32,8 +48,8 @@
 
 	<div class="row">
 		<div class="input-field col s12 m6">
-			<i class="material-icons prefix">email</i>
-			<input id="email" name="email" type="email" class="validate" required>
+			<i class="material-icons prefix">contact_mail</i>
+			<input id="email" name="email" type="email" class="validate" required />
 			<label for="email">E-mail <span class="red-text">*</span></label>
 		</div>
 	</div>
@@ -41,7 +57,8 @@
 	<div class="row">
 		<div class="input-field col s12 m6">
 			<i class="material-icons prefix">lock</i>
-			<input id="password" name="password" type="password" class="validate" required>
+			<input id="password" name="password" type="password" class="validate"
+				   required minlength="6" maxlength="20">
 			<label for="password">Senha <span class="red-text">*</span></label>
 		</div>
 	</div>
@@ -49,7 +66,8 @@
 	<div class="row">
 		<div class="input-field col s12 m6">
 			<i class="material-icons prefix">lock</i>
-			<input id="passwordConfirmation" name="passwordConfirmation" type="password" class="validate" required>
+			<input id="passwordConfirmation" name="passwordConfirmation" type="password"
+				   class="validate" required minlength="6" maxlength="20">
 			<label for="passwordConfirmation">Confirme sua senha <span class="red-text">*</span></label>
 		</div>
 	</div>
@@ -72,11 +90,11 @@
 
 	<div class="row">
 		<div class="input-field col s12 m4">
-			<input id="zipCode" name="zipCode" type="text" maxlength="9" class="validate" required>
+			<input id="zipCode" name="zipCode" type="text" minlength="8" maxlength="9" class="validate" required>
 			<label for="zipCode">CEP <span class="red-text">*</span></label>
 		</div>
 		<div class="input-field col s12 m2">
-			<input id="state" name="state" type="text" class="validate" required>
+			<input id="state" name="state" type="text" class="validate" minlength="2" maxlength="2" required>
 			<label for="state">Estado <span class="red-text">*</span></label>
 		</div>
 	</div>
@@ -116,6 +134,7 @@
 	</div>
 </g:formRemote>
 
+<br />
 <div class="row">
 	<div class="col s12 m6">
 		<div class="card-panel grey lighten-5">
@@ -128,7 +147,7 @@
 <script type="text/javascript">
 
 	function showMessage(data) {
-		clearMessage()
+		clearErrorMessage()
 
 		if(data.error){
 			$('#divMessageError').show()
@@ -143,7 +162,7 @@
 		console.log(data)
 	}
 
-	function clearMessage() {
+	function clearErrorMessage() {
 		$('#divMessageError span#messageError').html("")
 	}
 
@@ -159,8 +178,22 @@
 		$("#state").val("");
 	}
 
+	var password = document.getElementById("password")
+	var passwordConfirmation = document.getElementById("passwordConfirmation");
+
+	function validateConfirmationPassword(){
+		if(password.value != passwordConfirmation.value) {
+			passwordConfirmation.setCustomValidity("As senhas não correspondem");
+		} else {
+			passwordConfirmation.setCustomValidity('');
+		}
+	}
+
+	password.onchange = validateConfirmationPassword;
+	passwordConfirmation.onkeyup = validateConfirmationPassword;
+
 	$(document).ready(function () {
-		$(".button-collapse").sideNav();
+		//$(".button-collapse").sideNav();
 
 		$("#zipCode").blur(function fillAddress() {
 
@@ -169,9 +202,9 @@
 
 			if (zipCode != "") {
 
-				var validatorCep = /^[0-9]{8}$/;
+				var validatorZipCode = /^[0-9]{8}$/;
 
-				if (validatorCep.test(zipCode)) {
+				if (validatorZipCode.test(zipCode)) {
 
 					$("#street").val("...");
 					$("#neighborhood").val("...");
@@ -182,6 +215,7 @@
 					$.getJSON("https://viacep.com.br/ws/" + zipCode + "/json/?callback=?", function (data) {
 
 						if (!("erro" in data)) {
+							$("#zipCode").val(data.cep);
 							$("#state").val(data.uf);
 							$("#street").val(data.logradouro);
 							$("#neighborhood").val(data.bairro);
@@ -208,7 +242,8 @@
 			}
 		});
 
-		//var password = $("#senha").val();
-		//var encrypted = btoa(password);
+		var encryptedPassword = btoa(password.value);
+		var encryptedPasswordConfirmation = btoa(passwordConfirmation.value);
+
 	});
 </script>
