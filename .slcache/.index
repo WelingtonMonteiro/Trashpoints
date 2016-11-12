@@ -4756,3 +4756,6 @@ n:745:org/codehaus/groovy/runtime/dgm$980
 n:769:org/codehaus/groovy/runtime/dgm$978
 n:715:org/codehaus/groovy/runtime/dgm$968
 n:1389:java_io_PrintWriter$println$0
+n:2009:java_io_File$createTempFile$6
+n:1385:java_io_File$deleteOnExit$7
+n:1489:java_io_File$delete$8
