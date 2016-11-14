@@ -158,10 +158,12 @@
 				var p = '<p>' + errorMessage + '</p>'
 				$('#divMessageError span#messageError').append(p)
 			});
+			setFocusSummaryErrorMessage()
 		}
-		//console.log(data)
-		window.location.hash = '#divMessageError';
+	}
 
+	function setFocusSummaryErrorMessage() {
+		$(window).scrollTop($('#divMessageError').offset().top);
 	}
 
 	function clearErrorMessage() {
@@ -182,6 +184,7 @@
 
 	var password = document.getElementById("password")
 	var passwordConfirmation = document.getElementById("passwordConfirmation");
+	var elementZipCode = document.getElementById("zipCode");
 
 	function validateConfirmationPassword(){
 		if(password.value != passwordConfirmation.value) {
@@ -195,10 +198,8 @@
 	passwordConfirmation.onkeyup = validateConfirmationPassword;
 
 	$(document).ready(function () {
-		//$(".button-collapse").sideNav();
 
 		$("#zipCode").blur(function fillAddress() {
-
 			//var zipcode only with digits.
 			var zipCode = $(this).val().replace(/\D/g, '');
 
@@ -226,20 +227,18 @@
 							$("#number").focus();
 						}
 						else {
-							//CEP pesquisado não foi encontrado.
 							clearAddressInputs();
-							alert("CEP não encontrado.");
+							elementZipCode.setCustomValidity("CEP não encontrado.");
 						}
 					});
 				}
 				else {
-					//cep é inválido.
 					clearAddressInputs();
-					alert("Formato de CEP inválido.");
+					elementZipCode.setCustomValidity("Formato de CEP inválido.");
 				}
 			}
 			else {
-				//cep sem valor, limpa formulário.
+				//cep sem valor
 				clearAddressInputs();
 			}
 		});
