@@ -17,6 +17,7 @@
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'style.css')}" type="text/css">
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <script src="/Trashpoints/js/jquery.maskedinput.min.js" type="text/javascript"></script>
 	<g:layoutHead/>
 		<g:javascript library="application"/>		
 		<r:layoutResources />

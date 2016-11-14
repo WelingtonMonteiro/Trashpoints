@@ -1,5 +1,12 @@
 /* My Style CSS */
 
+.button-show-password {
+	padding: 0 12px;
+	position: absolute;
+	top: 0;
+	right: 7px;
+}
+
 /* Footer sticky */
 body {
 	display: flex;

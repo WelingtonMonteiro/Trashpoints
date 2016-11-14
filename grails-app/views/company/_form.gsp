@@ -56,19 +56,14 @@
 
 	<div class="row">
 		<div class="input-field col s12 m6">
+            <a id="btnShowPassword" class="waves-effect waves-indigo accent-2 btn-flat grey lighten-4 black-text button-show-password"
+               onmousedown="showPassword()" onmouseup="hidePassword()">
+                <i class="fa fa-eye"></i>
+            </a>
 			<i class="material-icons prefix">lock</i>
 			<input id="password" name="password" type="password" class="validate"
-				   required minlength="6" maxlength="20">
+				   required minlength="6">
 			<label for="password">Senha <span class="red-text">*</span></label>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="input-field col s12 m6">
-			<i class="material-icons prefix">lock</i>
-			<input id="passwordConfirmation" name="passwordConfirmation" type="password"
-				   class="validate" required minlength="6" maxlength="20">
-			<label for="passwordConfirmation">Confirme sua senha <span class="red-text">*</span></label>
 		</div>
 	</div>
 
@@ -146,6 +141,12 @@
 
 <script type="text/javascript">
 
+	jQuery(function($){
+		$("#phone").mask("(999) 9999-9999");
+		$("#zipCode").mask("99999-999");
+		$("#identificationNumber").mask("99.999.999/9999-99");
+	});
+
 	function showMessage(data) {
 		clearErrorMessage()
 
@@ -182,20 +183,17 @@
 		$("#state").val("");
 	}
 
-	var password = document.getElementById("password")
-	var passwordConfirmation = document.getElementById("passwordConfirmation");
-	var elementZipCode = document.getElementById("zipCode");
+    function showPassword()
+    {
+        $("#password").attr("type", "text");
+    }
 
-	function validateConfirmationPassword(){
-		if(password.value != passwordConfirmation.value) {
-			passwordConfirmation.setCustomValidity("As senhas não correspondem");
-		} else {
-			passwordConfirmation.setCustomValidity('');
-		}
-	}
+    function hidePassword()
+    {
+        $("#password").attr("type", "password");
+    }
 
-	password.onchange = validateConfirmationPassword;
-	passwordConfirmation.onkeyup = validateConfirmationPassword;
+    var elementZipCode = document.getElementById("zipCode");
 
 	$(document).ready(function () {
 
@@ -243,8 +241,8 @@
 			}
 		});
 
-		var encryptedPassword = btoa(password.value);
-		var encryptedPasswordConfirmation = btoa(passwordConfirmation.value);
+		//var encryptedPassword = btoa($("#password").val());
+		//var encryptedPasswordConfirmation = btoa($("#password").val());
 
 	});
 </script>

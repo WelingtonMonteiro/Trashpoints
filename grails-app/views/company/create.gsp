@@ -18,9 +18,6 @@
 					</div>
 				</div>
 
-				%{--<g:renderErrors bean="${company}" as="list" />--}%
-
-
 				<div id="formCompany">
 					<g:render template="form"></g:render>
 				</div>
