@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="input-field col s12 m6">
 			<i class="fa fa-building-o prefix" aria-hidden="true"></i>
-			<input id="name" name="name" type="text" required class="validate" autofocus="autofocus" />
+			<input id="name" name="name" type="text" required minlength="2" class="validate" autofocus="autofocus" />
 			<label for="name">Razão social<span class="red-text">*</span></label>
 		</div>
 	</div>
@@ -85,11 +85,41 @@
 
 	<div class="row">
 		<div class="input-field col s12 m4">
-			<input id="zipCode" name="zipCode" type="text" minlength="8" maxlength="9" class="validate" required>
+			<input id="zipCode" name="zipCode" type="text" maxlength="9" class="validate" required>
 			<label for="zipCode">CEP <span class="red-text">*</span></label>
 		</div>
 		<div class="input-field col s12 m2">
-			<input id="state" name="state" type="text" class="validate" minlength="2" maxlength="2" required>
+			<input id="state" name="state" list="states" type="text"
+				   class="validate" minlength="2" maxlength="2" required style="text-transform: uppercase">
+			<datalist id="states">
+				<option value="AC"></option>
+				<option value="AL"></option>
+				<option value="AP"></option>
+				<option value="AM"></option>
+				<option value="BA"></option>
+				<option value="CE"></option>
+				<option value="DF"></option>
+				<option value="ES"></option>
+				<option value="GO"></option>
+				<option value="MA"></option>
+				<option value="MT"></option>
+				<option value="MS"></option>
+				<option value="MG"></option>
+				<option value="PA"></option>
+				<option value="PB"></option>
+				<option value="PR"></option>
+				<option value="PE"></option>
+				<option value="PI"></option>
+				<option value="RJ"></option>
+				<option value="RN"></option>
+				<option value="RS"></option>
+				<option value="RO"></option>
+				<option value="RR"></option>
+				<option value="SC"></option>
+				<option value="SP"></option>
+				<option value="SE"></option>
+				<option value="TO"></option>
+			</datalist>
 			<label for="state">Estado <span class="red-text">*</span></label>
 		</div>
 	</div>
@@ -142,7 +172,7 @@
 <script type="text/javascript">
 
 	jQuery(function($){
-		$("#phone").mask("(999) 9999-9999");
+		$("#phone").mask("(99) 9999-9999");
 		$("#zipCode").mask("99999-999");
 		$("#identificationNumber").mask("99.999.999/9999-99");
 	});
@@ -152,9 +182,9 @@
 
 		if(data.error){
 			$('#divMessageError').removeClass("hide")
-			$.each(data.error, function (key, value) {
-				var errorMessage = value.defaultMessage.toString().replace("{0}", value.field)
-				errorMessage = errorMessage.replace("{1}", value.objectName)
+			var errors = data.error
+			$.each(errors, function (key, value) {
+				var errorMessage = value
 
 				var p = '<p>' + errorMessage + '</p>'
 				$('#divMessageError span#messageError').append(p)
