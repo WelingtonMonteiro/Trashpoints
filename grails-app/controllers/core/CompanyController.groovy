@@ -15,7 +15,6 @@ class CompanyController {
         company.email = params.email
         def passwordHash = params.password.encodeAsSHA256()
         company.password = passwordHash
-        println(passwordHash)
         company.identificationNumber = params.identificationNumber
         company.tradingName = params.tradingName
         company.segment = params.segment
@@ -43,6 +42,7 @@ class CompanyController {
         }else{
             company.save(flush: true)
             redirect(controller: "company", action: "create")
+            //redirect (controller: "", view:"/")
         }
     }
 
