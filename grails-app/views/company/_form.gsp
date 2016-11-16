@@ -197,24 +197,24 @@
 		clearErrorMessage()
 
 		if(data.error){
-			$('#divMessageError').removeClass("hide")
+			$('#divErrorMessage').removeClass("hide")
 			var errors = data.error
 			$.each(errors, function (key, value) {
 				var errorMessage = value
 
 				var p = '<p>' + errorMessage + '</p>'
-				$('#divMessageError span#messageError').append(p)
+				$('#divErrorMessage span#errorMessage').append(p)
 			});
 			setFocusSummaryErrorMessage()
 		}
 	}
 
 	function setFocusSummaryErrorMessage() {
-		$(window).scrollTop($('#divMessageError').offset().top);
+		$(window).scrollTop($('#divErrorMessage').offset().top);
 	}
 
 	function clearErrorMessage() {
-		$('#divMessageError span#messageError').html("")
+		$('#divErrorMessage span#errorMessage').html("")
 	}
 
 	function clearInputs() {
@@ -299,8 +299,6 @@
 
 		});
 
-
-
 	});
 
 	function enableAddressInputs() {
@@ -310,11 +308,9 @@
 		$("#city").removeAttr("disabled");
 	}
 
-
-
 	/*function encryptPassword() {
-	 var encryptedPassword = btoa($("#password").val());
-	 $("#password").val(encryptedPassword)
-	 }*/
+	  	var encryptedPassword = btoa($("#password").val());
+	  	$("#password").val(encryptedPassword)
+	}*/
 
 </script>

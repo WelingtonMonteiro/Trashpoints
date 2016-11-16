@@ -10,7 +10,7 @@ class CompanyController {
 
     def save() {
         Company company = new Company()
-
+        println(params.password)
         company.name = params.name
         company.email = params.email
         def passwordHash = params.password.encodeAsSHA256()
@@ -41,8 +41,9 @@ class CompanyController {
             render message as JSON
         }else{
             company.save(flush: true)
-            redirect(controller: "company", action: "create")
-            //redirect (controller: "", view:"/")
+            //redirect(controller: "company", action: "create")
+            render (view: "/Trashpoints")
+            println("")
         }
     }
 
