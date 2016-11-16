@@ -2,8 +2,8 @@
 	<div class="row">
 		<div class="input-field col s12 m6">
 			<i class="fa fa-building-o prefix" aria-hidden="true"></i>
-			<input id="name" name="name" type="text" required minlength="2" class="validate" autofocus="autofocus" />
-			<label for="name">Razão social<span class="red-text">*</span></label>
+			<input id="companyName" name="companyName" type="text" required minlength="2" class="validate" autofocus="autofocus" />
+			<label for="companyName">Razão social<span class="red-text">*</span></label>
 		</div>
 	</div>
 
@@ -57,7 +57,7 @@
 	<div class="row">
 		<div class="input-field col s12 m6">
             <a id="btnShowPassword" class="waves-effect waves-indigo accent-2 btn-flat grey lighten-4 black-text button-show-password"
-               onmousedown="showPassword()" onmouseup="hidePassword()">
+                title="Ver senha" onmousedown="showPassword()" onmouseup="hidePassword()">
                 <i class="fa fa-eye"></i>
             </a>
 			<i class="material-icons prefix">lock</i>
@@ -90,7 +90,7 @@
 
 			</div>
 			<div class="input-field col s12 m2">
-				<select id="states" disabled required class="validate browser-default">
+				<select id="states" name="states" disabled required class="validate browser-default">
 					<option value="" disabled selected>Selecione</option>
 					<option value="AC">AC</option>
 					<option value="AL">AL</option>

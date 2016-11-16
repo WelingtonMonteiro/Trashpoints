@@ -9,9 +9,18 @@ class CompanyController {
     }
 
     def save() {
+        Address address = new Address()
+
+        address.zipCode = params.zipCode
+        address.street = params.street
+        address.number = params.number
+        address.neighborhood = params.neighborhood
+        address.city = params.city
+        address.state = params.states
+        println(params)
         Company company = new Company()
-        println(params.password)
-        company.name = params.name
+
+        company.companyName = params.companyName
         company.email = params.email
         def passwordHash = params.password.encodeAsSHA256()
         company.password = passwordHash
@@ -21,16 +30,12 @@ class CompanyController {
         company.typeOfCompany = params.typeOfCompany
         company.phone = params.phone
         company.site = params.site
-        company.zipCode = params.zipCode
-        company.street = params.street
-        company.number = params.number
-        company.neighborhood = params.neighborhood
-        company.city = params.city
-        company.state = params.state
+        company.address = address
 
+        address.validate()
         company.validate()
 
-        if(company.hasErrors()){
+        if(company.hasErrors()) {
             def listErrors = []
 
             company.errors.each { error ->
@@ -39,16 +44,29 @@ class CompanyController {
 
             def message = [error: listErrors]
             render message as JSON
-        }else{
-            company.save(flush: true)
-            //redirect(controller: "company", action: "create")
-            render (view: "/Trashpoints")
-            println("")
-        }
+        }else
+            if(address.hasErrors()) {
+                def listErrors = []
+
+                address.errors.each { error ->
+                    listErrors += g.message(code: error.fieldError.defaultMessage, error: error.fieldError)
+                }
+
+                def message = [error: listErrors]
+                render message as JSON
+            }else{
+                company.save(flush: true)
+                //redirect(controller: "company", action: "create")
+                render (view: "/Trashpoints")
+            }
     }
 
     def list() {
-        def companies = Company.list()
+        def companies = Address.createCriteria().list(){
+            user {
+
+            }
+        }
         render companies as JSON
     }
 
