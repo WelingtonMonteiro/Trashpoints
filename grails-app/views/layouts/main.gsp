@@ -45,10 +45,10 @@
 				<li class="no-padding">
 					<ul class="collapsible collapsible-accordion">
 						<li>
-							<a class="collapsible-header waves-effect" href="../client/create.gsp">Meus dados<i class="material-icons">arrow_drop_down</i></a>
+							<a class="collapsible-header waves-effect" href="#">Meus dados<i class="material-icons">arrow_drop_down</i></a>
 							<div class="collapsible-body">
 								<ul>
-									<li><a class="waves-effect" href="../client/create.gsp">Editar Perfil<i class="material-icons">account_circle</i></a></li>
+									<li><a class="waves-effect" href="#">Editar Perfil<i class="material-icons">account_circle</i></a></li>
 									<li><a class="waves-effect" href="#">Editar Endereço<i class="material-icons">edit_location</i></a></li>
 								</ul>
 							</div>
