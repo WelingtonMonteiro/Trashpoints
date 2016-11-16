@@ -88,3 +88,4 @@ modules.xml
 # "temporary" build files
 /target
 
+.slcache/
