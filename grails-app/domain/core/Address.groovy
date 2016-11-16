@@ -10,6 +10,7 @@ class Address {
     String state
     Float longitude
     Float latitude
+    User user
 
     static constraints = {
         zipCode blank: true, nullable: true, minSize: 9, maxSize: 9, matches: "\\d{5}-\\d{3}"
@@ -20,5 +21,6 @@ class Address {
         state blank: true, nullable: true, minSize: 2
         latitude nullable: true, max:180.0F, scale:6
         longitude nullable: true, max:180.0F, scale:6
+        user nullable: true
     }
 }
