@@ -1,95 +1,104 @@
 <g:formRemote name="formCompany" url="[controller:'company', action:'save']" onSuccess="showMessage(data)" class="col s12">
-	<div class="row">
-		<div class="input-field col s12 m6">
-			<i class="fa fa-building-o prefix" aria-hidden="true"></i>
-			<input id="companyName" name="companyName" type="text" required minlength="2" class="validate" autofocus="autofocus" />
-			<label for="companyName">Razão social<span class="red-text">*</span></label>
-		</div>
-	</div>
+	<fieldset>
+		<legend><h5 class="header">&nbsp;Dados da Empresa&nbsp;</h5></legend>
 
-	<div class="row">
-		<div class="input-field col s12 m6">
-			<i class="fa fa-building-o prefix" aria-hidden="true"></i>
-			<input id="tradingName" name="tradingName" type="text" required class="validate">
-			<label for="tradingName">Nome fantasia <span class="red-text">*</span></label>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="input-field col s12 m6">
-			<i class="fa fa-id-card prefix"></i>
-			<input id="identificationNumber" name="identificationNumber" type="text" class="validate" required maxlength="18" minlength="18" >
-			<label for="identificationNumber">CNPJ <span class="red-text">*</span></label>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="input-field col s12 m6">
-			<i class="material-icons prefix">business</i>
-			<input id="segment" name="segment" type="text" class="validate" required>
-			<label for="segment">Segmento <span class="red-text">*</span></label>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="input-field col s12 m3">
-			<br />
-			<p>
-				<input class="with-gap validate" name="typeOfCompany" type="radio" id="recyclingCompany" value="coleta" required />
-				<label for="recyclingCompany">Empresa de coleta</label>
-			</p>
-			<p>
-				<input class="with-gap validate" name="typeOfCompany" type="radio" id="partnerCompany" value="parceira" required />
-				<label for="partnerCompany">Empresa parceira</label>
-			</p>
-			<label>Tipo da Empresa <span class="red-text">*</span></label>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="input-field col s12 m6">
-			<i class="material-icons prefix">contact_mail</i>
-			<input id="email" name="email" type="email" class="validate" required />
-			<label for="email">E-mail <span class="red-text">*</span></label>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="input-field col s12 m6">
-            <a id="btnShowPassword" class="waves-effect waves-indigo accent-2 btn-flat grey lighten-4 black-text button-show-password"
-                title="Ver senha" onmousedown="showPassword()" onmouseup="hidePassword()">
-                <i class="fa fa-eye"></i>
-            </a>
-			<i class="material-icons prefix">lock</i>
-			<input id="password" name="password" type="password" class="validate"
-				   required minlength="6">
-			<label for="password">Senha <span class="red-text">*</span></label>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="input-field col s12 m4">
-			<i class="material-icons prefix">contact_phone</i>
-			<input id="phone" name="phone" type="tel" class="validate" required>
-			<label for="phone">Telefone <span class="red-text">*</span></label>
+		<div class="row">
+			<div class="input-field col s12 m12">
+				<i class="fa fa-building-o prefix" aria-hidden="true"></i>
+				<input id="companyName" name="companyName" type="text" required minlength="2" class="validate" autofocus="autofocus" />
+				<label for="companyName">Razão social<span class="red-text">*</span></label>
+			</div>
 		</div>
 
-		<div class="input-field col s12 m8">
-			<i class="material-icons prefix">http</i>
-			<input id="site" name="site" type="url" class="validate">
-			<label for="site">Site</label>
+		<div class="row">
+			<div class="input-field col s12 m12">
+				<i class="fa fa-building-o prefix" aria-hidden="true"></i>
+				<input id="tradingName" name="tradingName" type="text" required class="validate">
+				<label for="tradingName">Nome fantasia <span class="red-text">*</span></label>
+			</div>
 		</div>
-	</div>
 
-	<h4 class="header">Endereço</h4>
-	<div class="row">
+		<div class="row">
+			<div class="input-field col s12 m12">
+				<i class="fa fa-id-card prefix"></i>
+				<input id="identificationNumber" name="identificationNumber" type="text" class="validate" required maxlength="18" minlength="18" >
+				<label for="identificationNumber">CNPJ <span class="red-text">*</span></label>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="input-field col s12 m12">
+				<i class="material-icons prefix">business</i>
+				<input id="segment" name="segment" type="text" class="validate" required>
+				<label for="segment">Segmento <span class="red-text">*</span></label>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="input-field col s12 m12">
+				<br />
+				<p>
+					<input class="with-gap validate" name="typeOfCompany" type="radio" id="recyclingCompany" value="coleta" required />
+					<label for="recyclingCompany">Empresa de coleta</label>
+				</p>
+				<p>
+					<input class="with-gap validate" name="typeOfCompany" type="radio" id="partnerCompany" value="parceira" required />
+					<label for="partnerCompany">Empresa parceira</label>
+				</p>
+				<label>Tipo da Empresa <span class="red-text">*</span></label>
+			</div>
+		</div>
+
+		<div class="row">
 			<div class="input-field col s12 m4">
+				<i class="material-icons prefix">contact_phone</i>
+				<input id="phone" name="phone" type="tel" class="validate" required>
+				<label for="phone">Telefone <span class="red-text">*</span></label>
+			</div>
+
+			<div class="input-field col s12 m8">
+				<i class="material-icons prefix">http</i>
+				<input id="site" name="site" type="url" class="validate">
+				<label for="site">Site</label>
+			</div>
+		</div>
+	</fieldset>
+	<br/>
+	<fieldset>
+		<legend><h5 class="header">&nbsp;Dados do Login&nbsp;</h5></legend>
+
+		<div class="row">
+			<div class="input-field col s12 m12">
+				<i class="material-icons prefix">contact_mail</i>
+				<input id="email" name="email" type="email" class="validate" required />
+				<label for="email">E-mail <span class="red-text">*</span></label>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="input-field col s12 m12">
+				<a id="btnShowPassword" class="waves-effect waves-indigo accent-2 btn-flat grey lighten-4 black-text button-show-password"
+				   title="Ver senha" onmousedown="showPassword()" onmouseup="hidePassword()">
+					<i class="fa fa-eye"></i>
+				</a>
+				<i class="material-icons prefix">lock</i>
+				<input id="password" name="password" type="password" class="validate"
+					   required minlength="6">
+				<label for="password">Senha <span class="red-text">*</span></label>
+			</div>
+		</div>
+	</fieldset>
+	<br/>
+	<fieldset>
+		<legend><h5 class="header">&nbsp;Endereço&nbsp;</h5></legend>
+		<div class="row">
+			<div class="input-field col s12 m5">
 				<input id="zipCode" name="zipCode" type="text" maxlength="9" class="validate" required>
 				<label for="zipCode">CEP <span class="red-text">*</span></label>
 				<span id="zipCodeErrorMessage" class="red-text"></span>
 
 			</div>
-			<div class="input-field col s12 m2">
+			<div class="input-field col s12 m3">
 				<select id="states" name="states" disabled required class="validate browser-default">
 					<option value="" disabled selected>Selecione</option>
 					<option value="AC">AC</option>
@@ -161,6 +170,7 @@
 				<label for="city">Cidade <span class="red-text">*</span></label>
 			</div>
 		</div>
+	</fieldset>
 
 	<div class="row">
 		<div class="input-field col s12">
@@ -229,17 +239,17 @@
 		$("#states").val("");
 	}
 
-    function showPassword()
-    {
-        $("#password").attr("type", "text");
-    }
+	function showPassword()
+	{
+		$("#password").attr("type", "text");
+	}
 
-    function hidePassword()
-    {
-        $("#password").attr("type", "password");
-    }
+	function hidePassword()
+	{
+		$("#password").attr("type", "password");
+	}
 
-    var elementZipCode = document.getElementById("zipCode");
+	var elementZipCode = document.getElementById("zipCode");
 
 	$(document).ready(function () {
 		$(".preloader-wrapper").hide();
@@ -309,8 +319,8 @@
 	}
 
 	/*function encryptPassword() {
-	  	var encryptedPassword = btoa($("#password").val());
-	  	$("#password").val(encryptedPassword)
-	}*/
+	 var encryptedPassword = btoa($("#password").val());
+	 $("#password").val(encryptedPassword)
+	 }*/
 
 </script>

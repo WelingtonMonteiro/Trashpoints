@@ -44,3 +44,8 @@ nav#top-menu a.page-title {
 .card.horizontal {
 	min-height: 290px !important;
 }
+
+fieldset {
+	padding-left: 2.3em !important;
+	padding-right: 2.3em !important;
+}
