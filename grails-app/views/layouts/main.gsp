@@ -40,11 +40,12 @@
 				<li class="active"><a class="waves-effect active" href="home.html">Home<i class="material-icons">home</i></a></li>
 				<li><a class="waves-effect" href="#">Meus TrashPoints<i class="material-icons">monetization_on</i></a></li>
 				<li><div class="divider"></div></li>
+
 				<li><a class="subheader">Editar meus dados</a></li>
 				<li class="no-padding">
 					<ul class="collapsible collapsible-accordion">
 						<li>
-							<a class="collapsible-header waves-effect">Meus dados<i class="material-icons">arrow_drop_down</i></a>
+							<a class="collapsible-header waves-effect" href="#">Meus dados<i class="material-icons">arrow_drop_down</i></a>
 							<div class="collapsible-body">
 								<ul>
 									<li><a class="waves-effect" href="#">Editar Perfil<i class="material-icons">account_circle</i></a></li>
