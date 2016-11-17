@@ -25,4 +25,12 @@ class CollectController {
             render(view: "create", controller: "company")
         }
     }
+
+    def myCollections() {
+        //ID CLIENT LOGGED IN
+        def clientId = 1
+        def clientCollections = Client.get(clientId).collects
+
+        render(view: "myCollections", model: ["clientCollections": clientCollections])
+    }
 }

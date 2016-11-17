@@ -28,7 +28,7 @@
 		%{--<div id="grailsLogo" role="banner"><a href="http://grails.org"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails"/></a></div>--}%
 		<header>
 			<nav id="top-menu" class="indigo accent-2">
-				<a class="page-title">TrashPoints</a>
+				<a class="page-title" href="/Trashpoints">TrashPoints</a>
 				<ul class="right">
 					<li><a href="#" class="hide-on-small-only">Nome usuário logada</a></li>
 				</ul>
@@ -58,7 +58,7 @@
 				<li><a class="waves-effect" href="#">Minhas Coletas<i class="fa fa-recycle fa-2x" aria-hidden="true"></i></a></li>
 				<li><a class="waves-effect" href="#">Tenho uma Coleta<i class="fa fa-bullhorn fa-2x" aria-hidden="true"></i></a></li>
 				<li><a class="waves-effect" href="#">Notificações<i class="material-icons">notifications</i></a></li>
-				<li><a class="waves-effect" href="#">Sair<i class="material-icons">exit_to_app</i></a></li>
+				<li><a class="waves-effect" href="#">Sair<i class="fa fa-2x fa-sign-out" aria-hidden="true"></i></a></li>
 			</ul>
 		</header>
 
