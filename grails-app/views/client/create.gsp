@@ -18,9 +18,9 @@
                 </div>
             </div>
 
-            <div id="formCompany">
-                <g:render template="form"></g:render>
-            </div>
+            %{--<div id="formCompany">--}%
+                %{--<g:render template="form"></g:render>--}%
+            %{--</div>--}%
 
         </div>
     </div>
