@@ -59,8 +59,7 @@ class CompanyController {
                 render message as JSON
             }else{
                 company.save(flush: true)
-                //redirect(controller: "company", action: "create")
-                render (view: "/Trashpoints")
+                redirect(action: "create", controller: "collect")
             }
     }
 

@@ -86,8 +86,8 @@ class ClientController {
         def passwordHash = params.password.encodeAsSHA256()
 
         client.name = params.name
-        client.email = params.email
-        client.password = passwordHash
+        //client.email = params.email
+        //client.password = passwordHash
         client.phone = params.phone
         client.photo = params.photo
         client.isAddressEqual = params.isAddressEqual

@@ -136,7 +136,7 @@
                             $("#neighborhood").val(data.bairro);
                             $("#city").val(data.localidade);
                             Materialize.updateTextFields();
-                            $("#number");
+                            $("#number").focus();
                             $(".preloader-wrapper").hide();
 
                         }

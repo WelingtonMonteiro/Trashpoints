@@ -11,21 +11,25 @@ class CollectController {
 
     def save() {
         Collect collect = new Collect()
-        collect.date = new Date()
+        Client client = Client.get(1)
+
+        collect.orderDate = new Date()
+        collect.isCollected = false
         collect.materialTypes = new ArrayList<MaterialType>()
         params.materialTypes?.each {materialTypeId ->
             MaterialType m = MaterialType.findById(materialTypeId)
             collect.materialTypes.add(m)
         }
-        collect.image_upload = null
+        collect.imageUpload = null
+        collect.client = client
         // File Upload
-        if (params.image_upload){
-            if(params.image_upload instanceof org.springframework.web.multipart.commons.CommonsMultipartFile){
+        if (params.imageUpload){
+            if(params.imageUpload instanceof org.springframework.web.multipart.commons.CommonsMultipartFile){
                 def fileName = java.util.UUID.randomUUID().toString()
-                new FileOutputStream('C:/Trashpoints/Uploads/' + fileName).leftShift( params.image_upload.getInputStream())
-                collect.image_upload = fileName
+                new FileOutputStream('C:/Trashpoints/Uploads/' + fileName).leftShift( params.imageUpload.getInputStream())
+                collect.imageUpload = fileName
             }else{
-                log.error("wrong attachment type [${params.image_upload.getClass()}]");
+                log.error("wrong attachment type [${params.imageUpload.getClass()}]");
             }
         }
         //
@@ -56,7 +60,8 @@ class CollectController {
     }
 
     def markWasCollected() {
-        def collectId = params.id.toLong()
+        println(params.id)
+        def collectId = params.id
         def message = [:]
 
         Collect collect = Collect.get(collectId)

@@ -4,6 +4,7 @@ class MaterialType {
 
     Integer id
     String name
+
     static hasMany = [collects : Collect]
 
     static constraints = {

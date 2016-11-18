@@ -14,10 +14,10 @@
         <tbody>
         <g:each in="${clientCollections}" var="collect">
             <tr>
-                <td><img height="168" src="${collect.image_upload}"></td>
-                <td><label>${collect.type}</label></td>
-                <td><label>${collect.date}</label></td>
-                <td>${collect.date}</td>
+                <td><img height="168" src="${collect.imageUpload}"></td>
+                <td>${collect.materialTypes}</td>
+                <td>${collect.orderDate.format("dd/MM/yyyy")}</td>
+                <td>${collect.collectedDate.format("dd/MM/yyyy")}</td>
                 <td>
                     <g:if test="${collect.isCollected}">
                         <p title="Foi coletada?">

@@ -11,7 +11,6 @@ class Company{
     Address address
 
     static hasMany = [collects: Collect]
-//    static hasOne = [address:Address]
 
     static constraints = {
         identificationNumber blank: false, nullable: false, minSize: 18, maxSize: 18, matches: "\\d{2}.\\d{3}.\\d{3}[/]\\d{4}-\\d{2}", unique: true

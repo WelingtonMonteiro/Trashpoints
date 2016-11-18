@@ -1,8 +1,8 @@
 <div class="row">
     <div class="input-field col s12 m6">
         <i class="material-icons prefix">today</i>
-        <input id="date" name="date" type="date" class="validate datepicker" disabled>
-        <label for="date" class="active">Data <span class="red-text">*</span></label>
+        <input id="orderDate" name="orderDate" type="date" class="validate datepicker" disabled>
+        <label for="orderDate" class="active">Data <span class="red-text">*</span></label>
     </div>
 </div>
 <form name="formCollect" action="save" onSuccess="showMessage(data)" enctype="multipart/form-data" method="POST">
@@ -24,7 +24,7 @@
             <div class="file-field input-field">
                 <div class="btn blue darken-3">
                     <i class="material-icons left">add_a_photo</i>Imagem
-                    <input type="file" id="image_upload" name="image_upload">
+                    <input type="file" id="imageUpload" name="imageUpload">
                 </div>
                 <div class="file-path-wrapper">
                     <input class="file-path validate" type="text" placeholder="Envie uma imagen da sua coleta">
@@ -88,8 +88,8 @@
         var day = actualDate.getDate();
         var month = actualDate.getMonth() + 1;
         var year = actualDate.getFullYear();
-        $('#date').val(year + '-' + month + '-' + day).css({'color': 'black'});
-        $('[for="date"]').css({'color': 'black'});
+        $('#orderDate').val(year + '-' + month + '-' + day).css({'color': 'black'});
+        $('[for="orderDate"]').css({'color': 'black'});
     });
 
 </script>

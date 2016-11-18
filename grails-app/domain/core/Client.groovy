@@ -9,7 +9,6 @@ class Client{
     Address address
 
     static hasMany = [collects: Collect]
-//    static hasOne = [address:Address]
 
     static constraints = {
         name blank: false, nullable: false, minSize: 5, maxSize: 60
