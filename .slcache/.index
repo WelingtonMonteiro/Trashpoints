@@ -5223,3 +5223,5 @@ n:4311:org/eclipse/aether/util/ChecksumUtils
 n:2447:org/eclipse/aether/repository/LocalArtifactRegistration
 y:19154:org/codehaus/groovy/grails/plugins/web/api/ControllersApi
 y:23529:org/grails/plugins/web/rest/api/ControllersRestApi
+n:4395:org/springframework/web/multipart/commons/CommonsMultipartFile
+n:510:org/springframework/web/multipart/MultipartFile

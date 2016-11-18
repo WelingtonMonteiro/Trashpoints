@@ -6,11 +6,11 @@ class Collect {
 
     Integer id
     Date date
-    List type = ["paper", "plastic", "metal", "glass", "organic"]
     String image_upload
+    static hasMany = [materialTypes : MaterialType]
+    static  belongsTo = MaterialType
 
     static constraints = {
-
 
     }
 }

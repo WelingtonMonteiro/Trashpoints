@@ -17,16 +17,12 @@
                     </div>
                 </div>
             </div>
-
-
-            <div id="formCollect">
+            <div>
                 <g:render template="form"></g:render>
             </div>
 
         </div>
     </div>
 </main>
-
-
 </body>
 </html>

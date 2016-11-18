@@ -1,45 +1,22 @@
-<g:formRemote name="formCollect" url="[controller: 'collect', action: 'save']" onSuccess="showMessage(data)"
-              class="col s12">
-    <div class="row">
-        <div class="input-field col s12 m6">
-            <i class="material-icons prefix">today</i>
-            <input id="date" name="date" type="date" class="validate datepicker" disabled>
-            <label for="date" class="active">Data <span class="red-text">*</span></label>
-        </div>
+<div class="row">
+    <div class="input-field col s12 m6">
+        <i class="material-icons prefix">today</i>
+        <input id="date" name="date" type="date" class="validate datepicker" disabled>
+        <label for="date" class="active">Data <span class="red-text">*</span></label>
     </div>
-
+</div>
+<form name="formCollect" action="save" onSuccess="showMessage(data)" enctype="multipart/form-data" method="POST">
     <div class="row">
         <div class="input-field col s12 m6">
-
             <h5>Selecione o tipo da coleta:</h5>
-
-            <p>
-                <input type="checkbox" id="_paper"/>
-                <label for="_paper">Papel</label>
-            </p>
-
-            <p>
-                <input type="checkbox" id="_plastic"/>
-                <label for="_plastic">Plástico</label>
-            </p>
-
-            <p>
-                <input type="checkbox" id="_metal"/>
-                <label for="_metal">Metal</label>
-            </p>
-
-            <p>
-                <input type="checkbox" id="_glass"/>
-                <label for="_glass">Vidro</label>
-            </p>
-
-            <p>
-                <input type="checkbox" id="_organic"/>
-                <label for="_organic">Orgânico</label>
-            </p>
+            <g:each in="${materialTypes}" var="materialType">
+                <p>
+                    <input type="checkbox" value="${materialType.id}" name="materialTypes" id="${materialType.name}"/>
+                    <label for="${materialType.name}">${materialType.name}</label>
+                </p>
+            </g:each>
         </div>
     </div>
-
     <div class="row">
         <div class="input-field col s12 m9">
             <br/>
@@ -49,14 +26,12 @@
                     <span>Imagem</span>
                     <input type="file" id="image_upload" name="image_upload">
                 </div>
-
                 <div class="file-path-wrapper">
                     <input class="file-path validate" type="text" placeholder="Envie imagens de sua coleta">
                 </div>
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col s12">
             <button class="btn-large waves-effect waves-light blue darken-3" type="submit" name="submit">
@@ -67,8 +42,7 @@
             </button>
         </div>
     </div>
-</g:formRemote>
-
+</form>
 <div class="row">
     <div class="col s12 m6">
         <div class="card-panel grey lighten-5">
