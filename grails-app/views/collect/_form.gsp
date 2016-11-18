@@ -8,10 +8,10 @@
 <form name="formCollect" action="save" onSuccess="showMessage(data)" enctype="multipart/form-data" method="POST">
     <div class="row">
         <div class="input-field col s12 m6">
-            <h5>Selecione o tipo da coleta:</h5>
+            <h5>Selecione um ou mais tipos da coleta:</h5>
             <g:each in="${materialTypes}" var="materialType">
                 <p>
-                    <input type="checkbox" value="${materialType.id}" name="materialTypes" id="${materialType.name}"/>
+                    <input type="checkbox" value="${materialType.id}" name="materialTypes" id="${materialType.name}" required/>
                     <label for="${materialType.name}">${materialType.name}</label>
                 </p>
             </g:each>
@@ -22,12 +22,12 @@
             <br/>
             <p>
             <div class="file-field input-field">
-                <div class="btn">
-                    <span>Imagem</span>
+                <div class="btn blue darken-3">
+                    <i class="material-icons left">add_a_photo</i>Imagem
                     <input type="file" id="image_upload" name="image_upload">
                 </div>
                 <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text" placeholder="Envie imagens de sua coleta">
+                    <input class="file-path validate" type="text" placeholder="Envie uma imagen da sua coleta">
                 </div>
             </div>
         </div>
