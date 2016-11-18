@@ -92,6 +92,12 @@
 
 <script type="text/javascript">
 
+    var year = new Date().getFullYear().toString().replace('20','');
+
+    $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears:  year// Creates a dropdown of 15 years to control year
+    });
 
     jQuery(function ($) {
         $("#phone").mask("(99) 9999-9999");
