@@ -14,17 +14,19 @@ class ClientController {
     }
 
     def save() {
+
         Client client = new Client()
         Address addressCollect = new Address()
 
-        ///def passwordddHash = params.password
+        def passwordHash = params.password.encodeAsSHA256()
 
         client.name = params.name
         client.email = params.email
-        client.password = params.password
+        client.password = passwordHash
         client.phone = params.phone
         client.photo = params.photo
         client.isAddressEqual = params.isAddressEqual
+        client.dateOfBirth = new Date()//Date.parse('dd-MM-yyyy', params.dateOfBirth)
 
         addressCollect.zipCode = params.zipCode
         addressCollect.street = params.street
@@ -35,26 +37,12 @@ class ClientController {
         addressCollect.latitude = params.latitude
         addressCollect.longitude = params.longitude
 
-        client.addresses.add(addressCollect)
+        client.address = addressCollect
 
-        if(!client.isAddressEqual){
-            Address addressPersonal = new Address()
-
-            addressPersonal.zipCode = params.zipCode2
-            addressPersonal.street = params.street2
-            addressPersonal.number = params.number2
-            addressPersonal.neighborhood = params.neighborhood2
-            addressPersonal.city = params.city2
-            addressPersonal.state = params.state2
-            addressPersonal.latitude = params.latitude2
-            addressPersonal.longitude = params.longitude2
-
-            client.addresses.add(addressPersonal)
-        }
-
+        addressCollect.validate()
         client.validate()
 
-        if(client.hasErrors()){
+        if(client.hasErrors()) {
             def listErrors = []
 
             client.errors.each { error ->
@@ -63,10 +51,20 @@ class ClientController {
 
             def message = [error: listErrors]
             render message as JSON
+        }else if(addressCollect.hasErrors()) {
+            def listErrors = []
+
+            addressCollect.errors.each { error ->
+                listErrors += g.message(code: error.fieldError.defaultMessage, error: error.fieldError)
+            }
+
+            def message = [error: listErrors]
+            render message as JSON
         }else{
-            client.save flush: true
+            client.save(flush: true)
 
             render (view: "/Trashpoints")
+
         }
     }
 }

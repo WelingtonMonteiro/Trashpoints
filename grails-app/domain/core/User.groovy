@@ -4,7 +4,7 @@ class User {
 
     String email
     String password
-    static hasOne = [address:Address]
+
 
     static constraints = {
         email email: true, blank: false, nullable: false, unique: true

@@ -1,35 +1,67 @@
 <g:formRemote name="formClient" url="[controller: 'client', action: 'save']" onSuccess="showMessage(data)"
               class="col s12">
-    <div class="row">
-        <div class="input-field col s12 m6">
-            <i class="fa fa-building-o prefix" aria-hidden="true"></i>
-            <input id="name" name="name" type="text" required minlength="2" class="validate" autofocus="autofocus"/>
-            <label for="name">Nome<span class="red-text">*</span></label>
+    <fieldset>
+		<legend><h5 class="header">&nbsp;Dados do Cliente&nbsp;</h5></legend>
+
+        <div class="row">
+            <div class="input-field col s12 m12">
+                <i class="fa fa-building-o prefix" aria-hidden="true"></i>
+                <input id="name" name="name" type="text" required minlength="2" class="validate" autofocus="autofocus"/>
+                <label for="name">Nome<span class="red-text">*</span></label>
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="input-field col s12 m4">
-            <i class="material-icons prefix">contact_phone</i>
-            <input id="phone" name="phone" type="tel" class="validate" required>
-            <label for="phone">Telefone <span class="red-text">*</span></label>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">today</i>
+                <input id="date" name="dateOfBirth" type="date"  class="validate datepicker" />
+                <label for="date" class="active">Data Nascimento<span class="red-text">*</span></label>
+            </div>
         </div>
-    </div>
 
-    <h4 class="header">Dados para login</h4>
+        <div class="row">
+            <div class="input-field col s12 m4">
+                <i class="material-icons prefix">contact_phone</i>
+                <input id="phone" name="phone" type="tel" class="validate" required>
+                <label for="phone">Telefone <span class="red-text">*</span></label>
+            </div>
+        </div>
 
-    <div id="formUser">
-        <g:render template="../layouts/formUser"></g:render>
-    </div>
+	</fieldset>
+    <br/>
+    <fieldset>
+        <legend><h5 class="header">&nbsp;Dados do Login&nbsp;</h5></legend>
 
+        <div id="formUser">
+            <g:render template="../layouts/userLogin"></g:render>
+        </div>
 
+    </fieldset>
+
+    <br/>
+    <fieldset>
+        <legend><h5 class="header">&nbsp;Endereço de coleta&nbsp;</h5></legend>
+
+        <div id="formAddress">
+            <g:render template="../layouts/address"></g:render>
+        </div>
+
+    </fieldset>
     <br>
+    <fieldset>
+        <legend><h5 class="header">&nbsp;Endereço Residencial&nbsp;</h5></legend>
 
-    <h4 class="header">Endereço de Coleta</h4>
+        <div class="row">
+            <div class="input-field col s12 m12">
+                <p>
+                    <input type="checkbox" id="_isAddressEqual" name="isAddressEqual" checked/>
+                    <label for="_isAddressEqual">Endereço residencial é o mesmo da coleta?</label>
+                </p>
+            </div>
+        </div>
+    </fieldset>
 
-    <div id="formAddress">
-        <g:render template="../layouts/formAddress"></g:render>
-    </div>
+
 
     <div class="row">
         <div class="input-field col s12">
@@ -37,9 +69,6 @@
                 <i class="material-icons left">check</i>Cadastrar
             </button>
 
-            <button class="btn-large waves-effect waves-light grey right" type="reset" id="btnClear">
-                <i class="material-icons left">delete_sweep</i>Limpar
-            </button>
         </div>
     </div>
 </g:formRemote>
