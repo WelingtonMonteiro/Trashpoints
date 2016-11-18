@@ -69,7 +69,7 @@
                     <div class="collapsible-body">
                         <ul>
                             <li>
-                                <a class="waves-effect hide-on-large-only" href="/Trashpoints/Company/Create"><i class="material-icons left">person_add</i>Cadastrar Cidadão
+                                <a class="waves-effect hide-on-large-only" href="/Trashpoints/Client/Create"><i class="material-icons left">person_add</i>Cadastrar Cidadão
                                 </a>
                             </li>
                             <li>

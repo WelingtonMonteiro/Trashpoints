@@ -33,4 +33,26 @@ class CollectController {
 
         render(view: "myCollections", model: ["clientCollections": clientCollections])
     }
+
+    def listCollect() {
+        //ID CLIENT LOGGED IN
+        def clientId = 1
+        def clientCollections = Client.get(clientId).collects
+
+        render(template:"/collect/listColletions", model:[clientCollections: clientCollections])
+    }
+
+    def markWasCollected() {
+        def collectId = params.id.toLong()
+        def message = [:]
+
+        Collect collect = Collect.get(collectId)
+        if (collect){
+            collect.isCollected = true
+            collect.save(flush: true)
+            message = [success:"success"]
+            render message as JSON
+        }
+    }
+
 }

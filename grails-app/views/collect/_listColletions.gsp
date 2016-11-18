@@ -21,13 +21,13 @@
                 <td>
                     <g:if test="${collect.isCollected}">
                         <p title="Foi coletada?">
-                            <input type="checkbox" id="isCollected${collect.id}" name="isCollected${collect.id}" checked="checked" disabled="disabled" />
+                            <input type="checkbox" checked="checked" disabled="disabled" />
                             <label for="isCollected${collect.id}"></label>
                         </p>
                     </g:if>
                     <g:else>
                         <p title="Foi coletada?">
-                            <input type="checkbox" id="isCollected${collect.id}" name="isCollected${collect.id}" />
+                            <input type="checkbox" onclick="markWasCollected(${collect.id})" />
                             <label for="isCollected${collect.id}"></label>
                         </p>
                     </g:else>
@@ -49,7 +49,7 @@
         <div class="col s12 m6">
             <div class="card-panel grey lighten-5">
                 <i class="material-icons left blue-text lighten-1">info</i>
-                <span class="black-text">Você ainda não possui nenhuma coleta</span>
+                <span class="black-text">Você ainda não possui coletas</span>
             </div>
         </div>
     </div>
@@ -65,7 +65,38 @@
         <p>A bunch of text</p>
     </div>
     <div class="modal-footer">
-        <a href="#!" class=" modal-action modal-close waves-effect light btn-flat">Agree</a>
+        <a href="#!" class=" modal-action modal-close waves-effect light btn-flat">Fechar</a>
     </div>
 </div>
+
+<script type="text/javascript">
+
+    function markWasCollected(collectId) {
+        if(confirm("Deseja realmente marcar que foi recolhido?")) {
+            $.ajax({
+                url: "/Trashpoints/Collect/markWasCollected/",
+                data: {
+                    id: collectId
+                },
+                method: "post",
+                success: function (data) {
+                    if (data.success) {
+                        var $toastContent = $("<span class='indigo accent-2 white-text'>Sucesso ao marcar</span>");
+                        Materialize.toast($toastContent, 3000);
+                        updateListCollections()
+                    }
+                }
+            });
+        }
+    }
+
+    function updateListCollections() {
+        <g:remoteFunction controller="collect" action="listCollect" update="listCollections" />
+    }
+
+    $(document).ready(function () {
+
+    });
+
+</script>
 
