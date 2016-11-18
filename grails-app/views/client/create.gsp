@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Cadastrar Cliente</title>
+    <title>Cliente</title>
 </head>
 <body>
 <main>

@@ -1,14 +1,15 @@
 package core
 
-class Client  extends User{
+class Client{
     String name
     String phone
     String photo
     Date dateOfBirth
     Boolean isAddressEqual
+    Address address
 
     static hasMany = [collects: Collect]
-    static hasOne = [address:Address]
+//    static hasOne = [address:Address]
 
     static constraints = {
         name blank: false, nullable: false, minSize: 5, maxSize: 60

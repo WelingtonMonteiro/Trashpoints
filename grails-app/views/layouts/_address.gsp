@@ -8,7 +8,7 @@
         </div>
 
         <div class="input-field col s12 m2">
-            <select id="states" disabled required class="validate browser-default">
+            <select id="states" disabled required class="validate browser-default" name="state">
                 <option value="" disabled selected>Selecione</option>
                 <option value="AC">AC</option>
                 <option value="AL">AL</option>
@@ -124,13 +124,6 @@
                     $("#city").val("...");
                     Materialize.updateTextFields();
 
-//                    if(!isOnLine()) {
-//                        clearAddressInputs();
-//                        enableAddressInputs();
-//                        $("#zipCodeErrorMessage").text("Sem conexao com a internet.");
-//                        $(".preloader-wrapper").hide();
-//                    }
-
                     $.getJSON("https://viacep.com.br/ws/" + zipCode + "/json/?callback=?", function (data) {
 
                         if (!("erro" in data)) {
@@ -143,7 +136,7 @@
                             $("#neighborhood").val(data.bairro);
                             $("#city").val(data.localidade);
                             Materialize.updateTextFields();
-                            $("#number").focus();
+                            $("#number");
                             $(".preloader-wrapper").hide();
 
                         }

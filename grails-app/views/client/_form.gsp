@@ -1,7 +1,7 @@
 <g:formRemote name="formClient" url="[controller: 'client', action: 'save']" onSuccess="showMessage(data)"
               class="col s12">
     <fieldset>
-		<legend><h5 class="header">&nbsp;Dados do Cliente&nbsp;</h5></legend>
+        <legend><h5 class="header">&nbsp;Dados do Cliente&nbsp;</h5></legend>
 
         <div class="row">
             <div class="input-field col s12 m12">
@@ -14,7 +14,7 @@
         <div class="row">
             <div class="input-field col s12 m6">
                 <i class="material-icons prefix">today</i>
-                <input id="date" name="dateOfBirth" type="date"  class="validate datepicker" />
+                <input id="date" name="dateOfBirth" type="date" class="validate datepicker"/>
                 <label for="date" class="active">Data Nascimento<span class="red-text">*</span></label>
             </div>
         </div>
@@ -27,7 +27,7 @@
             </div>
         </div>
 
-	</fieldset>
+    </fieldset>
     <br/>
     <fieldset>
         <legend><h5 class="header">&nbsp;Dados do Login&nbsp;</h5></legend>
@@ -61,7 +61,13 @@
         </div>
     </fieldset>
 
-
+    <div id="divSuccessMessage" class="row green-text hide">
+        <div class="col s12">
+            <div class="card-panel grey lighten-5">
+                <span id="successMessage"></span>
+            </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="input-field col s12">
@@ -105,6 +111,17 @@
             });
             setFocusSummaryErrorMessage()
         }
+        if (data.success) {
+            clearInputs();
+            $('#divSuccessMessage').removeClass("hide");
+
+            var successMessage = data.success;
+
+            var p = '<p>' + successMessage + '</p>';
+            $('#divSuccessMessage span#successMessage').append(p);
+
+            clearSuccessMessage();
+        }
     }
 
     function setFocusSummaryErrorMessage() {
@@ -113,6 +130,13 @@
 
     function clearErrorMessage() {
         $('#divErrorMessage span#errorMessage').html("")
+    }
+
+    function clearSuccessMessage() {
+        setTimeout(function(){
+            $('#divSuccessMessage span#successMessage').html("")
+        }, 3000);
+
     }
 
     function clearInputs() {

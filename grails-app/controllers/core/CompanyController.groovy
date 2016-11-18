@@ -1,13 +1,16 @@
 package core
 
 import grails.converters.JSON
+import grails.transaction.Transactional
 
+@Transactional(readOnly = true)
 class CompanyController {
 
     def create() {
         render(view: "create")
     }
 
+    @Transactional
     def save() {
         Address address = new Address()
 
@@ -21,9 +24,9 @@ class CompanyController {
         Company company = new Company()
 
         company.companyName = params.companyName
-        company.email = params.email
-        def passwordHash = params.password.encodeAsSHA256()
-        company.password = passwordHash
+//        company.email = params.email
+//        def passwordHash = params.password.encodeAsSHA256()
+//        company.password = passwordHash
         company.identificationNumber = params.identificationNumber
         company.tradingName = params.tradingName
         company.segment = params.segment
