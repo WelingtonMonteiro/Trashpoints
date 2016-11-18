@@ -28,15 +28,15 @@
         </div>
 
     </fieldset>
-    <br/>
-    <fieldset>
-        <legend><h5 class="header">&nbsp;Dados do Login&nbsp;</h5></legend>
+    %{--<br/>--}%
+    %{--<fieldset>--}%
+        %{--<legend><h5 class="header">&nbsp;Dados do Login&nbsp;</h5></legend>--}%
 
-        <div id="formUser">
-            <g:render template="../layouts/userLogin"></g:render>
-        </div>
+        %{--<div id="formUser">--}%
+            %{--<g:render template="../layouts/userLogin"></g:render>--}%
+        %{--</div>--}%
 
-    </fieldset>
+    %{--</fieldset>--}%
 
     <br/>
     <fieldset>
@@ -75,6 +75,10 @@
                 <i class="material-icons left">check</i>Cadastrar
             </button>
 
+            <button class="btn-large waves-effect waves-light grey right" type="reset" id="btnClear">
+                <i class="material-icons left">delete_sweep</i>Limpar
+            </button>
+
         </div>
     </div>
 </g:formRemote>
@@ -92,7 +96,7 @@
 
 <script type="text/javascript">
 
-    var year = new Date().getFullYear().toString().replace('20','');
+    var year = new Date().getFullYear().toString().substr(2,2);
 
     $('.datepicker').pickadate({
         selectMonths: true, // Creates a dropdown to control month
