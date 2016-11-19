@@ -11,7 +11,7 @@
             <h5>Selecione um ou mais tipos da coleta:</h5>
             <g:each in="${materialTypes}" var="materialType">
                 <p>
-                    <input type="checkbox" value="${materialType.id}" name="materialTypes" id="${materialType.name}" required/>
+                    <input type="checkbox" value="${materialType.id}" name="materialTypes" id="${materialType.name}"/>
                     <label for="${materialType.name}">${materialType.name}</label>
                 </p>
             </g:each>
