@@ -15,10 +15,10 @@ class CollectController {
 
         collect.orderDate = new Date()
         collect.isCollected = false
-        collect.materialTypes = new ArrayList<MaterialType>()
+        collect.materialTypes = []
         params.materialTypes?.each {materialTypeId ->
             MaterialType m = MaterialType.findById(materialTypeId)
-            collect.materialTypes.add(m)
+            collect.addToMaterialTypes(m)
         }
         collect.imageUpload = null
         collect.client = client
@@ -35,13 +35,19 @@ class CollectController {
         //
         collect.validate()
         if(collect.hasErrors()){
-            def message = [error: collect.errors.fieldErrors]
+            def listErrors = []
+
+            collect.errors.allErrors.each { error ->
+                listErrors += g.message(code: error.defaultMessage, error: error)
+            }
+
+            def message = [error: listErrors]
             render message as JSON
         }else{
             collect.save(flush: true)
-            render(view: "create", controller: "company")
-//            def message = [success: "Dados para coleta salvos com sucesso!"]
-//            render message as JSON
+//            render(view: "create", controller: "company")
+            def message = [success: "Dados para coleta salvos com sucesso!"]
+            render message as JSON
 
         }
     }
@@ -62,7 +68,7 @@ class CollectController {
     def listCollect() {
         //ID CLIENT LOGGED IN
         def clientId = 1
-        def clientCollections = Client.get(clientId).collects
+        def clientCollections = Client.get(clientId)?.collects
 
         render(template:"/collect/listColletions", model:[clientCollections: clientCollections])
     }
@@ -76,6 +82,7 @@ class CollectController {
         if (collect){
             collect.isCollected = true
             collect.save(flush: true)
+
             message = [success: 'Coleta recolhida']
             render message as JSON
         }

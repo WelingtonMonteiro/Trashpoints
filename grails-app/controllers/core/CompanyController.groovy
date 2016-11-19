@@ -41,8 +41,8 @@ class CompanyController {
         if(company.hasErrors()) {
             def listErrors = []
 
-            company.errors.each { error ->
-                listErrors += g.message(code: error.fieldError.defaultMessage, error: error.fieldError)
+            company.errors.allErrors.each { error ->
+                listErrors += g.message(code: error.defaultMessage, error: error)
             }
 
             def message = [error: listErrors]
@@ -51,8 +51,8 @@ class CompanyController {
             if(address.hasErrors()) {
                 def listErrors = []
 
-                address.errors.each { error ->
-                    listErrors += g.message(code: error.fieldError.defaultMessage, error: error.fieldError)
+                address.errors.allErrors.each { error ->
+                    listErrors += g.message(code: error.defaultMessage, error: error)
                 }
 
                 def message = [error: listErrors]

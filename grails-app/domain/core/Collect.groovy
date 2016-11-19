@@ -10,13 +10,17 @@ class Collect {
     Client client
     Company company
 
+    Collect(){
+        isCollected = false
+    }
+
     static hasMany = [materialTypes : MaterialType]
     static belongsTo = [MaterialType]
 
     static constraints = {
-        orderDate nullable: false, min: new Date()
+        orderDate nullable: false
         collectedDate nullable: true
-        imageUpload nullable: true
+        imageUpload nullable: true, blank: true
         isCollected min: false
 
         company nullable: true

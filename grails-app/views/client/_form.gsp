@@ -96,11 +96,17 @@
 
 <script type="text/javascript">
 
-    var year = new Date().getFullYear().toString().substr(2,2);
+    //var year = new Date().getFullYear().toString().substr(2,2);
 
     $('.datepicker').pickadate({
         selectMonths: true, // Creates a dropdown to control month
-        selectYears:  year// Creates a dropdown of 15 years to control year
+        selectYears:  100,// Creates a dropdown of 15 years to control year
+        format: 'dd/mm/yyyy',
+//        min: 30, //get last 30 day range
+//        max: true,
+        closeOnSelect: true,
+        closeOnClear: true,
+
     });
 
     jQuery(function ($) {

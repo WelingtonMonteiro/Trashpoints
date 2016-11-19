@@ -33,7 +33,7 @@ class ClientController {
         client.phone = params.phone
         client.photo = params.photo
         client.isAddressEqual = params.isAddressEqual
-        client.dateOfBirth = new Date()//Date.parse('dd-MM-yyyy', params.dateOfBirth)
+        client.dateOfBirth = /*new Date()*/Date.parse('dd/MM/yyyy', params.dateOfBirth)
 
         addressCollect.zipCode = params.zipCode
         addressCollect.street = params.street
@@ -54,8 +54,8 @@ class ClientController {
         if(client.hasErrors()) {
             def listErrors = []
 
-            client.errors.each { error ->
-                listErrors += g.message(code: error.fieldError.defaultMessage, error: error.fieldError)
+            client.errors.allErrors.each { error ->
+                listErrors += g.message(code: error.defaultMessage, error: error)
             }
 
             def message = [error: listErrors]
@@ -64,8 +64,8 @@ class ClientController {
         if(addressCollect.hasErrors()) {
             def listErrors = []
 
-            addressCollect.errors.each { error ->
-                listErrors += g.message(code: error.fieldError.defaultMessage, error: error.fieldError)
+            addressCollect.errors.allErrors.each { error ->
+                listErrors += g.message(code: error.defaultMessage, error: error)
             }
 
             def message = [error: listErrors]
