@@ -39,9 +39,10 @@ class CollectController {
             render message as JSON
         }else{
             collect.save(flush: true)
-           // render(view: "create", controller: "company")
-            def message = [success: "Dados para coleta salvos com sucesso!"]
-            render message as JSON
+            render(view: "create", controller: "company")
+//            def message = [success: "Dados para coleta salvos com sucesso!"]
+//            render message as JSON
+
         }
     }
 
