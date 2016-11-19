@@ -59,7 +59,10 @@ class CompanyController {
                 render message as JSON
             }else{
                 company.save(flush: true)
-                redirect(action: "create", controller: "collect")
+//                redirect(action: "create", controller: "collect")
+
+                def message = [success: 'Dados cadastrais salvos com sucesso']
+                render message as JSON
             }
     }
 

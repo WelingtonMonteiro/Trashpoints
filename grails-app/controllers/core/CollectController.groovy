@@ -39,16 +39,23 @@ class CollectController {
             render message as JSON
         }else{
             collect.save(flush: true)
-            render(view: "create", controller: "company")
+           // render(view: "create", controller: "company")
+            def message = [success: "Dados para coleta salvos com sucesso!"]
+            render message as JSON
         }
     }
 
     def myCollections() {
         //ID CLIENT LOGGED IN
         def clientId = 1
-        def clientCollections = Client.get(clientId).collects
+        def clientCollections = Client.get(clientId)?.collects
 
-        render(view: "myCollections", model: ["clientCollections": clientCollections])
+        if(clientCollections == null) {
+            render(view: "myCollections", model: ["clientCollections": []])
+        } else {
+
+            render(view: "myCollections", model: ["clientCollections": clientCollections])
+        }
     }
 
     def listCollect() {
@@ -68,9 +75,8 @@ class CollectController {
         if (collect){
             collect.isCollected = true
             collect.save(flush: true)
-            message = [success:"success"]
+            message = [success: 'Coleta recolhida']
             render message as JSON
         }
     }
-
 }
