@@ -14,15 +14,15 @@
         <tbody>
         <g:each in="${clientCollections}" var="collect">
             <tr>
-                <td><img height="168" src="${collect.imageUpload}"></td>
+                <td><img height="168" src="${collect?.imageUpload}"></td>
                 <td>${collect.materialTypes}</td>
-                <td>${collect.orderDate.format("dd/MM/yyyy")}</td>
-                <td>${collect.collectedDate.format("dd/MM/yyyy")}</td>
+                <td>${collect?.orderDate?.format("dd/MM/yyyy")}</td>
+                <td>${collect?.collectedDate?.format("dd/MM/yyyy")}</td>
                 <td>
-                    <g:if test="${collect.isCollected}">
+                    <g:if test="${collect?.isCollected}">
                         <p title="Foi coletada?">
                             <input type="checkbox" checked="checked" disabled="disabled" />
-                            <label for="isCollected${collect.id}"></label>
+                            <label for="isCollected${collect?.id}"></label>
                         </p>
                     </g:if>
                     <g:else>
@@ -34,7 +34,7 @@
                 </td>
                 <td>
                     <!-- Modal Trigger -->
-                    <a class="waves-effect waves-light" href="#detailsCompany" id="${collect.company.id}" title="Detalhes da empresa">
+                    <a class="waves-effect waves-light" href="#detailsCompany" id="${collect?.company?.id}" title="Detalhes da empresa">
                         <i class="material-icons fa-3x">list</i>
                     </a>
                 </td>

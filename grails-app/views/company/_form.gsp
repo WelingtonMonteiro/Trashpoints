@@ -172,6 +172,14 @@
 		</div>
 	</fieldset>
 
+	<div id="divSuccessMessage" class="row green-text hide">
+		<div class="col s12">
+			<div class="card-panel grey lighten-5">
+				<span id="successMessage"></span>
+			</div>
+		</div>
+	</div>
+
 	<div class="row">
 		<div class="input-field col s12">
 			<button class="btn-large waves-effect waves-light blue darken-3" type="submit" name="submit">
@@ -217,6 +225,17 @@
 			});
 			setFocusSummaryErrorMessage()
 		}
+		if (data.success) {
+			clearInputs();
+			$('#divSuccessMessage').removeClass("hide");
+
+			var successMessage = data.success;
+
+			var p = '<p>' + successMessage + '</p>';
+			$('#divSuccessMessage span#successMessage').append(p);
+
+			clearSuccessMessage();
+		}
 	}
 
 	function setFocusSummaryErrorMessage() {
@@ -225,6 +244,13 @@
 
 	function clearErrorMessage() {
 		$('#divErrorMessage span#errorMessage').html("")
+	}
+
+	function clearSuccessMessage() {
+		setTimeout(function(){
+			$('#divSuccessMessage span#successMessage').html("")
+		}, 3000);
+
 	}
 
 	function clearInputs() {

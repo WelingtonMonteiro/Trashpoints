@@ -1,13 +1,15 @@
+
 <div class="row">
     <div class="input-field col s12 m6">
         <i class="material-icons prefix">today</i>
         <input id="orderDate" name="orderDate" type="date" class="validate datepicker" disabled>
-        <label for="orderDate" class="active">Data <span class="red-text">*</span></label>
+        <label for="orderDate" class="active">Data da Coleta <span class="red-text">*</span></label>
     </div>
 </div>
-<form name="formCollect" action="save" onSuccess="showMessage(data)" enctype="multipart/form-data" method="POST">
+%{--<form name="formCollect" action="save" onSuccess="showMessage(data)" enctype="multipart/form-data" method="POST">--}%
+<g:formRemote name="formCollect" url="[controller:'collect', action:'save']" onSuccess="showMessage(data)" class="col s12" enctype="multipart/form-data" method="POST">
     <div class="row">
-        <div class="input-field col s12 m6">
+        <div class="input-field col s12 m12">
             <h5>Selecione um ou mais tipos da coleta:</h5>
             <g:each in="${materialTypes}" var="materialType">
                 <p>
@@ -32,6 +34,15 @@
             </div>
         </div>
     </div>
+
+    <div id="divSuccessMessage" class="row green-text hide">
+        <div class="col s12">
+            <div class="card-panel grey lighten-5">
+                <span id="successMessage"></span>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col s12">
             <button class="btn-large waves-effect waves-light blue darken-3" type="submit" name="submit">
@@ -42,7 +53,8 @@
             </button>
         </div>
     </div>
-</form>
+%{--</form>--}%
+</g:formRemote>
 <div class="row">
     <div class="col s12 m6">
         <div class="card-panel grey lighten-5">
@@ -68,6 +80,17 @@
             });
             setFocusSummaryErrorMessage()
         }
+        if (data.success) {
+            clearInputs();
+            $('#divSuccessMessage').removeClass("hide");
+
+            var successMessage = data.success;
+
+            var p = '<p>' + successMessage + '</p>';
+            $('#divSuccessMessage span#successMessage').append(p);
+
+            clearSuccessMessage();
+        }
     }
 
     function setFocusSummaryErrorMessage() {
@@ -78,6 +101,12 @@
         $('#divMessageError span#messageError').html("");
     }
 
+    function clearSuccessMessage() {
+        setTimeout(function(){
+            $('#divSuccessMessage span#successMessage').html("")
+        }, 3000);
+
+    }
     function clearInputs() {
         $('#btnClear').click();
         Materialize.updateTextFields();

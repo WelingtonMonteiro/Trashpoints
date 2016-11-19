@@ -28,46 +28,61 @@
 %{--<div id="grailsLogo" role="banner"><a href="http://grails.org"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails"/></a></div>--}%
 <header>
     <nav id="top-menu" class="indigo accent-2">
-        <a class="page-title" href="/Trashpoints">TrashPoints</a>
+        <a href="/Trashpoints" class="page-title">TrashPoints</a>
         <ul class="right">
-            <li><a href="#" class="hide-on-small-only">Nome usuário logada</a></li>
+            <li>
+                <a href="#" class="hide-on-small-only waves-effect waves-light">
+                    <i class="fa fa-2x fa-sign-in" style="margin-right: 15px;"></i>Logar
+                </a>
+            </li>
+            <!-- Dropdown Structure -->
+            <ul id="dropdown-creates" class="dropdown-content hide-on-small-only">
+                <li>
+                    <a href="/Trashpoints/Client/Create" class="hide-on-small-only waves-effect waves-light">
+                        <i class="material-icons left">person_add</i>Cidadão
+                    </a>
+                </li>
+                <li>
+                    <a href="/Trashpoints/Company/Create" class="hide-on-small-only waves-effect waves-light">
+                        <i class="material-icons left">business</i>Empresa
+                    </a>
+                </li>
+            </ul>
+            <li>
+                <a class="dropdown-button waves-effect waves-light hide-on-small-only" href="#!" data-beloworigin="true" data-activates="dropdown-creates">
+                    &nbsp;Cadastrar&nbsp;<i class="material-icons right">arrow_drop_down</i>
+                </a>
+            </li>
         </ul>
+
         <a href="#" data-activates="side-menu" class="button-collapse hide-on-large-only"><i class="material-icons">menu</i></a>
     </nav>
 
-    <ul id="side-menu" class="side-nav fixed">
-        <li><a class="waves-effect hide-on-large-only" href="#">Nome usuário logada<i class="material-icons">account_circle</i></a></li>
+    <ul id="side-menu" class="side-nav">
         <li class="active"><a class="waves-effect active" href="/Trashpoints">Home<i class="material-icons">home</i></a></li>
-        <li><a class="waves-effect" href="#">Meus TrashPoints<i class="material-icons">monetization_on</i></a></li>
-        <li><div class="divider"></div></li>
-        <li><a class="subheader">Editar meus dados</a></li>
+        <li><a class="waves-effect hide-on-large-only" href="#"><i class="fa fa-2x fa-sign-in"></i>Logar</a></li>
+
         <li class="no-padding">
             <ul class="collapsible collapsible-accordion">
                 <li>
-                    <a class="collapsible-header waves-effect">Dados do Cidadão<i class="material-icons">arrow_drop_down</i></a>
+                    <a class="collapsible-header waves-effect">Cadastrar<i class="material-icons">arrow_drop_down</i></a>
                     <div class="collapsible-body">
                         <ul>
-                            <li><a class="waves-effect" href="/Trashpoints/Client/Create">Cadastrar Perfil Cidadão<i class="material-icons">account_circle</i></a></li>
-                            <li><a class="waves-effect" href="#">Editar Perfil Cidadão<i class="material-icons">edit_location</i></a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                    <a class="collapsible-header waves-effect">Dados da Empresa<i class="material-icons">arrow_drop_down</i></a>
-                    <div class="collapsible-body">
-                        <ul>
-                            <li><a class="waves-effect" href="/Trashpoints/Company/Create">Cadastrar Perfil Empresa<i class="material-icons">account_circle</i></a></li>
-                            <li><a class="waves-effect" href="#">Editar Perfil Empresa<i class="material-icons">edit_location</i></a></li>
+                            <li>
+                                <a class="waves-effect hide-on-large-only" href="/Trashpoints/Client/Create"><i class="material-icons left">person_add</i>Cadastrar Cidadão
+                                </a>
+                            </li>
+                            <li>
+                                <a class="waves-effect hide-on-large-only" href="/Trashpoints/Company/Create"><i class="material-icons left">business</i>Cadastrar Empresa
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>
             </ul>
         </li>
-        <li><div class="divider"></div></li>
-        <li><a class="waves-effect" href="/Trashpoints/Collect/MyCollections">Minhas Coletas<i class="fa fa-recycle fa-2x" aria-hidden="true"></i></a></li>
-        <li><a class="waves-effect" href="/Trashpoints/Collect/Create">Tenho uma Coleta<i class="fa fa-bullhorn fa-2x" aria-hidden="true"></i></a></li>
-        <li><a class="waves-effect" href="#">Notificações<i class="material-icons">notifications</i></a></li>
-        <li><a class="waves-effect" href="#">Sair<i class="fa fa-2x fa-sign-out" aria-hidden="true"></i></a></li>
+
+
     </ul>
 </header>
 
@@ -83,7 +98,10 @@
             <div class="col l4 offset-l2 s12">
                 <h5 class="white-text">Links</h5>
                 <ul>
-                    <li><a class="grey-text text-lighten-3" href="#!">Traspoints</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
                 </ul>
             </div>
         </div>
@@ -96,12 +114,17 @@
     </div>
 </footer>
 
-%{--<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>--}%
 <r:layoutResources />
+
+<style>
+header, main, footer {
+    padding-left: 0px;
+}
+</style>
+
 <script type="text/javascript">
     $(document).ready(function () {
         $(".button-collapse").sideNav();
-        $('.modal').modal();
     });
 </script>
 </body>
