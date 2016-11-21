@@ -11,7 +11,9 @@ class CollectController {
 
     def save() {
         Collect collect = new Collect()
-        Client client = Client.get(1)
+        //ID COLLABORATOR LOGGED IN
+        Collaborator collaborator = Collaborator.get(1)
+        collect.collaborator = collaborator
 
         collect.orderDate = new Date()
         collect.isCollected = false
@@ -21,7 +23,7 @@ class CollectController {
             collect.addToMaterialTypes(m)
         }
         collect.imageUpload = null
-        collect.client = client
+
         // File Upload
         if (params.imageUpload){
             if(params.imageUpload instanceof org.springframework.web.multipart.commons.CommonsMultipartFile){
@@ -32,7 +34,7 @@ class CollectController {
                 log.error("wrong attachment type [${params.imageUpload.getClass()}]");
             }
         }
-        //
+
         collect.validate()
         if(collect.hasErrors()){
             def listErrors = []
@@ -45,36 +47,32 @@ class CollectController {
             render message as JSON
         }else{
             collect.save(flush: true)
-//            render(view: "create", controller: "company")
             def message = [success: "Dados para coleta salvos com sucesso!"]
             render message as JSON
-
         }
     }
 
     def myCollections() {
-        //ID CLIENT LOGGED IN
-        def clientId = 1
-        def clientCollections = Client.get(clientId)?.collects
+        //ID COLLABORATOR LOGGED IN
+        def collaboratorId = 1
+        def collaboratorCollections = Collaborator.get(collaboratorId)?.collects
 
-        if(clientCollections == null) {
-            render(view: "myCollections", model: ["clientCollections": []])
+        if(collaboratorCollections == null) {
+            render(view: "myCollections", model: ["collaboratorCollections": []])
         } else {
-
-            render(view: "myCollections", model: ["clientCollections": clientCollections])
+            render(view: "myCollections", model: ["collaboratorCollections": collaboratorCollections])
         }
     }
 
     def listCollect() {
-        //ID CLIENT LOGGED IN
-        def clientId = 1
-        def clientCollections = Client.get(clientId)?.collects
+        //ID COLLABORATOR LOGGED IN
+        def collaboratorId = 1
+        def collaboratorCollections = Collaborator.get(collaboratorId)?.collects
 
-        render(template:"/collect/listColletions", model:[clientCollections: clientCollections])
+        render(template:"/collect/listCollections", model:[collaboratorCollections: collaboratorCollections])
     }
 
     def markWasCollected() {
-        println(params.id)
         def collectId = params.id
         def message = [:]
 

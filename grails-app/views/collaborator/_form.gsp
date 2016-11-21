@@ -1,7 +1,7 @@
-<g:formRemote name="formClient" url="[controller: 'client', action: 'save']" onSuccess="showMessage(data)"
+<g:formRemote name="formClient" url="[controller: 'collaborator', action: 'save']" onSuccess="showMessage(data)"
               class="col s12">
     <fieldset>
-        <legend><h5 class="header">&nbsp;Dados do Cliente&nbsp;</h5></legend>
+        <legend><h5 class="header">&nbsp;Dados do Colaborador&nbsp;</h5></legend>
 
         <div class="row">
             <div class="input-field col s12 m12">

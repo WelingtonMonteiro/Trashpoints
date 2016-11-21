@@ -1,6 +1,6 @@
 package core
 
-class Client{
+class Collaborator {
     String name
     String phone
     String photo

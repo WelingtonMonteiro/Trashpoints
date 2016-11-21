@@ -44,11 +44,11 @@
         <li class="no-padding">
             <ul class="collapsible collapsible-accordion">
                 <li>
-                    <a class="collapsible-header waves-effect">Dados do Cidadão<i class="material-icons">arrow_drop_down</i></a>
+                    <a class="collapsible-header waves-effect">Dados do Colaborador<i class="material-icons">arrow_drop_down</i></a>
                     <div class="collapsible-body">
                         <ul>
-                            <li><a class="waves-effect" href="/Trashpoints/Client/Create">Cadastrar Perfil Cidadão<i class="material-icons">account_circle</i></a></li>
-                            <li><a class="waves-effect" href="#">Editar Perfil Cidadão<i class="material-icons">edit_location</i></a></li>
+                            <li><a class="waves-effect" href="/Trashpoints/Collaborator/Create">Cadastrar Perfil Colaborador<i class="material-icons">account_circle</i></a></li>
+                            <li><a class="waves-effect" href="#">Editar Perfil Colaborador<i class="material-icons">edit_location</i></a></li>
                         </ul>
                     </div>
                 </li>

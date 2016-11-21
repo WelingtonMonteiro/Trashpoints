@@ -67,16 +67,16 @@
 <script type="text/javascript">
 
     function showMessage(data) {
-        clearErrorMessage();
+        clearErrorMessage()
 
-        if (data.error) {
-            $('#divMessageError').removeClass("hide");
-            $.each(data.error, function (key, value) {
-                var errorMessage = value.defaultMessage.toString().replace("{0}", value.field);
-                errorMessage = errorMessage.replace("{1}", value.objectName);
+        if(data.error){
+            $('#divErrorMessage').removeClass("hide")
+            var errors = data.error
+            $.each(errors, function (key, value) {
+                var errorMessage = value
 
-                var p = '<p>' + errorMessage + '</p>';
-                $('#divMessageError span#messageError').append(p);
+                var p = '<p>' + errorMessage + '</p>'
+                $('#divErrorMessage span#errorMessage').append(p)
             });
             setFocusSummaryErrorMessage()
         }

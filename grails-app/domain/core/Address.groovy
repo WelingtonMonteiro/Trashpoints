@@ -11,7 +11,7 @@ class Address {
     Float longitude
     Float latitude
 
-    static belongsTo = [Client, Company]
+    static belongsTo = [Collaborator, Company]
 
     static constraints = {
         zipCode blank: true, nullable: true, minSize: 8, maxSize: 11, matches: "\\d{5}-\\d{3}|\\d{8}"

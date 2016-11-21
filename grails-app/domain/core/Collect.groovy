@@ -7,7 +7,7 @@ class Collect {
     Date collectedDate
     String imageUpload
     Boolean isCollected
-    Client client
+    Collaborator collaborator
     Company company
 
     Collect(){
@@ -21,8 +21,7 @@ class Collect {
         orderDate nullable: false
         collectedDate nullable: true
         imageUpload nullable: true, blank: true
-        isCollected min: false
-
         company nullable: true
+        collaborator nullable: false
     }
 }

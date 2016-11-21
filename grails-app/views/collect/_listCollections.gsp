@@ -1,4 +1,4 @@
-<g:if test="${clientCollections.size() > 0}">
+<g:if test="${collaboratorCollections.size() > 0}">
     <table class="striped responsive-table centered">
         <thead>
         <tr>
@@ -12,22 +12,32 @@
         </thead>
 
         <tbody>
-        <g:each in="${clientCollections}" var="collect">
+        <g:each in="${collaboratorCollections}" var="collect">
             <tr>
                 <td><img height="168" src="${collect?.imageUpload}"></td>
-                <td>${collect.materialTypes}</td>
+                <td>
+                    <g:each in="${collaboratorCollections.materialTypes}" var="materialType">
+                        <span>${materialType.name.join(", ")}
+                    </g:each>
+                </td>
                 <td>${collect?.orderDate?.format("dd/MM/yyyy")}</td>
-                <td>${collect?.collectedDate?.format("dd/MM/yyyy")}</td>
+            <td>
+                <g:if test="${collect?.isCollected}">
+                    ${collect?.collectedDate?.format("dd/MM/yyyy")}</td>
+                </g:if>
+                <g:else>
+                    <p>-</p>
+                </g:else>
                 <td>
                     <g:if test="${collect?.isCollected}">
                         <p title="Foi coletada?">
                             <input type="checkbox" checked="checked" disabled="disabled" />
-                            <label for="isCollected${collect?.id}"></label>
+                            <label></label>
                         </p>
                     </g:if>
                     <g:else>
                         <p title="Foi coletada?">
-                            <input type="checkbox" onclick="markWasCollected(${collect.id})" />
+                            <input type="checkbox" id="isCollected${collect.id}" onchange="markWasCollected(${collect.id})" />
                             <label for="isCollected${collect.id}"></label>
                         </p>
                     </g:else>
@@ -35,7 +45,7 @@
                 <td>
                     <!-- Modal Trigger -->
                     <a class="waves-effect waves-light" href="#detailsCompany" id="${collect?.company?.id}" title="Detalhes da empresa">
-                        <i class="material-icons fa-3x">list</i>
+                        <i class="material-icons fa-2x">list</i>
                     </a>
                 </td>
             </tr>

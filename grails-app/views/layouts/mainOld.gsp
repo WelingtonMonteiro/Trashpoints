@@ -38,8 +38,8 @@
             <!-- Dropdown Structure -->
             <ul id="dropdown-creates" class="dropdown-content hide-on-small-only">
                 <li>
-                    <a href="/Trashpoints/Client/Create" class="hide-on-small-only waves-effect waves-light">
-                        <i class="material-icons left">person_add</i>Cidadão
+                    <a href="/Trashpoints/Collaborator/Create" class="hide-on-small-only waves-effect waves-light">
+                        <i class="material-icons left">person_add</i>Colaborador
                     </a>
                 </li>
                 <li>
@@ -69,7 +69,7 @@
                     <div class="collapsible-body">
                         <ul>
                             <li>
-                                <a class="waves-effect hide-on-large-only" href="/Trashpoints/Client/Create"><i class="material-icons left">person_add</i>Cadastrar Cidadão
+                                <a class="waves-effect hide-on-large-only" href="/Trashpoints/Collaborator/Create"><i class="material-icons left">person_add</i>Cadastrar Cidadão
                                 </a>
                             </li>
                             <li>

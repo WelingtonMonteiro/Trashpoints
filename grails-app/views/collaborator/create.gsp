@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Cliente</title>
+    <title>Colaborador</title>
 </head>
 <body>
 <main>

@@ -4,36 +4,32 @@ import grails.converters.JSON
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
-class ClientController {
+class CollaboratorController {
 
     def create() {
         render (view: "create")
     }
 
     def list() {
-        def clients = Client.list()
-        render clients as JSON
+        def collaborators = Collaborator.list()
+        render collaborators as JSON
     }
 
     @Transactional
     def save() {
-
-        Client client = new Client()
-
+        Collaborator collaborator = new Collaborator()
         Address addressCollect = new Address()
-
-
 
 //        def passwordHash = params.password.encodeAsSHA256()
 //
 //        user.email = params.email
 //        user.password = passwordHash
 
-        client.name = params.name
-        client.phone = params.phone
-        client.photo = params.photo
-        client.isAddressEqual = params.isAddressEqual
-        client.dateOfBirth = /*new Date()*/Date.parse('dd/MM/yyyy', params.dateOfBirth)
+        collaborator.name = params.name
+        collaborator.phone = params.phone
+        collaborator.photo = params.photo
+        collaborator.isAddressEqual = params.isAddressEqual
+        collaborator.dateOfBirth = /*new Date()*/Date.parse('dd/MM/yyyy', params.dateOfBirth)
 
         addressCollect.zipCode = params.zipCode
         addressCollect.street = params.street
@@ -44,17 +40,16 @@ class ClientController {
         addressCollect.latitude = params.latitude
         addressCollect.longitude = params.longitude
 
-        client.address = addressCollect
+        collaborator.address = addressCollect
 
 //        user.validate()
         addressCollect.validate()
-        client.validate()
+        collaborator.validate()
 
-
-        if(client.hasErrors()) {
+        if(collaborator.hasErrors()) {
             def listErrors = []
 
-            client.errors.allErrors.each { error ->
+            collaborator.errors.allErrors.each { error ->
                 listErrors += g.message(code: error.defaultMessage, error: error)
             }
 
@@ -71,7 +66,7 @@ class ClientController {
             def message = [error: listErrors]
             render message as JSON
         }else{
-            client.save(flush: true)
+            collaborator.save(flush: true)
 
             def message = [success: 'Dados cadastrais salvos com sucesso']
             render message as JSON
