@@ -17,7 +17,7 @@
                 <td><img height="168" src="${collect?.imageUpload}"></td>
                 <td>
                     <g:each in="${collaboratorCollections.materialTypes}" var="materialType">
-                        <span>${materialType.name.join(", ")}
+                        <p>${materialType.name.join(", ")}</p>
                     </g:each>
                 </td>
                 <td>${collect?.orderDate?.format("dd/MM/yyyy")}</td>
@@ -26,7 +26,7 @@
                     ${collect?.collectedDate?.format("dd/MM/yyyy")}</td>
                 </g:if>
                 <g:else>
-                    <p>-</p>
+                    <p id="collectedDate${collect.id}">-</p>
                 </g:else>
                 <td>
                     <g:if test="${collect?.isCollected}">
@@ -37,7 +37,7 @@
                     </g:if>
                     <g:else>
                         <p title="Foi coletada?">
-                            <input type="checkbox" id="isCollected${collect.id}" onchange="markWasCollected(${collect.id})" />
+                            <input type="checkbox" id="isCollected${collect.id}" onchange="openModalConfirmation(${collect.id})" />
                             <label for="isCollected${collect.id}"></label>
                         </p>
                     </g:else>
@@ -72,36 +72,62 @@
     </a>
     <div class="modal-content">
         <h4>Detalhes da Empresa</h4>
-        <p>A bunch of text</p>
+        <p></p>
     </div>
     <div class="modal-footer">
         <a href="#!" class=" modal-action modal-close waves-effect light btn-flat">Fechar</a>
     </div>
 </div>
 
-<script type="text/javascript">
+<!-- Modal Confirmation of Collect -->
+<div id="confirmationCollect" class="modal">
+    <div class="modal-content">
+        <h4>Confirmação de que foi recolhida</h4>
+        <p>Deseja realmente marcar que a coleta foi recolhida?</p>
+    </div>
+    <div class="modal-footer">
+        <a class="modal-action modal-close waves-effect waves-light btn-flat" onclick="wasNotCollected()">Não</a>
+        <a class="modal-action modal-close waves-effect waves-light btn-flat" onclick="markWasCollected()">Sim</a>
+    </div>
+</div>
 
-    function markWasCollected(collectId) {
-        if(confirm("Deseja realmente marcar que foi recolhido?")) {
-            $.ajax({
-                url: "/Trashpoints/Collect/markWasCollected/",
-                data: {
-                    id: collectId
-                },
-                method: "post",
-                success: function (data) {
-                    if (data.success) {
-                        var $toastContent = $("<span class='indigo accent-2 white-text'>Sucesso ao marcar</span>");
-                        Materialize.toast($toastContent, 3000);
-                        updateListCollections()
-                    }
-                }
-            });
-        }
+
+<script type="text/javascript">
+    var global_collect_id;
+
+    function openModalConfirmation(collectId) {
+        global_collect_id = collectId
+        $("#confirmationCollect").modal({
+            dismissible: false
+        })
+        $("#confirmationCollect").modal('open');
     }
 
-    function updateListCollections() {
-        <g:remoteFunction controller="collect" action="listCollect" update="listCollections" />
+    function markWasCollected() {
+        var collectId = global_collect_id
+        $.ajax({
+            url: "/Trashpoints/Collect/markWasCollected/",
+            data: {
+                id: global_collect_id
+            },
+            method: "post",
+            success: function (data) {
+                if (data.success) {
+                    Materialize.toast("Sucesso ao marcar", 3000);
+                    disabledCheckBoxClicked(collectId)
+                    $("#collectedDate" + collectId).text(data.collectedDate)
+                }
+            }
+        });
+    }
+
+    function wasNotCollected() {
+        var collectId = global_collect_id
+        $("input[type=checkbox]#isCollected" + collectId).prop("checked", false)
+    }
+
+    function disabledCheckBoxClicked(collectId) {
+        $("input[type=checkbox]#isCollected" + collectId).prop("disabled", true).removeAttr("onchange")
     }
 
     $(document).ready(function () {

@@ -15,6 +15,7 @@ class Collect {
     }
 
     static hasMany = [materialTypes : MaterialType]
+
     static belongsTo = [MaterialType]
 
     static constraints = {

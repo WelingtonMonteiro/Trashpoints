@@ -64,14 +64,6 @@ class CollectController {
         }
     }
 
-    def listCollect() {
-        //ID COLLABORATOR LOGGED IN
-        def collaboratorId = 1
-        def collaboratorCollections = Collaborator.get(collaboratorId)?.collects
-
-        render(template:"/collect/listCollections", model:[collaboratorCollections: collaboratorCollections])
-    }
-
     def markWasCollected() {
         def collectId = params.id
         def message = [:]
@@ -79,10 +71,21 @@ class CollectController {
         Collect collect = Collect.get(collectId)
         if (collect){
             collect.isCollected = true
+            collect.collectedDate = new Date()
+            def collectedDateWithOutHour = collect.collectedDate.format("dd/MM/yyyy")
             collect.save(flush: true)
 
-            message = [success: 'Coleta recolhida']
+            message = [success: 'sucesso', collectedDate: collectedDateWithOutHour]
             render message as JSON
         }
     }
+
+    def list() {
+        //ID COLLABORATOR LOGGED IN
+        def collaboratorId = 1
+        def collaboratorCollections = Collaborator.get(collaboratorId)?.collects
+
+        render collaboratorCollections as JSON
+    }
+
 }
