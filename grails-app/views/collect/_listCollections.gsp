@@ -1,8 +1,8 @@
 <g:if test="${collaboratorCollections.size() > 0}">
-    <table class="striped responsive-table centered">
+    <table class="striped centered responsive-table">
         <thead>
         <tr>
-            <th data-field="photo">Foto</th>
+            <th data-field="photo">Foto Coleta</th>
             <th data-field="types">Tipo(s)</th>
             <th data-field="orderDate">Data Pedido</th>
             <th data-field="collectedDate">Data Coletada</th>
@@ -14,16 +14,23 @@
         <tbody>
         <g:each in="${collaboratorCollections}" var="collect">
             <tr>
-                <td><img height="168" src="${collect?.imageUpload}"></td>
+                %{--<td><img src="${collect?.imageUpload}" style="max-height: 168px;"></td>--}%
                 <td>
-                    <g:each in="${collaboratorCollections.materialTypes}" var="materialType">
-                        <p>${materialType.name.join(", ")}</p>
+                    <!-- Modal Trigger -->
+                    <a class="waves-effect waves-light" href="#viewImageCollect" id="${collect.id}" title="Ver Imagem da coleta">
+                        <i class="fa fa-eye fa-2x"></i>
+                    </a>
+                </td>
+                <td>
+                    <g:each in="${collect.materialTypes}" var="materialType">
+                        <span>${materialType.name}</span><br/>
                     </g:each>
                 </td>
                 <td>${collect?.orderDate?.format("dd/MM/yyyy")}</td>
-            <td>
+                <td>
                 <g:if test="${collect?.isCollected}">
-                    ${collect?.collectedDate?.format("dd/MM/yyyy")}</td>
+                    ${collect?.collectedDate?.format("dd/MM/yyyy")}
+                </td>
                 </g:if>
                 <g:else>
                     <p id="collectedDate${collect.id}">-</p>
@@ -88,6 +95,20 @@
     <div class="modal-footer">
         <a class="modal-action modal-close waves-effect waves-light btn-flat" onclick="wasNotCollected()">Não</a>
         <a class="modal-action modal-close waves-effect waves-light btn-flat" onclick="markWasCollected()">Sim</a>
+    </div>
+</div>
+
+<!-- Modal View Image of Collect -->
+<div id="viewImageCollect" class="modal">
+    <a href="#!" class="modal-action modal-close waves-effect waves-light btn-flat right">
+        <i class="material-icons">close</i>
+    </a>
+    <div class="modal-content">
+        <h4>Foto da coleta</h4>
+        <img style="max-height: 168px;">
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect light btn-flat">Fechar</a>
     </div>
 </div>
 
