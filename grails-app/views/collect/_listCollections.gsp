@@ -17,8 +17,8 @@
                 %{--<td><img src="${collect?.imageUpload}" style="max-height: 168px;"></td>--}%
                 <td>
                     <!-- Modal Trigger -->
-                    <a class="waves-effect waves-light" href="#viewImageCollect" id="${collect.id}" title="Ver Imagem da coleta">
-                        <i class="fa fa-eye fa-2x"></i>
+                    <a class="waves-effect waves-light" onclick="openModalViewCollectImage(${collect.id})" title="Ver Imagem da coleta">
+                        <i class="fa fa-file-image-o fa-2x"></i>
                     </a>
                 </td>
                 <td>
@@ -99,13 +99,14 @@
 </div>
 
 <!-- Modal View Image of Collect -->
-<div id="viewImageCollect" class="modal">
+<div id="viewCollectImage" class="modal">
     <a href="#!" class="modal-action modal-close waves-effect waves-light btn-flat right">
         <i class="material-icons">close</i>
     </a>
     <div class="modal-content">
         <h4>Foto da coleta</h4>
-        <img style="max-height: 168px;">
+        <div id="collectImage" class="center-align">
+        </div>
     </div>
     <div class="modal-footer">
         <a href="#!" class=" modal-action modal-close waves-effect light btn-flat">Fechar</a>
@@ -115,6 +116,32 @@
 
 <script type="text/javascript">
     var global_collect_id;
+
+    function openModalViewCollectImage(collectId) {
+        $("#viewCollectImage").modal('open');
+        loadCollectImage(collectId)
+    }
+    
+    function loadCollectImage(collectId) {
+        $.ajax({
+            url: "/Trashpoints/Collect/loadCollectImage/",
+            data: {
+                id: collectId
+            },
+            method: "post",
+            success: function (data) {
+                $("#collectImage").html("")
+
+                if (data.imagePath) {
+                    var imagePath = "<img src='" + data.imagePath +"' style='max-height: 168px;'>"
+                    $("#collectImage").append(imagePath)
+                }else{
+                    var imagePath = "<i class='fa fa-file-image-o fa-5x center-align'></i>"
+                    $("#collectImage").append(imagePath)
+                }
+            }
+        });
+    }
 
     function openModalConfirmation(collectId) {
         global_collect_id = collectId

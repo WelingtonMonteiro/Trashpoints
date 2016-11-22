@@ -55,7 +55,7 @@ class CollectController {
     def myCollections() {
         //ID COLLABORATOR LOGGED IN
         def collaboratorId = 1
-        def collaboratorCollections = Collaborator.get(collaboratorId)?.collects
+        def collaboratorCollections = Collaborator.findById(collaboratorId)?.collects.sort{it.orderDate}
 
         if(collaboratorCollections == null) {
             render(view: "myCollections", model: ["collaboratorCollections": []])
@@ -66,7 +66,7 @@ class CollectController {
 
     def markWasCollected() {
         def collectId = params.id
-        def message = [:]
+        def response = [:]
 
         Collect collect = Collect.get(collectId)
         if (collect){
@@ -75,17 +75,29 @@ class CollectController {
             def collectedDateWithOutHour = collect.collectedDate.format("dd/MM/yyyy")
             collect.save(flush: true)
 
-            message = [success: 'sucesso', collectedDate: collectedDateWithOutHour]
-            render message as JSON
+            response = [success: 'sucesso', collectedDate: collectedDateWithOutHour]
+            render response as JSON
         }
     }
 
-    def list() {
+    def loadCollectImage() {
+        Integer collectId = params.id.toInteger()
+        def imagePath = Collect.createCriteria().get {
+            idEq(collectId)
+            projections {
+                property("imageUpload")
+            }
+        }
+        def response = ["imagePath": imagePath]
+        render response as JSON
+    }
+
+    /*def list() {
         //ID COLLABORATOR LOGGED IN
         def collaboratorId = 1
         def collaboratorCollections = Collaborator.get(collaboratorId)?.collects
 
         render collaboratorCollections as JSON
-    }
+    }*/
 
 }
