@@ -14,7 +14,6 @@
         <tbody>
         <g:each in="${collaboratorCollections}" var="collect">
             <tr>
-                %{--<td><img src="${collect?.imageUpload}" style="max-height: 168px;"></td>--}%
                 <td>
                     <!-- Modal Trigger -->
                     <a class="waves-effect waves-light" onclick="openModalViewCollectImage(${collect.id})" title="Ver Imagem da coleta">
@@ -124,7 +123,7 @@
     
     function loadCollectImage(collectId) {
         $.ajax({
-            url: "/Trashpoints/Collect/loadCollectImage/",
+            url: "/Trashpoints/Collaborator/loadCollectImage/",
             data: {
                 id: collectId
             },
@@ -161,7 +160,7 @@
             method: "post",
             success: function (data) {
                 if (data.success) {
-                    Materialize.toast("Sucesso ao marcar", 3000);
+                    Materialize.toast("Coleta marcada", 3000);
                     disabledCheckBoxClicked(collectId)
                     $("#collectedDate" + collectId).text(data.collectedDate)
                 }

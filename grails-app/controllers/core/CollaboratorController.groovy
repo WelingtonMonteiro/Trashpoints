@@ -75,4 +75,38 @@ class CollaboratorController {
         }
     }
 
+    def myCollections() {
+        //ID COLLABORATOR LOGGED IN
+        def collaboratorId = 1
+        def collaboratorCollections = Collaborator.findById(collaboratorId)?.collects.sort{it.orderDate}
+
+        if(collaboratorCollections == null) {
+            render(view: "myCollections", model: ["collaboratorCollections": []])
+        } else {
+            render(view: "myCollections", model: ["collaboratorCollections": collaboratorCollections])
+        }
+    }
+
+    def loadCollectImage() {
+        Integer collectId = params.id.toInteger()
+        def imagePath = Collect.createCriteria().get {
+            idEq(collectId)
+            projections {
+                property("imageUpload")
+            }
+        }
+        def response = ["imagePath": imagePath]
+        render response as JSON
+    }
+
+    def loadCompanyDetails() {
+        Integer companyId = params.id.toInteger()
+        Company company = Company.findById(companyId)
+        Address address = company.address
+
+        def response = ["company": company, "address": address]
+        render response as JSON
+    }
+
+
 }

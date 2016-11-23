@@ -66,6 +66,47 @@ class CompanyController {
             }
     }
 
+    def myCollections() {
+        //ID COMPANY LOGGED IN
+        def companyId = 1
+        def companyCollections = Company.findById(companyId)?.collects.sort{it.orderDate}
+
+        if(companyCollections == null) {
+            render(view: "myCollections", model: ["companyCollections": []])
+        } else {
+            render(view: "myCollections", model: ["companyCollections": companyCollections])
+        }
+    }
+
+    def markWasCollected() {
+        def collectId = params.id
+        def response = [:]
+
+        Collect collect = Collect.get(collectId)
+        if (collect){
+            collect.isCollected = true
+            collect.collectedDate = new Date()
+            def collectedDateWithOutHour = collect.collectedDate.format("dd/MM/yyyy")
+            collect.save(flush: true)
+
+            response = [success: 'sucesso', collectedDate: collectedDateWithOutHour]
+            render response as JSON
+        }
+    }
+
+    def loadCollectImage() {
+        Integer collectId = params.id.toInteger()
+        def imagePath = Collect.createCriteria().get {
+            idEq(collectId)
+            projections {
+                property("imageUpload")
+            }
+        }
+        def response = ["imagePath": imagePath]
+        render response as JSON
+    }
+
+
     def list() {
         def companies = Address.createCriteria().list(){
             user {

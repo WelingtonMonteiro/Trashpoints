@@ -52,7 +52,7 @@ class CollectController {
         }
     }
 
-    def myCollections() {
+    /*def myCollections() {
         //ID COLLABORATOR LOGGED IN
         def collaboratorId = 1
         def collaboratorCollections = Collaborator.findById(collaboratorId)?.collects.sort{it.orderDate}
@@ -90,7 +90,7 @@ class CollectController {
         }
         def response = ["imagePath": imagePath]
         render response as JSON
-    }
+    }*/
 
     /*def list() {
         //ID COLLABORATOR LOGGED IN
