@@ -21,7 +21,7 @@
         <script src="/Trashpoints/js/materialize.min.js" type="text/javascript"></script>
         <script src="/Trashpoints/js/jquery.maskedinput.min.js" type="text/javascript"></script>
 	<g:layoutHead/>
-		<g:javascript library="application"/>		
+		<g:javascript library="application"/>
 		<r:layoutResources />
 	</head>
 	<body>
@@ -38,7 +38,7 @@
 			<ul id="side-menu" class="side-nav fixed">
 				<li><a class="waves-effect hide-on-large-only" href="#">Nome usuário logada<i class="material-icons">account_circle</i></a></li>
 				<li class="active"><a class="waves-effect active" href="/Trashpoints">Home<i class="material-icons">home</i></a></li>
-				<li><a class="waves-effect" href="#">Meus TrashPoints<i class="material-icons">monetization_on</i></a></li>
+				<li><a class="waves-effect" href="#">Relatórios<i class="fa fa-line-chart" aria-hidden="true"></i></a></li>
 				<li><div class="divider"></div></li>
 				<li><a class="subheader">Editar meus dados</a></li>
 				<li class="no-padding">
@@ -55,8 +55,8 @@
 					</ul>
 				</li>
 				<li><div class="divider"></div></li>
+				<li><a class="waves-effect" href="#">Locais para coletar<i class="fa fa-globe" aria-hidden="true"></i></a></li>
 				<li><a class="waves-effect" href="#">Minhas Coletas<i class="fa fa-recycle fa-2x" aria-hidden="true"></i></a></li>
-				<li><a class="waves-effect" href="#">Tenho uma Coleta<i class="fa fa-bullhorn fa-2x" aria-hidden="true"></i></a></li>
 				<li><a class="waves-effect" href="#">Notificações<i class="material-icons">notifications</i></a></li>
 				<li><a class="waves-effect" href="#">Sair<i class="fa fa-2x fa-sign-out" aria-hidden="true"></i></a></li>
 			</ul>

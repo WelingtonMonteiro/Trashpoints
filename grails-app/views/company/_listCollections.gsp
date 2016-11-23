@@ -1,4 +1,4 @@
-<g:if test="${collaboratorCollections.size() > 0}">
+<g:if test="${companyCollections.size() > 0}">
     <table class="striped centered responsive-table">
         <thead>
         <tr>
@@ -7,12 +7,12 @@
             <th data-field="orderDate">Data Pedido</th>
             <th data-field="collectedDate">Data Coletada</th>
             <th data-field="isCollected">Foi Coletada?</th>
-            <th data-field="detailsCompany">Empresa</th>
+            <th data-field="detailsCompany">Colaborador</th>
         </tr>
         </thead>
 
         <tbody>
-        <g:each in="${collaboratorCollections}" var="collect">
+        <g:each in="${companyCollections}" var="collect">
             <tr>
                 <td>
                     <!-- Modal Trigger -->
@@ -26,10 +26,10 @@
                     </g:each>
                 </td>
                 <td>${collect?.orderDate?.format("dd/MM/yyyy")}</td>
-                <td>
+            <td>
                 <g:if test="${collect?.isCollected}">
                     ${collect?.collectedDate?.format("dd/MM/yyyy")}
-                </td>
+                    </td>
                 </g:if>
                 <g:else>
                     <p id="collectedDate${collect.id}">-</p>
@@ -50,7 +50,8 @@
                 </td>
                 <td>
                     <!-- Modal Trigger -->
-                    <a class="waves-effect waves-light" href="#detailsCompany" id="${collect?.company?.id}" title="Detalhes da empresa">
+                    <a class="waves-effect waves-light" onclick="openModalCollaboratorDetails(${collect?.collaborator?.id})"
+                       title="Detalhes do colaborador">
                         <i class="material-icons fa-2x">list</i>
                     </a>
                 </td>
@@ -71,24 +72,31 @@
     </div>
 </g:else>
 
-<!-- Modal details Company -->
-<div id="detailsCompany" class="modal">
-    <a href="#!" class="modal-action modal-close waves-effect waves-light btn-flat right">
+<!-- Modal Collaborator details-->
+<div id="modalCollaboratorDetails" class="modal">
+    <a class="modal-action modal-close waves-effect waves-light btn-flat right">
         <i class="material-icons">close</i>
     </a>
     <div class="modal-content">
-        <h4>Detalhes da Empresa</h4>
-        <p></p>
+        <h5>Detalhes do Colaborador</h5>
+        <div id="collaboratorDetails" class="left-align">
+            <p><label>Nome: </label><span id="name"></span></p>
+            <p><label>Telefone: </label><span id="phone"></span></p>
+            <p><label>CEP: </label><span id="zipCode"></span></p>
+            <p><label>Rua: </label><span id="street"></span> <label> &nbsp; Número: </label><span id="number"></span></p>
+            <p><label>Bairro: </label><span id="neighborhood"></span></p>
+            <span><label>Cidade: </label><span id="city"></span> <label> &nbsp; Estado: </label><span id="state"></span></span>
+        </div>
     </div>
     <div class="modal-footer">
-        <a href="#!" class=" modal-action modal-close waves-effect light btn-flat">Fechar</a>
+        <a class=" modal-action modal-close waves-effect light btn-flat">Fechar</a>
     </div>
 </div>
 
-<!-- Modal Confirmation of Collect -->
+<!-- Modal Collect Confirmation -->
 <div id="confirmationCollect" class="modal">
     <div class="modal-content">
-        <h4>Confirmação de que foi recolhida</h4>
+        <h5>Confirmação da ação</h5>
         <p>Deseja realmente marcar que a coleta foi recolhida?</p>
     </div>
     <div class="modal-footer">
@@ -97,18 +105,18 @@
     </div>
 </div>
 
-<!-- Modal View Image of Collect -->
+<!-- Modal View Collect Image -->
 <div id="viewCollectImage" class="modal">
-    <a href="#!" class="modal-action modal-close waves-effect waves-light btn-flat right">
+    <a class="modal-action modal-close waves-effect waves-light btn-flat right">
         <i class="material-icons">close</i>
     </a>
     <div class="modal-content">
-        <h4>Foto da coleta</h4>
+        <h5>Foto da coleta</h5>
         <div id="collectImage" class="center-align">
         </div>
     </div>
     <div class="modal-footer">
-        <a href="#!" class=" modal-action modal-close waves-effect light btn-flat">Fechar</a>
+        <a class=" modal-action modal-close waves-effect light btn-flat">Fechar</a>
     </div>
 </div>
 
@@ -120,7 +128,12 @@
         $("#viewCollectImage").modal('open');
         loadCollectImage(collectId)
     }
-    
+
+    function openModalCollaboratorDetails(collaboratorId) {
+        $("#modalCollaboratorDetails").modal('open');
+        loadCollaboratorDetails(collaboratorId)
+    }
+
     function loadCollectImage(collectId) {
         $.ajax({
             url: "/Trashpoints/Collaborator/loadCollectImage/",
@@ -153,9 +166,9 @@
     function markWasCollected() {
         var collectId = global_collect_id
         $.ajax({
-            url: "/Trashpoints/Collect/markWasCollected/",
+            url: "/Trashpoints/Company/markWasCollected/",
             data: {
-                id: global_collect_id
+                id: collectId
             },
             method: "post",
             success: function (data) {
@@ -177,9 +190,31 @@
         $("input[type=checkbox]#isCollected" + collectId).prop("disabled", true).removeAttr("onchange")
     }
 
-    $(document).ready(function () {
+    function loadCollaboratorDetails(collaboratorId) {
+        $.ajax({
+            url: "/Trashpoints/Company/loadCollaboratorDetails/",
+            data: {
+                id: collaboratorId
+            },
+            method: "post",
+            success: function (data) {
+                var collaborator = data.collaborator
+                var address = data.address
 
-    });
+                if (data.collaborator) {
+                    $("#collaboratorDetails span#name").text(collaborator.name)
+                    $("#collaboratorDetails span#phone").text(collaborator.phone)
+
+                    $("#collaboratorDetails span#zipCode").text(address.zipCode)
+                    $("#collaboratorDetails span#street").text(address.street)
+                    $("#collaboratorDetails span#number").text(address.number)
+                    $("#collaboratorDetails span#neighborhood").text(address.neighborhood)
+                    $("#collaboratorDetails span#city").text(address.city)
+                    $("#collaboratorDetails span#state").text(address.state)
+                }
+            }
+        });
+    }
 
 </script>
 

@@ -16,7 +16,7 @@
             </div>
             <div class="row">
                 <div id="listCollections" class="col s12">
-                    <g:render template="listCollections" model="[collaboratorCollections:collaboratorCollections]"></g:render>
+                    <g:render template="listCollections" model="[companyCollections:companyCollections]"></g:render>
                 </div>
             </div>
         </div>

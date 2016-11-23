@@ -53,7 +53,7 @@
                         </a>
                     </g:if>
                     <g:else>
-                        <a class="disabled grey-text" title="Detalhes da empresa">
+                        <a class="disabled grey-text">
                             <i class="material-icons fa-2x">list</i>
                         </a>
                     </g:else>
@@ -90,7 +90,7 @@
             <p><label>CEP: </label><span id="zipCode"></span></p>
             <p><label>Rua: </label><span id="street"></span> <label> &nbsp; Número: </label><span id="number"></span></p>
             <p><label>Bairro: </label><span id="neighborhood"></span></p>
-            <p><label>Cidade: </label><span id="city"></span> <label> &nbsp; Estado: </label><span id="state"></span></p>
+            <span><label>Cidade: </label><span id="city"></span> <label> &nbsp; Estado: </label><span id="state"></span></span>
         </div>
     </div>
     <div class="modal-footer">

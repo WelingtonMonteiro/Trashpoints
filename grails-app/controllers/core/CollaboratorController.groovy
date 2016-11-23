@@ -2,6 +2,7 @@ package core
 
 import grails.converters.JSON
 import grails.transaction.Transactional
+import org.hibernate.criterion.CriteriaSpecification
 
 @Transactional(readOnly = true)
 class CollaboratorController {

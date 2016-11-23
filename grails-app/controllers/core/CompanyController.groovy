@@ -69,7 +69,10 @@ class CompanyController {
     def myCollections() {
         //ID COMPANY LOGGED IN
         def companyId = 1
-        def companyCollections = Company.findById(companyId)?.collects.sort{it.orderDate}
+        //def companyCollections = Company.findById(companyId)?.collects.sort{it.orderDate}
+        def companyCollections = Collect.createCriteria().list{
+            order("orderDate")
+        }
 
         if(companyCollections == null) {
             render(view: "myCollections", model: ["companyCollections": []])
@@ -78,8 +81,9 @@ class CompanyController {
         }
     }
 
+    @Transactional
     def markWasCollected() {
-        def collectId = params.id
+        Integer collectId = params.id.toInteger()
         def response = [:]
 
         Collect collect = Collect.get(collectId)
@@ -106,11 +110,18 @@ class CompanyController {
         render response as JSON
     }
 
+    def loadCollaboratorDetails() {
+        Integer collaboratorId = params.id.toInteger()
+        Collaborator collaborator = Collaborator.findById(collaboratorId)
+        Address address = collaborator.address
+
+        def response = ["collaborator": collaborator, "address": address]
+        render response as JSON
+    }
 
     def list() {
-        def companies = Address.createCriteria().list(){
-            user {
-
+        def companies = Company.createCriteria().list(){
+            address {
             }
         }
         render companies as JSON
