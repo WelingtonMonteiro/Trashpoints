@@ -95,7 +95,7 @@ class CollectController {
             response = [success: 'sucesso', collectedDate: collectedDateWithOutHour]
             render response as JSON
         }
-    }
+    }*/
 
     def loadCollectImage() {
         Integer collectId = params.id.toInteger()

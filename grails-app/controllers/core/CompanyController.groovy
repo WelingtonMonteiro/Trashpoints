@@ -3,6 +3,7 @@ package core
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
+import org.codehaus.groovy.grails.web.servlet.mvc.SynchronizerTokensHolder
 
 @Transactional(readOnly = true)
 @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
@@ -50,64 +51,61 @@ class CompanyController {
             def message = [error: listErrors]
             render message as JSON
         }else
-            if(address.hasErrors()) {
-                def listErrors = []
+        if(address.hasErrors()) {
+            def listErrors = []
 
-                address.errors.allErrors.each { error ->
-                    listErrors += g.message(code: error.defaultMessage, error: error)
-                }
+            address.errors.allErrors.each { error ->
+                listErrors += g.message(code: error.defaultMessage, error: error)
+            }
 
-                def message = [error: listErrors]
-                render message as JSON
-            }else{
-                company.save(flush: true)
+            def message = [error: listErrors]
+            render message as JSON
+        }else{
+            company.save(flush: true)
 //                redirect(action: "create", controller: "collect")
 
-                def message = [success: 'Dados cadastrais salvos com sucesso']
-                render message as JSON
-            }
+            def message = [success: 'Dados cadastrais salvos com sucesso']
+            render message as JSON
+        }
     }
 
     def myCollections() {
         //ID COMPANY LOGGED IN
-        def companyId = 1
-        def companyCollections = Company.findById(companyId)?.collects?.sort{it.orderDate}
-        def Collections = Collect.findAll()?.sort{it.orderDate}
+        //def companyId = 1
+        //def companyCollections = Company.findById(companyId)?.collects.sort{it.orderDate}
+        def companyCollections = Collect.createCriteria().list{
+            order("orderDate")
+        }
 
-        if(Collections == null) {
+        if(companyCollections == null) {
             render(view: "myCollections", model: ["companyCollections": []])
         } else {
-            render(view: "myCollections", model: ["companyCollections": Collections])
+            render(view: "myCollections", model: ["companyCollections": companyCollections])
         }
     }
 
     @Transactional
     def markWasCollected() {
-        Integer collectId = params.id.toInteger()
+        Integer collectId = params.collectId.toInteger()
         def response = [:]
+        withForm {
+            Collect collect = Collect.get(collectId)
+            if (collect){
+                collect.isCollected = true
+                collect.collectedDate = new Date()
+                def collectedDateWithOutHour = collect.collectedDate.format("dd/MM/yyyy")
+                collect.save(flush: true)
 
-        Collect collect = Collect.get(collectId)
-        if (collect){
-            collect.isCollected = true
-            collect.collectedDate = new Date()
-            def collectedDateWithOutHour = collect.collectedDate.format("dd/MM/yyyy")
-            collect.save(flush: true)
-
-            response = [success: 'sucesso', collectedDate: collectedDateWithOutHour]
+                String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
+                response = [success: 'sucesso', collectedDate: collectedDateWithOutHour, newToken: newToken]
+                render response as JSON
+            }
+        }.invalidToken{
+            String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
+            response = [error: 'Invalid_Token', newToken: newToken]
             render response as JSON
         }
-    }
 
-    def loadCollectImage() {
-        Integer collectId = params.id.toInteger()
-        def imagePath = Collect.createCriteria().get {
-            idEq(collectId)
-            projections {
-                property("imageUpload")
-            }
-        }
-        def response = ["imagePath": imagePath]
-        render response as JSON
     }
 
     def loadCollaboratorDetails() {

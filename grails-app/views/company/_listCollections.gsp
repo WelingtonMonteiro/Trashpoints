@@ -1,4 +1,8 @@
 <g:if test="${companyCollections.size() > 0}">
+    <g:form name="formCollections" controller="company" action="markWasCollected" useToken="true">
+        <g:hiddenField name="collectId"></g:hiddenField>
+    </g:form>
+
     <table class="striped centered responsive-table">
         <thead>
         <tr>
@@ -94,7 +98,7 @@
 </div>
 
 <!-- Modal Collect Confirmation -->
-<div id="confirmationCollect" class="modal">
+<div id="modalConfirmationCollect" class="modal">
     <div class="modal-content">
         <h5>Confirmação da ação</h5>
         <p>Deseja realmente marcar que a coleta foi recolhida?</p>
@@ -106,7 +110,7 @@
 </div>
 
 <!-- Modal View Collect Image -->
-<div id="viewCollectImage" class="modal">
+<div id="modalViewCollectImage" class="modal">
     <a class="modal-action modal-close waves-effect waves-light btn-flat right">
         <i class="material-icons">close</i>
     </a>
@@ -125,18 +129,24 @@
     var global_collect_id;
 
     function openModalViewCollectImage(collectId) {
-        $("#viewCollectImage").modal('open');
+        $("#modalViewCollectImage").modal({
+            dismissible: false
+        })
+        $("#modalViewCollectImage").modal('open');
         loadCollectImage(collectId)
     }
 
     function openModalCollaboratorDetails(collaboratorId) {
+        $("#modalCollaboratorDetails").modal({
+            dismissible: false
+        })
         $("#modalCollaboratorDetails").modal('open');
         loadCollaboratorDetails(collaboratorId)
     }
 
     function loadCollectImage(collectId) {
         $.ajax({
-            url: "/Trashpoints/Collaborator/loadCollectImage/",
+            url: "/Trashpoints/Collect/loadCollectImage/",
             data: {
                 id: collectId
             },
@@ -157,26 +167,31 @@
 
     function openModalConfirmation(collectId) {
         global_collect_id = collectId
-        $("#confirmationCollect").modal({
+        $("input[type=hidden]#collectId").val(collectId)
+        $("#modalConfirmationCollect").modal({
             dismissible: false
         })
-        $("#confirmationCollect").modal('open');
+        $("#modalConfirmationCollect").modal('open');
     }
 
     function markWasCollected() {
         var collectId = global_collect_id
+        var formData = jQuery("form[name=formCollections]").serializeArray();
+
         $.ajax({
             url: "/Trashpoints/Company/markWasCollected/",
-            data: {
-                id: collectId
-            },
+            data: formData,
             method: "post",
             success: function (data) {
                 if (data.success) {
-                    Materialize.toast("Coleta marcada", 3000);
+                    Materialize.toast("Salvo com sucesso", 3000);
                     disabledCheckBoxClicked(collectId)
                     $("#collectedDate" + collectId).text(data.collectedDate)
+                    $("#SYNCHRONIZER_TOKEN").val(data.newToken);
                 }
+            },
+            error: function (data) {
+                $("#SYNCHRONIZER_TOKEN").val(data.newToken);
             }
         });
     }
