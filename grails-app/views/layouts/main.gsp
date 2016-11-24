@@ -64,7 +64,8 @@
             </ul>
         </li>
         <li><div class="divider"></div></li>
-        <li><a class="waves-effect" href="/Trashpoints/Collect/MyCollections">Minhas Coletas<i class="fa fa-recycle fa-2x" aria-hidden="true"></i></a></li>
+        <li><a class="waves-effect" href="/Trashpoints/Collaborator/MyCollections">Minhas Coletas<i class="fa fa-recycle fa-2x" aria-hidden="true"></i></a></li>
+        <li><a class="waves-effect" href="/Trashpoints/Company/MyCollections">Recolher Coletas<i class="fa fa-recycle fa-2x" aria-hidden="true"></i></a></li>
         <li><a class="waves-effect" href="/Trashpoints/Collect/Create">Tenho uma Coleta<i class="fa fa-bullhorn fa-2x" aria-hidden="true"></i></a></li>
         <li><a class="waves-effect" href="#">Notificações<i class="material-icons">notifications</i></a></li>
         <li><a class="waves-effect" href="#">Sair<i class="fa fa-2x fa-sign-out" aria-hidden="true"></i></a></li>

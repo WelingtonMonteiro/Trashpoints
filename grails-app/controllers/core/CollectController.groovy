@@ -1,18 +1,33 @@
 package core
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
+import grails.transaction.Transactional
 
+@Transactional(readOnly = true)
+@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
 class CollectController {
+//// render a file
+// //render(file: new File(absolutePath), fileName: "book.pdf")
 
     def create() {
         List materialTypeList = MaterialType.list()
         render(view: "create", model: [materialTypes : materialTypeList])
     }
 
+    @Transactional
+    //Todo: mudar a view , remover o form e inserir as tags do grails,
     def save() {
         Collect collect = new Collect()
         //ID COLLABORATOR LOGGED IN
         Collaborator collaborator = Collaborator.get(1)
+
+        if(!collaborator){
+            def message = [error: 'Não existem colaboradores cadastrados.<br>Por favor cadastre um colaborador']
+//            render message as JSON
+            return render (view: 'create', message: message, model: [materialTypes : MaterialType.list()])
+
+        }
         collect.collaborator = collaborator
 
         collect.orderDate = new Date()
@@ -48,14 +63,16 @@ class CollectController {
         }else{
             collect.save(flush: true)
             def message = [success: "Dados para coleta salvos com sucesso!"]
-            render message as JSON
+            message as JSON
+            render (view: 'create', message: message, model: [materialTypes : MaterialType.list()])
+
         }
     }
 
-    /*def myCollections() {
+    def myCollections() {
         //ID COLLABORATOR LOGGED IN
         def collaboratorId = 1
-        def collaboratorCollections = Collaborator.findById(collaboratorId)?.collects.sort{it.orderDate}
+        def collaboratorCollections = Collaborator.findById(collaboratorId)?.collects?.sort{it.orderDate}
 
         if(collaboratorCollections == null) {
             render(view: "myCollections", model: ["collaboratorCollections": []])
@@ -88,16 +105,16 @@ class CollectController {
                 property("imageUpload")
             }
         }
-        def response = ["imagePath": imagePath]
+        def response = ["imagePath": imagePath + '.jpg']
         render response as JSON
-    }*/
+    }
 
-    /*def list() {
+    def list() {
         //ID COLLABORATOR LOGGED IN
         def collaboratorId = 1
         def collaboratorCollections = Collaborator.get(collaboratorId)?.collects
 
         render collaboratorCollections as JSON
-    }*/
+    }
 
 }

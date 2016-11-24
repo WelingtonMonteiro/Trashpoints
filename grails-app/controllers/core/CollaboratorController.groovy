@@ -1,10 +1,12 @@
 package core
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 import org.hibernate.criterion.CriteriaSpecification
 
 @Transactional(readOnly = true)
+@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
 class CollaboratorController {
 
     def create() {
@@ -79,7 +81,7 @@ class CollaboratorController {
     def myCollections() {
         //ID COLLABORATOR LOGGED IN
         def collaboratorId = 1
-        def collaboratorCollections = Collaborator.findById(collaboratorId)?.collects.sort{it.orderDate}
+        def collaboratorCollections = Collaborator.findById(collaboratorId)?.collects?.sort{it.orderDate}
 
         if(collaboratorCollections == null) {
             render(view: "myCollections", model: ["collaboratorCollections": []])

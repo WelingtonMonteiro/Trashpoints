@@ -8,6 +8,6 @@ class MaterialType {
     static hasMany = [collects : Collect]
 
     static constraints = {
-        name blank: false, nullable: false, size: 1..20
+        name blank: false, nullable: false, size: 1..20, unique: true
     }
 }

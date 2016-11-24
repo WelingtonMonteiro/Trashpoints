@@ -1,9 +1,11 @@
 package core
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
+@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
 class CompanyController {
 
     def create() {
@@ -69,15 +71,13 @@ class CompanyController {
     def myCollections() {
         //ID COMPANY LOGGED IN
         def companyId = 1
-        //def companyCollections = Company.findById(companyId)?.collects.sort{it.orderDate}
-        def companyCollections = Collect.createCriteria().list{
-            order("orderDate")
-        }
+        def companyCollections = Company.findById(companyId)?.collects?.sort{it.orderDate}
+        def Collections = Collect.findAll()?.sort{it.orderDate}
 
-        if(companyCollections == null) {
+        if(Collections == null) {
             render(view: "myCollections", model: ["companyCollections": []])
         } else {
-            render(view: "myCollections", model: ["companyCollections": companyCollections])
+            render(view: "myCollections", model: ["companyCollections": Collections])
         }
     }
 
