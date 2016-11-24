@@ -128,7 +128,7 @@
 
     function loadCollectImage(collectId) {
         $.ajax({
-            url: "/Trashpoints/Collaborator/loadCollectImage/",
+            url: "/Trashpoints/Collect/loadCollectImage/",
             data: {
                 id: collectId
             },

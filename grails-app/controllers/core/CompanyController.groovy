@@ -98,18 +98,6 @@ class CompanyController {
         }
     }
 
-    def loadCollectImage() {
-        Integer collectId = params.id.toInteger()
-        def imagePath = Collect.createCriteria().get {
-            idEq(collectId)
-            projections {
-                property("imageUpload")
-            }
-        }
-        def response = ["imagePath": imagePath]
-        render response as JSON
-    }
-
     def loadCollaboratorDetails() {
         Integer collaboratorId = params.id.toInteger()
         Collaborator collaborator = Collaborator.findById(collaboratorId)

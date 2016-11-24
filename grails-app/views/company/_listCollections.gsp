@@ -94,7 +94,7 @@
 </div>
 
 <!-- Modal Collect Confirmation -->
-<div id="confirmationCollect" class="modal">
+<div id="modalConfirmationCollect" class="modal">
     <div class="modal-content">
         <h5>Confirmação da ação</h5>
         <p>Deseja realmente marcar que a coleta foi recolhida?</p>
@@ -106,7 +106,7 @@
 </div>
 
 <!-- Modal View Collect Image -->
-<div id="viewCollectImage" class="modal">
+<div id="modalViewCollectImage" class="modal">
     <a class="modal-action modal-close waves-effect waves-light btn-flat right">
         <i class="material-icons">close</i>
     </a>
@@ -125,18 +125,24 @@
     var global_collect_id;
 
     function openModalViewCollectImage(collectId) {
-        $("#viewCollectImage").modal('open');
+        $("#modalViewCollectImage").modal({
+            dismissible: false
+        })
+        $("#modalViewCollectImage").modal('open');
         loadCollectImage(collectId)
     }
 
     function openModalCollaboratorDetails(collaboratorId) {
+        $("#modalCollaboratorDetails").modal({
+            dismissible: false
+        })
         $("#modalCollaboratorDetails").modal('open');
         loadCollaboratorDetails(collaboratorId)
     }
 
     function loadCollectImage(collectId) {
         $.ajax({
-            url: "/Trashpoints/Collaborator/loadCollectImage/",
+            url: "/Trashpoints/Collect/loadCollectImage/",
             data: {
                 id: collectId
             },
@@ -157,10 +163,10 @@
 
     function openModalConfirmation(collectId) {
         global_collect_id = collectId
-        $("#confirmationCollect").modal({
+        $("#modalConfirmationCollect").modal({
             dismissible: false
         })
-        $("#confirmationCollect").modal('open');
+        $("#modalConfirmationCollect").modal('open');
     }
 
     function markWasCollected() {
