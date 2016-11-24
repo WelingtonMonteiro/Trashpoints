@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta name="layout" content="main"/>
+	<meta name="layout" content="mainOld"/>
 	<title>Cadastrar empresa</title>
 </head>
 <body>

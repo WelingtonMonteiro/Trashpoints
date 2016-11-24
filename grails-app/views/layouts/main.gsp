@@ -73,31 +73,10 @@
 
 <g:layoutBody/>
 
-<footer class="page-footer indigo accent-2" role="contentinfo">
-    <div class="container">
-        <div class="row">
-            <div class="col l6 s12">
-                <h5 class="white-text">Footer Content</h5>
-                <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
-            </div>
-            <div class="col l4 offset-l2 s12">
-                <h5 class="white-text">Links</h5>
-                <ul>
-                    <li><a class="grey-text text-lighten-3" href="#!">Traspoints</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="footer-copyright">
-        <div class="container">
-        &copy; 2016 Copyright
-            <a class="grey-text text-lighten-4 right" href="#">More Links</a>
-        </div>
-    </div>
-</footer>
+<g:render template="/layouts/footer"></g:render>
 
-%{--<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>--}%
 <r:layoutResources />
+
 <script type="text/javascript">
     $(document).ready(function () {
         $(".button-collapse").sideNav();

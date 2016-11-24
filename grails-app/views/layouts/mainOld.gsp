@@ -15,8 +15,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'font-awesome.min.css')}" type="text/css">
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'style.css')}" type="text/css">
-    %{--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>--}%
     <script src="/Trashpoints/js/jquery-2.1.1.min.js" type="text/javascript"></script>
     <script src="/Trashpoints/js/materialize.min.js" type="text/javascript"></script>
     <script src="/Trashpoints/js/jquery.maskedinput.min.js" type="text/javascript"></script>
@@ -25,7 +23,7 @@
     <r:layoutResources />
 </head>
 <body>
-%{--<div id="grailsLogo" role="banner"><a href="http://grails.org"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails"/></a></div>--}%
+
 <header>
     <nav id="top-menu" class="indigo accent-2">
         <a href="/Trashpoints" class="page-title">TrashPoints</a>
@@ -50,7 +48,7 @@
             </ul>
             <li>
                 <a class="dropdown-button waves-effect waves-light hide-on-small-only" href="#!" data-beloworigin="true" data-activates="dropdown-creates">
-                    &nbsp;Cadastrar&nbsp;<i class="material-icons right">arrow_drop_down</i>
+                    &nbsp;&nbsp;&nbsp;&nbsp;Cadastrar&nbsp;&nbsp;&nbsp;<i class="material-icons right">arrow_drop_down</i>
                 </a>
             </li>
         </ul>
@@ -88,38 +86,14 @@
 
 <g:layoutBody/>
 
-<footer class="page-footer indigo accent-2" role="contentinfo">
-    <div class="container">
-        <div class="row">
-            <div class="col l6 s12">
-                <h5 class="white-text">Footer Content</h5>
-                <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
-            </div>
-            <div class="col l4 offset-l2 s12">
-                <h5 class="white-text">Links</h5>
-                <ul>
-                    <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-                    <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                    <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-                    <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="footer-copyright">
-        <div class="container">
-        &copy; 2016 Copyright
-            <a class="grey-text text-lighten-4 right" href="#">More Links</a>
-        </div>
-    </div>
-</footer>
+<g:render template="/layouts/footer"></g:render>
 
 <r:layoutResources />
 
 <style>
-header, main, footer {
-    padding-left: 0px;
-}
+    header, main, footer {
+        padding-left: 0px;
+    }
 </style>
 
 <script type="text/javascript">
