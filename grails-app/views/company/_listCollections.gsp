@@ -1,4 +1,8 @@
 <g:if test="${companyCollections.size() > 0}">
+    <g:form name="formCollections" controller="company" action="markWasCollected" useToken="true">
+        <g:hiddenField name="collectId"></g:hiddenField>
+    </g:form>
+
     <table class="striped centered responsive-table">
         <thead>
         <tr>
@@ -163,6 +167,7 @@
 
     function openModalConfirmation(collectId) {
         global_collect_id = collectId
+        $("input[type=hidden]#collectId").val(collectId)
         $("#modalConfirmationCollect").modal({
             dismissible: false
         })
@@ -171,18 +176,22 @@
 
     function markWasCollected() {
         var collectId = global_collect_id
+        var formData = jQuery("form[name=formCollections]").serializeArray();
+
         $.ajax({
             url: "/Trashpoints/Company/markWasCollected/",
-            data: {
-                id: collectId
-            },
+            data: formData,
             method: "post",
             success: function (data) {
                 if (data.success) {
-                    Materialize.toast("Coleta marcada", 3000);
+                    Materialize.toast("Salvo com sucesso", 3000);
                     disabledCheckBoxClicked(collectId)
                     $("#collectedDate" + collectId).text(data.collectedDate)
+                    $("#SYNCHRONIZER_TOKEN").val(data.newToken);
                 }
+            },
+            error: function (data) {
+                $("#SYNCHRONIZER_TOKEN").val(data.newToken);
             }
         });
     }
