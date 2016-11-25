@@ -49,3 +49,16 @@ fieldset {
 	padding-left: 2.3em !important;
 	padding-right: 2.3em !important;
 }
+
+.bold {
+	font-weight: bold !important;
+}
+
+.bolder {
+	font-weight: bolder !important;
+}
+
+.my-label {
+	font-size: 1em;
+	font-weight: bold !important;
+}
