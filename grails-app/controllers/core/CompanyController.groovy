@@ -87,10 +87,13 @@ class CompanyController {
         Integer collectId = params.collectId.toInteger()
         def response = [:]
         withForm {
+            //ID COMPANY LOGGED IN
+            Integer companyId = 1
             Collect collect = Collect.get(collectId)
             if (collect){
                 collect.isCollected = true
                 collect.collectedDate = new Date()
+                collect.company = Company.findById(companyId)
                 def collectedDateWithOutHour = collect.collectedDate.format("dd/MM/yyyy")
                 collect.save(flush: true)
 
