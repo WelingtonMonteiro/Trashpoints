@@ -17,6 +17,17 @@ class User implements Serializable {
 	boolean accountExpired
 	boolean accountLocked
 	boolean passwordExpired
+	Company company
+	Collaborator collaborator
+
+//	static belongsTo = [Company, Collaborator]
+
+	static constraints = {
+		username blank: false, unique: true
+		password blank: false
+		collaborator nullable: true
+		company nullable: true
+	}
 
 	User(String username, String password) {
 		this()
@@ -44,10 +55,7 @@ class User implements Serializable {
 
 	static transients = ['springSecurityService']
 
-	static constraints = {
-		username blank: false, unique: true
-		password blank: false
-	}
+
 
 	static mapping = {
 		password column: '`password`'

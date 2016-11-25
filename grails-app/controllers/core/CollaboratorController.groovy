@@ -6,8 +6,11 @@ import grails.transaction.Transactional
 import org.hibernate.criterion.CriteriaSpecification
 
 @Transactional(readOnly = true)
-@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
+//@Secured(['ROLE_COLLABORATOR'])
+@Secured(['permitAll'])
 class CollaboratorController {
+
+    def springSecurityService
 
     def create() {
         render (view: "create")
@@ -23,10 +26,9 @@ class CollaboratorController {
         Collaborator collaborator = new Collaborator()
         Address addressCollect = new Address()
 
-//        def passwordHash = params.password.encodeAsSHA256()
-//
-//        user.email = params.email
-//        user.password = passwordHash
+//        def passwordHash = params.password.encodeAsSHA256()//
+//        userManager.email = params.email
+//        userManager.password = passwordHash
 
         collaborator.name = params.name
         collaborator.phone = params.phone
@@ -45,7 +47,7 @@ class CollaboratorController {
 
         collaborator.address = addressCollect
 
-//        user.validate()
+//        userManager.validate()
         addressCollect.validate()
         collaborator.validate()
 
@@ -80,7 +82,8 @@ class CollaboratorController {
 
     def myCollections() {
         //ID COLLABORATOR LOGGED IN
-        def collaboratorId = 1
+        def user = springSecurityService.currentUser
+        def collaboratorId = 1//userManager?.collaborator?.id
         def collaboratorCollections = Collaborator.findById(collaboratorId)?.collects?.sort{it.orderDate}
 
         if(collaboratorCollections == null) {

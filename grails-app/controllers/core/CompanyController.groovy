@@ -6,11 +6,27 @@ import grails.transaction.Transactional
 import org.codehaus.groovy.grails.web.servlet.mvc.SynchronizerTokensHolder
 
 @Transactional(readOnly = true)
-@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
+//@Secured(['ROLE_COMPANY_COLLECT'])
+@Secured(['permitAll'])
 class CompanyController {
 
     def create() {
         render(view: "create")
+    }
+
+    private invalidToken(){
+        def response = [:]
+        String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
+        response = [error: 'Invalid_Token', newToken: newToken]
+        render response as JSON
+    }
+
+    private successToken(message){
+        def response = [:]
+        String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
+        response = [success: 'sucesso', newToken: newToken]
+        response += message
+        render response as JSON
     }
 
     @Transactional
@@ -87,7 +103,6 @@ class CompanyController {
     @Transactional
     def markWasCollected() {
         Integer collectId = params.collectId.toInteger()
-        def response = [:]
         withForm {
             //ID COMPANY LOGGED IN
             Integer companyId = 1
@@ -99,14 +114,10 @@ class CompanyController {
                 def collectedDateWithOutHour = collect.collectedDate.format("dd/MM/yyyy")
                 collect.save(flush: true)
 
-                String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
-                response = [success: 'sucesso', collectedDate: collectedDateWithOutHour, newToken: newToken]
-                render response as JSON
+                successToken([collectedDate: collectedDateWithOutHour])
             }
         }.invalidToken{
-            String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
-            response = [error: 'Invalid_Token', newToken: newToken]
-            render response as JSON
+            invalidToken()
         }
 
     }

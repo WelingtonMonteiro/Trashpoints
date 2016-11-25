@@ -7,6 +7,7 @@ class Collaborator {
     Date dateOfBirth
     Boolean isAddressEqual
     Address address
+    User user
 
     static hasMany = [collects: Collect]
 
@@ -16,5 +17,6 @@ class Collaborator {
         photo blank: true, nullable: true, maxSize: 1024 * 1024 * 2 // Limit upload file size to 2MB
         dateOfBirth nullable: false
         address nullable: false
+        user nullable: true
     }
 }

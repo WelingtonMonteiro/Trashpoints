@@ -9,8 +9,9 @@ class Company{
     String phone
     String site
     Address address
+    User user
 
-    static hasMany = [collects: Collect]
+    static hasMany = [collects: Collect/*, users: User*/]
 
     static constraints = {
         identificationNumber blank: false, nullable: false, minSize: 18, maxSize: 18, matches: "\\d{2}.\\d{3}.\\d{3}[/]\\d{4}-\\d{2}", unique: true
@@ -21,5 +22,6 @@ class Company{
         phone blank: false, nullable: false, matches: "\\(\\d{2}\\)\\s\\d{4}-?\\d{4}"
         site blank: true, nullable: true, url: true
         address nullable: true
+        user nullable: true
     }
 }

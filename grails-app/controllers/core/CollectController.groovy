@@ -5,7 +5,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
-@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
+@Secured(['permitAll'])
 class CollectController {
 //// render a file
 // //render(file: new File(absolutePath), fileName: "book.pdf")
@@ -16,7 +16,7 @@ class CollectController {
     }
 
     @Transactional
-    //Todo: mudar a view , remover o form e inserir as tags do grails,
+    //Todo: mudar a view , remover o form e inserir as tags do grails, usar o plugin de upload
     def save() {
         Collect collect = new Collect()
         //ID COLLABORATOR LOGGED IN
@@ -46,7 +46,7 @@ class CollectController {
                 new FileOutputStream('C:/Trashpoints/Uploads/' + fileName).leftShift( params.imageUpload.getInputStream())
                 collect.imageUpload = fileName
             }else{
-                log.error("wrong attachment type [${params.imageUpload.getClass()}]");
+                log.error("wrong attachment type [${params.imageUpload.getClass()}]")
             }
         }
 
@@ -95,7 +95,7 @@ class CollectController {
             response = [success: 'sucesso', collectedDate: collectedDateWithOutHour]
             render response as JSON
         }
-    }*/
+    }
 
     def loadCollectImage() {
         Integer collectId = params.id.toInteger()
@@ -105,7 +105,7 @@ class CollectController {
                 property("imageUpload")
             }
         }
-        def response = ["imagePath": imagePath + '.jpg']
+        def response = ["imagePath": imagePath]
         render response as JSON
     }
 

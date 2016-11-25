@@ -1,7 +1,9 @@
+%{--
+<form action='${request.contextPath}/j_spring_security_check' method='POST' id='frmLogin' name='frmLogin'>
 <div class="row">
     <div class="input-field col s12 m6">
         <i class="material-icons prefix">contact_mail</i>
-        <input id="email" name="email" type="email" class="validate" required/>
+        <input id="email" name="j_username" type="email" class="validate" required/>
         <label for="email">E-mail <span class="red-text">*</span></label>
     </div>
 </div>
@@ -14,11 +16,14 @@
             <i class="fa fa-eye"></i>
         </a>
         <i class="material-icons prefix">lock</i>
-        <input id="password" name="password" type="password" class="validate"
+        <input id="password" name="j_password" type="password" class="validate"
                required minlength="6">
         <label for="password">Senha <span class="red-text">*</span></label>
     </div>
 </div>
+
+    <input type="submit" value="Entrar" />
+</form>
 
 <script type="text/javascript">
 
@@ -30,4 +35,4 @@
         $("#password").attr("type", "password");
     }
 
-</script>
+</script>--}%

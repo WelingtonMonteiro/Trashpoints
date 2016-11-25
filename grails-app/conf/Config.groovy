@@ -13,7 +13,7 @@
 
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
 
-// The ACCEPT header will not be used for content negotiation for user agents containing the following strings (defaults to the 4 major rendering engines)
+// The ACCEPT header will not be used for content negotiation for userManager agents containing the following strings (defaults to the 4 major rendering engines)
 grails.mime.disable.accept.header.userAgents = ['Gecko', 'WebKit', 'Presto', 'Trident']
 grails.mime.types = [ // the first one is the default format
     all:           '*/*', // 'all' maps to '*' or the first available format in withFormat
@@ -99,6 +99,12 @@ environments {
     }
 }
 
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'core.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'core.UserRole'
+grails.plugin.springsecurity.authority.className = 'core.Role'
+
+
 // log4j configuration
 log4j = {
     // Example of changing the log pattern for the default console appender:
@@ -120,28 +126,22 @@ log4j = {
            'net.sf.ehcache.hibernate'
 }
 
-
-// Added by the Spring Security Core plugin:
-grails.plugin.springsecurity.userLookup.userDomainClassName = 'core.User'
-grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'core.UserRole'
-grails.plugin.springsecurity.authority.className = 'core.Role'
-
-
-//grails.plugin.springsecurity.auth.loginFormUrl = '/login'
-//grails.plugin.springsecurity.failureHandler.defaultFailureUrl = '/login'
-//grails.plugin.springsecurity.logout.afterLogoutUrl = '/login'
-grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/index'
+grails.plugin.springsecurity.userManager.loginFormUrl = "/userManager/login"
+//grails.plugin.springsecurity.failureHandler.defaultFailureUrl = '/userManager/login'
+//grails.plugin.springsecurity.logout.afterLogoutUrl = '/userManager/login'
+grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/'
 grails.plugin.springsecurity.successHandler.alwaysUseDefault = false
 grails.plugin.springsecurity.dao.hideUserNotFoundExceptions = false
 grails.plugin.springsecurity.adh.errorPage="/j_spring_security_logout"
 grails.plugin.springsecurity.password.algorithm = 'SHA-256'
 
-//grails.plugin.springsecurity.securityConfigType = "InterceptUrlMap"
-//
-//grails.plugin.springsecurity.interceptUrlMap = [
-//        '/login/**' :['IS_AUTHENTICATED_ANONYMOUSLY'],
-//        '/**': ['IS_AUTHENTICATED_FULLY'],
-//]
+//grails.plugin.springsecurity.securityConfigType = "Annotation"
+grails.plugin.springsecurity.securityConfigType = "InterceptUrlMap"
+
+grails.plugin.springsecurity.interceptUrlMap = [
+        '/userManager/**' :['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/**': ['IS_AUTHENTICATED_FULLY'],
+]
 
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                ['permitAll'],

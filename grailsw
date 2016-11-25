@@ -104,7 +104,7 @@ if [ -z "$GRAILS_HOME" -o ! -d "$GRAILS_HOME" ] ; then
   cd "$SAVED"
 fi
 
-# Warn the user if JAVA_HOME and/or GRAILS_HOME are not set.
+# Warn the userManager if JAVA_HOME and/or GRAILS_HOME are not set.
 if [ -z "$JAVA_HOME" ] ; then
     die "JAVA_HOME environment variable is not set"
 elif [ ! -d "$JAVA_HOME" ] ; then
@@ -288,7 +288,7 @@ if $cygwin; then
 	    SEP="|"
     done
     OURCYGPATTERN="(^($ROOTDIRS))"
-    # Add a user-defined pattern to the cygpath arguments
+    # Add a userManager-defined pattern to the cygpath arguments
     if [ "$GROOVY_CYGPATTERN" != "" ] ; then
     	OURCYGPATTERN="$OURCYGPATTERN|($GROOVY_CYGPATTERN)"
     fi

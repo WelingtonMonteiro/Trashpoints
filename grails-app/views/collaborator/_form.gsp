@@ -5,7 +5,7 @@
 
         <div class="row">
             <div class="input-field col s12 m12">
-                <i class="fa fa-building-o prefix" aria-hidden="true"></i>
+                <i class="material-icons prefix" aria-hidden="true">account_circle</i>
                 <input id="name" name="name" type="text" required minlength="2" class="validate" autofocus="autofocus"/>
                 <label for="name">Nome<span class="red-text">*</span></label>
             </div>
