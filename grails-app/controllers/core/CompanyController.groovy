@@ -131,12 +131,12 @@ class CompanyController {
         render response as JSON
     }
 
-    def list() {
+    /*def list() {
         def companies = Company.createCriteria().list(){
             address {
             }
         }
         render companies as JSON
-    }
+    }*/
 
 }

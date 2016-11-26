@@ -63,15 +63,27 @@ class CompanyControllerSpec extends Specification {
         response.json.error != null
     }
 
-    void "Company mark that was collected one reclycling"() {
+    /*void "Company mark that was collected one reclycling"() {
         when:
         def tokenHolder = SynchronizerTokensHolder.store(session)
+
         params[SynchronizerTokensHolder.TOKEN_URI] = '/company/markWasCollected'
         params[SynchronizerTokensHolder.TOKEN_KEY] = tokenHolder.generateToken(params[SynchronizerTokensHolder.TOKEN_URI])
         params.collectId = "1"
 
         controller.markWasCollected()
         then:
-        response.json.error != null
+        response.json.success != null
+    }*/
+
+    void "Load Collaborator Details"() {
+        when:
+        params.id = "1"
+
+        controller.loadCollaboratorDetails()
+        then:
+        response.json.collaborator != null
+        response.json.address != null
+
     }
 }

@@ -12,7 +12,6 @@ class UserManagerController {
     }
 
     def logout(){
-
         redirect (action: "login")
     }
 }
