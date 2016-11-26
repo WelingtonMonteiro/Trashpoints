@@ -56,7 +56,7 @@
 </form>
 %{--</g:formRemote>--}%
 <div class="row">
-    <div class="col s12 m6">
+    <div class="col s12 m8">
         <div class="card-panel grey lighten-5">
             <i class="material-icons left orange-text">warning</i>
             <span class="black-text">Campos marcados com <span class="red-text">*</span> são obrigatórios</span>

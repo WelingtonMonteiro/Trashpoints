@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="index"/>
+    <meta name="layout" content="main"/>
     <title>Login</title>
 </head>
 <body>
@@ -17,7 +17,7 @@
                             </div>
                         </div>
                     </div>
-
+                    <br />
                     <div id="formAuth">
                         <g:render template="authLogin"></g:render>
                     </div>

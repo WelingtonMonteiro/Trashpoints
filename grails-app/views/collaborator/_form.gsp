@@ -14,7 +14,7 @@
         <div class="row">
             <div class="input-field col s12 m6">
                 <i class="material-icons prefix">today</i>
-                <input id="date" name="dateOfBirth" type="date" placeholder="aa/aa/aaaa" class="validate datepicker"/>
+                <input id="date" name="dateOfBirth" type="date" placeholder="dd/mm/aaaa" class="validate datepicker"/>
                 <label for="date" class="active">Data Nascimento<span class="red-text">*</span></label>
             </div>
         </div>
@@ -86,7 +86,7 @@
 <br/>
 
 <div class="row">
-    <div class="col s12 m6">
+    <div class="col s12 m8">
         <div class="card-panel grey lighten-5">
             <i class="material-icons left orange-text">warning</i>
             <span class="black-text">Campos marcados com <span class="red-text">*</span> são obrigatórios</span>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="_company"/>
+    <meta name="layout" content="main"/>
     <title>Minhas coletas</title>
 </head>
 <body>

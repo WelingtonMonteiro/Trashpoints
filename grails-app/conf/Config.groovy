@@ -128,11 +128,11 @@ log4j = {
 
 grails.plugin.springsecurity.auth.loginFormUrl = "/userManager/login"
 grails.plugin.springsecurity.failureHandler.defaultFailureUrl = '/userManager/login'
-grails.plugin.springsecurity.logout.afterLogoutUrl = '/userManager/login'
+grails.plugin.springsecurity.logout.afterLogoutUrl = '/userManager/logout'
 //grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/'
 grails.plugin.springsecurity.successHandler.alwaysUseDefault = false
 grails.plugin.springsecurity.dao.hideUserNotFoundExceptions = false
-//grails.plugin.springsecurity.adh.errorPage="/j_spring_security_logout"
+grails.plugin.springsecurity.adh.errorPage="/j_spring_security_logout"
 grails.plugin.springsecurity.password.algorithm = 'SHA-256'
 
 grails.plugin.springsecurity.securityConfigType = "Annotation"

@@ -9,7 +9,7 @@ import spock.lang.Specification
  * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
  */
 @TestFor(CompanyController)
-@Mock([Company, Address, Collect])
+@Mock([Company, Address, Collect, Collaborator])
 
 class CompanyControllerSpec extends Specification {
 
@@ -77,6 +77,19 @@ class CompanyControllerSpec extends Specification {
     }*/
 
     void "Load Collaborator Details"() {
+        given:
+        params.name = "Empresa Teste"
+        params.photo = "99.999.999/9999-99"
+        params.dateOfBith = "10/09/2000"
+        params.isAddressEqual = "true"
+        params.zipCode = "12509-330"
+        params.street = "Rua Teste"
+        params.number = "100"
+        params.neighborhood = "Bairro Teste"
+        params.city = "Cidade teste"
+        params.state = "SP"
+        def controllerCollaborator = new CollaboratorController()
+        controllerCollaborator.save()
         when:
         params.id = "1"
 

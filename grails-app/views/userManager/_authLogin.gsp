@@ -1,6 +1,6 @@
 <fieldset>
     <legend><h4 class="header">&nbsp;Login&nbsp;</h4></legend>
-    <form action='${request.contextPath}/j_spring_security_check' method='POST'>
+    <form action='${request.contextPath}/j_spring_security_check' method='POST' class="section">
         <div class="row">
             <div class="input-field col s12">
                 <i class="material-icons prefix">contact_mail</i>

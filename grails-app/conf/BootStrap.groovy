@@ -26,7 +26,7 @@ class BootStrap {
         def adminRole = Role.findByAuthority('ROLE_ADMIN')  ?: new Role('ROLE_ADMIN').save()
 
 
-        //criand usuários
+        //criando usuários
         def user = new User('colaborador@trashpoints.com.br', 'colaborador').save()
         def cCollect = new User('ccoleta@trashpoints.com.br', 'coleta').save()
         def cPartner = new User('cparceiro@trashpoints.com.br', 'parceiro').save()

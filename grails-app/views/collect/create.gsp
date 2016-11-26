@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="_collaborator"/>
+    <meta name="layout" content="main"/>
     <title>Informar coleta</title>
 </head>
 
