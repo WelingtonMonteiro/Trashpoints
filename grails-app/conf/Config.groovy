@@ -126,22 +126,23 @@ log4j = {
            'net.sf.ehcache.hibernate'
 }
 
-grails.plugin.springsecurity.userManager.loginFormUrl = "/userManager/login"
-//grails.plugin.springsecurity.failureHandler.defaultFailureUrl = '/userManager/login'
-//grails.plugin.springsecurity.logout.afterLogoutUrl = '/userManager/login'
-grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/'
+grails.plugin.springsecurity.auth.loginFormUrl = "/userManager/login"
+grails.plugin.springsecurity.failureHandler.defaultFailureUrl = '/userManager/login'
+grails.plugin.springsecurity.logout.afterLogoutUrl = '/userManager/login'
+//grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/'
 grails.plugin.springsecurity.successHandler.alwaysUseDefault = false
 grails.plugin.springsecurity.dao.hideUserNotFoundExceptions = false
-grails.plugin.springsecurity.adh.errorPage="/j_spring_security_logout"
+//grails.plugin.springsecurity.adh.errorPage="/j_spring_security_logout"
 grails.plugin.springsecurity.password.algorithm = 'SHA-256'
 
-//grails.plugin.springsecurity.securityConfigType = "Annotation"
-grails.plugin.springsecurity.securityConfigType = "InterceptUrlMap"
+grails.plugin.springsecurity.securityConfigType = "Annotation"
+//grails.plugin.springsecurity.securityConfigType = "InterceptUrlMap"
 
-grails.plugin.springsecurity.interceptUrlMap = [
-        '/userManager/**' :['IS_AUTHENTICATED_ANONYMOUSLY'],
-        '/**': ['IS_AUTHENTICATED_FULLY'],
-]
+//grails.plugin.springsecurity.interceptUrlMap = [
+//        '/userManager/**' :['IS_AUTHENTICATED_ANONYMOUSLY'],
+//        '/**': ['IS_AUTHENTICATED_FULLY'],
+//]
+
 
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                ['permitAll'],

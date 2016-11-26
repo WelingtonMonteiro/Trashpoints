@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="mainOld"/>
+    <meta name="layout" content="index"/>
     <title>Login</title>
 </head>
 <body>
@@ -52,5 +52,6 @@
     <input type="submit" value="Entrar" />
 </form>
 </body>
---}%
+
 </html>
+--}%

@@ -1,6 +1,6 @@
 <fieldset>
     <legend><h4 class="header">&nbsp;Login&nbsp;</h4></legend>
-    <form action='${request.contextPath}/j_spring_security_check' method='POST' id='frmLogin' name='frmLogin'>
+    <form action='${request.contextPath}/j_spring_security_check' method='POST'>
         <div class="row">
             <div class="input-field col s12">
                 <i class="material-icons prefix">contact_mail</i>
@@ -18,7 +18,7 @@
                 </a>
                 <i class="material-icons prefix">lock</i>
                 <input id="password" name="j_password" type="password" class="validate"
-                       required minlength="6">
+                       required minlength="5">
                 <label for="password">Senha <span class="red-text">*</span></label>
             </div>
         </div>

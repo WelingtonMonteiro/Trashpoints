@@ -11,7 +11,7 @@ class UrlMappings {
         "500"(view:'/error')
 
 
-        "/userManager/$action?" (controller: "userManager")
+//        "/$controller/$action?" (controller: "userManager", action: "login")
 //        "/userManager/$action?"(controller: "userManager", action: "logout")
 
 

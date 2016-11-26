@@ -5,7 +5,8 @@ import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
-@Secured(['permitAll'])
+//@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
+@Secured(['ROLE_COLLABORATOR'])
 class CollectController {
 //// render a file
 // //render(file: new File(absolutePath), fileName: "book.pdf")

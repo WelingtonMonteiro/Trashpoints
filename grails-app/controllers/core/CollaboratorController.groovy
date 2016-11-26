@@ -6,8 +6,8 @@ import grails.transaction.Transactional
 import org.hibernate.criterion.CriteriaSpecification
 
 @Transactional(readOnly = true)
-//@Secured(['ROLE_COLLABORATOR'])
-@Secured(['permitAll'])
+@Secured(['ROLE_COLLABORATOR'])
+//@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
 class CollaboratorController {
 
     def springSecurityService

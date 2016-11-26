@@ -6,8 +6,8 @@ import grails.transaction.Transactional
 import org.codehaus.groovy.grails.web.servlet.mvc.SynchronizerTokensHolder
 
 @Transactional(readOnly = true)
-//@Secured(['ROLE_COMPANY_COLLECT'])
-@Secured(['permitAll'])
+@Secured(['ROLE_COMPANY_COLLECT'])
+//@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
 class CompanyController {
 
     def create() {
