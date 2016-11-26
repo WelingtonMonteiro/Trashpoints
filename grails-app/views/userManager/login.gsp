@@ -1,8 +1,7 @@
-%{--
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="index"/>
+    <meta name="layout" content="mainOld"/>
     <title>Login</title>
 </head>
 <body>
@@ -10,7 +9,7 @@
     <div class="section">
         <div class="container">
             <div class="row">
-                <div class="col s12 offset-m1 m10 offset-l2 l8">
+                <div class="col s12 offset-m2 m8 offset-l3 l6">
                     <div id="divErrorMessage" class="row red-text hide">
                         <div class="col s12">
                             <div class="card-panel grey lighten-5">
@@ -31,8 +30,9 @@
 
 </body>
 </html>
---}%
 
+
+%{--
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,4 +52,5 @@
     <input type="submit" value="Entrar" />
 </form>
 </body>
+--}%
 </html>

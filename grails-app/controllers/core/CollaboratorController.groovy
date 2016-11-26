@@ -16,11 +16,6 @@ class CollaboratorController {
         render (view: "create")
     }
 
-    def list() {
-        def collaborators = Collaborator.list()
-        render collaborators as JSON
-    }
-
     @Transactional
     def save() {
         Collaborator collaborator = new Collaborator()
