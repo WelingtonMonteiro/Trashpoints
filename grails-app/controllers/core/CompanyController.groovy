@@ -10,18 +10,20 @@ import org.codehaus.groovy.grails.web.servlet.mvc.SynchronizerTokensHolder
 //@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
 class CompanyController {
 
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def create() {
         render(view: "create")
     }
 
-    private invalidToken(){
+
+    private invalidToken() {
         def response = [:]
         String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
         response = [error: 'Invalid_Token', newToken: newToken]
         render response as JSON
     }
 
-    private successToken(message){
+    private successToken(message) {
         def response = [:]
         String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
         response = [success: 'sucesso', newToken: newToken]
@@ -29,71 +31,103 @@ class CompanyController {
         render response as JSON
     }
 
-    @Transactional
-    def save() {
-        Address address = new Address()
-
-        address.zipCode = params.zipCode
-        address.street = params.street
-        address.number = params.number
-        address.neighborhood = params.neighborhood
-        address.city = params.city
-        address.state = params.states
-        println(params)
-        Company company = new Company()
-
-        company.companyName = params.companyName
-//        company.email = params.email
-//        def passwordHash = params.password.encodeAsSHA256()
-//        company.password = passwordHash
-        company.identificationNumber = params.identificationNumber
-        company.tradingName = params.tradingName
-        company.segment = params.segment
-        company.typeOfCompany = params.typeOfCompany
-        company.phone = params.phone
-        company.site = params.site
-        company.address = address
-
-        address.validate()
-        company.validate()
-
-        if(company.hasErrors()) {
+    private verifyErrors(InstanceClass) {
+        def isErros = false
+        if (InstanceClass.hasErrors()) {
             def listErrors = []
 
-            company.errors.allErrors.each { error ->
+            InstanceClass.errors.allErrors.each { error ->
                 listErrors += g.message(code: error.defaultMessage, error: error)
             }
 
             def message = [error: listErrors]
             render message as JSON
-        }else
-        if(address.hasErrors()) {
-            def listErrors = []
 
-            address.errors.allErrors.each { error ->
-                listErrors += g.message(code: error.defaultMessage, error: error)
-            }
-
-            def message = [error: listErrors]
-            render message as JSON
-        }else{
-            company.save(flush: true)
-//                redirect(action: "create", controller: "collect")
-
-            def message = [success: 'Dados cadastrais salvos com sucesso']
-            render message as JSON
+            isErros = true
         }
+        isErros
+    }
+
+    @Transactional
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
+    def save() {
+        withForm {
+
+            Address address = new Address()
+            Company company = new Company()
+            User user = new User()
+            def userRole = ""
+
+            user.username = params.j_username
+            user.password = params.j_password
+
+            if(params.typeOfCompany && params.typeOfCompany == "coleta"){
+                userRole = Role.findByAuthority('ROLE_COMPANY_COLLECT')
+            }else{
+                userRole = Role.findByAuthority('ROLE_COMPANY_PARTNER')
+            }
+
+            address.zipCode = params.zipCode
+            address.street = params.street
+            address.number = params.number
+            address.neighborhood = params.neighborhood
+            address.city = params.city
+            address.state = params.states
+
+
+            company.companyName = params.companyName//
+            company.identificationNumber = params.identificationNumber
+            company.tradingName = params.tradingName
+            company.segment = params.segment
+            company.typeOfCompany = params.typeOfCompany
+            company.phone = params.phone
+            company.site = params.site
+
+            company.address = address
+//            company.user = user
+//            user.company = company
+
+            user.validate()
+            address.validate()
+            company.validate()
+
+            def errors = verifyErrors(user) || verifyErrors(company) || verifyErrors(address)
+
+            if (!errors) {
+                company.save(flush: true)
+
+                user.company = company
+
+                user.save(flush: true)
+
+                company.user = user
+
+                company.save(flush: true)
+
+                UserRole.create(user, userRole)
+
+                UserRole.withSession {
+                    it.flush()
+                    it.clear()
+                }
+
+                successToken([success: 'Dados cadastrais salvos com sucesso'])
+            }
+        }.invalidToken {
+            invalidToken()
+        }
+
     }
 
     def myCollections() {
         //ID COMPANY LOGGED IN
         //def companyId = 1
         //def companyCollections = Company.findById(companyId)?.collects.sort{it.orderDate}
-        def companyCollections = Collect.createCriteria().list{
+        def companyCollections = Collect.createCriteria().list {
             order("orderDate")
         }
 
-        if(companyCollections == null) {
+        if (companyCollections == null) {
             render(view: "myCollections", model: ["companyCollections": []])
         } else {
             render(view: "myCollections", model: ["companyCollections": companyCollections])
@@ -107,7 +141,7 @@ class CompanyController {
             //ID COMPANY LOGGED IN
             Integer companyId = 1
             Collect collect = Collect.get(collectId)
-            if (collect){
+            if (collect) {
                 collect.isCollected = true
                 collect.collectedDate = new Date()
                 collect.company = Company.findById(companyId)
@@ -116,7 +150,7 @@ class CompanyController {
 
                 successToken([collectedDate: collectedDateWithOutHour])
             }
-        }.invalidToken{
+        }.invalidToken {
             invalidToken()
         }
 

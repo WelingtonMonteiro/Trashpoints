@@ -1,5 +1,5 @@
-<g:formRemote name="formClient" url="[controller: 'collaborator', action: 'save']" onSuccess="showMessage(data)"
-              class="col s12">
+<g:form name="formClient" controller="collaborator" action="save" onSuccess="showMessage(data)" useToken="true">
+
     <fieldset>
         <legend><h5 class="header">&nbsp;Dados do Colaborador&nbsp;</h5></legend>
 
@@ -28,15 +28,15 @@
         </div>
 
     </fieldset>
-    %{--<br/>--}%
-    %{--<fieldset>--}%
-        %{--<legend><h5 class="header">&nbsp;Dados do Login&nbsp;</h5></legend>--}%
+    <br/>
+    <fieldset>
+        <legend><h5 class="header">&nbsp;Dados do Login&nbsp;</h5></legend>
 
-        %{--<div id="formUser">--}%
-            %{--<g:render template="../layouts/userLogin"></g:render>--}%
-        %{--</div>--}%
+        <div id="formUser">
+            <g:render template="../userManager/authLogin"></g:render>
+        </div>
 
-    %{--</fieldset>--}%
+    </fieldset>
 
     <br/>
     <fieldset>
@@ -47,6 +47,7 @@
         </div>
 
     </fieldset>
+
     <br>
     <fieldset>
         <legend><h5 class="header">&nbsp;Endereço Residencial&nbsp;</h5></legend>
@@ -71,9 +72,12 @@
 
     <div class="row">
         <div class="input-field col s12">
-            <button class="btn-large waves-effect waves-light blue darken-3" type="submit" name="submit">
-                <i class="material-icons left">check</i>Cadastrar
-            </button>
+            <g:submitToRemote url="[controller: 'collaborator', action: 'save']"
+                              class="btn-large waves-effect waves-light blue darken-3" onSuccess="showMessage(data)"
+                              value="Cadastrar">
+                <i class="material-icons left">check</i>
+            </g:submitToRemote>
+
 
             <button class="btn-large waves-effect waves-light grey right" type="reset" id="btnClear">
                 <i class="material-icons left">delete_sweep</i>Limpar
@@ -81,7 +85,7 @@
 
         </div>
     </div>
-</g:formRemote>
+</g:form>
 
 <br/>
 
@@ -100,7 +104,7 @@
 
     $('.datepicker').pickadate({
         selectMonths: true, // Creates a dropdown to control month
-        selectYears:  100,// Creates a dropdown of 15 years to control year
+        selectYears: 100,// Creates a dropdown of 15 years to control year
         format: 'dd/mm/yyyy',
 //        min: 30, //get last 30 day range
 //        max: true,
@@ -149,14 +153,16 @@
     }
 
     function clearSuccessMessage() {
-        setTimeout(function(){
-            $('#divSuccessMessage span#successMessage').html("")
+        setTimeout(function () {
+            $('#divSuccessMessage').html("")
         }, 3000);
 
     }
 
     function clearInputs() {
         $('#btnClear').click()
+        $("#password").val("");
+        $("#username").val("");
         Materialize.updateTextFields();
     }
 

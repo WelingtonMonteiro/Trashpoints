@@ -1,5 +1,6 @@
 import core.Address
 import core.Collaborator
+import core.Company
 import core.MaterialType
 import core.Role
 import core.User
@@ -11,26 +12,81 @@ class BootStrap {
 
     def init = { servletContext ->
         //criando os materiais recicláveis
-        MaterialType.findByName('PLÁSTICO')  ?: new MaterialType(name: 'PLÁSTICO').save()
-        MaterialType.findByName('PAPEL')  ?: new MaterialType(name: 'PAPEL').save()
-        MaterialType.findByName('VIDRO')  ?: new MaterialType(name: 'VIDRO').save()
-        MaterialType.findByName('METAL')  ?: new MaterialType(name: 'METAL').save()
-        MaterialType.findByName('ALUMÍNIO')  ?:  new MaterialType(name: 'ALUMÍNIO').save()
-        MaterialType.findByName('ORGÂNICO')  ?: new MaterialType(name: 'ORGÂNICO').save()
-        MaterialType.findByName('QUÍMICO')  ?: new MaterialType(name: 'QUÍMICO').save()
+        MaterialType.findByName('PLÁSTICO') ?: new MaterialType(name: 'PLÁSTICO').save()
+        MaterialType.findByName('PAPEL') ?: new MaterialType(name: 'PAPEL').save()
+        MaterialType.findByName('VIDRO') ?: new MaterialType(name: 'VIDRO').save()
+        MaterialType.findByName('METAL') ?: new MaterialType(name: 'METAL').save()
+        MaterialType.findByName('ALUMÍNIO') ?: new MaterialType(name: 'ALUMÍNIO').save()
+        MaterialType.findByName('ORGÂNICO') ?: new MaterialType(name: 'ORGÂNICO').save()
+        MaterialType.findByName('QUÍMICO') ?: new MaterialType(name: 'QUÍMICO').save()
 
         //criando permissões
-        def userRole = Role.findByAuthority('ROLE_COLLABORATOR')  ?: new Role('ROLE_COLLABORATOR').save()
-        def companyColRole = Role.findByAuthority('ROLE_COMPANY_COLLECT')  ?: new Role('ROLE_COMPANY_COLLECT').save()
-        def companyPartColRole = Role.findByAuthority('ROLE_COMPANY_PARTNER')  ?: new Role('ROLE_COMPANY_PARTNER').save()
-        def adminRole = Role.findByAuthority('ROLE_ADMIN')  ?: new Role('ROLE_ADMIN').save()
+        def userRole = Role.findByAuthority('ROLE_COLLABORATOR') ?: new Role('ROLE_COLLABORATOR').save()
+        def companyColRole = Role.findByAuthority('ROLE_COMPANY_COLLECT') ?: new Role('ROLE_COMPANY_COLLECT').save()
+        def companyPartColRole = Role.findByAuthority('ROLE_COMPANY_PARTNER') ?: new Role('ROLE_COMPANY_PARTNER').save()
+        def adminRole = Role.findByAuthority('ROLE_ADMIN') ?: new Role('ROLE_ADMIN').save()
 
+        def collaborator = Collaborator.findByName("welington monteiro") ?:
+                new Collaborator(
+                        name: "welington monteiro",
+                        phone: "(11) 1111-1111",
+                        photo: "",
+                        isAddressEqual: true,
+                        dateOfBirth: new Date()).save()
 
-        //criando usuários
-        def user = new User('colaborador@trashpoints.com.br', 'colaborador').save()
-        def cCollect = new User('ccoleta@trashpoints.com.br', 'coleta').save()
-        def cPartner = new User('cparceiro@trashpoints.com.br', 'parceiro').save()
+        def companyCollect = Company.findByIdentificationNumber("11.111.111/1111-11") ?:
+                new Company(
+                        companyName: "Empresa Coletora",
+                        identificationNumber: "11.111.111/1111-11",
+                        tradingName: "Coletora",
+                        segment: "reciclagem de lixo",
+                        typeOfCompany: "coleta",
+                        phone: "(11) 1111-1111",
+                        site: "http://www.dsdsds.com.br").save()
+
+        def companyPartner = Company.findByIdentificationNumber("22.222.222/2222-22") ?:
+                new Company(
+                        companyName: "Empresa Parceira",
+                        identificationNumber: "22.222.222/2222-22",
+                        tradingName: "Parceira",
+                        segment: "comercio de produtos",
+                        typeOfCompany: "parceira",
+                        phone: "(22) 2222-2222",
+                        site: "http://www.dsdsds.com.br").save()
+
+        //criando usuários e ralcionando com o tipos
+        def user = User.findByUsername('colaborador@trashpoints.com.br') ?
+                User.findByUsername('colaborador@trashpoints.com.br'):
+                new User('colaborador@trashpoints.com.br', 'colaborador')
+
+        user.collaborator = collaborator
+        user.save()
+
+        def cCollect = User.findByUsername('ccoleta@trashpoints.com.br') ?
+                User.findByUsername('ccoleta@trashpoints.com.br') :
+                new User('ccoleta@trashpoints.com.br', 'coleta')
+
+        cCollect.company = companyCollect
+        cCollect.save()
+
+        def cPartner = User.findByUsername('cparceiro@trashpoints.com.br') ?
+                User.findByUsername('cparceiro@trashpoints.com.br') :
+                new User('cparceiro@trashpoints.com.br', 'parceiro')
+
+        cPartner.company = companyPartner
+        cPartner.save()
+
         def admin = new User('admin@trashpoints.com.br', 'admin').save()
+
+        //salvando relacionamento entre usuarios e os tipos de usuarios
+        companyPartner.user = cPartner
+        companyPartner.save()
+
+        companyCollect.user = cCollect
+        companyCollect.save()
+
+        collaborator.user = user
+        collaborator.save()
 
         //definindo as permissões para cada usuario
         UserRole.create user, userRole
@@ -39,11 +95,12 @@ class BootStrap {
         UserRole.create admin, adminRole
 
 
-
         UserRole.withSession {
             it.flush()
             it.clear()
         }
+
+
     }
 
     def destroy = {

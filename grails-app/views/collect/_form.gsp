@@ -6,8 +6,8 @@
         <label for="orderDate" class="active">Data da Coleta <span class="red-text">*</span></label>
     </div>
 </div>
-<form name="formCollect" action="save" onSuccess="showMessage(data)" enctype="multipart/form-data" method="POST">
-%{--<g:formRemote name="formCollect" url="[controller:'collect', action:'save']" onSuccess="showMessage(data)" class="col s12" enctype="multipart/form-data" method="POST">--}%
+%{--<form name="formCollect" action="save" onSuccess="showMessage(data)" enctype="multipart/form-data" method="POST" useToken="true">--}%
+   <g:form name="formCollect" controller="collect" action="save" enctype="multipart/form-data" useToken="true">
     <div class="row">
         <div class="input-field col s12 m12">
             <h5>Selecione um ou mais tipos da coleta:</h5>
@@ -45,16 +45,17 @@
 
     <div class="row">
         <div class="col s12">
-            <button class="btn-large waves-effect waves-light blue darken-3" type="submit" name="submit">
-                <i class="material-icons left">check</i>Enviar
-            </button>
+            <g:submitToRemote url="[controller: 'collect', action: 'save']"
+                              class="btn-large waves-effect waves-light blue darken-3" onSuccess="showMessage(data)"
+                              value="Cadastrar">
+                <i class="material-icons left"></i>
+            </g:submitToRemote>
             <button class="btn-large waves-effect waves-light grey right" type="reset" id="btnClear">
                 <i class="material-icons left">delete_sweep</i>Limpar
             </button>
         </div>
     </div>
-</form>
-%{--</g:formRemote>--}%
+</g:form>
 <div class="row">
     <div class="col s12 m8">
         <div class="card-panel grey lighten-5">
@@ -103,7 +104,7 @@
 
     function clearSuccessMessage() {
         setTimeout(function(){
-            $('#divSuccessMessage span#successMessage').html("")
+            $('#divSuccessMessage').html("")
         }, 3000);
 
     }
@@ -122,6 +123,3 @@
     });
 
 </script>
-
-
-

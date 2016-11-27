@@ -4,6 +4,7 @@
     <meta name="layout" content="main"/>
     <title>Login</title>
 </head>
+
 <body>
 <main>
     <div class="section">
@@ -17,16 +18,32 @@
                             </div>
                         </div>
                     </div>
-                    <br />
+                    <br/>
+
                     <div id="formAuth">
-                        <g:render template="authLogin"></g:render>
+                        <fieldset>
+                            <legend><h4 class="header">&nbsp;Login&nbsp;</h4></legend>
+
+                            <form action='${request.contextPath}/j_spring_security_check' method='POST' class="section">
+                                <g:render template="authLogin"></g:render>
+
+                                <div class="row">
+                                    <div class="input-field col s12 center">
+                                        <button class="btn-large waves-effect waves-light blue darken-3" type="submit"
+                                                name="submit">
+                                            <i class="fa fa-sign-in left"></i>Entrar
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </fieldset>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </main>
-
 
 </body>
 </html>
