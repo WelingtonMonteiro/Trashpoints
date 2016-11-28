@@ -259,10 +259,7 @@
                     Materialize.toast("Salvo com sucesso", 3000);
                     disabledCheckBoxClicked(collectId)
                     $("#collectedDate" + collectId).text(data.collectedDate)
-                    $("#SYNCHRONIZER_TOKEN").val(data.newToken);
                 }
-            },
-            error: function (data) {
                 $("#SYNCHRONIZER_TOKEN").val(data.newToken);
             }
         });

@@ -148,12 +148,14 @@ class CollectController {
         render response as JSON
     }
 
-    def list() {
+    /*def list() {
         //ID COLLABORATOR LOGGED IN
         def collaboratorId = 1
         def collaboratorCollections = Collaborator.get(collaboratorId)?.collects
 
         render collaboratorCollections as JSON
-    }
+    }*/
+
+
 
 }

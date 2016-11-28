@@ -64,6 +64,14 @@ class CompanyControllerSpec extends Specification {
     }
 
     /*void "Company mark that was collected one reclycling"() {
+        given:
+        Company company = new Company(identificationNumber: "99.999.999/9999-99", companyName: "Empresa Teste",
+                tradingName: "Empresa Teste", segment: "Segmento Teste", typeOfCompany: "coleta", phone: "(99) 9999-9999")
+
+        Collaborator collaborator = new Collaborator(name: "joão", dateOfBirth: "10/09/2000", phone: "(99) 9999-9999")
+
+        Collect collect = new Collect(id: 1, orderDate: new Date(), collectedDate: new Date(),
+                imageUpload: "teste.png", isCollected: true, collaborator: collaborator)
         when:
         def tokenHolder = SynchronizerTokensHolder.store(session)
 
@@ -76,17 +84,17 @@ class CompanyControllerSpec extends Specification {
         response.json.success != null
     }*/
 
-    void "Load Collaborator Details"() {
+    /*void "Load Collaborator Details"() {
         given:
-        params.name = "Empresa Teste"
-        params.photo = "99.999.999/9999-99"
+        params.name = "João"
+        params.photo = "teste.png"
         params.dateOfBith = "10/09/2000"
         params.isAddressEqual = "true"
         params.zipCode = "12509-330"
         params.street = "Rua Teste"
         params.number = "100"
         params.neighborhood = "Bairro Teste"
-        params.city = "Cidade teste"
+        params.city = "Cidade Teste"
         params.state = "SP"
         def controllerCollaborator = new CollaboratorController()
         controllerCollaborator.save()
@@ -98,5 +106,21 @@ class CompanyControllerSpec extends Specification {
         response.json.collaborator != null
         response.json.address != null
 
+    }*/
+
+    void "Company Collections empty"() {
+        when:
+        controller.myCollections()
+        then:
+        view == "/company/myCollections"
+        model.companyCollections == []
     }
+
+    /*void "Company Collections with datas"() {
+        when:
+        controller.myCollections()
+        then:
+        view == "/company/myCollections"
+        model.companyCollections != null
+    }*/
 }
