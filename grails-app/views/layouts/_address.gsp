@@ -8,7 +8,7 @@
         </div>
 
         <div class="input-field col s12 m4">
-            <select id="states" disabled required class="validate browser-default" name="state">
+            <select id="states" disabled required class="validate browser-default" name="states">
                 <option value="" disabled selected>Selecione</option>
                 <option value="AC">AC</option>
                 <option value="AL">AL</option>
@@ -146,6 +146,9 @@
                             $("#zipCodeErrorMessage").text("CEP não encontrado.");
                             $(".preloader-wrapper").hide();
                         }
+                        <sec:ifLoggedIn>
+                            $('#companyName').focus();
+                        </sec:ifLoggedIn>
                     });
                 }
                 else {
@@ -161,6 +164,12 @@
             }
 
         });
+        <sec:ifLoggedIn>
+            debugger;
+            $('#zipCode').val('${currentAddress.zipCode}');
+            $('#number').val('${currentAddress.number}');
+            $('#zipCode').trigger('blur');
+        </sec:ifLoggedIn>
 
     });
 

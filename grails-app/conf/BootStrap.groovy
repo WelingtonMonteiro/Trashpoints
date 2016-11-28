@@ -42,7 +42,18 @@ class BootStrap {
                         segment: "reciclagem de lixo",
                         typeOfCompany: "coleta",
                         phone: "(11) 1111-1111",
-                        site: "http://www.dsdsds.com.br").save()
+                        site: "http://www.dsdsds.com.br",
+                        address: new Address(
+                                city: "Lorena",
+                                state: "SP",
+                                zipCode: "12602-010",
+                                latitude: 0,
+                                longitude: 0,
+                                neighborhood: "Cabelinha",
+                                street: "Rua Dr. Paulo Cardoso",
+                                number: 123
+                        )).save()
+
 
         def companyPartner = Company.findByIdentificationNumber("22.222.222/2222-22") ?:
                 new Company(
@@ -52,7 +63,17 @@ class BootStrap {
                         segment: "comercio de produtos",
                         typeOfCompany: "parceira",
                         phone: "(22) 2222-2222",
-                        site: "http://www.dsdsds.com.br").save()
+                        site: "http://www.dsdsds.com.br",
+                        address: new Address(
+                                city: "Lorena",
+                                state: "SP",
+                                zipCode: "12602-010",
+                                latitude: 0,
+                                longitude: 0,
+                                neighborhood: "Cabelinha",
+                                street: "Rua Dr. Paulo Cardoso",
+                                number: 456
+                        )).save()
 
         //criando usuários e ralcionando com o tipos
         def user = User.findByUsername('colaborador@trashpoints.com.br') ?

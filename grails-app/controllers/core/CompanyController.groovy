@@ -10,6 +10,8 @@ import org.codehaus.groovy.grails.web.servlet.mvc.SynchronizerTokensHolder
 //@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
 class CompanyController {
 
+    transient springSecurityService
+
     @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def create() {
         render(view: "create")
@@ -172,5 +174,53 @@ class CompanyController {
         }
         render companies as JSON
     }*/
+
+    def editCompany(){
+        User currentUser = springSecurityService.currentUser as User
+        // TODO: verificar no contexto do Spring como atualizar o vínculo entre usuário e companhia
+        Company currentCompany = currentUser.company
+        currentCompany = Company.findById(currentCompany.id)
+        render(view: "edit", model: ["currentCompany" : currentCompany])
+    }
+
+    @Transactional
+    def saveEditCompany(){
+        // TODO: controlar transação entre companhia e endereço
+        withForm {
+            Company company = Company.get(params.id)
+            Address address = Address.get(company.addressId)
+            address.zipCode = params.zipCode
+            address.street = params.street
+            address.number = params.number
+            address.neighborhood = params.neighborhood
+            address.city = params.city
+            address.state = params.states
+            company.companyName = params.companyName
+            company.identificationNumber = params.identificationNumber
+            company.tradingName = params.tradingName
+            company.segment = params.segment
+            company.typeOfCompany = params.typeOfCompany
+            company.phone = params.phone
+            company.site = params.site
+            address.validate()
+            company.validate()
+            def errors = verifyErrors(company) || verifyErrors(address)
+            if (!errors) {
+                try {
+                    address.save(flush: true)
+                    company.address = address
+                    company.save(flush: true)
+                    successToken([success: 'Dados cadastrais salvos com sucesso'])
+                } catch (Exception ex){
+                    def response = [:]
+                    String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
+                    response = [error: ex.message, newToken: newToken]
+                    render response as JSON
+                }
+            }
+        }.invalidToken {
+            invalidToken()
+        }
+    }
 
 }
