@@ -1,4 +1,3 @@
-
 <div class="row">
     <div class="input-field col s12 m6">
         <i class="material-icons prefix">today</i>
@@ -7,7 +6,7 @@
     </div>
 </div>
 %{--<form name="formCollect" action="save" onSuccess="showMessage(data)" enctype="multipart/form-data" method="POST" useToken="true">--}%
-   <g:form name="formCollect" controller="collect" action="save" enctype="multipart/form-data" useToken="true">
+<g:form   name="formCollect" controller="collect"  action="save"  useToken="true" enctype="multipart/form-data">
     <div class="row">
         <div class="input-field col s12 m12">
             <h5>Selecione um ou mais tipos da coleta:</h5>
@@ -19,15 +18,19 @@
             </g:each>
         </div>
     </div>
+
     <div class="row">
         <div class="input-field col s12 m9">
             <br/>
+
             <p>
+
             <div class="file-field input-field">
                 <div class="btn blue darken-3">
                     <i class="material-icons left">add_a_photo</i>Imagem
                     <input type="file" id="imageUpload" name="imageUpload">
                 </div>
+
                 <div class="file-path-wrapper">
                     <input class="file-path validate" type="text" placeholder="Envie uma imagen da sua coleta">
                 </div>
@@ -45,17 +48,21 @@
 
     <div class="row">
         <div class="col s12">
-            <g:submitToRemote url="[controller: 'collect', action: 'save']"
-                              class="btn-large waves-effect waves-light blue darken-3" onSuccess="showMessage(data)"
-                              value="Cadastrar">
-                <i class="material-icons left"></i>
-            </g:submitToRemote>
+            <button class="btn-large waves-effect waves-light blue darken-3" type="submit" name="submit">
+                <i class="material-icons left">check</i>Cadastrar
+            </button>
+            %{--<g:submitToRemote url="[controller: 'collect', action: 'save', format:'multipartForm']"--}%
+                              %{--class="btn-large waves-effect waves-light blue darken-3" onSuccess="showMessage(data)"--}%
+                              %{--value="Cadastrar">--}%
+                %{--<i class="material-icons left"></i>--}%
+            %{--</g:submitToRemote>--}%
             <button class="btn-large waves-effect waves-light grey right" type="reset" id="btnClear">
                 <i class="material-icons left">delete_sweep</i>Limpar
             </button>
         </div>
     </div>
-</g:form>
+%{--</form>--}%
+</g:form >
 <div class="row">
     <div class="col s12 m8">
         <div class="card-panel grey lighten-5">
@@ -67,10 +74,29 @@
 
 <script type="text/javascript">
 
+    function formData(){
+        return new FormData($("#imageUpload").val())
+    }
+    //enviando arquivo via form/data
+    $('#submit').click(function(){
+        var oData = new FormData(document.forms.namedItem("formCollect"));
+        var url="${createLink(controller: 'collect', action: 'save')} ";
+        $.ajax({
+            url:url,
+            type:'POST',
+            data:oData,
+            processData: false,  // tell jQuery not to process the data
+            contentType: false ,
+            success:function (data) {
+                showMessage(data)
+            }
+        });
+    });
+
     function showMessage(data) {
         clearErrorMessage()
 
-        if(data.error){
+        if (data.error) {
             $('#divErrorMessage').removeClass("hide")
             var errors = data.error
             $.each(errors, function (key, value) {
@@ -103,7 +129,7 @@
     }
 
     function clearSuccessMessage() {
-        setTimeout(function(){
+        setTimeout(function () {
             $('#divSuccessMessage').html("")
         }, 3000);
 

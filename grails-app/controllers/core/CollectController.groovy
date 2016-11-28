@@ -4,6 +4,8 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 import org.codehaus.groovy.grails.web.servlet.mvc.SynchronizerTokensHolder
+import org.springframework.web.multipart.MultipartFile
+import org.springframework.web.multipart.MultipartHttpServletRequest
 
 @Transactional(readOnly = true)
 //@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
@@ -11,6 +13,8 @@ import org.codehaus.groovy.grails.web.servlet.mvc.SynchronizerTokensHolder
 class CollectController {
 //// render a file
 // //render(file: new File(absolutePath), fileName: "book.pdf")
+
+    private static final acceptImages = ['image/png', 'image/jpeg', 'image/gif']
 
     private invalidToken(message) {
         def response = [:]
@@ -28,6 +32,17 @@ class CollectController {
         if (message)
             response += message
         render response as JSON
+    }
+
+    private successTokenRedirect(message) {
+        def response = [:]
+        String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
+        response = [success: 'sucesso', newToken: newToken]
+        if (message)
+            response += message
+        response as JSON
+
+        redirect(action: 'create', message: message)
     }
 
     private verifyErrors(InstanceClass) {
@@ -48,8 +63,35 @@ class CollectController {
         render(view: "create", model: [materialTypes: materialTypeList])
     }
 
+    def upload(imageInstance) {
+
+        def nameUpload = java.util.UUID.randomUUID().toString()
+        imageInstance.imageUpload = nameUpload
+
+        def f = params.imageUpload
+
+        nameUpload = nameUpload + "." + f.contentType.replace("image/","")
+
+        // List of  mime-types
+        if (!acceptImages.contains(f.getContentType())) {
+
+            redirect(action: 'create')
+            return
+        }
+
+        if (!f.empty) {
+            f.transferTo(new File("web-app/images/uploads/${nameUpload}"))
+
+        } else {
+            print "não foi possível transferir o arquivo"
+
+            redirect(action: 'create')
+            return
+        }
+    }
+
+
     @Transactional
-    //Todo: mudar a view , remover o form e inserir as tags do grails, usar o plugin de upload
     def save() {
         withForm {
             Collect collect = new Collect()
@@ -73,18 +115,20 @@ class CollectController {
                 MaterialType m = MaterialType.findById(materialTypeId)
                 collect.addToMaterialTypes(m)
             }
-            collect.imageUpload = null
+
+            upload(collect)
+
 
             // File Upload
-            if (params.imageUpload) {
-                if (params.imageUpload instanceof org.springframework.web.multipart.commons.CommonsMultipartFile) {
-                    def fileName = java.util.UUID.randomUUID().toString()
-                    new FileOutputStream('C:/Trashpoints/Uploads/' + fileName).leftShift(params.imageUpload.getInputStream())
-                    collect.imageUpload = fileName
-                } else {
-                    log.error("wrong attachment type [${params.imageUpload.getClass()}]")
-                }
-            }
+//            if (params.imageUpload) {
+//                if (params.imageUpload instanceof org.springframework.web.multipart.commons.CommonsMultipartFile) {
+//                    def fileName = java.util.UUID.randomUUID().toString()
+//                    new FileOutputStream('C:/Trashpoints/Uploads/' + fileName).leftShift(params.imageUpload.getInputStream())
+//                    collect.imageUpload = fileName
+//                } else {
+//                    log.error("wrong attachment type [${params.imageUpload.getClass()}]")
+//                }
+//            }
 
             collect.validate()
 
@@ -96,7 +140,7 @@ class CollectController {
 //            message as JSON
 //            render(view: 'create', message: message, model: [materialTypes: MaterialType.list()])
 
-                successToken([success: "Dados para coleta salvos com sucesso!"])
+                successTokenRedirect([success: "Dados para coleta salvos com sucesso!"])
             }
         }.invalidToken {
             invalidToken("")

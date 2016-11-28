@@ -57,8 +57,6 @@ grails.project.dependency.resolution = {
         //Plugin Spring Security Core
         compile "org.grails.plugins:spring-security-core:2.0.0"
 
-        //plugin Ajax Uploader
-        compile "org.grails.plugins:ajax-uploader:1.1"
 
         // plugins for the build system only
         build ":tomcat:7.0.52.1"
