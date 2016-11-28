@@ -66,21 +66,21 @@ class CollectController {
     def upload(imageInstance) {
 
         def nameUpload = java.util.UUID.randomUUID().toString()
-        imageInstance.imageUpload = nameUpload
 
-        def f = params.imageUpload
-
-        nameUpload = nameUpload + "." + f.contentType.replace("image/","")
+        def file = params.imageUpload
 
         // List of  mime-types
-        if (!acceptImages.contains(f.getContentType())) {
+        if (!acceptImages.contains(file.getContentType())) {
 
             redirect(action: 'create')
             return
         }
 
-        if (!f.empty) {
-            f.transferTo(new File("web-app/images/uploads/${nameUpload}"))
+        if (!file.empty) {
+            nameUpload = nameUpload + "." + file.contentType.replace("image/","")
+            imageInstance.imageUpload = nameUpload
+
+            file.transferTo(new File("web-app/images/uploads/${nameUpload}"))
 
         } else {
             print "não foi possível transferir o arquivo"
@@ -149,37 +149,7 @@ class CollectController {
 
     }
 
-    def myCollections() {
-        //ID COLLABORATOR LOGGED IN
-        def collaboratorId = 1
-        def collaboratorCollections = Collaborator.findById(collaboratorId)?.collects?.sort { it.orderDate }
-
-        if (collaboratorCollections == null) {
-            render(view: "myCollections", model: ["collaboratorCollections": []])
-        } else {
-            render(view: "myCollections", model: ["collaboratorCollections": collaboratorCollections])
-        }
-    }
-
-    def markWasCollected() {
-        withForm {
-            def collectId = params.id
-            def response = [:]
-
-            Collect collect = Collect.get(collectId)
-            if (collect) {
-                collect.isCollected = true
-                collect.collectedDate = new Date()
-                def collectedDateWithOutHour = collect.collectedDate.format("dd/MM/yyyy")
-                collect.save(flush: true)
-
-                successToken([collectedDate: collectedDateWithOutHour])
-            }
-        }.invalidToken {
-            invalidToken("")
-        }
-    }
-
+    @Secured(['ROLE_COLLABORATOR', 'ROLE_COMPANY_COLLECT'])
     def loadCollectImage() {
         Integer collectId = params.id.toInteger()
         def imagePath = Collect.createCriteria().get {

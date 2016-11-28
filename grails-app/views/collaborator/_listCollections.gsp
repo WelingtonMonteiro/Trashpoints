@@ -192,11 +192,13 @@
                 $("#collectImage").html("")
 
                 if (data.imagePath) {
-                    var imagePath = "<img src='" + data.imagePath +"' style='max-height: 168px;'>"
-                    $("#collectImage").append(imagePath)
+                    var UPLOAD_FOLDER_PATH = "/Trashpoints/images/uploads/" + data.imagePath;
+
+                    var imageUpload = "<img src='" + UPLOAD_FOLDER_PATH +"' style='max-height: 284px;'>"
+                    $("#collectImage").append(imageUpload)
                 }else{
-                    var imagePath = "<i class='fa fa-file-image-o fa-5x center-align'></i>"
-                    $("#collectImage").append(imagePath)
+                    var imageUpload = "<i class='fa fa-file-image-o fa-5x center-align'></i>"
+                    $("#collectImage").append(imageUpload)
                 }
             },
             complete: function () {
@@ -218,18 +220,19 @@
                 var company = data.company
                 var address = data.address
 
-                if (data.company) {
+                if (company) {
                     $("#companyDetails #companyName").text(company.companyName)
                     $("#companyDetails #tradingName").text(company.tradingName)
                     $("#companyDetails #phone").text(company.phone)
                     $("#companyDetails #site").text(company.site)
-
-                    $("#companyDetails #zipCode").text(address.zipCode)
-                    $("#companyDetails #street").text(address.street)
-                    $("#companyDetails #number").text(address.number)
-                    $("#companyDetails #neighborhood").text(address.neighborhood)
-                    $("#companyDetails #city").text(address.city)
-                    $("#companyDetails #state").text(address.state)
+                }
+                if (address){
+                    $("#collaboratorDetails span#zipCode").text(address.zipCode)
+                    $("#collaboratorDetails span#street").text(address.street)
+                    $("#collaboratorDetails span#number").text(address.number)
+                    $("#collaboratorDetails span#neighborhood").text(address.neighborhood)
+                    $("#collaboratorDetails span#city").text(address.city)
+                    $("#collaboratorDetails span#state").text(address.state)
                 }
             },
             complete: function () {

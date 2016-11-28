@@ -185,11 +185,12 @@
                 $("#collectImage").html("")
 
                 if (data.imagePath) {
-                    var imagePath = "<img src='" + data.imagePath +"' style='max-height: 168px;'>"
-                    $("#collectImage").append(imagePath)
+                    var UPLOAD_FOLDER_PATH = "/Trashpoints/images/uploads/" + data.imagePath;
+                    var imageUpload = "<img src='" + UPLOAD_FOLDER_PATH +"' style='max-height: 284px;'>";
+                    $("#collectImage").append(imageUpload)
                 }else{
-                    var imagePath = "<i class='fa fa-file-image-o fa-5x center-align'></i>"
-                    $("#collectImage").append(imagePath)
+                    var imageUpload = "<i class='fa fa-file-image-o fa-5x center-align'></i>"
+                    $("#collectImage").append(imageUpload)
                 }
             },
             complete: function () {
@@ -219,10 +220,11 @@
                 var collaborator = data.collaborator
                 var address = data.address
 
-                if (data.collaborator) {
+                if (collaborator) {
                     $("#collaboratorDetails span#name").text(collaborator.name)
                     $("#collaboratorDetails span#phone").text(collaborator.phone)
-
+                }
+                if (address){
                     $("#collaboratorDetails span#zipCode").text(address.zipCode)
                     $("#collaboratorDetails span#street").text(address.street)
                     $("#collaboratorDetails span#number").text(address.number)
@@ -234,6 +236,7 @@
             complete: function () {
                 $(".preloader-wrapper").hide();
             }
+
         });
     }
 
