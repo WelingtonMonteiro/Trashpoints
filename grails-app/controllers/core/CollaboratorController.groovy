@@ -8,7 +8,6 @@ import org.hibernate.criterion.CriteriaSpecification
 
 @Transactional(readOnly = true)
 @Secured(['ROLE_COLLABORATOR'])
-//@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
 class CollaboratorController {
 
     def springSecurityService
@@ -28,8 +27,9 @@ class CollaboratorController {
     private successToken(message) {
         def response = [:]
         String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
-        response = [success: 'sucesso', newToken: newToken]
-        response += message
+        response = [success: 'Salvo com sucesso', newToken: newToken]
+        if (message)
+            response += message
         render response as JSON
     }
 
@@ -42,7 +42,8 @@ class CollaboratorController {
                 listErrors += g.message(code: error.defaultMessage, error: error)
             }
 
-            def message = [error: listErrors]
+            String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
+            def message = [error: listErrors, newToken: newToken]
             render message as JSON
 
             isErros = true
@@ -59,7 +60,6 @@ class CollaboratorController {
             User user = new User()
             def userRole = Role.findByAuthority('ROLE_COLLABORATOR')
 
-
             user.username = params.j_username
             user.password = params.j_password
 
@@ -67,14 +67,15 @@ class CollaboratorController {
             collaborator.phone = params.phone
             collaborator.photo = params.photo
             collaborator.isAddressEqual = params.isAddressEqual
-            collaborator.dateOfBirth = Date.parse('dd/MM/yyyy', params.dateOfBirth)
+            if(params.dateOfBirth)
+                collaborator.dateOfBirth = Date.parse('dd/MM/yyyy', params.dateOfBirth)
 
             addressCollect.zipCode = params.zipCode
             addressCollect.street = params.street
             addressCollect.number = params.number
             addressCollect.neighborhood = params.neighborhood
             addressCollect.city = params.city
-            addressCollect.state = params.state
+            addressCollect.state = params.states
             addressCollect.latitude = params.latitude
             addressCollect.longitude = params.longitude
 
@@ -112,10 +113,10 @@ class CollaboratorController {
     }
 
     def myCollections() {
-        //ID COLLABORATOR LOGGED IN
-        def user = springSecurityService.principal
-        def collaboratorId = 1//userManager?.collaborator?.id
-        def collaboratorCollections = Collaborator.findById(collaboratorId)?.collects?.sort { it.orderDate }
+        User currentUser = springSecurityService.loadCurrentUser()
+        Collaborator currentCollaborator = currentUser.collaborator
+
+        def collaboratorCollections = currentCollaborator?.collects?.sort { it.orderDate }
 
         if (collaboratorCollections == null) {
             render(view: "myCollections", model: ["collaboratorCollections": []])

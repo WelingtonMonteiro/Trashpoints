@@ -72,17 +72,17 @@
 
     <div class="row">
         <div class="input-field col s12">
-            <g:submitToRemote url="[controller: 'collaborator', action: 'save']"
-                              class="btn-large waves-effect waves-light blue darken-3" onSuccess="showMessage(data)"
-                              value="Cadastrar">
-                <i class="material-icons left">check</i>
-            </g:submitToRemote>
 
+            <i class="btn-large waves-effect waves-light blue darken-3 waves-input-wrapper">
+                <g:submitToRemote id="btnSubmit" url="[controller: 'collaborator', action: 'save']"
+                    onSuccess="showMessage(data)" value="Cadastrar">
+                </g:submitToRemote>
+                <i class="material-icons left">check</i>
+            </i>
 
             <button class="btn-large waves-effect waves-light grey right" type="reset" id="btnClear">
                 <i class="material-icons left">delete_sweep</i>Limpar
             </button>
-
         </div>
     </div>
 </g:form>
@@ -100,8 +100,6 @@
 
 <script type="text/javascript">
 
-    //var year = new Date().getFullYear().toString().substr(2,2);
-
     $('.datepicker').pickadate({
         selectMonths: true, // Creates a dropdown to control month
         selectYears: 100,// Creates a dropdown of 15 years to control year
@@ -110,7 +108,6 @@
 //        max: true,
         closeOnSelect: true,
         closeOnClear: true,
-
     });
 
     jQuery(function ($) {
@@ -142,6 +139,7 @@
 
             clearSuccessMessage();
         }
+        $("#SYNCHRONIZER_TOKEN").val(data.newToken);
     }
 
     function setFocusSummaryErrorMessage() {

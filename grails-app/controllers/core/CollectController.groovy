@@ -8,11 +8,11 @@ import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
 
 @Transactional(readOnly = true)
-//@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
 @Secured(['ROLE_COLLABORATOR'])
 class CollectController {
 //// render a file
 // //render(file: new File(absolutePath), fileName: "book.pdf")
+    transient springSecurityService
 
     private static final acceptImages = ['image/png', 'image/jpeg', 'image/gif']
 
@@ -42,7 +42,7 @@ class CollectController {
             response += message
         response as JSON
 
-        redirect(action: 'create', message: message)
+        //redirect(action: 'create', message: message)
     }
 
     private verifyErrors(InstanceClass) {
@@ -53,7 +53,8 @@ class CollectController {
                 listErrors += g.message(code: error.defaultMessage, error: error)
             }
 
-            def message = [error: listErrors]
+            String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
+            def message = [error: listErrors, newToken: newToken]
             render message as JSON
         }
     }
@@ -90,23 +91,17 @@ class CollectController {
         }
     }
 
-
     @Transactional
     def save() {
         withForm {
             Collect collect = new Collect()
-            //ID COLLABORATOR LOGGED IN
-            Collaborator collaborator = Collaborator.get(1)
+            User currentUser = springSecurityService.loadCurrentUser()
+            Collaborator currentCollaborator = currentUser.collaborator
 
-            if (!collaborator) {
-//                def message = [error: 'Não existem colaboradores cadastrados.<br>Por favor cadastre um colaborador']
-//            render message as JSON
-//                return render(view: 'create', message: message, model: [materialTypes: MaterialType.list()])
-
+            if (!currentCollaborator) {
                 invalidToken([error: 'Não existem colaboradores cadastrados.<br>Por favor cadastre um colaborador'])
-
             }
-            collect.collaborator = collaborator
+            collect.collaborator = currentCollaborator
 
             collect.orderDate = new Date()
             collect.isCollected = false
@@ -115,20 +110,9 @@ class CollectController {
                 MaterialType m = MaterialType.findById(materialTypeId)
                 collect.addToMaterialTypes(m)
             }
-
-            upload(collect)
-
-
-            // File Upload
-//            if (params.imageUpload) {
-//                if (params.imageUpload instanceof org.springframework.web.multipart.commons.CommonsMultipartFile) {
-//                    def fileName = java.util.UUID.randomUUID().toString()
-//                    new FileOutputStream('C:/Trashpoints/Uploads/' + fileName).leftShift(params.imageUpload.getInputStream())
-//                    collect.imageUpload = fileName
-//                } else {
-//                    log.error("wrong attachment type [${params.imageUpload.getClass()}]")
-//                }
-//            }
+            println(params.imageUpload)
+            if (params.imageUpload)
+                upload(collect)
 
             collect.validate()
 
@@ -145,8 +129,6 @@ class CollectController {
         }.invalidToken {
             invalidToken("")
         }
-
-
     }
 
     @Secured(['ROLE_COLLABORATOR', 'ROLE_COMPANY_COLLECT'])

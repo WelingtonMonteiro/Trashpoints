@@ -7,7 +7,6 @@ import org.codehaus.groovy.grails.web.servlet.mvc.SynchronizerTokensHolder
 
 @Transactional(readOnly = true)
 @Secured(['ROLE_COMPANY_COLLECT'])
-//@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
 class CompanyController {
 
     transient springSecurityService
@@ -16,7 +15,6 @@ class CompanyController {
     def create() {
         render(view: "create")
     }
-
 
     private invalidToken() {
         def response = [:]
@@ -28,13 +26,14 @@ class CompanyController {
     private successToken(message) {
         def response = [:]
         String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
-        response = [success: 'sucesso', newToken: newToken]
-        response += message
+        response = [success: 'Salvo com sucesso', newToken: newToken]
+        if (message)
+            response += message
         render response as JSON
     }
 
     private verifyErrors(InstanceClass) {
-        def isErros = false
+        def isErrors = false
         if (InstanceClass.hasErrors()) {
             def listErrors = []
 
@@ -42,12 +41,13 @@ class CompanyController {
                 listErrors += g.message(code: error.defaultMessage, error: error)
             }
 
-            def message = [error: listErrors]
+            String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
+            def message = [error: listErrors, newToken: newToken]
             render message as JSON
 
-            isErros = true
+            isErrors = true
         }
-        isErros
+        isErrors
     }
 
     @Transactional
@@ -76,8 +76,7 @@ class CompanyController {
             address.city = params.city
             address.state = params.states
 
-
-            company.companyName = params.companyName//
+            company.companyName = params.companyName
             company.identificationNumber = params.identificationNumber
             company.tradingName = params.tradingName
             company.segment = params.segment
@@ -86,8 +85,6 @@ class CompanyController {
             company.site = params.site
 
             company.address = address
-//            company.user = user
-//            user.company = company
 
             user.validate()
             address.validate()
@@ -122,8 +119,9 @@ class CompanyController {
     }
 
     def myCollections() {
-        //ID COMPANY LOGGED IN
-        //def companyId = 1
+        //User currentUser = springSecurityService.currentUser
+        //Company currentCompany = currentUser.company
+        //currentCompany = Company.findById(currentCompany.id)
         //def companyCollections = Company.findById(companyId)?.collects.sort{it.orderDate}
         def companyCollections = Collect.createCriteria().list {
             order("orderDate")
@@ -138,15 +136,16 @@ class CompanyController {
 
     @Transactional
     def markWasCollected() {
-        Integer collectId = params.collectId.toInteger()
+        Long collectId = params.collectId.toLong()
         withForm {
-            //ID COMPANY LOGGED IN
-            Integer companyId = 1
+            User currentUser = springSecurityService.currentUser
+            Company currentCompany = currentUser.company
+
             Collect collect = Collect.get(collectId)
             if (collect) {
                 collect.isCollected = true
                 collect.collectedDate = new Date()
-                collect.company = Company.findById(companyId)
+                collect.company = currentCompany
                 def collectedDateWithOutHour = collect.collectedDate.format("dd/MM/yyyy")
                 collect.save(flush: true)
 
@@ -159,7 +158,7 @@ class CompanyController {
     }
 
     def loadCollaboratorDetails() {
-        Integer collaboratorId = params.id.toInteger()
+        Long collaboratorId = params.id.toLong()
         Collaborator collaborator = Collaborator.findById(collaboratorId)
         Address address = collaborator.address
 
