@@ -41,8 +41,8 @@
                 <br/>
                 <!-- TODO: verificar se por JavaScript fica melhor -->
                 <g:if test="${currentCompany.typeOfCompany == 'coleta'}">
-                    <input class="with-gap validate" name="typeOfCompany" type="radio" id="recyclingCompany"
-                        value="coleta" required checked/>
+                    <input class="with-gap disabled" name="typeOfCompany" type="radio" id="recyclingCompany"
+                        value="coleta" checked="checked" disabled="disabled"/>
                 </g:if>
                 <g:else>
                     <input class="with-gap validate" name="typeOfCompany" type="radio" id="recyclingCompany"
@@ -52,12 +52,12 @@
                 </p>
                 <p>
                     <g:if test="${currentCompany.typeOfCompany == 'parceira'}">
-                        <input class="with-gap validate" name="typeOfCompany" type="radio" id="partnerCompany"
-                               value="parceira" required checked/>
+                        <input class="with-gap disabled" name="typeOfCompany" type="radio" id="partnerCompany"
+                               value="parceira" checked="checked" disabled="disabled"/>
                     </g:if>
                     <g:else>
-                        <input class="with-gap validate" name="typeOfCompany" type="radio" id="partnerCompany"
-                               value="parceira" required/>
+                        <input class="disabled" name="typeOfCompany" type="radio" id="partnerCompany"
+                               value="parceira"  disabled="disabled"/>
                     </g:else>
                     <label for="partnerCompany">Empresa parceira</label>
                 </p>
