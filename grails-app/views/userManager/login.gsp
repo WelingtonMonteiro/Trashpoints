@@ -19,7 +19,6 @@
                         </div>
                     </div>
                     <br/>
-
                     <div id="formAuth">
                         <fieldset>
                             <legend><h4 class="header">&nbsp;Login&nbsp;</h4></legend>

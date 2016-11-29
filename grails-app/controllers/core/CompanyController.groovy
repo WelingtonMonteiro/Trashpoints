@@ -160,7 +160,7 @@ class CompanyController {
     def loadCollaboratorDetails() {
         Long collaboratorId = params.id.toLong()
         Collaborator collaborator = Collaborator.findById(collaboratorId)
-        Address address = collaborator.address
+        Address address = collaborator?.address
 
         def response = ["collaborator": collaborator, "address": address]
         render response as JSON

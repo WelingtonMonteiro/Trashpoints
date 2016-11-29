@@ -118,6 +118,8 @@
 
             clearSuccessMessage();
         }
+
+        $("#SYNCHRONIZER_TOKEN").val(data.newToken);
     }
 
     function setFocusSummaryErrorMessage() {
