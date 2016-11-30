@@ -32,7 +32,18 @@ class BootStrap {
                         phone: "(11) 1111-1111",
                         photo: "",
                         isAddressEqual: true,
-                        dateOfBirth: new Date()).save()
+                        dateOfBirth: new Date(),
+                        address: new Address(
+                                city: "Lorena",
+                                state: "SP",
+                                zipCode: "12602-010",
+                                latitude: 0,
+                                longitude: 0,
+                                neighborhood: "Cabelinha",
+                                street: "Rua Dr. Paulo Cardoso",
+                                number: 457
+                        )).save()
+
 
         def companyCollect = Company.findByIdentificationNumber("11.111.111/1111-11") ?:
                 new Company(

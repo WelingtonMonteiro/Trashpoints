@@ -165,7 +165,6 @@
 
         });
         <sec:ifLoggedIn>
-            debugger;
             $('#zipCode').val('${currentAddress.zipCode}');
             $('#number').val('${currentAddress.number}');
             $('#zipCode').trigger('blur');

@@ -134,5 +134,57 @@ class CollaboratorController {
         render response as JSON
     }
 
+    def editCollaborator(){
+        User currentUser = springSecurityService.currentUser as User
+        // TODO: verificar no contexto do Spring como atualizar o vínculo entre usuário e companhia
+        Collaborator currentCollaborator = currentUser.collaborator
+        currentCollaborator = Collaborator.get(currentCollaborator.id)
+        render(view: "edit", model: ["currentCollaborator" : currentCollaborator])
+    }
+
+    @Transactional
+    def saveEditCollaborator() {
+        withForm {
+            Collaborator collaborator = Collaborator.get(params.id)
+            Address addressCollect = collaborator.address
+            // TODO: verificar a questão da foto
+            collaborator.name = params.name
+            collaborator.phone = params.phone
+            //collaborator.photo = params.photo
+            if (params.isAddressEqual == null){
+                collaborator.isAddressEqual = false
+            } else {
+                collaborator.isAddressEqual = params.isAddressEqual
+            }
+            if(params.dateOfBirth)
+                collaborator.dateOfBirth = Date.parse('dd/MM/yyyy', params.dateOfBirth)
+
+            addressCollect.zipCode = params.zipCode
+            addressCollect.street = params.street
+            addressCollect.number = params.number
+            addressCollect.neighborhood = params.neighborhood
+            addressCollect.city = params.city
+            addressCollect.state = params.states
+            //addressCollect.latitude = params.latitude
+            //addressCollect.longitude = params.longitude
+
+            addressCollect.validate()
+            collaborator.validate()
+
+            def errors = verifyErrors(collaborator) || verifyErrors(addressCollect)
+
+            if (!errors) {
+                addressCollect.save(flush: true)
+                collaborator.address = addressCollect
+                collaborator.save(flush: true)
+                successToken([success: 'Dados cadastrais salvos com sucesso'])
+            }
+        }.invalidToken {
+            invalidToken()
+        }
+    }
+
+
+
 
 }
