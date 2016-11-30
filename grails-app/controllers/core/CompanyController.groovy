@@ -121,8 +121,7 @@ class CompanyController {
     def myCollections() {
         //User currentUser = springSecurityService.currentUser
         //Company currentCompany = currentUser.company
-        //currentCompany = Company.findById(currentCompany.id)
-        //def companyCollections = Company.findById(companyId)?.collects.sort{it.orderDate}
+        //def companyCollections = currentCompany?.collects.sort{it.orderDate}
         def companyCollections = Collect.createCriteria().list {
             order("orderDate")
         }
@@ -160,19 +159,11 @@ class CompanyController {
     def loadCollaboratorDetails() {
         Long collaboratorId = params.id.toLong()
         Collaborator collaborator = Collaborator.findById(collaboratorId)
-        Address address = collaborator?.address
+        Address address = collaborator.address
 
         def response = ["collaborator": collaborator, "address": address]
         render response as JSON
     }
-
-    /*def list() {
-        def companies = Company.createCriteria().list(){
-            address {
-            }
-        }
-        render companies as JSON
-    }*/
 
     def editCompany(){
         User currentUser = springSecurityService.currentUser as User
@@ -221,5 +212,13 @@ class CompanyController {
             invalidToken()
         }
     }
+
+    /*def list() {
+        def companies = Company.createCriteria().list(){
+            address {
+            }
+        }
+        render companies as JSON
+    }*/
 
 }

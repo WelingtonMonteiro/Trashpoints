@@ -127,23 +127,16 @@ log4j = {
 }
 
 grails.plugin.springsecurity.auth.loginFormUrl = "/userManager/login"
-grails.plugin.springsecurity.failureHandler.defaultFailureUrl = '/userManager/login'
+grails.plugin.springsecurity.failureHandler.defaultFailureUrl = '/userManager/login?login_error=1'
 grails.plugin.springsecurity.logout.afterLogoutUrl = '/userManager/logout'
 //grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/'
 grails.plugin.springsecurity.successHandler.alwaysUseDefault = false
 grails.plugin.springsecurity.dao.hideUserNotFoundExceptions = false
 grails.plugin.springsecurity.adh.errorPage="/j_spring_security_logout"
 grails.plugin.springsecurity.password.algorithm = 'SHA-256'
-//grails.plugin.springsecurity.errors.login.fail = "Usuário ou senha incorretos"
+grails.plugin.springsecurity.errors.login.fail = "Usuário ou senha incorretos"
 
 grails.plugin.springsecurity.securityConfigType = "Annotation"
-//grails.plugin.springsecurity.securityConfigType = "InterceptUrlMap"
-
-//grails.plugin.springsecurity.interceptUrlMap = [
-//        '/userManager/**' :['IS_AUTHENTICATED_ANONYMOUSLY'],
-//        '/**': ['IS_AUTHENTICATED_FULLY'],
-//]
-
 
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                ['permitAll'],
