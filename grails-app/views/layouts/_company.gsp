@@ -22,7 +22,7 @@
 					<div class="collapsible-body">
 						<ul>
 							<li><a class="waves-effect" href="/Trashpoints/Company/editCompany">Editar Perfil<i class="material-icons fa-2x">account_circle</i></a></li>
-							<li><a class="waves-effect" href="#">Editar Endereço<i class="material-icons fa-2x">edit_location</i></a></li>
+							%{--<li><a class="waves-effect" href="#">Editar Endereço<i class="material-icons fa-2x">edit_location</i></a></li>--}%
 						</ul>
 					</div>
 				</li>

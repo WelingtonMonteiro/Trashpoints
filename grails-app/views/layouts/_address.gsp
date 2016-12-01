@@ -164,9 +164,9 @@
             }
 
         });
-        <sec:ifLoggedIn>
-            $('#zipCode').val('${currentAddress.zipCode}');
-            $('#number').val('${currentAddress.number}');
+        <sec:ifLoggedIn >
+            $('#zipCode').val('${currentAddress?.zipCode}');
+            $('#number').val('${currentAddress?.number}');
             $('#zipCode').trigger('blur');
         </sec:ifLoggedIn>
 

@@ -144,6 +144,7 @@ class CollaboratorController {
         // TODO: verificar no contexto do Spring como atualizar o vínculo entre usuário e companhia
         Collaborator currentCollaborator = currentUser.collaborator
         currentCollaborator = Collaborator.get(currentCollaborator.id)
+
         render(view: "edit", model: ["currentCollaborator" : currentCollaborator])
     }
 

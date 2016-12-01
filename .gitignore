@@ -89,3 +89,4 @@ modules.xml
 /target
 
 .slcache/
+classes/
