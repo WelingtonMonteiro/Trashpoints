@@ -36,9 +36,8 @@
     <fieldset>
         <legend><h5 class="header">&nbsp;Endereço de coleta&nbsp;</h5></legend>
 
+        <g:set var="currentAddress" value="${currentCollaborator?.address}"/>
         <div id="formAddress">
-            <g:set var="currentAddress" value="${currentCollaborator?.address}"/>
-
             <g:if test="${currentCollaborator?.address}">
                 <g:render template="../layouts/address" model="['currentAddress': currentAddress]"/>
             </g:if>
