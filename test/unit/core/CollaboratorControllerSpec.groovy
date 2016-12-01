@@ -57,4 +57,36 @@ class CollaboratorControllerSpec extends Specification {
         response.json.address != null
     }
 
+    void "Load Company Details with error"() {
+        given:
+        def companyRole = Role.findByAuthority('ROLE_COMPANY_COLLECT') ?: new Role('ROLE_COMPANY_COLLECT').save(flush: true)
+        def userRole = Role.findByAuthority('ROLE_COLLABORATOR') ?: new Role('ROLE_COLLABORATOR').save(flush: true)
+
+        Company company = new Company(id: 1, companyName: "Empresa Coletora", identificationNumber: "11.111.111/1111-11",
+                tradingName: "Coletora", segment: "reciclagem de lixo", typeOfCompany: "coleta",
+                phone: "(11) 1111-1111", site: "http://www.dsdsds.com.br",
+                address: new Address(city: "Lorena", state: "SP", zipCode: "12602-010", latitude: 0f, longitude: 0f,
+                        neighborhood: "Cabelinha", street: "Rua Dr. Paulo Cardoso", number: "123"
+                )).save(flush: true)
+
+        User userCompany = new User('ccoleta@trashpoints.com.br', 'coleta')
+        userCompany.company = company
+        userCompany.save(flush: true)
+
+        UserRole.create(userCompany, companyRole)
+
+        UserRole.withSession {
+            it.flush()
+            it.clear()
+        }
+
+        when:
+        params.id = "2"
+
+        controller.loadCompanyDetails()
+        then:
+        response.json.company == []
+        response.json.address == []
+    }
+
 }

@@ -15,6 +15,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'font-awesome.min.css')}" type="text/css">
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'style.css')}" type="text/css">
+    <link rel="stylesheet" href="${resource(dir: 'css', file: 'iziToast.min.css')}" type="text/css">
+    <script src="/Trashpoints/js/iziToast.min.js" type="text/javascript"></script>
     <script src="/Trashpoints/js/jquery-2.1.1.min.js" type="text/javascript"></script>
     <script src="/Trashpoints/js/materialize.min.js" type="text/javascript"></script>
     <script src="/Trashpoints/js/jquery.maskedinput.min.js" type="text/javascript"></script>
@@ -47,6 +49,14 @@
     $(document).ready(function () {
         $(".button-collapse").sideNav();
         $('.modal').modal();
+        iziToast.settings({
+            timeout: 3500,
+            resetOnHover: false,
+            position: 'topRight',
+            balloon: true,
+            icon: "material-icons",
+            layout: 2
+        });
     });
 </script>
 </body>

@@ -128,10 +128,15 @@ class CollaboratorController {
     def loadCompanyDetails() {
         Integer companyId = params.id.toInteger()
         Company company = Company.findById(companyId)
-        Address address = company.address
+        Address address = company?.address
 
-        def response = ["company": company, "address": address]
-        render response as JSON
+        if(company) {
+            def response = ["company": company, "address": address]
+            render response as JSON
+        }else{
+            def response = ["company": [], "address": []]
+            render response as JSON
+        }
     }
 
     def editCollaborator(){

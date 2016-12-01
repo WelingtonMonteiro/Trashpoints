@@ -157,7 +157,7 @@ class CompanyController {
     }
 
     def loadCollaboratorDetails() {
-        Long collaboratorId = params.id.toLong()
+        Integer collaboratorId = params.id.toInteger()
         Collaborator collaborator = Collaborator.findById(collaboratorId)
         Address address = collaborator.address
 

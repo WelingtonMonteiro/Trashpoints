@@ -259,7 +259,11 @@
             method: "post",
             success: function (data) {
                 if (data.success) {
-                    Materialize.toast("Salvo com sucesso", 3000);
+                    iziToast.success({
+                        title: 'OK',
+                        message: 'Sucesso ao salvar!',
+                        iconText: "check"
+                    });
                     disabledCheckBoxClicked(collectId)
                     $("#collectedDate" + collectId).text(data.collectedDate)
                 }
