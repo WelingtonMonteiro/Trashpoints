@@ -162,7 +162,7 @@ class CompanyControllerSpec extends Specification {
         controller.loadCollaboratorDetails()
         then:
         response.json.collaborator != null
-        //response.json.address != null
+        response.json.address != null
     }
 
     void "Load Collaborator Details with error"() {

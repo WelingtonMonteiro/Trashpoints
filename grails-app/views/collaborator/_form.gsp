@@ -14,7 +14,7 @@
         <div class="row">
             <div class="input-field col s12 m6">
                 <i class="material-icons prefix">today</i>
-                <input id="date" name="dateOfBirth" type="date" placeholder="dd/mm/aaaa" class="validate datepicker"/>
+                <input id="date" name="dateOfBirth" type="text" placeholder="dd/mm/aaaa" class="datepicker"/>
                 <label for="date" class="active">Data Nascimento<span class="red-text">*</span></label>
             </div>
         </div>

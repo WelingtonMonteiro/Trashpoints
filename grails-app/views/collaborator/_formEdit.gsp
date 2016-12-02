@@ -16,8 +16,8 @@
         <div class="row">
             <div class="input-field col s12 m6">
                 <i class="material-icons prefix">today</i>
-                <input id="dateOfBirth" name="dateOfBirth" type="date" placeholder="dd/mm/aaaa"
-                       class="validate datepicker" value="<g:formatDate date="${currentCollaborator?.dateOfBirth}"
+                <input id="dateOfBirth" name="dateOfBirth" type="text" placeholder="dd/mm/aaaa"
+                       class="valid datepicker" value="<g:formatDate date="${currentCollaborator?.dateOfBirth}"
                                                                         format="dd/MM/yyyy"></g:formatDate>"/>
                 <label for="dateOfBirth" class="active">Data Nascimento<span class="red-text">*</span></label>
             </div>
@@ -61,14 +61,6 @@
             </div>
         </div>
     </fieldset>
-
-    <div id="divSuccessMessage" class="row green-text hide">
-        <div class="col s12">
-            <div class="card-panel grey lighten-5">
-                <span id="successMessage"></span>
-            </div>
-        </div>
-    </div>
 
     <div class="row">
         <div class="input-field col s12">
@@ -118,6 +110,8 @@
     });
 
     function showMessage(data) {
+        clearErrorMessage()
+
         if (data.error) {
             $('#divErrorMessage').removeClass("hide")
             var errors = data.error
@@ -130,11 +124,11 @@
             setFocusSummaryErrorMessage()
         }
         if (data.success) {
-            $('#divSuccessMessage').removeClass("hide");
-            var successMessage = data.success;
-            var p = '<p>' + successMessage + '</p>';
-            $('#divSuccessMessage span#successMessage').append(p);
-            clearSuccessMessage();
+            iziToast.success({
+                title: 'OK',
+                message: 'Sucesso ao salvar!',
+                iconText: "check"
+            });
         }
         $("#SYNCHRONIZER_TOKEN").val(data.newToken);
     }
@@ -145,13 +139,6 @@
 
     function clearErrorMessage() {
         $('#divErrorMessage span#errorMessage').html("")
-    }
-
-    function clearSuccessMessage() {
-        setTimeout(function () {
-            $('#divSuccessMessage').html("")
-        }, 3000);
-
     }
 
     function clearInputs() {
