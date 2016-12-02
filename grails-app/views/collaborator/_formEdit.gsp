@@ -17,7 +17,8 @@
             <div class="input-field col s12 m6">
                 <i class="material-icons prefix">today</i>
                 <input id="dateOfBirth" name="dateOfBirth" type="date" placeholder="dd/mm/aaaa"
-                       class="validate datepicker" value="${currentCollaborator?.dateOfBirth}"/>
+                       class="validate datepicker" value="<g:formatDate date="${currentCollaborator?.dateOfBirth}"
+                                                                        format="dd/MM/yyyy"></g:formatDate>"/>
                 <label for="dateOfBirth" class="active">Data Nascimento<span class="red-text">*</span></label>
             </div>
         </div>
@@ -37,6 +38,7 @@
         <legend><h5 class="header">&nbsp;Endereço de coleta&nbsp;</h5></legend>
 
         <g:set var="currentAddress" value="${currentCollaborator?.address}"/>
+
         <div id="formAddress">
             <g:if test="${currentCollaborator?.address}">
                 <g:render template="../layouts/address" model="['currentAddress': currentAddress]"/>
@@ -59,6 +61,14 @@
             </div>
         </div>
     </fieldset>
+
+    <div id="divSuccessMessage" class="row green-text hide">
+        <div class="col s12">
+            <div class="card-panel grey lighten-5">
+                <span id="successMessage"></span>
+            </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="input-field col s12">
@@ -90,8 +100,18 @@
 
 <script type="text/javascript">
 
-    jQuery(function ($) {
+    $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 100,// Creates a dropdown of 15 years to control year
+        format: 'dd/mm/yyyy',
+//        min: 30, //get last 30 day range
+//        max: true,
+        closeOnSelect: true,
+        closeOnClear: true
+    });
 
+    jQuery(function ($) {
+        $("#phone").mask("(99) 9999-9999");
         var isAddressEqual = ${currentCollaborator?.isAddressEqual};
         var checkedState = isAddressEqual ? 'checked' : '';
         $('#isAddressEqual').prop('checked', checkedState);
@@ -110,11 +130,11 @@
             setFocusSummaryErrorMessage()
         }
         if (data.success) {
-            iziToast.success({
-                title: 'OK',
-                message: 'Sucesso ao salvar!',
-                iconText: "check"
-            });
+            $('#divSuccessMessage').removeClass("hide");
+            var successMessage = data.success;
+            var p = '<p>' + successMessage + '</p>';
+            $('#divSuccessMessage span#successMessage').append(p);
+            clearSuccessMessage();
         }
         $("#SYNCHRONIZER_TOKEN").val(data.newToken);
     }
@@ -125,6 +145,13 @@
 
     function clearErrorMessage() {
         $('#divErrorMessage span#errorMessage').html("")
+    }
+
+    function clearSuccessMessage() {
+        setTimeout(function () {
+            $('#divSuccessMessage').html("")
+        }, 3000);
+
     }
 
     function clearInputs() {
