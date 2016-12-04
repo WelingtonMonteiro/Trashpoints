@@ -1,4 +1,4 @@
-<g:form name="formCompany" controller="company" action="save" useToken="true">
+<g:form name="formCompany" useToken="true">
 
     <fieldset>
         <legend><h5 class="header">&nbsp;Dados da Empresa&nbsp;</h5></legend>
@@ -93,14 +93,11 @@
 
     <div class="row">
         <div class="input-field col s12">
-            <i class="btn-large waves-effect waves-light blue darken-3 waves-input-wrapper">
-                <g:submitToRemote id="btnSubmit" url="[controller: 'company', action: 'save']"
-                                  onSuccess="showMessage(data)" value="Cadastrar">
-                </g:submitToRemote>
-                <i class="material-icons left">check</i>
-            </i>
+            <button type="submit" class="btn-large waves-effect waves-light blue darken-3" >
+                <i class="material-icons left">check</i>Cadastrar
+            </button>
 
-            <button class="btn-large waves-effect waves-light grey right" type="reset" id="btnClear">
+            <button type="reset" id="btnClear" class="btn-large waves-effect waves-light grey right">
                 <i class="material-icons left">delete_sweep</i>Limpar
             </button>
         </div>
@@ -119,7 +116,6 @@
 </div>
 
 <script type="text/javascript">
-
 
     jQuery(function ($) {
         $("#phone").mask("(99) 9999-9999");
@@ -166,5 +162,19 @@
         $("#username").val("");
         Materialize.updateTextFields();
     }
+
+    $("form").submit(function(e) {
+        e.preventDefault();
+        var urlData = $(this).serialize();
+        $.ajax({
+            type: "post",
+            url: "/Trashpoints/Company/save/",
+            data: urlData,
+            success: function(data)
+            {
+                showMessage(data)
+            }
+        });
+    });
 
 </script>

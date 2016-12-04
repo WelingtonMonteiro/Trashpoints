@@ -1,15 +1,17 @@
-<div class="row">
+<div class="row no-margin">
     <div class="input-field col s12 m6">
-        <i class="material-icons prefix">today</i>
-        <input id="orderDate" name="orderDate" type="date" class="validate datepicker" disabled>
-        <label for="orderDate" class="active">Data da Coleta <span class="red-text">*</span></label>
+        <i class="material-icons prefix grey-text text-darken-2">today</i>
+        <input id="orderDate" name="orderDate" type="text" disabled class="grey-text text-darken-2"
+               value="<g:formatDate date="${new java.util.Date()}" format="dd/MM/yyyy"></g:formatDate>"
+        >
+        <label for="orderDate" class="active grey-text text-darken-2">Data da Coleta <span class="red-text">*</span></label>
     </div>
 </div>
 %{--<form name="formCollect" action="save" onSuccess="showMessage(data)" enctype="multipart/form-data" method="POST" useToken="true">--}%
-<g:form   name="formCollect" controller="collect"  action="save"  useToken="true" enctype="multipart/form-data">
+<g:form name="formCollect" controller="collect" action="save" useToken="true" enctype="multipart/form-data">
     <div class="row">
         <div class="input-field col s12 m12">
-            <h5>Selecione um ou mais tipos da coleta:</h5>
+            <h5>Selecione um ou mais tipos da coleta: <span class="red-text">*</span></h5>
             <g:each in="${materialTypes}" var="materialType">
                 <p>
                     <input type="checkbox" value="${materialType.id}" name="materialTypes" id="${materialType.name}"/>
@@ -21,10 +23,6 @@
 
     <div class="row">
         <div class="input-field col s12 m9">
-            <br/>
-
-            <p>
-
             <div class="file-field input-field">
                 <div class="btn blue darken-3">
                     <i class="material-icons left">add_a_photo</i>Imagem
@@ -44,9 +42,9 @@
                 <i class="material-icons left">check</i>Cadastrar
             </button>
             %{--<g:submitToRemote url="[controller: 'collect', action: 'save', format:'multipartForm']"--}%
-                              %{--class="btn-large waves-effect waves-light blue darken-3" onSuccess="showMessage(data)"--}%
-                              %{--value="Cadastrar">--}%
-                %{--<i class="material-icons left"></i>--}%
+            %{--class="btn-large waves-effect waves-light blue darken-3" onSuccess="showMessage(data)"--}%
+            %{--value="Cadastrar">--}%
+            %{--<i class="material-icons left"></i>--}%
             %{--</g:submitToRemote>--}%
             <button class="btn-large waves-effect waves-light grey right" type="reset" id="btnClear">
                 <i class="material-icons left">delete_sweep</i>Limpar
@@ -123,14 +121,5 @@
         $('#btnClear').click();
         Materialize.updateTextFields();
     }
-
-    $(document).ready(function () {
-        var actualDate = new Date();
-        var day = actualDate.getDate();
-        var month = actualDate.getMonth() + 1;
-        var year = actualDate.getFullYear();
-        $('#orderDate').val(year + '-' + month + '-' + day).css({'color': 'black'});
-        $('[for="orderDate"]').css({'color': 'black'});
-    });
 
 </script>

@@ -1,5 +1,4 @@
-<g:form name="formCollaborator" controller="collaborator" action="saveEditCollaborator" onSuccess="showMessage(data)"
-        useToken="true">
+<g:form name="formCollaborator" useToken="true">
     <input type="hidden" value="${currentCollaborator?.id}" name="id" id="id">
     <fieldset>
         <legend><h5 class="header">&nbsp;Dados do Colaborador&nbsp;</h5></legend>
@@ -65,12 +64,9 @@
     <div class="row">
         <div class="input-field col s12">
 
-            <i class="btn-large waves-effect waves-light blue darken-3 waves-input-wrapper">
-                <g:submitToRemote id="btnSubmit" url="[controller: 'collaborator', action: 'saveEditCollaborator']"
-                                  onSuccess="showMessage(data)" value="Cadastrar">
-                </g:submitToRemote>
-                <i class="material-icons left">check</i>
-            </i>
+            <button type="submit" class="btn-large waves-effect waves-light blue darken-3" >
+                <i class="material-icons left">check</i>Salvar
+            </button>
 
             <button class="btn-large waves-effect waves-light grey right" type="reset" id="btnClear">
                 <i class="material-icons left">delete_sweep</i>Limpar
@@ -147,5 +143,19 @@
         $("#username").val("");
         Materialize.updateTextFields();
     }
+
+    $("form").submit(function(e) {
+        e.preventDefault();
+        var urlData = $(this).serialize();
+        $.ajax({
+            type: "post",
+            url: "/Trashpoints/Collaborator/saveEditCollaborator/",
+            data: urlData,
+            success: function(data)
+            {
+                showMessage(data)
+            }
+        });
+    });
 
 </script>

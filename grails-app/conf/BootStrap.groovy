@@ -108,7 +108,7 @@ class BootStrap {
         cPartner.company = companyPartner
         cPartner.save()
 
-        def admin = new User('admin@trashpoints.com.br', 'admin').save()
+        def admin = new User('admin@trashpoints.com.br', 'administrator').save()
 
         //salvando relacionamento entre usuarios e os tipos de usuarios
         companyPartner.user = cPartner

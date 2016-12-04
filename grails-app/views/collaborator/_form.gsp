@@ -1,4 +1,4 @@
-<g:form name="formClient" controller="collaborator" action="save" onSuccess="showMessage(data)" useToken="true">
+<g:form name="formClient" useToken="true">
 
     <fieldset>
         <legend><h5 class="header">&nbsp;Dados do Colaborador&nbsp;</h5></legend>
@@ -64,13 +64,9 @@
 
     <div class="row">
         <div class="input-field col s12">
-
-            <i class="btn-large waves-effect waves-light blue darken-3 waves-input-wrapper">
-                <g:submitToRemote id="btnSubmit" url="[controller: 'collaborator', action: 'save']"
-                    onSuccess="showMessage(data)" value="Cadastrar">
-                </g:submitToRemote>
-                <i class="material-icons left">check</i>
-            </i>
+            <button type="submit" class="btn-large waves-effect waves-light blue darken-3" >
+                <i class="material-icons left">check</i>Cadastrar
+            </button>
 
             <button class="btn-large waves-effect waves-light grey right" type="reset" id="btnClear">
                 <i class="material-icons left">delete_sweep</i>Limpar
@@ -126,7 +122,7 @@
                 title: 'OK',
                 message: 'Sucesso ao salvar!',
                 iconText: "check",
-                onClose: function () { window.location.href = "/Trashpoints/userManager/login" ; }
+                onClose: function () { window.location.href = "/Trashpoints/userManager/login"; }
             });
         }
         $("#SYNCHRONIZER_TOKEN").val(data.newToken);
@@ -146,5 +142,19 @@
         $("#username").val("");
         Materialize.updateTextFields();
     }
+
+    $("form").submit(function(e) {
+        e.preventDefault();
+        var urlData = $(this).serialize();
+        $.ajax({
+            type: "post",
+            url: "/Trashpoints/Collaborator/save/",
+            data: urlData,
+            success: function(data)
+            {
+                showMessage(data)
+            }
+        });
+    });
 
 </script>

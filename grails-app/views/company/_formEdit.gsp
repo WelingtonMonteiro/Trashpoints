@@ -1,4 +1,4 @@
-<g:form name="formCompany" controller="company" action="saveEditCompany" useToken="true">
+<g:form name="formCompany" useToken="true">
     <input type="hidden" id="id" name="id" value="${currentCompany?.id}" >
     <fieldset>
         <legend><h5 class="header">&nbsp;Dados da Empresa&nbsp;</h5></legend>
@@ -95,11 +95,9 @@
 
     <div class="row">
         <div class="input-field col s12">
-            <g:submitToRemote url="[controller: 'company', action: 'saveEditCompany']"
-                              class="btn-large waves-effect waves-light blue darken-3" onSuccess="showMessage(data)"
-                              value="Cadastrar">
-                <i class="material-icons left"></i>
-            </g:submitToRemote>
+            <button type="submit" class="btn-large waves-effect waves-light blue darken-3" >
+                <i class="material-icons left">check</i>Salvar
+            </button>
 
             <button class="btn-large waves-effect waves-light grey right" type="reset" id="btnClear">
                 <i class="material-icons left">delete_sweep</i>Limpar
@@ -169,5 +167,19 @@
         $("#username").val("");
         Materialize.updateTextFields();
     }
+
+    $("form").submit(function(e) {
+        e.preventDefault();
+        var urlData = $(this).serialize();
+        $.ajax({
+            type: "post",
+            url: "/Trashpoints/Company/saveEditCompany/",
+            data: urlData,
+            success: function(data)
+            {
+                showMessage(data)
+            }
+        });
+    });
 
 </script>

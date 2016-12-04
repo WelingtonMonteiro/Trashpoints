@@ -133,7 +133,7 @@ grails.plugin.springsecurity.logout.afterLogoutUrl = '/userManager/logout'
 grails.plugin.springsecurity.successHandler.alwaysUseDefault = false
 grails.plugin.springsecurity.dao.hideUserNotFoundExceptions = false
 grails.plugin.springsecurity.adh.errorPage="/j_spring_security_logout"
-grails.plugin.springsecurity.password.algorithm = 'SHA-256'
+grails.plugin.springsecurity.password.algorithm = 'bcrypt'
 grails.plugin.springsecurity.errors.login.fail = "Usuário ou senha incorretos"
 
 grails.plugin.springsecurity.securityConfigType = "Annotation"
