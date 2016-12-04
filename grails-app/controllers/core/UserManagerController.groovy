@@ -8,7 +8,7 @@ class UserManagerController {
     def index() { }
 
     def login(){
-        render (view: "/userManager/login")
+        render (view: "/userManager/login", model: [error: params.login_error])
     }
 
     def logout(){

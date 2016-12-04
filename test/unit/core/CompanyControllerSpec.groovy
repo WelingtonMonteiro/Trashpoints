@@ -90,7 +90,7 @@ class CompanyControllerSpec extends Specification {
         response.json.error != null
     }
 
-    /*void "Company mark that was collected one reclycling"() {
+    void "Company mark that was collected one reclycling"() {
         given:
         def companyRole = Role.findByAuthority('ROLE_COMPANY_COLLECT') ?: new Role('ROLE_COMPANY_COLLECT').save(flush: true)
 
@@ -132,7 +132,7 @@ class CompanyControllerSpec extends Specification {
         controller.markWasCollected()
         then:
         response.json.success != null
-    }*/
+    }
 
     void "Load Collaborator Details"() {
         given:

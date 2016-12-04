@@ -23,7 +23,7 @@ class User implements Serializable {
 //	static belongsTo = [Company, Collaborator]
 
 	static constraints = {
-		username blank: false, unique: true
+		username blank: false, unique: true, email: true
 		password blank: false
 		collaborator nullable: true
 		company nullable: true
