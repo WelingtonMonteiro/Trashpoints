@@ -40,10 +40,9 @@ class CollectController {
         response = [success: 'sucesso', newToken: newToken]
         if (message)
             response += message
-        response as JSON
+        render response as JSON
 
-//        redirect(action: 'create', message: response)
-        render(view: "create", model: [materialTypes: MaterialType.list()], message: response)
+        //render(view: "create", model: [materialTypes: MaterialType.list()], message: response)
     }
 
     private invalidTokenRedirect(message) {
@@ -52,8 +51,8 @@ class CollectController {
         response = [error: 'Invalid_Token', newToken: newToken]
         if (message)
             response += message
-        response as JSON
-        render(view: "create", model: [materialTypes: MaterialType.list()], message: response)
+        render response as JSON
+        //render(view: "create", model: [materialTypes: MaterialType.list()], message: response)
     }
 
     private verifyErrors(InstanceClass) {
@@ -75,7 +74,7 @@ class CollectController {
         render(view: "create", model: [materialTypes: materialTypeList])
     }
 
-    def upload(imageInstance) {
+    def upload(collectInstance) {
 
         def nameUpload = java.util.UUID.randomUUID().toString()
 
@@ -83,22 +82,18 @@ class CollectController {
 
         // List of  mime-types
         if (!acceptImages.contains(file.getContentType())) {
-
-            redirect(action: 'create')
-            return
+            render(view: "/collect/create")
         }
 
         if (!file.empty) {
             nameUpload = nameUpload + "." + file.contentType.replace("image/", "")
-            imageInstance.imageUpload = nameUpload
+            collectInstance.imageUpload = nameUpload
 
             file.transferTo(new File("web-app/images/uploads/${nameUpload}"))
 
         } else {
             print "não foi possível transferir o arquivo"
-
-            redirect(action: 'create')
-            return
+            render(view: "/collect/create")
         }
     }
 
@@ -121,8 +116,11 @@ class CollectController {
                 MaterialType m = MaterialType.findById(materialTypeId)
                 collect.addToMaterialTypes(m)
             }
-            println(params.imageUpload)
-            if (params.imageUpload)
+
+            def fileUpload = request.getFile("imageUpload")
+            def fileName = fileUpload.getOriginalFilename()
+
+            if (fileName)
                 upload(collect)
 
             collect.validate()
@@ -131,11 +129,7 @@ class CollectController {
 
             if (!errors) {
                 collect.save(flush: true)
-//            def message = [success: "Dados para coleta salvos com sucesso!"]
-//            message as JSON
-//            render(view: 'create', message: message, model: [materialTypes: MaterialType.list()])
-
-                successTokenRedirect([success: "Dados para coleta salvos com sucesso!"])
+                successToken([success: "Dados para coleta salvos com sucesso!"])
             }
         }.invalidToken {
             invalidToken("")

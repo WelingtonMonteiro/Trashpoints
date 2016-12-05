@@ -4,7 +4,6 @@
             <input id="zipCode" name="zipCode" type="text" maxlength="9" class="validate" required>
             <label for="zipCode">CEP <span class="red-text">*</span></label>
             <span id="zipCodeErrorMessage" class="red-text"></span>
-
         </div>
 
         <div class="input-field col s12 m4">
@@ -87,11 +86,9 @@
 
 <script type="text/javascript">
 
-
     jQuery(function ($) {
         $("#zipCode").mask("99999-999");
     });
-
 
     function clearAddressInputs() {
         $("#street").val("");
@@ -99,8 +96,6 @@
         $("#city").val("");
         $("#states").val("");
     }
-
-
 
     var elementZipCode = document.getElementById("zipCode");
 

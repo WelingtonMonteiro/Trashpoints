@@ -66,3 +66,11 @@ fieldset {
 .no-margin {
 	margin: 0 !important;
 }
+
+.invisible {
+	opacity: 0 !important;
+	height: 0 !important;
+	width: 1px !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}

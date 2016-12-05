@@ -7,11 +7,13 @@
         <label for="orderDate" class="active grey-text text-darken-2">Data da Coleta <span class="red-text">*</span></label>
     </div>
 </div>
-%{--<form name="formCollect" action="save" onSuccess="showMessage(data)" enctype="multipart/form-data" method="POST" useToken="true">--}%
-<g:form name="formCollect" controller="collect" action="save" useToken="true" enctype="multipart/form-data">
+
+<g:form name="formCollect" useToken="true">
     <div class="row">
         <div class="input-field col s12 m12">
             <h5>Selecione um ou mais tipos da coleta: <span class="red-text">*</span></h5>
+            <span id="errorRequired" class="red-text"></span>
+
             <g:each in="${materialTypes}" var="materialType">
                 <p>
                     <input type="checkbox" value="${materialType.id}" name="materialTypes" id="${materialType.name}"/>
@@ -21,12 +23,12 @@
         </div>
     </div>
 
-    <div class="row">
+   <div class="row">
         <div class="input-field col s12 m9">
             <div class="file-field input-field">
                 <div class="btn blue darken-3">
                     <i class="material-icons left">add_a_photo</i>Imagem
-                    <input type="file" id="imageUpload" name="imageUpload">
+                    <input type="file" id="imageUpload" name="imageUpload" accept="image/gif, image/jpeg, image/png">
                 </div>
 
                 <div class="file-path-wrapper">
@@ -41,18 +43,14 @@
             <button class="btn-large waves-effect waves-light blue darken-3" type="submit" name="submit">
                 <i class="material-icons left">check</i>Cadastrar
             </button>
-            %{--<g:submitToRemote url="[controller: 'collect', action: 'save', format:'multipartForm']"--}%
-            %{--class="btn-large waves-effect waves-light blue darken-3" onSuccess="showMessage(data)"--}%
-            %{--value="Cadastrar">--}%
-            %{--<i class="material-icons left"></i>--}%
-            %{--</g:submitToRemote>--}%
+
             <button class="btn-large waves-effect waves-light grey right" type="reset" id="btnClear">
                 <i class="material-icons left">delete_sweep</i>Limpar
             </button>
         </div>
     </div>
-%{--</form>--}%
 </g:form >
+
 <div class="row">
     <div class="col s12 m8">
         <div class="card-panel grey lighten-5">
@@ -68,19 +66,23 @@
         return new FormData($("#imageUpload").val())
     }
     //enviando arquivo via form/data
-    $('#submit').click(function(){
-        var oData = new FormData(document.forms.namedItem("formCollect"));
-        var url="${createLink(controller: 'collect', action: 'save')} ";
-        $.ajax({
-            url:url,
-            type:'POST',
-            data:oData,
-            processData: false,  // tell jQuery not to process the data
-            contentType: false ,
-            success:function (data) {
-                showMessage(data)
-            }
-        });
+    $('form[name=formCollect]').submit(function(e){
+        e.preventDefault();
+        if(hasLeastOneMaterialTypeChecked() == true) {
+            var oData = new FormData(document.forms.namedItem("formCollect"));
+            var url = "${createLink(controller: 'collect', action: 'save')} ";
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: oData,
+                processData: false,  // tell jQuery not to process the data
+                contentType: false,
+                success: function (data) {
+                    showMessage(data)
+                }
+            });
+        }else
+            return false;
     });
 
     function showMessage(data) {
@@ -120,6 +122,28 @@
     function clearInputs() {
         $('#btnClear').click();
         Materialize.updateTextFields();
+    }
+
+    function hasLeastOneMaterialTypeChecked() {
+        var isChecked = false;
+        var elementErrorRequired = document.getElementById("errorRequired");
+        var elementsCheckboxes = document.getElementsByName("materialTypes")
+
+        for (var i = 0; i < elementsCheckboxes.length; i++) {
+            if( elementsCheckboxes[i].checked == true ) {
+                isChecked = true;
+                break;
+            }
+        }
+
+        if(isChecked)
+            //elementErrorRequired.setCustomValidity("");
+            elementErrorRequired.innerHTML = "";
+        else
+            elementErrorRequired.innerHTML = "Selecione pelo menos uma opção";
+        //elementErrorRequired.setCustomValidity("Selecione pelo menos uma opção");*/
+
+        return isChecked;
     }
 
 </script>

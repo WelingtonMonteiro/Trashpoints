@@ -17,7 +17,7 @@
     </div>
     <div class="footer-copyright">
         <div class="container col l4 offset-l2 s12">
-            &copy 2016 Copyright
+            &copy; 2016 Copyright
         </div>
     </div>
 </footer>
