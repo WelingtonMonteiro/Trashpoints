@@ -42,7 +42,18 @@ class CollectController {
             response += message
         response as JSON
 
-        //redirect(action: 'create', message: message)
+//        redirect(action: 'create', message: response)
+        render(view: "create", model: [materialTypes: MaterialType.list()], message: response)
+    }
+
+    private invalidTokenRedirect(message) {
+        def response = [:]
+        String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
+        response = [error: 'Invalid_Token', newToken: newToken]
+        if (message)
+            response += message
+        response as JSON
+        render(view: "create", model: [materialTypes: MaterialType.list()], message: response)
     }
 
     private verifyErrors(InstanceClass) {
@@ -78,7 +89,7 @@ class CollectController {
         }
 
         if (!file.empty) {
-            nameUpload = nameUpload + "." + file.contentType.replace("image/","")
+            nameUpload = nameUpload + "." + file.contentType.replace("image/", "")
             imageInstance.imageUpload = nameUpload
 
             file.transferTo(new File("web-app/images/uploads/${nameUpload}"))
@@ -151,7 +162,6 @@ class CollectController {
 
         render collaboratorCollections as JSON
     }*/
-
 
 
 }
