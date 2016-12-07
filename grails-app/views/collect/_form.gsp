@@ -81,8 +81,7 @@
                     showMessage(data)
                 }
             });
-        }else
-            return false;
+        }
     });
 
     function showMessage(data) {
@@ -112,7 +111,7 @@
     }
 
     function setFocusSummaryErrorMessage() {
-        $(window).scrollTop($('#divMessageError').offset().top);
+        $(window).scrollTop($('#divErrorMessage').offset().top);
     }
 
     function clearErrorMessage() {

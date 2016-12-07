@@ -34,25 +34,16 @@ class CollectController {
         render response as JSON
     }
 
-    private successTokenRedirect(message) {
-        def response = [:]
+    private hasMaterialTypes(instanceCollect) {
         String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
-        response = [success: 'sucesso', newToken: newToken]
-        if (message)
-            response += message
-        render response as JSON
+        println("Count " + instanceCollect.materialTypes.size())
+        def listErrors = []
 
-        //render(view: "create", model: [materialTypes: MaterialType.list()], message: response)
-    }
-
-    private invalidTokenRedirect(message) {
-        def response = [:]
-        String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
-        response = [error: 'Invalid_Token', newToken: newToken]
-        if (message)
-            response += message
-        render response as JSON
-        //render(view: "create", model: [materialTypes: MaterialType.list()], message: response)
+        if (instanceCollect.materialTypes.size() == 0) {
+            listErrors += "Selecione pelo menos uma opção"
+            def response = [error: listErrors, newToken: newToken]
+            render response as JSON
+        }
     }
 
     private verifyErrors(InstanceClass) {
@@ -67,6 +58,7 @@ class CollectController {
             def message = [error: listErrors, newToken: newToken]
             render message as JSON
         }
+        hasMaterialTypes(InstanceClass)
     }
 
     def create() {
@@ -104,17 +96,14 @@ class CollectController {
             User currentUser = springSecurityService.loadCurrentUser()
             Collaborator currentCollaborator = currentUser.collaborator
 
-            if (!currentCollaborator) {
-                invalidToken([error: 'Não existem colaboradores cadastrados.<br>Por favor cadastre um colaborador'])
-            }
             collect.collaborator = currentCollaborator
-
             collect.orderDate = new Date()
             collect.isCollected = false
             collect.materialTypes = []
             params.materialTypes?.each { materialTypeId ->
-                MaterialType m = MaterialType.findById(materialTypeId)
-                collect.addToMaterialTypes(m)
+                MaterialType materialType = MaterialType.findById(materialTypeId)
+                if (materialType)
+                    collect.addToMaterialTypes(materialType)
             }
 
             def fileUpload = request.getFile("imageUpload")
@@ -131,6 +120,7 @@ class CollectController {
                 collect.save(flush: true)
                 successToken([success: "Dados para coleta salvos com sucesso!"])
             }
+
         }.invalidToken {
             invalidToken("")
         }
