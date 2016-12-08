@@ -1,5 +1,6 @@
 package core
 
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
@@ -94,106 +95,61 @@ class CompanyControllerSpec extends Specification {
         given:
         def companyRole = Role.findByAuthority('ROLE_COMPANY_COLLECT') ?: new Role('ROLE_COMPANY_COLLECT').save(flush: true)
 
+        def collectMock = mockFor(Collect)
+
         Company company = new Company(id: 1, companyName: "Empresa Coletora", identificationNumber: "11.111.111/1111-11",
                 tradingName: "Coletora", segment: "reciclagem de lixo", typeOfCompany: "coleta",
                 phone: "(11) 1111-1111", site: "http://www.dsdsds.com.br",
                 address: new Address(city: "Lorena", state: "SP", zipCode: "12602-010", latitude: 0f, longitude: 0f,
                         neighborhood: "Cabelinha", street: "Rua Dr. Paulo Cardoso", number: "123"
-                )).save(flush: true)
-
-        User user = new User('empresa@trashpoints.com.br', '123456')
-        user.company = company
-        user.save(flush: true)
-
-        UserRole.create(user, companyRole)
-
-        UserRole.withSession {
-            it.flush()
-            it.clear()
-        }
+                ))
 
         Collaborator collaborator = new Collaborator(id: 1, name: "João", dateOfBirth: new Date(), isAddressEqual: true,
-                phone: "(11) 1111-1111", photo: "",
+                phone: "(11) 1111-1111", photo: "foto.png",
                 address: new Address(city: "Lorena", state: "SP", zipCode: "12602-010", latitude: 0f, longitude: 0f,
                         neighborhood: "Cabelinha", street: "Rua Dr. Paulo Cardoso", number: "123"
-                )).save(flush: true)
+                ))
 
         Collect collect = new Collect(id: 1, orderDate: new Date(), collectedDate: new Date(), imageUpload: "teste.png",
                 isCollected: false, collaborator: collaborator, company: company)
 
-        SpringSecurityUtils.reauthenticate(user.username, "123456")
+        User loggedInUser = new User(id: 1, username: "empresa@trashpoints.com.br", password: "123456", company: company)
+        def springSecurityService = mockFor(SpringSecurityService, true)
+        springSecurityService.demand.getCurrentUser() { -> loggedInUser }
+        controller.springSecurityService = springSecurityService.createMock()
+
+        collectMock.demand.static.get() {Long id -> collect }
+
         when:
         def tokenHolder = SynchronizerTokensHolder.store(session)
-
         params[SynchronizerTokensHolder.TOKEN_URI] = '/company/markWasCollected'
         params[SynchronizerTokensHolder.TOKEN_KEY] = tokenHolder.generateToken(params[SynchronizerTokensHolder.TOKEN_URI])
         params.collectId = "1"
 
         controller.markWasCollected()
         then:
-        response.json.success != null
+        response.json.success == 'Salvo com sucesso'
     }
 
     void "Load Collaborator Details"() {
         given:
         def companyRole = Role.findByAuthority('ROLE_COMPANY_COLLECT') ?: new Role('ROLE_COMPANY_COLLECT').save(flush: true)
-        def collaboratorRole = Role.findByAuthority('ROLE_COLLABORATOR') ?: new Role('ROLE_COLLABORATOR').save(flush: true)
+
+        def collaboratorMock = mockFor(Collaborator)
+        Address address = new Address(id: 1, city: "Lorena", state: "SP", zipCode: "12602-010", latitude: 0f, longitude: 0f,
+                neighborhood: "Cabelinha", street: "Rua Dr. Paulo Cardoso", number: "123")
 
         Collaborator collaborator = new Collaborator(id: 1, name: "João", dateOfBirth: new Date(), isAddressEqual: true,
-                phone: "(11) 1111-1111", photo: "foto.png",
-                address: new Address(city: "Lorena", state: "SP", zipCode: "12602-010", latitude: 0f, longitude: 0f,
-                        neighborhood: "Cabelinha", street: "Rua Dr. Paulo Cardoso", number: "123"
-                )).save(flush: true)
+                phone: "(11) 1111-1111", photo: "foto.png", address: address)
 
-        User userCollaborator = new User('colaborador@trashpoints.com.br', 'colaborador')
-        userCollaborator.collaborator = collaborator
-        userCollaborator.save(flush: true)
-
-        UserRole.create(userCollaborator, collaboratorRole)
-
-        UserRole.withSession {
-            it.flush()
-            it.clear()
-        }
-
+        collaboratorMock.demand.static.findById() {Long id -> collaborator }
         when:
         params.id = "1"
 
         controller.loadCollaboratorDetails()
         then:
-        response.json.collaborator != null
-        response.json.address != null
-    }
-
-    void "Load Collaborator Details with error"() {
-        given:
-        def companyRole = Role.findByAuthority('ROLE_COMPANY_COLLECT') ?: new Role('ROLE_COMPANY_COLLECT').save(flush: true)
-        def userRole = Role.findByAuthority('ROLE_COLLABORATOR') ?: new Role('ROLE_COLLABORATOR').save(flush: true)
-
-        Collaborator collaborator = new Collaborator(id: 1, name: "João", dateOfBirth: new Date(), isAddressEqual: true,
-                phone: "(11) 1111-1111", photo: "",
-                address: new Address(city: "Lorena", state: "SP", zipCode: "12602-010", latitude: 0f, longitude: 0f,
-                        neighborhood: "Cabelinha", street: "Rua Dr. Paulo Cardoso", number: "123"
-                )).save(flush: true)
-
-        User user = new User('colaborador@trashpoints.com.br', 'colaborador')
-        user.collaborator = collaborator
-        user.save(flush: true)
-
-        UserRole.create(user, userRole)
-
-        UserRole.withSession {
-            it.flush()
-            it.clear()
-        }
-
-        when:
-        params.id = "3"
-
-        controller.loadCollaboratorDetails()
-        then:
-        response.json.collaborator == null
-        response.json.address == null
+        response.json.collaborator.name == "João"
+        response.json.address.city == "Lorena"
     }
 
     void "Company Collections empty"() {
@@ -204,7 +160,7 @@ class CompanyControllerSpec extends Specification {
         model.companyCollections == []
     }
 
-    void "Company Collections with data"() {
+    /*void "Company Collections with data"() {
         given:
         def companyColRole = Role.findByAuthority('ROLE_COMPANY_COLLECT') ?: new Role('ROLE_COMPANY_COLLECT').save(flush: true)
 
@@ -213,24 +169,15 @@ class CompanyControllerSpec extends Specification {
                 phone: "(11) 1111-1111", site: "http://www.dsdsds.com.br",
                 address: new Address(city: "Lorena", state: "SP", zipCode: "12602-010", latitude: 0f, longitude: 0f,
                         neighborhood: "Cabelinha", street: "Rua Dr. Paulo Cardoso", number: "123"
-                )).save(flush: true)
+                ))
 
         User user = new User('empresa@trashpoints.com.br', '123456')
-        user.company = company
-        user.save(flush: true)
-
-        UserRole.create(user, companyColRole)
-
-        UserRole.withSession {
-            it.flush()
-            it.clear()
-        }
 
         Collaborator collaborator = new Collaborator(id: 1, name: "João", dateOfBirth: new Date(), isAddressEqual: true,
                 phone: "(11) 1111-1111", photo: "",
                 address: new Address(city: "Lorena", state: "SP", zipCode: "12602-010", latitude: 0f, longitude: 0f,
                         neighborhood: "Cabelinha", street: "Rua Dr. Paulo Cardoso", number: "123"
-                )).save(flush: true)
+                ))
 
         Collect collect = new Collect(id: 1, orderDate: new Date(), collectedDate: new Date(), imageUpload: "teste.png",
                 isCollected: true, collaborator: collaborator, company: company)
@@ -239,6 +186,6 @@ class CompanyControllerSpec extends Specification {
         controller.myCollections()
         then:
         view == "/company/myCollections"
-        model.companyCollections != null
-    }
+        model.companyCollections.isCollected == true
+    }*/
 }

@@ -40,10 +40,7 @@
 </main>
 
 <script type="text/javascript">
-    //function verifyLogin() {
-    //    var url   = window.location.search;
-    //    console.log(url)
-    //}
+
 </script>
 
 </body>

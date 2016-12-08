@@ -137,7 +137,7 @@ class CompanyController {
     def markWasCollected() {
         Long collectId = params.collectId.toLong()
         withForm {
-            User currentUser = springSecurityService.currentUser
+            User currentUser = springSecurityService.getCurrentUser()
             Company currentCompany = currentUser.company
 
             Collect collect = Collect.get(collectId)
