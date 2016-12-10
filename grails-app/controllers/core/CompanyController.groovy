@@ -189,7 +189,7 @@ class CompanyController {
             company.identificationNumber = params.identificationNumber
             company.tradingName = params.tradingName
             company.segment = params.segment
-            company.typeOfCompany = params.typeOfCompany
+//            company.typeOfCompany = params.typeOfCompany
             company.phone = params.phone
             company.site = params.site
             address.validate()
