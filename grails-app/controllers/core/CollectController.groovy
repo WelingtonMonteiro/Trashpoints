@@ -4,6 +4,7 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 import org.codehaus.groovy.grails.web.servlet.mvc.SynchronizerTokensHolder
+import org.hibernate.criterion.CriteriaSpecification
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
 
@@ -139,13 +140,64 @@ class CollectController {
         render response as JSON
     }
 
-    /*def list() {
-        //ID COLLABORATOR LOGGED IN
-        def collaboratorId = 1
-        def collaboratorCollections = Collaborator.get(collaboratorId)?.collects
+    @Secured(['ROLE_COMPANY_COLLECT'])
+    def placesCollect() {
+        render(view: "placesCollect")
+    }
 
-        render collaboratorCollections as JSON
-    }*/
+    @Secured(['ROLE_COMPANY_COLLECT'])
+    def listPlacesCollect() {
+        def collects = Collect.createCriteria().list{
+            resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
+            createAlias("collaborator","c")
+            createAlias("c.address","adr")
+            projections {
+                property("id", "collectId")
+                property("adr.latitude", "lat")
+                property("adr.longitude", "lng")
+            }
+            eq("isCollected", false)
+        }
+        render collects as JSON
+    }
+
+    @Secured(['ROLE_COMPANY_COLLECT'])
+    def listInfoCollect() {
+        Integer collectId = params.id.toInteger()
+
+        def infoCollect = Collect.createCriteria().get{
+            resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
+            createAlias("collaborator","c")
+            createAlias("c.address","adr")
+
+            projections {
+                property("orderDate", "orderDate")
+                property("imageUpload", "imageCollect")
+                property("c.name", "nameColaborator")
+                property("adr.street", "street")
+                property("adr.number", "number")
+                property("adr.neighborhood", "neighborhood")
+                property("adr.city", "city")
+                property("adr.state", "state")
+            }
+            idEq(collectId)
+        }
+        infoCollect.orderDate = infoCollect.orderDate.format("dd/MM/yyyy")
+
+        def materialTypes = Collect.createCriteria().list {
+            resultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
+            createAlias("materialTypes","material")
+
+            projections {
+                property("material.name", "materialTypes")
+            }
+            idEq(collectId)
+        }
+
+        def response = ["infoCollect": infoCollect, "materialTypes": materialTypes]
+
+        render response as JSON
+    }
 
 
 }

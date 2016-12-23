@@ -29,7 +29,7 @@
 			</ul>
 		</li>
 		<li><div class="divider"></div></li>
-		<li><a class="waves-effect" href="#">Locais para coletar<i class="material-icons fa-2x">local_shipping</i></a></li>
+		<li><a class="waves-effect" href="/Trashpoints/Collect/placesCollect">Locais para coletar<i class="material-icons fa-2x">local_shipping</i></a></li>
 		<li><a class="waves-effect" href="/Trashpoints/Company/MyCollections">Minhas Coletas<i class="fa fa-recycle fa-2x" aria-hidden="true"></i></a></li>
 		<li><a class="waves-effect" href="#">Notificações<i class="material-icons fa-2x">notifications</i></a></li>
 		<li><a class="waves-effect" href="/Trashpoints/j_spring_security_logout">Sair<i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a></li>

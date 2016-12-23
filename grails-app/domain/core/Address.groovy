@@ -20,7 +20,7 @@ class Address {
         neighborhood blank: true, nullable: true, minSize: 2, maxSize: 255
         city blank: true, nullable: true, minSize: 2
         state blank: true, nullable: true, minSize: 2
-        latitude nullable: true, max:180.0F, scale:6
-        longitude nullable: true, max:180.0F, scale:6
+        latitude nullable: true, min: -90.0F, max: 90.0F
+        longitude nullable: true, min: -180.0F, max: 180.0F
     }
 }
