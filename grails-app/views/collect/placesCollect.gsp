@@ -79,9 +79,8 @@
                         <li class="collection-item">
                             <div>
                                 <i class="fa fa-file-image-o left" aria-hidden="true" style="font-size: 24px;"></i>
-                                <label class="my-label">Imagem Coleta</label><br/>
-                                <div class="center">
-                                    <img id="imageCollect" src="#" style="max-height: 284px;" />
+                                <label class="my-label"> Imagem Coleta: </label><br/>
+                                <div id="divCollectImage" class="center">
                                 </div>
                             </div>
                         </li>

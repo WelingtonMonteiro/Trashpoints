@@ -85,13 +85,16 @@ function setInfoCollect(collectId, marker) {
         success: function (data) {
             var address = data.infoCollect.street + ", " + data.infoCollect.number + " - " +
                 data.infoCollect.neighborhood + ", " + data.infoCollect.city + "-" + data.infoCollect.state;
-
-            var IMAGE_PATH = "/Trashpoints/images/uploads/";
-
+            $("#infoCollect #divCollectImage").html("");
+            if (data.infoCollect.imageCollect){
+                var UPLOAD_FOLDER_PATH = "/Trashpoints/images/uploads/";
+                $("#infoCollect #divCollectImage").html("<img src='" + UPLOAD_FOLDER_PATH + data.infoCollect.imageCollect +"' class='responsive-img' style='max-height: 284px;'>")
+            }else{
+                $("#infoCollect #divCollectImage").html("<i class='fa fa-file-image-o fa-5x center-align'></i>")
+            }
             $("#infoCollect span#nameColaborator").text(data.infoCollect.nameColaborator)
             $("#infoCollect span#address").text(address)
             $("#infoCollect span#orderDate").text(data.infoCollect.orderDate)
-            $("#infoCollect img#imageCollect").attr("src", IMAGE_PATH + data.infoCollect.imageCollect)
 
             var materialTypes = data.materialTypes.join(", ");
 
