@@ -8,12 +8,19 @@ var selectedMarker;
 var isActiveToggle = false;
 
 function initMap() {
+    var latLng = new google.maps.LatLng(-22.19496980839918, -47.32420171249998);
+
     //Setup Map
     map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -22.81603082953687, lng: -45.19272714106444},
-        zoom: 10,
+        center: latLng,
+        zoom: 6,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
+    latLngBounds = new google.maps.LatLngBounds();
+
+    getLocationsOfCollections();
+    getMyLocation();
+
     //Setup Directions Renderer(Used in routes)
     directionsDisplay = new google.maps.DirectionsRenderer({
         map: map,
@@ -25,12 +32,6 @@ function initMap() {
     directionsDisplay.addListener('directions_changed', function() {
         computeTotalDistance(directionsDisplay.getDirections());
     });
-
-    latLngBounds = new google.maps.LatLngBounds();
-
-    getLocationsOfCollections();
-    getMyLocation();
-    map.fitBounds(latLngBounds);
 }
 
 function getLocationsOfCollections(){
@@ -168,7 +169,8 @@ function createMarkerMyLocation() {
         icon: '/Trashpoints/images/icon_my_location.png',
         title: 'Minha localização'
     });
-    latLngBounds.extend(markerMyPosition.position); //Adjust bounds of map
+    latLngBounds.extend(myLatLng); //Adjust bounds of map
+    map.fitBounds(latLngBounds);
 
     //Listener for set zoom when click in my position's marker
     markerMyPosition.addListener('click', function() {
@@ -198,7 +200,6 @@ function errorGeolocation(error){
 
 $(document).ready(function () {
     initMap();
-
     $('#createRoute').click(function(){
         if(selectedMarker) {
             createRoute(selectedMarker.position);
@@ -206,3 +207,7 @@ $(document).ready(function () {
     });
 
 });
+
+/*google.maps.event.addListenerOnce(map, 'idle', function() {
+    map.fitBounds(markerBounds);
+});*/
