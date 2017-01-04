@@ -5,6 +5,7 @@ var directionsDisplay;
 var latLngBounds;
 var myLatLng;
 var selectedMarker;
+var collectIdSelected;
 var isActiveToggle = false;
 
 function initMap() {
@@ -64,13 +65,14 @@ function createMarkersOfCollections(locations) {
 }
 
 function createListenerClickMarker(collectId, marker){
-    //Listener to marker one point
+    //Listener to marker one point of collect
     marker.addListener('click', function () {
         setInfoCollect(collectId, marker);
         if (selectedMarker)
             selectedMarker.setIcon(); //set Default icon
         selectedMarker = this;
         selectedMarker.setIcon('/Trashpoints/images/Map-Marker.png');
+        collectIdSelected = collectId
     });
 }
 
@@ -86,20 +88,19 @@ function setInfoCollect(collectId, marker) {
         success: function (data) {
             var address = data.infoCollect.street + ", " + data.infoCollect.number + " - " +
                 data.infoCollect.neighborhood + ", " + data.infoCollect.city + "-" + data.infoCollect.state;
+            var materialTypes = data.materialTypes.join(", ");
+
             $("#infoCollect #divCollectImage").html("");
             if (data.infoCollect.imageCollect){
                 var UPLOAD_FOLDER_PATH = "/Trashpoints/images/uploads/";
-                $("#infoCollect #divCollectImage").html("<img src='" + UPLOAD_FOLDER_PATH + data.infoCollect.imageCollect +"' class='responsive-img' style='max-height: 284px;'>")
+                $("#infoCollect #divCollectImage").html("<img src='" + UPLOAD_FOLDER_PATH + data.infoCollect.imageCollect +"' class='responsive-img' style='max-height: 284px;'>");
             }else{
-                $("#infoCollect #divCollectImage").html("<i class='fa fa-file-image-o fa-5x center-align'></i>")
+                $("#infoCollect #divCollectImage").html("<i class='fa fa-file-image-o fa-5x center-align'></i>");
             }
-            $("#infoCollect span#nameColaborator").text(data.infoCollect.nameColaborator)
-            $("#infoCollect span#address").text(address)
-            $("#infoCollect span#orderDate").text(data.infoCollect.orderDate)
-
-            var materialTypes = data.materialTypes.join(", ");
-
-            $("#infoCollect span#typeOfCollect").text(materialTypes)
+            $("#infoCollect span#nameColaborator").text(data.infoCollect.nameColaborator);
+            $("#infoCollect span#address").text(address);
+            $("#infoCollect span#orderDate").text(data.infoCollect.orderDate);
+            $("#infoCollect span#typeOfCollect").text(materialTypes);
 
             if(!isActiveToggle) {
                 $('.collection').toggle("slow");
@@ -107,7 +108,6 @@ function setInfoCollect(collectId, marker) {
             }
 
             contentString =
-                '<p>Colaborador: ' + data.infoCollect.nameColaborator + '</p>' +
                 '<p>Endereço: ' + address + '</p>' +
                 '<p>Data Pedido: ' + data.infoCollect.orderDate + '</p>' +
                 '<p>Tipo da Coleta: ' + materialTypes +'</p>';
@@ -172,7 +172,7 @@ function createMarkerMyLocation() {
     latLngBounds.extend(myLatLng); //Adjust bounds of map
     map.fitBounds(latLngBounds);
 
-    //Listener for set zoom when click in my position's marker
+    //Listener for set zoom when click in my marker position
     markerMyPosition.addListener('click', function() {
         map.setZoom(map.getZoom() + 2);
         map.setCenter(markerMyPosition.getPosition());
@@ -198,16 +198,38 @@ function errorGeolocation(error){
     alert(errorDescription)
 };
 
+function ajustMapZoom() {
+    google.maps.event.addListenerOnce(map, 'idle', function() {
+        map.fitBounds(latLngBounds);
+    });
+}
+
+function collectRecycling(collectIdSelected) {
+    $.ajax({
+        url: "/Trashpoints/Collect/collectRecycling/",
+        data: {
+            id: collectIdSelected
+        },
+        method: "post",
+        success: function (data) {
+            var collect = data;
+        }
+    });
+}
+
 $(document).ready(function () {
     initMap();
-    $('#createRoute').click(function(){
+    $('#btnCreateRoute').click(function(){
         if(selectedMarker) {
             createRoute(selectedMarker.position);
         }
     });
-
+    $('#btnCollectRecycling').click(function(){
+        if(selectedMarker) {
+            collectRecycling(collectIdSelected);
+        }
+    });
+    ajustMapZoom();
 });
 
-/*google.maps.event.addListenerOnce(map, 'idle', function() {
-    map.fitBounds(markerBounds);
-});*/
+

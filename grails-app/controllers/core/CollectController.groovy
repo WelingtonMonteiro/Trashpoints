@@ -37,7 +37,6 @@ class CollectController {
 
     private hasMaterialTypes(instanceCollect) {
         String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
-        println("Count " + instanceCollect.materialTypes.size())
         def listErrors = []
 
         if (instanceCollect.materialTypes.size() == 0) {
@@ -197,6 +196,24 @@ class CollectController {
         def response = ["infoCollect": infoCollect, "materialTypes": materialTypes]
 
         render response as JSON
+    }
+
+    @Secured(['ROLE_COMPANY_COLLECT'])
+    @Transactional
+    def collectRecycling() {
+        Integer collectId = params.id.toInteger()
+        User currentUser = springSecurityService.getCurrentUser()
+        Company currentCompany = currentUser.company
+
+        Collect collect = Collect.findById(collectId)
+        if(collect) {
+            collect.company = currentCompany
+            collect.save(flush: true)
+        }
+
+        render collect as JSON
+        //successToken([success: "Dados para coleta salvos com sucesso!"])
+
     }
 
 
