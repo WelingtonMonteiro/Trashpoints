@@ -78,3 +78,20 @@ fieldset {
 .hidden {
 	display: none;
 }
+
+#map {
+	height: 100%;
+	width: 100%;
+}
+
+#panelMap {
+	height: 100%;
+	width: 100%;
+	overflow: auto;
+}
+
+.btn-google-map {
+	position: absolute;
+	right: 30px;
+	opacity: 0.79;
+}

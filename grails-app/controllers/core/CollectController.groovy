@@ -168,6 +168,7 @@ class CollectController {
             resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
             createAlias("collaborator","c")
             createAlias("c.address","adr")
+            createAlias("company", "comp", CriteriaSpecification.LEFT_JOIN)
 
             projections {
                 property("orderDate", "orderDate")
@@ -178,6 +179,7 @@ class CollectController {
                 property("adr.neighborhood", "neighborhood")
                 property("adr.city", "city")
                 property("adr.state", "state")
+                property("comp.companyName", "companyName")
             }
             idEq(collectId)
         }

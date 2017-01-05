@@ -3,18 +3,6 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Locais para coletar</title>
-    <style type="text/css">
-    #map {
-        height: 100%;
-        width: 100%;
-    }
-
-    #panelMap {
-        height: 100%;
-        width: 100%;
-        overflow: auto;
-    }
-    </style>
 </head>
 
 <body>
@@ -28,12 +16,12 @@
                     <h5 class="header">Locais para coletar</h5>
 
                     <div id="map"></div>
-                    <button id="btnCreateRoute" class="btn waves-effect waves-light blue darken-3" title="Criar rota entre a sua posição e o ponto selecionado"
-                            style="position: absolute; top: 60px; right: 30px; opacity: 0.79;">
+                    <button id="btnCreateRoute" class="btn waves-effect waves-light blue darken-3 btn-google-map disabled"
+                            title="Criar rota entre a sua posição e o ponto selecionado" style="top: 60px;">
                         <i class="material-icons left">directions</i>Rota
                     </button>
-                    <button id="btnCollectRecycling" class="btn waves-effect waves-light blue darken-3" title="Marcar que quero coletar essa reciclagem"
-                            style="position: absolute; top: 110px; right: 30px; opacity: 0.79;">
+                    <button id="btnCollectRecycling" class="btn waves-effect waves-light blue darken-3 btn-google-map disabled"
+                            title="Marcar que quero coletar essa reciclagem" style="top: 110px;">
                         <i class="material-icons left">local_shipping</i>Coletar
                     </button>
                 </div>

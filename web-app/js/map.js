@@ -67,7 +67,7 @@ function createMarkersOfCollections(locations) {
 function createListenerClickMarker(collectId, marker){
     //Listener to marker one point of collect
     marker.addListener('click', function () {
-        setInfoCollect(collectId, marker);
+        getInfoCollect(collectId, marker);
         if (selectedMarker)
             selectedMarker.setIcon(); //set Default icon
         selectedMarker = this;
@@ -76,9 +76,7 @@ function createListenerClickMarker(collectId, marker){
     });
 }
 
-function setInfoCollect(collectId, marker) {
-    var contentString = "";
-
+function getInfoCollect(collectId, marker) {
     $.ajax({
         url: "/Trashpoints/Collect/listInfoCollect/",
         data: {
@@ -86,40 +84,60 @@ function setInfoCollect(collectId, marker) {
         },
         method: "post",
         success: function (data) {
-            var address = data.infoCollect.street + ", " + data.infoCollect.number + " - " +
-                data.infoCollect.neighborhood + ", " + data.infoCollect.city + "-" + data.infoCollect.state;
-            var materialTypes = data.materialTypes.join(", ");
+            showInfoCollect(data, marker)
 
-            $("#infoCollect #divCollectImage").html("");
-            if (data.infoCollect.imageCollect){
-                var UPLOAD_FOLDER_PATH = "/Trashpoints/images/uploads/";
-                $("#infoCollect #divCollectImage").html("<img src='" + UPLOAD_FOLDER_PATH + data.infoCollect.imageCollect +"' class='responsive-img' style='max-height: 284px;'>");
-            }else{
-                $("#infoCollect #divCollectImage").html("<i class='fa fa-file-image-o fa-5x center-align'></i>");
-            }
-            $("#infoCollect span#nameColaborator").text(data.infoCollect.nameColaborator);
-            $("#infoCollect span#address").text(address);
-            $("#infoCollect span#orderDate").text(data.infoCollect.orderDate);
-            $("#infoCollect span#typeOfCollect").text(materialTypes);
-
-            if(!isActiveToggle) {
-                $('.collection').toggle("slow");
-                isActiveToggle = true;
-            }
-
-            contentString =
-                '<p>Endereço: ' + address + '</p>' +
-                '<p>Data Pedido: ' + data.infoCollect.orderDate + '</p>' +
-                '<p>Tipo da Coleta: ' + materialTypes +'</p>';
-
-            var infoWindow = new google.maps.InfoWindow({
-                content: contentString
-            });
-
-            infoWindow.open(map, marker);
-            setTimeout(function () { infoWindow.close(); }, 10000);
         }
     });
+}
+
+function showInfoCollect(data, marker) {
+    var contentString = "";
+
+    var address = data.infoCollect.street + ", " + data.infoCollect.number + " - <br/>" + data.infoCollect.neighborhood + ", " + data.infoCollect.city + "-" + data.infoCollect.state;
+    var materialTypes = data.materialTypes.join(", ");
+
+    if (data.infoCollect.imageCollect){
+        var UPLOAD_FOLDER_PATH = "/Trashpoints/images/uploads/";
+        $("#infoCollect #divCollectImage").html("<img src='" + UPLOAD_FOLDER_PATH + data.infoCollect.imageCollect +"' class='responsive-img' style='max-height: 284px;'>");
+    }else{
+        $("#infoCollect #divCollectImage").html("<i class='fa fa-file-image-o fa-5x center-align'></i>");
+    }
+    $("#infoCollect span#nameColaborator").text(data.infoCollect.nameColaborator);
+    $("#infoCollect span#address").html(address);
+    $("#infoCollect span#orderDate").text(data.infoCollect.orderDate);
+    $("#infoCollect span#typeOfCollect").text(materialTypes);
+    if (data.infoCollect.companyName){
+        var companyName = data.infoCollect.companyName;
+        contentString =
+            '<p>Empresa: ' + companyName + ', já selecionou que vai recolher essa coleta</p>'+
+            '<p>Data Pedido: ' + data.infoCollect.orderDate + '</p>' +
+            '<p>Tipo da Coleta: ' + materialTypes +'</p>';
+        selectedMarker.setIcon('/Trashpoints/images/Map-Marker.png');
+    }else{
+        contentString =
+            '<p>Endereço: ' + address + '</p>' +
+            '<p>Data Pedido: ' + data.infoCollect.orderDate + '</p>' +
+            '<p>Tipo da Coleta: ' + materialTypes +'</p>';
+    }
+
+    if(!isActiveToggle) {
+        $('.collection').toggle("slow");
+        isActiveToggle = true;
+    }
+
+    var infoWindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+
+    infoWindow.open(map, marker);
+    setTimeout(function () { infoWindow.close(); }, 10000);
+
+    computeDistanceInKmBetweenPoints(myLatLng, marker.getPosition());
+}
+
+function computeDistanceInKmBetweenPoints(myPosition, targetPosition) {
+    var distanceBetweenPoints = (google.maps.geometry.spherical.computeDistanceBetween(myPosition, targetPosition) / 1000).toFixed(2);
+    document.getElementById('distanceBetweenPoints').innerHTML = distanceBetweenPoints.toString().replace('.',',') + ' km';
 }
 
 function createRoute(markerPosition){
@@ -170,7 +188,7 @@ function createMarkerMyLocation() {
         title: 'Minha localização'
     });
     latLngBounds.extend(myLatLng); //Adjust bounds of map
-    map.fitBounds(latLngBounds);
+    //map.fitBounds(latLngBounds);
 
     //Listener for set zoom when click in my marker position
     markerMyPosition.addListener('click', function() {
@@ -199,9 +217,7 @@ function errorGeolocation(error){
 };
 
 function ajustMapZoom() {
-    google.maps.event.addListenerOnce(map, 'idle', function() {
-        map.fitBounds(latLngBounds);
-    });
+    map.fitBounds(latLngBounds);
 }
 
 function collectRecycling(collectIdSelected) {
@@ -215,6 +231,16 @@ function collectRecycling(collectIdSelected) {
             var collect = data;
         }
     });
+}
+
+function enableButtonsMap() {
+    $('#btnCreateRoute').removeClass("disabled");
+    $('#btnCollectRecycling').removeClass("disabled");
+}
+
+function disableButtonsMap() {
+    $('#btnCreateRoute').addClass("disabled");
+    $('#btnCollectRecycling').addClass("disabled");
 }
 
 $(document).ready(function () {
