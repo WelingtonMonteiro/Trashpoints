@@ -61,6 +61,16 @@ class CollectController {
         hasMaterialTypes(InstanceClass)
     }
 
+    private isCollectSelected(instanceCollect) {
+        String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
+        if(instanceCollect.company) {
+            def error = "Coleta já selecionada por outra empresa"
+            def response = [error: error, newToken: newToken]
+            render response as JSON
+        }else
+            return false
+    }
+
     def create() {
         List materialTypeList = MaterialType.list()
         render(view: "create", model: [materialTypes: materialTypeList])
@@ -203,19 +213,20 @@ class CollectController {
     @Secured(['ROLE_COMPANY_COLLECT'])
     @Transactional
     def collectRecycling() {
-        Integer collectId = params.id.toInteger()
-        User currentUser = springSecurityService.getCurrentUser()
-        Company currentCompany = currentUser.company
+        withForm {
+            Integer collectId = params.id.toInteger()
+            User currentUser = springSecurityService.getCurrentUser()
+            Company currentCompany = currentUser.company
 
-        Collect collect = Collect.findById(collectId)
-        if(collect) {
-            collect.company = currentCompany
-            collect.save(flush: true)
+            Collect collect = Collect.findById(collectId)
+            if(collect && isCollectSelected(collect) == false) {
+                collect.company = currentCompany
+                collect.save(flush: true)
+                successToken("")
+            }
+        }.invalidToken {
+            invalidToken("")
         }
-
-        render collect as JSON
-        //successToken([success: "Dados para coleta salvos com sucesso!"])
-
     }
 
 

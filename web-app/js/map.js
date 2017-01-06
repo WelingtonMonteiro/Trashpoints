@@ -7,6 +7,7 @@ var myLatLng;
 var selectedMarker;
 var collectIdSelected;
 var isActiveToggle = false;
+var line;
 
 function initMap() {
     var latLng = new google.maps.LatLng(-22.19496980839918, -47.32420171249998);
@@ -32,6 +33,13 @@ function initMap() {
     //Listener to recalculate total distance between two points
     directionsDisplay.addListener('directions_changed', function() {
         computeTotalDistance(directionsDisplay.getDirections());
+    });
+
+    line = new google.maps.Polyline({
+        map: map,
+        strokeColor: "#FF3333",
+        strokeOpacity: 0.7,
+        strokeWeight: 7
     });
 }
 
@@ -71,7 +79,7 @@ function createListenerClickMarker(collectId, marker){
         if (selectedMarker)
             selectedMarker.setIcon(); //set Default icon
         selectedMarker = this;
-        selectedMarker.setIcon('/Trashpoints/images/Map-Marker.png');
+        selectedMarker.setIcon('/Trashpoints/images/map_marker_selected.png');
         collectIdSelected = collectId
     });
 }
@@ -84,16 +92,45 @@ function getInfoCollect(collectId, marker) {
         },
         method: "post",
         success: function (data) {
-            showInfoCollect(data, marker)
-
+            showInfoCollect(data, marker);
+            showInfoWindowCollect(data, marker);
         }
     });
 }
 
-function showInfoCollect(data, marker) {
+function showInfoWindowCollect(data, marker) {
     var contentString = "";
 
     var address = data.infoCollect.street + ", " + data.infoCollect.number + " - <br/>" + data.infoCollect.neighborhood + ", " + data.infoCollect.city + "-" + data.infoCollect.state;
+    var materialTypes = data.materialTypes.join(", ");
+
+    if (data.infoCollect.companyName){
+        var companyName = data.infoCollect.companyName;
+        contentString =
+            '<p><strong>Empresa: ' + companyName + ', já selecionou que vai recolher essa coleta </strong> </p>'+
+            '<p><strong>Data Pedido: </strong>' + data.infoCollect.orderDate + '</p>' +
+            '<p><strong>Tipo da Coleta: </strong>' + materialTypes +'</p>';
+
+        selectedMarker.setIcon('/Trashpoints/images/map_marker_selected.png');
+        disableButtonsMap();
+    }else{
+        contentString =
+            '<p><strong>Endereço: </strong>' + address + '</p>' +
+            '<p><strong>Data Pedido: </strong>' + data.infoCollect.orderDate + '</p>' +
+            '<p><strong>Tipo da Coleta: </strong>' + materialTypes +'</p>';
+        enableButtonsMap();
+    }
+
+    var infoWindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+
+    infoWindow.open(map, marker);
+    setTimeout(function () { infoWindow.close(); }, 10000);
+}
+
+function showInfoCollect(data, marker) {
+    var address = data.infoCollect.street + ", " + data.infoCollect.number + " - " + data.infoCollect.neighborhood + ", " + data.infoCollect.city + "-" + data.infoCollect.state;
     var materialTypes = data.materialTypes.join(", ");
 
     if (data.infoCollect.imageCollect){
@@ -106,31 +143,11 @@ function showInfoCollect(data, marker) {
     $("#infoCollect span#address").html(address);
     $("#infoCollect span#orderDate").text(data.infoCollect.orderDate);
     $("#infoCollect span#typeOfCollect").text(materialTypes);
-    if (data.infoCollect.companyName){
-        var companyName = data.infoCollect.companyName;
-        contentString =
-            '<p>Empresa: ' + companyName + ', já selecionou que vai recolher essa coleta</p>'+
-            '<p>Data Pedido: ' + data.infoCollect.orderDate + '</p>' +
-            '<p>Tipo da Coleta: ' + materialTypes +'</p>';
-        selectedMarker.setIcon('/Trashpoints/images/Map-Marker.png');
-    }else{
-        contentString =
-            '<p>Endereço: ' + address + '</p>' +
-            '<p>Data Pedido: ' + data.infoCollect.orderDate + '</p>' +
-            '<p>Tipo da Coleta: ' + materialTypes +'</p>';
-    }
 
     if(!isActiveToggle) {
         $('.collection').toggle("slow");
         isActiveToggle = true;
     }
-
-    var infoWindow = new google.maps.InfoWindow({
-        content: contentString
-    });
-
-    infoWindow.open(map, marker);
-    setTimeout(function () { infoWindow.close(); }, 10000);
 
     computeDistanceInKmBetweenPoints(myLatLng, marker.getPosition());
 }
@@ -138,6 +155,12 @@ function showInfoCollect(data, marker) {
 function computeDistanceInKmBetweenPoints(myPosition, targetPosition) {
     var distanceBetweenPoints = (google.maps.geometry.spherical.computeDistanceBetween(myPosition, targetPosition) / 1000).toFixed(2);
     document.getElementById('distanceBetweenPoints').innerHTML = distanceBetweenPoints.toString().replace('.',',') + ' km';
+    drawLine();
+}
+
+function drawLine() {
+    var path = [myLatLng, selectedMarker.getPosition()];
+    line.setPath(path);
 }
 
 function createRoute(markerPosition){
@@ -221,14 +244,31 @@ function ajustMapZoom() {
 }
 
 function collectRecycling(collectIdSelected) {
+    var formData = $("form[name=formPlacesCollect]").serializeArray();
+    var id = {
+        name: "id",
+        value: collectIdSelected
+    }
+    formData.push(id);
+
     $.ajax({
         url: "/Trashpoints/Collect/collectRecycling/",
-        data: {
-            id: collectIdSelected
-        },
+        data: formData,
         method: "post",
         success: function (data) {
-            var collect = data;
+            if (data.success) {
+                iziToast.success({
+                    title: 'OK',
+                    message: 'Sucesso ao salvar!',
+                    iconText: "check"
+                });
+            }else if(data.error) {
+                iziToast.error({
+                    title: 'Erro',
+                    message: 'Operação ilegal!',
+                });
+            }
+            $("#SYNCHRONIZER_TOKEN").val(data.newToken);
         }
     });
 }

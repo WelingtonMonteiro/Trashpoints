@@ -8,19 +8,22 @@
 <body>
 
 <main>
+    <g:form name="formPlacesCollect" useToken="true"></g:form>
     <div class="section">
-        <div class="container">
+        <div class="container-fluid">
 
             <div class="row">
                 <div class="col s12" style="height: 500px; position: relative;">
                     <h5 class="header">Locais para coletar</h5>
 
                     <div id="map"></div>
-                    <button id="btnCreateRoute" class="btn waves-effect waves-light blue darken-3 btn-google-map disabled"
+                    <button id="btnCreateRoute"
+                            class="btn waves-effect waves-light blue darken-3 btn-google-map disabled"
                             title="Criar rota entre a sua posição e o ponto selecionado" style="top: 60px;">
                         <i class="material-icons left">directions</i>Rota
                     </button>
-                    <button id="btnCollectRecycling" class="btn waves-effect waves-light blue darken-3 btn-google-map disabled"
+                    <button id="btnCollectRecycling"
+                            class="btn waves-effect waves-light blue darken-3 btn-google-map disabled"
                             title="Marcar que quero coletar essa reciclagem" style="top: 110px;">
                         <i class="material-icons left">local_shipping</i>Coletar
                     </button>
@@ -38,7 +41,7 @@
                         <li class="collection-item">
                             <div>
                                 <i class="fa fa-arrows-h left" aria-hidden="true" style="font-size: 24px;"></i>
-                                <label class="my-label">Distância entre a origem e o destino:</label>
+                                <label class="my-label">Distância entre a origem e o destino:</label> ≅
                                 <span id="distanceBetweenPoints">0 km</span>
                             </div>
                         </li>
@@ -70,7 +73,8 @@
                         <li class="collection-item">
                             <div>
                                 <i class="fa fa-file-image-o left" aria-hidden="true" style="font-size: 24px;"></i>
-                                <label class="my-label"> Imagem Coleta:</label><br/>
+                                <label class="my-label">Imagem Coleta:</label><br/>
+
                                 <div id="divCollectImage" class="center"></div>
                             </div>
                         </li>
@@ -80,12 +84,12 @@
             </div>
 
             <div class="row">
-                <div class="col s12 m9">
+                <div class="col s12 offset-m2 m8">
                     <div class="card-panel grey lighten-5">
                         <i class="material-icons left blue-text">info</i>
                         <span class="black-text">
                             Para criar uma rota, basta somente clicar em algum ponto e depois clicar no botão
-                            <button class="btn waves-effect waves-light blue darken-3 disabled">
+                            <button class="btn waves-effect waves-light blue darken-3 btn-disabled">
                                 <i class="material-icons left">directions</i>Rota
                             </button>
                         </span>
@@ -94,15 +98,35 @@
             </div>
 
             <div class="row">
-                <div class="col s12 m9">
+                <div class="col s12 offset-m2 m8">
                     <div class="card-panel grey lighten-5">
                         <i class="material-icons left blue-text">info</i>
                         <span class="black-text">
                             Para marcar que você vai coletar em um local, basta somente clicar em algum ponto e depois clicar no botão
-                            <button class="btn waves-effect waves-light blue darken-3 disabled">
+                            <button class="btn waves-effect waves-light blue darken-3 btn-disabled">
                                 <i class="material-icons left">local_shipping</i>Coletar
                             </button>
                         </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12 offset-m2 m8">
+                    <div class="card-panel grey lighten-5">
+                        <i class="material-icons left blue-text">info</i> <strong>Legenda</strong><br />
+                        <div class="row">
+                            <div class="col s12 offset-m2 m8">
+                                <img src="/Trashpoints/images/icon_my_location_32.png">
+                                <span style="vertical-align: super;"> - Representa sua localização</span><br/>
+
+                                <img src="/Trashpoints/images/map-marker_32.png">
+                                <span style="vertical-align: super;"> - Representa um ponto de coleta</span><br/>
+
+                                <img src="/Trashpoints/images/map_marker_selected.png">
+                                <span style="vertical-align: super;"> - Representa um ponto selecionado</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

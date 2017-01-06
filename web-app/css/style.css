@@ -95,3 +95,13 @@ fieldset {
 	right: 30px;
 	opacity: 0.79;
 }
+
+.btn-disabled {
+	pointer-events: none;
+	box-shadow: none;
+	cursor: default;
+}
+
+.container-fluid {
+	width: 100%;
+}
