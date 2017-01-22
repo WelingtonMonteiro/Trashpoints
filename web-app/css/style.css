@@ -88,6 +88,7 @@ fieldset {
 	height: 100%;
 	width: 100%;
 	overflow: auto;
+	max-height: 145px;
 }
 
 .btn-google-map {

@@ -1,4 +1,3 @@
-var geocoder;
 var map;
 var markersClusters = [];
 var directionsDisplay;
@@ -161,6 +160,11 @@ function computeDistanceInKmBetweenPoints(myPosition, targetPosition) {
 function drawLine() {
     var path = [myLatLng, selectedMarker.getPosition()];
     line.setPath(path);
+    line.setMap(map);
+}
+
+function eraseLine() {
+    line.setMap(null);
 }
 
 function createRoute(markerPosition){
@@ -175,6 +179,8 @@ function createRoute(markerPosition){
     var directionsService = new google.maps.DirectionsService();
     directionsService.route(request, function(response, status) {
         if (status == 'OK') {
+            eraseLine();
+            $("h6#infoRoute").show();
             directionsDisplay.setDirections(response);
         }
     });

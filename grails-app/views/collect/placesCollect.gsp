@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="col s12" style="max-height: 145px; margin-top: 50px">
-                    <div id="panelMap"><h6 class="center-align bold">Informações sobre a rota</h6></div>
+                    <div id="panelMap"><h6 id="infoRoute" class="center-align bold hidden">Informações sobre a rota</h6></div>
                 </div>
             </div>
 
@@ -117,10 +117,10 @@
                         <i class="material-icons left blue-text">info</i> <strong>Legenda</strong><br />
                         <div class="row">
                             <div class="col s12 offset-m2 m8">
-                                <img src="/Trashpoints/images/icon_my_location_32.png">
+                                <img src="/Trashpoints/images/icon_my_location_38.png">
                                 <span style="vertical-align: super;"> - Representa sua localização</span><br/>
 
-                                <img src="/Trashpoints/images/map-marker_32.png">
+                                <img src="/Trashpoints/images/map_marker.png">
                                 <span style="vertical-align: super;"> - Representa um ponto de coleta</span><br/>
 
                                 <img src="/Trashpoints/images/map_marker_selected.png">
