@@ -106,3 +106,7 @@ fieldset {
 .container-fluid {
 	width: 100%;
 }
+
+.justify-align {
+	text-align: justify !important;
+}

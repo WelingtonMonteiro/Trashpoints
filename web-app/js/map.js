@@ -200,7 +200,10 @@ function getMyLocation(){
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(setPosition, errorGeolocation);
     } else {
-        alert("Geolocalização não é suportado para este navegador.");
+        iziToast.error({
+            title: 'Erro',
+            message: 'Geolocalização não é suportada para este navegador.'
+        });
     }
 }
 
@@ -239,10 +242,14 @@ function errorGeolocation(error){
             errorDescription += 'tempo expirado.';
             break;
         case error.UNKNOWN_ERROR:
-            errorDescription += 'não sei o que foi, mas deu erro!';
+            errorDescription += 'erro desconhecido!';
             break;
     }
-    alert(errorDescription)
+
+    iziToast.error({
+        title: 'Erro',
+        message: errorDescription,
+    });
 };
 
 function ajustMapZoom() {

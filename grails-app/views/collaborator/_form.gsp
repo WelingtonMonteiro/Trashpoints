@@ -145,6 +145,9 @@
 
     $("form").submit(function(e) {
         e.preventDefault();
+        if($('#latitude').val())
+            getMyLocationByFullAddress();
+
         var urlData = $(this).serialize();
         $.ajax({
             type: "post",
