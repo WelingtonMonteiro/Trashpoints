@@ -31,6 +31,7 @@ function setPosition(position) {
     $('#longitude').val(position.coords.longitude);
 
     createMarkerMyLocation(myLatLng);
+    showNotifySucess('Sucesso ao encontrar sua localização!');
     showMap();
 }
 
@@ -136,7 +137,7 @@ function showMap(){
 }
 
 function setFocusMap() {
-    $("body").animate({
+    $("html, body").animate({
         scrollTop: $("#col-map").offset().top
     }, 550);
 }
