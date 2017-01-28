@@ -1,6 +1,3 @@
-<input type="hidden" id="latitude" name="latitude" />
-<input type="hidden" id="longitude" name="longitude" />
-
 <div class="row">
     <div class="input-field col s12 m4">
         <input id="zipCode" name="zipCode" type="text" maxlength="9" class="validate" required>
@@ -85,6 +82,20 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="input-field col s6 m6">
+        <i class="material-icons prefix grey-text">my_location</i>
+        <input id="latitude" name="latitude" type="text" class="validate" required disabled>
+        <label for="latitude">Latitude <span class="red-text">*</span></label>
+    </div>
+
+    <div class="input-field col s6 m6">
+        <i class="material-icons prefix grey-text">my_location</i>
+        <input id="longitude" name="longitude" type="text" class="validate" required disabled>
+        <label for="longitude">Longitude <span class="red-text">*</span></label>
+    </div>
+</div>
+
 <script type="text/javascript">
 
     jQuery(function ($) {
@@ -104,7 +115,6 @@
         $("#zipCode").blur(function fillAddress() {
             $(".preloader-wrapper").show();
 
-            //var zipcode only with digits.
             var zipCode = $(this).val().replace(/\D/g, '');
 
             if (zipCode != "") {
@@ -133,6 +143,7 @@
                             $("#number").focus();
                             $(".preloader-wrapper").hide();
 
+                            getMyLocationByAddress();
                         }
                         else {
                             clearAddressInputs();
@@ -172,6 +183,14 @@
         $("#neighborhood").removeAttr("disabled");
         $("#city").removeAttr("disabled");
     }
+
+    $("#number").change(function () {
+        getMyLocationByAddress();
+    });
+
+    $("#street").change(function () {
+        getMyLocationByAddress();
+    });
 
 </script>
 

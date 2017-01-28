@@ -49,7 +49,7 @@
                 <div class="col s12">
                     <div id="card-panel-location" class="card-panel grey lighten-5 center">
                         <i class="material-icons left orange-text">warning</i>
-                        <span class="black-text justify-align">
+                        <span class="black-text justify-align bolder">
                             É muito importante que você habilite a sua localização para que as empresas possam saber onde recolher as coletas!<br/>
                         </span>
                         <br/>
@@ -67,7 +67,7 @@
                     <h5>
                         <i class="material-icons left">my_location</i>Minha localização
                     </h5>
-                    <h6>Você pode arrastar o marcador da sua localização para ajustar.</h6>
+                    <h6 class="bolder red-text">Você pode arrastar o marcador da sua localização para ajustá-lo.</h6>
 
                     <div id="map"></div>
 
@@ -77,7 +77,7 @@
 
     </fieldset>
 
-    <br>
+    <br />
     <fieldset>
         <legend><h5 class="header">&nbsp;Endereço Residencial&nbsp;</h5></legend>
 
@@ -177,19 +177,17 @@
     $("form").submit(function (e) {
         e.preventDefault();
 
-        if ($('#latitude').val() == "" || $('#longitude').val() == "")
-            getMyLocationByFullAddress();
-
-        var urlData = $(this).serialize();
-        $.ajax({
-            type: "post",
-            url: "/Trashpoints/Collaborator/save/",
-            data: urlData,
-            success: function (data) {
-                showMessage(data)
-            }
-        });
-
+        if ($('#latitude').val() && $('#longitude').val()) {
+            var urlData = $(this).serialize();
+            $.ajax({
+                type: "post",
+                url: "/Trashpoints/Collaborator/save/",
+                data: urlData,
+                success: function (data) {
+                    showMessage(data)
+                }
+            });
+        }
     });
 
 </script>

@@ -19,7 +19,7 @@ function getMyLocation(){
         navigator.geolocation.getCurrentPosition(setPosition, errorGeolocation);
     } else {
         showNotifyError('Geolocalização não é suportada para este navegador.');
-        getMyLocationByFullAddress();
+        getMyLocationByAddress();
     }
 }
 
@@ -29,6 +29,8 @@ function setPosition(position) {
     myLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     $('#latitude').val(position.coords.latitude);
     $('#longitude').val(position.coords.longitude);
+
+    Materialize.updateTextFields();
 
     createMarkerMyLocation(myLatLng);
     showNotifySucess('Sucesso ao encontrar sua localização!');
@@ -40,6 +42,8 @@ function setPositionByGeoCoder(latitude, longitude) {
 
     $('#latitude').val(latitude);
     $('#longitude').val(longitude);
+
+    Materialize.updateTextFields();
 
     myLatLng = new google.maps.LatLng(latitude, longitude);
     createMarkerMyLocation(myLatLng);
@@ -94,7 +98,7 @@ function errorGeolocation(error){
     }
 
     showNotifyError(errorDescription);
-    getMyLocationByFullAddress();
+    getMyLocationByAddress();
 };
 
 function getFullAddress() {
@@ -105,15 +109,27 @@ function getFullAddress() {
     var state = $('#states').val();
     var zipCode = $('#zipCode').val();
 
-    if(street || neighborhood || city || state || zipCode){
+    if(street && number && neighborhood && city && state && zipCode){
         var formatted_address = street + ", " + number +" - " + neighborhood + ", " + city + " - " + state + ", Brasil";
         return formatted_address;
     }
     return String.empty;
 }
 
-function getMyLocationByFullAddress() {
-    var address = getFullAddress();
+function getStreetZipCodeAndNumber() {
+    var street = $('#street').val();
+    var number = $('#number').val();
+    var zipCode = $('#zipCode').val();
+
+    if(street && number && zipCode){
+        var formatted_address = street + ", " + number +", " + zipCode + ", Brasil";
+        return formatted_address;
+    }
+    return String.empty;
+}
+
+function getMyLocationByAddress() {
+    var address = getStreetZipCodeAndNumber();
     if(address) {
         var geocoder = new google.maps.Geocoder();
 
