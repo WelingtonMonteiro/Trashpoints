@@ -141,10 +141,19 @@ function getMyLocationByAddress() {
 
                     setPositionByGeoCoder(latitude, longitude);
                 }
-            }
+            }else
+                showPanelWarningLocation();
         });
 
     }
+}
+
+function showPanelWarningLocation(){
+    //showNotifyError("Não foi possível encontrar sua localização pelo endereço!");
+    $("#panel-warning-location").show();
+    $("html, body").animate({
+        scrollTop: $("#latitude").offset().top
+    }, 550);
 }
 
 function showMap(){

@@ -47,15 +47,17 @@
 
             <div class="row">
                 <div class="col s12">
-                    <div id="card-panel-location" class="card-panel grey lighten-5 center">
+                    <div id="panel-warning-location" class="card-panel grey lighten-5 center hidden">
                         <i class="material-icons left orange-text">warning</i>
                         <span class="black-text justify-align bolder">
-                            É muito importante que você habilite a sua localização para que as empresas possam saber onde recolher as coletas!<br/>
+                            Não foi possível encontrar sua localização pelo endereço!
+                            Clique no botão abaixo para permitir que possamos pegar sua localização.
+                            <br />
                         </span>
                         <br/>
                         <button id="btn-enable-location" type="button"
                                 class="btn btn-large waves-effect waves-light blue darken-3">
-                            <i class="material-icons left">my_location</i>Habilitar
+                            <i class="material-icons left">my_location</i>Minha Localização
                         </button>
                     </div>
                 </div>
@@ -67,7 +69,7 @@
                     <h5>
                         <i class="material-icons left">my_location</i>Minha localização
                     </h5>
-                    <h6 class="bolder red-text">Você pode arrastar o marcador da sua localização para ajustá-lo.</h6>
+                    <h6 class="bolder blue-text">Você pode arrastar o marcador da sua localização para ajustá-lo.</h6>
 
                     <div id="map"></div>
 
