@@ -17,12 +17,14 @@ class CollectIntegrationSpec extends Specification {
 
     void "List Places to Collect"() {
         when:
+        def companyColRole = Role.findByAuthority('ROLE_COMPANY_COLLECT') ?: new Role('ROLE_COMPANY_COLLECT').save(flush: true)
+
         Address address = new Address()
         address.city = "Lorena"
         address.state = "SP"
         address.zipCode = "12602-010"
-        address.latitude = 0f
-        address.longitude = 0f
+        address.latitude = 0F
+        address.longitude = 0F
         address.neighborhood = "Cabelinha"
         address.street = "Rua Dr. Paulo Cardoso"
         address.number = "453"
@@ -46,6 +48,14 @@ class CollectIntegrationSpec extends Specification {
         company.site = "http://www.teste.com.br"
         company.address = address
         company = company.save(flush: true)
+
+        User user = new User()
+        user.username = "empresa@trashpoints.com.br"
+        user.password = "123456"
+        user.company = company
+        user = user.save(flush: true)
+        //company.user = user
+        //company = company.save(flush: true)
 
         Collect collect = new Collect()
         collect.orderDate = new Date()

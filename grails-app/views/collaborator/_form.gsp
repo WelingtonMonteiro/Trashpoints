@@ -44,6 +44,35 @@
 
         <div id="formAddress">
             <g:render template="../layouts/address"></g:render>
+
+            <div class="row">
+                <div class="col s12">
+                    <div id="card-panel-location" class="card-panel grey lighten-5 center">
+                        <i class="material-icons left orange-text">warning</i>
+                        <span class="black-text justify-align">
+                            É muito importante que você habilite a sua localização para que as empresas possam saber onde recolher as coletas!<br/>
+                        </span>
+                        <br/>
+                        <button id="btn-enable-location" type="button"
+                                class="btn btn-large waves-effect waves-light blue darken-3">
+                            <i class="material-icons left">my_location</i>Habilitar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div id="col-map" class="col s12 hidden" style="height: 500px; margin-bottom: 50px;">
+
+                    <h5>
+                        <i class="material-icons left">my_location</i>Minha localização
+                    </h5>
+                    <h6>Você pode arrastar o marcador da sua localização para ajustar.</h6>
+
+                    <div id="map"></div>
+
+                </div>
+            </div>
         </div>
 
     </fieldset>
@@ -64,7 +93,7 @@
 
     <div class="row">
         <div class="input-field col s12">
-            <button type="submit" class="btn-large waves-effect waves-light blue darken-3" >
+            <button type="submit" class="btn-large waves-effect waves-light blue darken-3">
                 <i class="material-icons left">check</i>Cadastrar
             </button>
 
@@ -122,7 +151,9 @@
                 title: 'OK',
                 message: 'Sucesso ao salvar!',
                 iconText: "check",
-                onClose: function () { window.location.href = "/Trashpoints/userManager/login"; }
+                onClose: function () {
+                    window.location.href = "/Trashpoints/userManager/login";
+                }
             });
         }
         $("#SYNCHRONIZER_TOKEN").val(data.newToken);
@@ -143,9 +174,10 @@
         Materialize.updateTextFields();
     }
 
-    $("form").submit(function(e) {
+    $("form").submit(function (e) {
         e.preventDefault();
-        if($('#latitude').val())
+
+        if ($('#latitude').val() == "" || $('#longitude').val() == "")
             getMyLocationByFullAddress();
 
         var urlData = $(this).serialize();
@@ -153,11 +185,11 @@
             type: "post",
             url: "/Trashpoints/Collaborator/save/",
             data: urlData,
-            success: function(data)
-            {
+            success: function (data) {
                 showMessage(data)
             }
         });
+
     });
 
 </script>
