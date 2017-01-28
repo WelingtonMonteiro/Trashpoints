@@ -76,8 +76,8 @@ class CollaboratorController {
             addressCollect.neighborhood = params.neighborhood
             addressCollect.city = params.city
             addressCollect.state = params.states
-            addressCollect.latitude = params.latitude ? params.latitude.toFloat() : null
-            addressCollect.longitude = params.longitude ? params.longitude.toFloat() : null
+            addressCollect.latitude = params.latitude ? params.latitude.toFloat() : 0f
+            addressCollect.longitude = params.longitude ? params.longitude.toFloat() : 0f
             collaborator.address = addressCollect
             println(params)
             user.validate()
@@ -170,8 +170,8 @@ class CollaboratorController {
             addressCollect.neighborhood = params.neighborhood
             addressCollect.city = params.city
             addressCollect.state = params.states
-            //addressCollect.latitude = params.latitude ? params.latitude.toFloat() : null
-            //addressCollect.longitude = params.longitude ? params.longitude.toFloat() : null
+            addressCollect.latitude = params.latitude ? params.latitude.toFloat() : 0f
+            addressCollect.longitude = params.longitude ? params.longitude.toFloat() : 0f
 
             addressCollect.validate()
             collaborator.validate()
