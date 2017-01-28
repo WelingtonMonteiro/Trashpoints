@@ -85,13 +85,13 @@
 <div class="row">
     <div class="input-field col s6 m6">
         <i class="material-icons prefix grey-text">my_location</i>
-        <input id="latitude" name="latitude" type="text" class="validate" required disabled>
+        <input id="latitude" name="latitude" type="text" class="validate" required readonly="readonly">
         <label for="latitude">Latitude <span class="red-text">*</span></label>
     </div>
 
     <div class="input-field col s6 m6">
         <i class="material-icons prefix grey-text">my_location</i>
-        <input id="longitude" name="longitude" type="text" class="validate" required disabled>
+        <input id="longitude" name="longitude" type="text" class="validate" required readonly="readonly">
         <label for="longitude">Longitude <span class="red-text">*</span></label>
     </div>
 </div>
