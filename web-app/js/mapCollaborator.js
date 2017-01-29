@@ -19,7 +19,7 @@ function getMyLocation(){
         navigator.geolocation.getCurrentPosition(setPosition, errorGeolocation);
     } else {
         showNotifyError('Geolocalização não é suportada para este navegador.');
-        getMyLocationByAddress();
+        getMyLocationByZipCode();
     }
 }
 
@@ -35,6 +35,7 @@ function setPosition(position) {
     createMarkerMyLocation(myLatLng);
     showNotifySucess('Sucesso ao encontrar sua localização!');
     showMap();
+    hidePanelWarningLocation();
 }
 
 function setPositionByGeoCoder(latitude, longitude) {
@@ -98,7 +99,7 @@ function errorGeolocation(error){
     }
 
     showNotifyError(errorDescription);
-    getMyLocationByAddress();
+    getMyLocationByZipCode();
 };
 
 function getFullAddress() {
@@ -148,12 +149,35 @@ function getMyLocationByAddress() {
     }
 }
 
+function getMyLocationByZipCode() {
+    var zipCode = $("#zipCode").val();
+    if(zipCode) {
+        var geocoder = new google.maps.Geocoder();
+
+        geocoder.geocode({address: zipCode, 'region': 'BR'}, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                if (results[0]) {
+                    var latitude = results[0].geometry.location.lat();
+                    var longitude = results[0].geometry.location.lng();
+
+                    setPositionByGeoCoder(latitude, longitude);
+                }
+            }
+        });
+
+    }
+}
+
 function showPanelWarningLocation(){
     //showNotifyError("Não foi possível encontrar sua localização pelo endereço!");
     $("#panel-warning-location").show();
     $("html, body").animate({
         scrollTop: $("#latitude").offset().top
     }, 550);
+}
+
+function hidePanelWarningLocation(){
+    $("#panel-warning-location").hide();
 }
 
 function showMap(){

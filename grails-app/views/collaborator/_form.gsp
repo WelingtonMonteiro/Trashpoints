@@ -50,7 +50,7 @@
                     <div id="panel-warning-location" class="card-panel grey lighten-5 center hidden">
                         <i class="material-icons left orange-text">warning</i>
                         <span class="black-text justify-align bolder">
-                            Não foi possível encontrar sua localização pelo endereço!
+                            Não foi possível encontrar sua localização pelo endereço!<br/>
                             Clique no botão abaixo para permitir que possamos pegar sua localização.
                             <br />
                         </span>
@@ -189,7 +189,8 @@
                     showMessage(data)
                 }
             });
-        }
+        }else
+            showNotifyError("Precisamos ter sua localização para poder cadastrar");
     });
 
 </script>

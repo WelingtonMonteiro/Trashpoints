@@ -136,7 +136,7 @@
 </main>
 
 <script src="/Trashpoints/js/map.js" type="text/javascript"></script>
-<script src="/Trashpoints/js/markerclusterer.js" type="text/javascript"></script>
+<script src="/Trashpoints/js/markerclusterer.min.js" type="text/javascript"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6W1hTA1qEYPC1qi4V3dvDkIcg75yUc68"></script>
 
 </body>
