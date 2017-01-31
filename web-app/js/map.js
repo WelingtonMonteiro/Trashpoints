@@ -80,6 +80,8 @@ function createListenerClickMarker(collectId, marker){
         selectedMarker = this;
         selectedMarker.setIcon('/Trashpoints/images/map_marker_selected.png');
         collectIdSelected = collectId
+        if(myLatLng != undefined)
+            computeDistanceInKmBetweenPoints(myLatLng, marker.getPosition());
     });
 }
 
@@ -91,7 +93,7 @@ function getInfoCollect(collectId, marker) {
         },
         method: "post",
         success: function (data) {
-            showInfoCollect(data, marker);
+            showInfoCollect(data);
             showInfoWindowCollect(data, marker);
         }
     });
@@ -117,7 +119,8 @@ function showInfoWindowCollect(data, marker) {
             '<p><strong>Endereço: </strong>' + address + '</p>' +
             '<p><strong>Data Pedido: </strong>' + data.infoCollect.orderDate + '</p>' +
             '<p><strong>Tipo da Coleta: </strong>' + materialTypes +'</p>';
-        enableButtonsMap();
+        if(myLatLng != undefined)
+            enableButtonsMap();
     }
 
     var infoWindow = new google.maps.InfoWindow({
@@ -128,7 +131,7 @@ function showInfoWindowCollect(data, marker) {
     setTimeout(function () { infoWindow.close(); }, 10000);
 }
 
-function showInfoCollect(data, marker) {
+function showInfoCollect(data) {
     var address = data.infoCollect.street + ", " + data.infoCollect.number + " - " + data.infoCollect.neighborhood + ", " + data.infoCollect.city + "-" + data.infoCollect.state;
     var materialTypes = data.materialTypes.join(", ");
 
@@ -147,8 +150,6 @@ function showInfoCollect(data, marker) {
         $('.collection').toggle("slow");
         isActiveToggle = true;
     }
-
-    computeDistanceInKmBetweenPoints(myLatLng, marker.getPosition());
 }
 
 function computeDistanceInKmBetweenPoints(myPosition, targetPosition) {
@@ -299,12 +300,12 @@ function disableButtonsMap() {
 $(document).ready(function () {
     initMap();
     $('#btnCreateRoute').click(function(){
-        if(selectedMarker) {
+        if(selectedMarker && myLatLng != undefined) {
             createRoute(selectedMarker.position);
         }
     });
     $('#btnCollectRecycling').click(function(){
-        if(selectedMarker) {
+        if(selectedMarker && myLatLng != undefined) {
             collectRecycling(collectIdSelected);
         }
     });
