@@ -79,7 +79,7 @@ class CollaboratorController {
             addressCollect.latitude = params.latitude ? params.latitude.toFloat() : 0f
             addressCollect.longitude = params.longitude ? params.longitude.toFloat() : 0f
             collaborator.address = addressCollect
-            println(params)
+
             user.validate()
             addressCollect.validate()
             collaborator.validate()
@@ -90,11 +90,9 @@ class CollaboratorController {
                 collaborator.save(flush: true)
 
                 user.collaborator = collaborator
-
                 user.save(flush: true)
 
                 collaborator.user = user
-
                 collaborator.save(flush: true)
 
                 UserRole.create(user, userRole)
