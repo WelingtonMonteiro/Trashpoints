@@ -3,6 +3,12 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Minhas coletas</title>
+    <style>
+    .picker__holder {
+        overflow: hidden !important;
+    }
+    </style>
+    <link href="/Trashpoints/css/materialize.clockpicker.css" rel="stylesheet">
 </head>
 <body>
 

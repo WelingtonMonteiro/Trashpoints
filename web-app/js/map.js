@@ -262,8 +262,18 @@ function collectRecycling(collectIdSelected) {
     var id = {
         name: "id",
         value: collectIdSelected
-    }
+    };
     formData.push(id);
+    var date = {
+        name: 'scheduleDate',
+        value: $('#txb-collect-date').val()
+    };
+    formData.push(date);
+    var hour = {
+        name: 'scheduleHour',
+        value: $('#txb-collect-time').val()
+    };
+    formData.push(hour);
 
     $.ajax({
         url: "/Trashpoints/Collect/collectRecycling/",
@@ -306,8 +316,65 @@ $(document).ready(function () {
     });
     $('#btnCollectRecycling').click(function(){
         if(selectedMarker && myLatLng != undefined) {
-            collectRecycling(collectIdSelected);
+			// Exibe modal de data e hora
+			$('#txb-collect-date').val('');
+			$('#dateTimeToCollectModal').modal({
+				dismissible: false, // Modal can be dismissed by clicking outside of the modal
+				startingTop: '2%', // Starting top style attribute
+				endingTop: '2%'
+			});
+			$('#dateTimeToCollectModal').modal('open');
+		}
+    });
+    // ** Configuracao dos eventos de clique dos botoes no modal de data e hora
+    $('#btn-cancel-datetime-collect').on('click', function(){
+        $('#dateTimeToCollectModal').modal('close');
+    });
+    $('#btn-schedule-collect').on('click', function(){
+        if ($('#txb-collect-date').val() == ''){
+            iziToast.error({
+                title: 'Erro',
+                message: 'Por favor, selecione a data planejada para coleta.',
+            });
+            return false;
         }
+        if ($('#txb-collect-time').val() == ''){
+            iziToast.error({
+                title: 'Erro',
+                message: 'Por favor, selecione a hora planejada para coleta.',
+            });
+            return false;
+        }
+        var selectedDate = moment($('#txb-collect-date').val(), 'DD/MM/YYYY').toDate();
+        if (selectedDate < new Date()){
+            iziToast.error({
+                title: 'Erro',
+                message: 'A data de coleta planejada deve ser maior que a data de hoje',
+            });
+            return false;
+        }
+        if(selectedMarker) {
+            collectRecycling(collectIdSelected);
+            $('#dateTimeToCollectModal').modal('close');
+        }
+    });
+
+    $('.datepicker').pickadate({
+        selectMonths: false,
+        selectYears: 3,
+        minDate: new Date()
+    });
+    $('.timepicker').pickatime({
+        autoclose: false,
+        twelvehour: false,
+        default: '00:00:00',
+        donetext: 'OK'
+    });
+    $('#txb-collect-date').on('focus', function(){
+        $('.picker').appendTo('body');
+    });
+    $('#txb-collect-time').on('focus', function(){
+        $('.picker').appendTo('body');
     });
     ajustMapZoom();
 });
