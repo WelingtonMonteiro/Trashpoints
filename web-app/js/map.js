@@ -7,6 +7,8 @@ var selectedMarker;
 var collectIdSelected;
 var isActiveToggle = false;
 var line;
+var waypoints = [];
+
 
 function initMap() {
     var latLng = new google.maps.LatLng(-22.19496980839918, -47.32420171249998);
@@ -40,6 +42,8 @@ function initMap() {
         strokeOpacity: 0.7,
         strokeWeight: 7
     });
+
+
 }
 
 function getLocationsOfCollections(){
@@ -170,15 +174,19 @@ function drawLine() {
 function eraseLine() {
     line.setMap(null);
 }
-var waypoints = [];
+
 function createRoute(markerPosition){
     var destinationLatLng = markerPosition;
-    waypoints.push({location: destinationLatLng});
+    waypoints.push({
+        location: destinationLatLng
+        // ,stopover: true
+    });
 
     var request = {
         origin: myLatLng,
         destination: myLatLng,
         waypoints: waypoints,
+        optimizeWaypoints: true,
         travelMode: 'DRIVING'
     };
 
@@ -187,6 +195,8 @@ function createRoute(markerPosition){
         if (status == 'OK') {
             eraseLine();
             $("h6#infoRoute").show();
+            console.log(JSON.stringify(response));
+            window.localStorage.setItem('waypoints', JSON.stringify(response));
             directionsDisplay.setDirections(response);
         }
     });
@@ -269,6 +279,7 @@ function collectRecycling(collectIdSelected) {
         value: collectIdSelected
     };
     formData.push(id);
+
     var date = {
         name: 'scheduleDate',
         value: $('#txb-collect-date').val()
@@ -382,6 +393,8 @@ $(document).ready(function () {
         $('.picker').appendTo('body');
     });
     ajustMapZoom();
+    //pega as rotas no localstarge
+    directionsDisplay.setDirections(JSON.parse(window.localStorage.getItem('waypoints')));
 });
 
 
