@@ -68,6 +68,9 @@ function createMarkersOfCollections(locations) {
             createListenerClickMarker(location.collectId, marker)
         });
         var markerCluster = new MarkerClusterer(map, markersClusters, {imagePath: '/Trashpoints/images/m'});
+        markerCluster.setMaxZoom(10);
+        // markerCluster.setGridSize(1);
+        // markerCluster.redraw();
     }
 }
 
@@ -167,13 +170,15 @@ function drawLine() {
 function eraseLine() {
     line.setMap(null);
 }
-
+var waypoints = [];
 function createRoute(markerPosition){
-    var destinationLatLng = markerPosition
+    var destinationLatLng = markerPosition;
+    waypoints.push({location: destinationLatLng});
 
     var request = {
         origin: myLatLng,
-        destination: destinationLatLng,
+        destination: myLatLng,
+        waypoints: waypoints,
         travelMode: 'DRIVING'
     };
 
