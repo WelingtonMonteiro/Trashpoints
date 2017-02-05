@@ -3,6 +3,12 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Locais para coletar</title>
+    <style>
+        .picker__holder {
+            overflow: hidden !important;
+        }
+    </style>
+    <link href="/Trashpoints/css/materialize.clockpicker.css" rel="stylesheet">
 </head>
 
 <body>
@@ -135,8 +141,31 @@
     </div>
 </main>
 
+<!-- Modal para selecao de data e hora -->
+<!-- Modal Structure -->
+<div id="dateTimeToCollectModal" class="modal">
+    <div class="modal-content">
+        <h4>Seleção de data e hora</h4>
+        <div>
+            <p>Selecione a data e a hora da coleta:</p>
+            <p>
+                Data:
+                <input type="date" class="datepicker" id="txb-collect-date">
+                Hora:
+                <input id="txb-collect-time" class="timepicker" type="time" data-default="00:00:00">
+            </p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a id="btn-schedule-collect" href="#!" class="waves-effect waves-green btn-flat">Marcar coleta</a>
+        <a id="btn-cancel-datetime-collect" href="#!" class="waves-effect waves-green btn-flat">Cancelar</a>
+    </div>
+</div>
+
 <script src="/Trashpoints/js/map.js" type="text/javascript"></script>
 <script src="/Trashpoints/js/markerclusterer.min.js" type="text/javascript"></script>
+<script src="/Trashpoints/js/materialize.clockpicker.js" type="text/javascript"></script>
+<script src="/Trashpoints/js/moment.js" type="text/javascript"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6W1hTA1qEYPC1qi4V3dvDkIcg75yUc68"></script>
 
 </body>

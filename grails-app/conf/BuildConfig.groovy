@@ -57,6 +57,9 @@ grails.project.dependency.resolution = {
         //Plugin Spring Security Core
         compile "org.grails.plugins:spring-security-core:2.0.0"
 
+        //Provides Mail support to a running Grails application: https://grails.org/plugin/mail
+        compile "org.grails.plugins:mail:1.0.7"
+
 
         // plugins for the build system only
         build ":tomcat:7.0.52.1"

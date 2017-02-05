@@ -63,11 +63,11 @@ class CollectController {
 
     private isCollectSelected(instanceCollect) {
         String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
-        if(instanceCollect.company) {
+        if (instanceCollect.company) {
             def error = "Coleta já selecionada por outra empresa"
             def response = [error: error, newToken: newToken]
             render response as JSON
-        }else
+        } else
             return false
     }
 
@@ -156,10 +156,10 @@ class CollectController {
 
     @Secured(['ROLE_COMPANY_COLLECT'])
     def listPlacesCollect() {
-        def collects = Collect.createCriteria().list{
+        def collects = Collect.createCriteria().list {
             resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
-            createAlias("collaborator","c")
-            createAlias("c.address","adr")
+            createAlias("collaborator", "c")
+            createAlias("c.address", "adr")
             projections {
                 property("id", "collectId")
                 property("adr.latitude", "lat")
@@ -174,10 +174,10 @@ class CollectController {
     def listInfoCollect() {
         Integer collectId = params.id.toInteger()
 
-        def infoCollect = Collect.createCriteria().get{
+        def infoCollect = Collect.createCriteria().get {
             resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
-            createAlias("collaborator","c")
-            createAlias("c.address","adr")
+            createAlias("collaborator", "c")
+            createAlias("c.address", "adr")
             createAlias("company", "comp", CriteriaSpecification.LEFT_JOIN)
 
             projections {
@@ -197,7 +197,7 @@ class CollectController {
 
         def materialTypes = Collect.createCriteria().list {
             resultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
-            createAlias("materialTypes","material")
+            createAlias("materialTypes", "material")
 
             projections {
                 property("material.name", "materialTypes")
@@ -217,16 +217,36 @@ class CollectController {
             Integer collectId = params.id.toInteger()
             User currentUser = springSecurityService.getCurrentUser()
             Company currentCompany = currentUser.company
+            Date collectDate = new Date().parse("dd/MM/yyyy", params.scheduleDate.toString())
+            String[] splittedHours = params.scheduleHour.toString().split(':')
+            collectDate.setHours(splittedHours[0].toInteger())
+            collectDate.setMinutes(splittedHours[1].toInteger())
 
             Collect collect = Collect.findById(collectId)
-            if(collect && isCollectSelected(collect) == false) {
+            if (collect && isCollectSelected(collect) == false) {
                 collect.company = currentCompany
+                collect.setScheduleDateCollect(collectDate)
                 collect.save(flush: true)
                 successToken("")
             }
         }.invalidToken {
             invalidToken("")
         }
+    }
+
+    @Secured(['ROLE_COMPANY_COLLECT'])
+    @Transactional
+    def updateDateTimeCollect() {
+        Integer collectId = params.id.toInteger()
+        Date collectDate = new Date().parse("dd/MM/yyyy", params.scheduleDate.toString())
+        String[] splittedHours = params.scheduleHour.toString().split(':')
+        collectDate.setHours(splittedHours[0].toInteger())
+        collectDate.setMinutes(splittedHours[1].toInteger())
+
+        Collect collect = Collect.findById(collectId)
+        collect.setScheduleDateCollect(collectDate)
+        collect.save(flush: true)
+        successToken("")
     }
 
 

@@ -9,6 +9,7 @@ class Collect {
     Boolean isCollected
     Collaborator collaborator
     Company company
+    Date scheduleDateCollect
 
     Collect(){
         isCollected = false
@@ -24,5 +25,6 @@ class Collect {
         imageUpload nullable: true, blank: true
         company nullable: true
         collaborator nullable: false
+        scheduleDateCollect nullable: true
     }
 }

@@ -9,9 +9,11 @@
             <th data-field="photo">Foto Coleta</th>
             <th data-field="types">Tipo(s)</th>
             <th data-field="orderDate">Data Pedido</th>
+            <th data-field="scheduleDateCollect">Data Agendada</th>
             <th data-field="collectedDate">Data Coletada</th>
             <th data-field="isCollected">Foi Coletada?</th>
             <th data-field="detailsCompany">Colaborador</th>
+            <th>Ações</th>
         </tr>
         </thead>
 
@@ -20,7 +22,8 @@
             <tr>
                 <td>
                     <!-- Modal Trigger -->
-                    <a class="waves-effect waves-light" onclick="openModalViewCollectImage(${collect.id})" title="Ver Imagem da coleta">
+                    <a class="waves-effect waves-light" onclick="openModalViewCollectImage(${collect.id})"
+                       title="Ver Imagem da coleta">
                         <i class="fa fa-file-image-o fa-2x"></i>
                     </a>
                 </td>
@@ -30,6 +33,7 @@
                     </g:each>
                 </td>
                 <td>${collect?.orderDate?.format("dd/MM/yyyy")}</td>
+                <td>${collect?.scheduleDateCollect?.format("dd/MM/yyyy HH:mm")}</td>
             <td>
                 <g:if test="${collect?.isCollected}">
                     ${collect?.collectedDate?.format("dd/MM/yyyy")}
@@ -41,22 +45,31 @@
                 <td>
                     <g:if test="${collect?.isCollected}">
                         <p title="Foi coletada?">
-                            <input type="checkbox" checked="checked" disabled="disabled" />
+                            <input type="checkbox" checked="checked" disabled="disabled"/>
                             <label></label>
                         </p>
                     </g:if>
                     <g:else>
                         <p title="Foi coletada?">
-                            <input type="checkbox" id="isCollected${collect.id}" onchange="openModalConfirmation(${collect.id})" />
+                            <input type="checkbox" id="isCollected${collect.id}"
+                                   onchange="openModalConfirmation(${collect.id})"/>
                             <label for="isCollected${collect.id}"></label>
                         </p>
                     </g:else>
                 </td>
                 <td>
                     <!-- Modal Trigger -->
-                    <a class="waves-effect waves-light" onclick="openModalCollaboratorDetails(${collect?.collaborator?.id})"
+                    <a class="waves-effect waves-light"
+                       onclick="openModalCollaboratorDetails(${collect?.collaborator?.id})"
                        title="Detalhes do colaborador">
                         <i class="material-icons fa-2x">list</i>
+                    </a>
+                </td>
+                <td>
+                    <a class="waves-effect waves-light"
+                       onclick="openModalUpdateScheduleDate('${collect?.scheduleDateCollect}', ${collect?.id})"
+                       title="Alterar data de coleta agendada">
+                        <i class="material-icons fa-2x">query_builder</i>
                     </a>
                 </td>
             </tr>
@@ -81,38 +94,48 @@
     <a class="modal-action modal-close waves-effect waves-light btn-flat right">
         <i class="material-icons">close</i>
     </a>
+
     <div class="modal-content">
         <h5>Detalhes do Colaborador</h5>
+
         <div class="center-align">
             <div class="preloader-wrapper big active">
                 <div class="spinner-layer spinner-blue-only">
                     <div class="circle-clipper left">
                         <div class="circle"></div>
                     </div>
+
                     <div class="gap-patch">
                         <div class="circle"></div>
                     </div>
+
                     <div class="circle-clipper right">
                         <div class="circle"></div>
                     </div>
                 </div>
             </div>
         </div>
+
         <div id="collaboratorDetails" class="center-align">
-            <p><label class="my-label">Nome: </label><span id="name"></span></p>
-            <p><label class="my-label">Telefone: </label><span id="phone"></span></p>
-            <p><label class="my-label">CEP: </label><span id="zipCode"></span></p>
+            <p><label class="my-label">Nome:</label><span id="name"></span></p>
+
+            <p><label class="my-label">Telefone:</label><span id="phone"></span></p>
+
+            <p><label class="my-label">CEP:</label><span id="zipCode"></span></p>
+
             <p>
-                <label class="my-label">Rua: </label><span id="street"></span>
-                <label class="my-label"> &nbsp; Número: </label><span id="number"></span>
+                <label class="my-label">Rua:</label><span id="street"></span>
+                <label class="my-label">&nbsp; Número:</label><span id="number"></span>
             </p>
-            <p><label class="my-label">Bairro: </label><span id="neighborhood"></span></p>
+
+            <p><label class="my-label">Bairro:</label><span id="neighborhood"></span></p>
             <span>
-                <label class="my-label">Cidade: </label><span id="city"></span>
-                <label class="my-label"> &nbsp; Estado: </label><span id="state"></span>
+                <label class="my-label">Cidade:</label><span id="city"></span>
+                <label class="my-label">&nbsp; Estado:</label><span id="state"></span>
             </span>
         </div>
     </div>
+
     <div class="modal-footer">
         <a class=" modal-action modal-close waves-effect light btn-flat">Fechar</a>
     </div>
@@ -122,8 +145,10 @@
 <div id="modalConfirmationCollect" class="modal">
     <div class="modal-content">
         <h5>Confirmação da ação</h5>
+
         <p>Deseja realmente marcar que a coleta foi recolhida?</p>
     </div>
+
     <div class="modal-footer">
         <a class="modal-action modal-close waves-effect waves-light btn-flat" onclick="wasNotCollected()">Não</a>
         <a class="modal-action modal-close waves-effect waves-light btn-flat" onclick="markWasCollected()">Sim</a>
@@ -135,18 +160,23 @@
     <a class="modal-action modal-close waves-effect waves-light btn-flat right">
         <i class="material-icons">close</i>
     </a>
+
     <div class="modal-content">
         <h5>Foto da coleta</h5>
+
         <div id="collectImage" class="center-align"></div>
+
         <div class="center-align">
             <div class="preloader-wrapper big active">
                 <div class="spinner-layer spinner-blue-only">
                     <div class="circle-clipper left">
                         <div class="circle"></div>
                     </div>
+
                     <div class="gap-patch">
                         <div class="circle"></div>
                     </div>
+
                     <div class="circle-clipper right">
                         <div class="circle"></div>
                     </div>
@@ -155,11 +185,36 @@
         </div>
 
     </div>
+
     <div class="modal-footer">
         <a class=" modal-action modal-close waves-effect light btn-flat">Fechar</a>
     </div>
 </div>
 
+<!-- Modal para selecao de data e hora -->
+<!-- Modal Structure -->
+<div id="dateTimeToCollectModal" class="modal">
+    <div class="modal-content">
+        <h4>Seleção de data e hora</h4>
+        <div>
+            <p>Selecione a data e a hora da coleta:</p>
+            <p>
+                Data:
+                <input type="date" class="datepicker" id="txb-collect-date">
+                Hora:
+                <input id="txb-collect-time" class="timepicker" type="time" data-default="00:00:00">
+                <input type="hidden" id="fld-collect-id" />
+            </p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a id="btn-schedule-collect" href="#!" class="waves-effect waves-green btn-flat">Remarcar coleta</a>
+        <a id="btn-cancel-datetime-collect" href="#!" class="waves-effect waves-green btn-flat">Cancelar</a>
+    </div>
+</div>
+
+<script src="/Trashpoints/js/materialize.clockpicker.js" type="text/javascript"></script>
+<script src="/Trashpoints/js/moment.js" type="text/javascript"></script>
 
 <script type="text/javascript">
     var global_collect_id;
@@ -186,9 +241,9 @@
 
                 if (data.imagePath) {
                     var UPLOAD_FOLDER_PATH = "/Trashpoints/images/uploads/" + data.imagePath;
-                    var imageUpload = "<img src='" + UPLOAD_FOLDER_PATH +"' style='max-height: 284px;'>";
+                    var imageUpload = "<img src='" + UPLOAD_FOLDER_PATH + "' style='max-height: 284px;'>";
                     $("#collectImage").append(imageUpload)
-                }else{
+                } else {
                     var imageUpload = "<i class='fa fa-file-image-o fa-5x center-align'></i>"
                     $("#collectImage").append(imageUpload)
                 }
@@ -224,7 +279,7 @@
                     $("#collaboratorDetails span#name").text(collaborator.name)
                     $("#collaboratorDetails span#phone").text(collaborator.phone)
                 }
-                if (address){
+                if (address) {
                     $("#collaboratorDetails span#zipCode").text(address.zipCode)
                     $("#collaboratorDetails span#street").text(address.street)
                     $("#collaboratorDetails span#number").text(address.number)
@@ -280,6 +335,106 @@
     function disabledCheckBoxClicked(collectId) {
         $("input[type=checkbox]#isCollected" + collectId).prop("disabled", true).removeAttr("onchange")
     }
+
+    function openModalUpdateScheduleDate(dateTimeCollect, collectId){
+        $('#txb-collect-date').val(moment(dateTimeCollect).format('DD/MM/YYYY'));
+        $('#txb-collect-time').val(moment(dateTimeCollect).format('HH:mm'));
+        $('#fld-collect-id').val(collectId);
+        $('#dateTimeToCollectModal').modal({
+            dismissible: false, // Modal can be dismissed by clicking outside of the modal
+            startingTop: '2%', // Starting top style attribute
+            endingTop: '2%'
+        });
+        $('#dateTimeToCollectModal').modal('open');
+    }
+
+    $(document).ready(function(){
+        $('.datepicker').pickadate({
+            selectMonths: false,
+            selectYears: 3,
+            minDate: new Date()
+        });
+        $('.timepicker').pickatime({
+            autoclose: false,
+            twelvehour: false,
+            default: '00:00:00',
+            donetext: 'OK'
+        });
+        $('#txb-collect-date').on('focus', function(){
+            $('.picker').appendTo('body');
+        });
+        $('#txb-collect-time').on('focus', function(){
+            $('.picker').appendTo('body');
+        });
+
+        // ** Configuracao dos eventos de clique dos botoes no modal de data e hora
+        $('#btn-cancel-datetime-collect').on('click', function(){
+            $('#dateTimeToCollectModal').modal('close');
+        });
+        $('#btn-schedule-collect').on('click', function(){
+            if ($('#txb-collect-date').val() == ''){
+                iziToast.error({
+                    title: 'Erro',
+                    message: 'Por favor, selecione a data planejada para coleta.',
+                });
+                return false;
+            }
+            if ($('#txb-collect-time').val() == ''){
+                iziToast.error({
+                    title: 'Erro',
+                    message: 'Por favor, selecione a hora planejada para coleta.',
+                });
+                return false;
+            }
+            var selectedDate = moment($('#txb-collect-date').val(), 'DD/MM/YYYY').toDate();
+            if (selectedDate < new Date()){
+                iziToast.error({
+                    title: 'Erro',
+                    message: 'A data de coleta planejada deve ser maior que a data de hoje',
+                });
+                return false;
+            }
+            var formData = [];
+            var id = {
+                name: "id",
+                value: $('#fld-collect-id').val()
+            };
+            formData.push(id);
+            var date = {
+                name: 'scheduleDate',
+                value: $('#txb-collect-date').val()
+            };
+            formData.push(date);
+            var hour = {
+                name: 'scheduleHour',
+                value: $('#txb-collect-time').val()
+            };
+            formData.push(hour);
+
+            $.ajax({
+                url: "/Trashpoints/Collect/updateDateTimeCollect/",
+                data: formData,
+                method: "post",
+                success: function (data) {
+                    if (data.success) {
+                        iziToast.success({
+                            title: 'OK',
+                            message: 'Sucesso ao salvar!',
+                            iconText: "check"
+                        });
+                        window.location.reload(true);
+                    }else if(data.error) {
+                        iziToast.error({
+                            title: 'Erro',
+                            message: 'Operação ilegal!',
+                        });
+                    }
+                    $("#SYNCHRONIZER_TOKEN").val(data.newToken);
+                }
+            });
+            $('#dateTimeToCollectModal').modal('close');
+        });
+    });
 
 
 </script>

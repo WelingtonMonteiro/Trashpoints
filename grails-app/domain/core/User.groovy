@@ -13,6 +13,7 @@ class User implements Serializable {
 
 	String username
 	String password
+	Date emailVerified = null
 	boolean enabled = true
 	boolean accountExpired
 	boolean accountLocked
@@ -25,6 +26,7 @@ class User implements Serializable {
 	static constraints = {
 		username blank: false, unique: true, email: true
 		password blank: false, minSize: 6
+		emailVerified nullable: true
 		collaborator nullable: true
 		company nullable: true
 	}
