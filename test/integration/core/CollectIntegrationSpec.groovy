@@ -1,6 +1,7 @@
 package core
 
 import grails.plugin.springsecurity.SpringSecurityService
+import grails.plugin.springsecurity.SpringSecurityUtils
 import org.codehaus.groovy.grails.web.servlet.mvc.SynchronizerTokensHolder
 import org.springframework.web.context.request.RequestContextHolder
 import spock.lang.*
@@ -229,11 +230,6 @@ class CollectIntegrationSpec extends Specification {
         when:
         CollectController controller = new CollectController()
 
-        User loggedInUser = User.findByUsername("ccoleta@trashpoints.com.br")
-        def springSecurityService = mockFor(SpringSecurityService)
-        springSecurityService.demand.getCurrentUser() { -> loggedInUser }
-        controller.springSecurityService = springSecurityService.createMock()
-
         Collect collect = new Collect()
         collect.orderDate = new Date()
         collect.collectedDate = new Date()
@@ -250,14 +246,17 @@ class CollectIntegrationSpec extends Specification {
             throw new Exception("error collect")
         }
 
-        def tokenHolder = SynchronizerTokensHolder.store(RequestContextHolder.currentRequestAttributes().session)
-        controller.params[SynchronizerTokensHolder.TOKEN_URI] = '/collect/collectRecycling'
-        controller.params[SynchronizerTokensHolder.TOKEN_KEY] = tokenHolder.generateToken(controller.params[SynchronizerTokensHolder.TOKEN_URI])
+        SpringSecurityUtils.doWithAuth("ccoleta@trashpoints.com.br") {
+            def tokenHolder = SynchronizerTokensHolder.store(RequestContextHolder.currentRequestAttributes().session)
+            controller.params[SynchronizerTokensHolder.TOKEN_URI] = '/collect/collectRecycling'
+            controller.params[SynchronizerTokensHolder.TOKEN_KEY] = tokenHolder.generateToken(controller.params[SynchronizerTokensHolder.TOKEN_URI])
 
-        controller.params.id = collect.id //collect id
+            controller.params.id = collect.id
+            controller.params.scheduleDate = new Date().format('dd/MM/yyyy')
+            controller.params.scheduleHour = '10:00'
+            controller.collectRecycling()
+        }
 
-
-        controller.collectRecycling()
         then:
         controller.response.json.success == 'sucesso'
     }

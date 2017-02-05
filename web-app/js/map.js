@@ -9,7 +9,6 @@ var isActiveToggle = false;
 var line;
 var waypoints = [];
 
-
 function initMap() {
     var latLng = new google.maps.LatLng(-22.19496980839918, -47.32420171249998);
 
@@ -43,7 +42,6 @@ function initMap() {
         strokeWeight: 7
     });
 
-
 }
 
 function getLocationsOfCollections(){
@@ -73,8 +71,7 @@ function createMarkersOfCollections(locations) {
         });
         var markerCluster = new MarkerClusterer(map, markersClusters, {imagePath: '/Trashpoints/images/m'});
         markerCluster.setMaxZoom(10);
-        // markerCluster.setGridSize(1);
-        // markerCluster.redraw();
+        ajustMapZoom();
     }
 }
 
@@ -177,10 +174,7 @@ function eraseLine() {
 
 function createRoute(markerPosition){
     var destinationLatLng = markerPosition;
-    waypoints.push({
-        location: destinationLatLng
-        // ,stopover: true
-    });
+    waypoints.push({ location: destinationLatLng });
 
     var request = {
         origin: myLatLng,
@@ -195,7 +189,6 @@ function createRoute(markerPosition){
         if (status == 'OK') {
             eraseLine();
             $("h6#infoRoute").show();
-            console.log(JSON.stringify(response));
             window.localStorage.setItem('waypoints', JSON.stringify(response));
             directionsDisplay.setDirections(response);
         }
@@ -236,7 +229,7 @@ function createMarkerMyLocation() {
         title: 'Minha localização'
     });
     latLngBounds.extend(myLatLng); //Adjust bounds of map
-    //map.fitBounds(latLngBounds);
+    ajustMapZoom();
 
     //Listener for set zoom when click in my marker position
     markerMyPosition.addListener('click', function() {
@@ -378,7 +371,7 @@ $(document).ready(function () {
     $('.datepicker').pickadate({
         selectMonths: false,
         selectYears: 3,
-        minDate: new Date()
+        min: new Date()
     });
     $('.timepicker').pickatime({
         autoclose: false,
@@ -392,9 +385,11 @@ $(document).ready(function () {
     $('#txb-collect-time').on('focus', function(){
         $('.picker').appendTo('body');
     });
-    ajustMapZoom();
-    //pega as rotas no localstarge
-    directionsDisplay.setDirections(JSON.parse(window.localStorage.getItem('waypoints')));
+
+    //get routes by localStorage
+    if(JSON.parse(window.localStorage.getItem('waypoints')))
+        directionsDisplay.setDirections(JSON.parse(window.localStorage.getItem('waypoints')));
 });
 
 
+//google.maps.event.addDomListener(window, 'load', initMap);

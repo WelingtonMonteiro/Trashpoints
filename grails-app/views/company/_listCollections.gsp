@@ -352,8 +352,9 @@
         $('.datepicker').pickadate({
             selectMonths: false,
             selectYears: 3,
-            minDate: new Date()
+            min: new Date()
         });
+
         $('.timepicker').pickatime({
             autoclose: false,
             twelvehour: false,
