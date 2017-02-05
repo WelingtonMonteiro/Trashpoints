@@ -1,7 +1,8 @@
 package core
 
-
-
+import grails.plugin.springsecurity.SpringSecurityService
+import org.codehaus.groovy.grails.web.servlet.mvc.SynchronizerTokensHolder
+import org.springframework.web.context.request.RequestContextHolder
 import spock.lang.*
 
 /**
@@ -222,6 +223,43 @@ class CollectIntegrationSpec extends Specification {
         then:
         controller.response.json.materialTypes.size() == 2
         controller.response.json.infoCollect.nameColaborator == "João da Silva"
+    }
+
+    void "Mark that the company will collect recycling"() {
+        when:
+        CollectController controller = new CollectController()
+
+        User loggedInUser = User.findByUsername("ccoleta@trashpoints.com.br")
+        def springSecurityService = mockFor(SpringSecurityService)
+        springSecurityService.demand.getCurrentUser() { -> loggedInUser }
+        controller.springSecurityService = springSecurityService.createMock()
+
+        Collect collect = new Collect()
+        collect.orderDate = new Date()
+        collect.collectedDate = new Date()
+        collect.imageUpload = "teste.png"
+        collect.isCollected = false
+        collect.collaborator = Collaborator.findByName("welington monteiro")
+        collect.company = null
+
+        collect.validate()
+        if (!collect.hasErrors())
+            collect = collect.save(flush: true)
+        else {
+            print collect.errors.allErrors
+            throw new Exception("error collect")
+        }
+
+        def tokenHolder = SynchronizerTokensHolder.store(RequestContextHolder.currentRequestAttributes().session)
+        controller.params[SynchronizerTokensHolder.TOKEN_URI] = '/collect/collectRecycling'
+        controller.params[SynchronizerTokensHolder.TOKEN_KEY] = tokenHolder.generateToken(controller.params[SynchronizerTokensHolder.TOKEN_URI])
+
+        controller.params.id = collect.id //collect id
+
+
+        controller.collectRecycling()
+        then:
+        controller.response.json.success == 'sucesso'
     }
 
 }
