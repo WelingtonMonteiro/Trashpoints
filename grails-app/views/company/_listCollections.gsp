@@ -388,10 +388,10 @@
                 return false;
             }
             var selectedDate = moment($('#txb-collect-date').val(), 'DD/MM/YYYY').toDate();
-            if (selectedDate < new Date()){
+            if (moment(new Date()).isAfter(selectedDate, 'day')){
                 iziToast.error({
                     title: 'Erro',
-                    message: 'A data de coleta planejada deve ser maior que a data de hoje',
+                    message: 'A data de coleta planejada deve ser maior ou igual que a data de hoje',
                 });
                 return false;
             }

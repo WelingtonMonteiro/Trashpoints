@@ -10,8 +10,6 @@ function initMap() {
         zoom: 5,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
-
-    //getMyLocation();
 }
 
 function getMyLocation(){
@@ -207,7 +205,6 @@ function showNotifyError(message) {
 }
 
 $(document).ready(function () {
-    //initMap();
 
     $("#btn-enable-location").click(function () {
         getMyLocation();

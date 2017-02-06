@@ -30,6 +30,7 @@ function initMap() {
         draggable: false,
         suppressMarkers: true
     });
+
     //Listener to recalculate total distance between two points
     directionsDisplay.addListener('directions_changed', function() {
         computeTotalDistance(directionsDisplay.getDirections());
@@ -162,6 +163,16 @@ function computeDistanceInKmBetweenPoints(myPosition, targetPosition) {
     drawLine();
 }
 
+function computeTotalDistance(directions) {
+    var distanceBetweenPoints = 0;
+    var myRoute = directions.routes[0];
+    for (var i = 0; i < myRoute.legs.length; i++) {
+        distanceBetweenPoints += myRoute.legs[i].distance.value;
+    }
+    distanceBetweenPoints = (distanceBetweenPoints / 1000).toString().replace('.',',');
+    document.getElementById('distanceBetweenPoints').innerHTML = distanceBetweenPoints + ' km';
+}
+
 function drawLine() {
     var path = [myLatLng, selectedMarker.getPosition()];
     line.setPath(path);
@@ -193,16 +204,6 @@ function createRoute(markerPosition){
             directionsDisplay.setDirections(response);
         }
     });
-}
-
-function computeTotalDistance(directions) {
-    var distanceBetweenPoints = 0;
-    var myRoute = directions.routes[0];
-    for (var i = 0; i < myRoute.legs.length; i++) {
-        distanceBetweenPoints += myRoute.legs[i].distance.value;
-    }
-    distanceBetweenPoints = (distanceBetweenPoints / 1000).toString().replace('.',',');
-    document.getElementById('distanceBetweenPoints').innerHTML = distanceBetweenPoints + ' km';
 }
 
 function getMyLocation(){
@@ -311,9 +312,21 @@ function enableButtonsMap() {
     $('#btnCollectRecycling').removeClass("disabled");
 }
 
+function enableButtonCollectRecycling() {
+    $('#btnCollectRecycling').removeClass("disabled");
+}
+
 function disableButtonsMap() {
     $('#btnCreateRoute').addClass("disabled");
     $('#btnCollectRecycling').addClass("disabled");
+}
+
+function getRoutesByLocalStorage() {
+    var wayPoints = JSON.parse(window.localStorage.getItem('waypoints'));
+    if (wayPoints) {
+        directionsDisplay.setDirections(wayPoints);
+        enableButtonCollectRecycling();
+    }
 }
 
 $(document).ready(function () {
@@ -355,10 +368,11 @@ $(document).ready(function () {
             return false;
         }
         var selectedDate = moment($('#txb-collect-date').val(), 'DD/MM/YYYY').toDate();
-        if (selectedDate < new Date()){
+
+        if (moment(new Date()).isAfter(selectedDate, 'day')){
             iziToast.error({
                 title: 'Erro',
-                message: 'A data de coleta planejada deve ser maior que a data de hoje',
+                message: 'A data de coleta planejada deve ser maior ou igual que a data de hoje',
             });
             return false;
         }
@@ -386,10 +400,7 @@ $(document).ready(function () {
         $('.picker').appendTo('body');
     });
 
-    //get routes by localStorage
-    if(JSON.parse(window.localStorage.getItem('waypoints')))
-        directionsDisplay.setDirections(JSON.parse(window.localStorage.getItem('waypoints')));
+    getRoutesByLocalStorage();
 });
 
 
-//google.maps.event.addDomListener(window, 'load', initMap);

@@ -50,7 +50,7 @@
         $(".button-collapse").sideNav();
         $('.modal').modal();
         iziToast.settings({
-            timeout: 3500,
+            timeout: 4000,
             resetOnHover: false,
             position: 'topRight',
             balloon: true,
