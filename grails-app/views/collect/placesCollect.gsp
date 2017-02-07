@@ -33,6 +33,11 @@
                             title="Marcar que quero coletar essa reciclagem" style="top: 110px;">
                         <i class="material-icons left">local_shipping</i>Coletar
                     </button>
+                    <button id="btnCleanRoute"
+                            class="btn waves-effect waves-light blue darken-3 btn-google-map"
+                            title="Limpar rotas criadas" style="top: 160px;">
+                        <i class="material-icons left">clear</i>Limpar
+                    </button>
                 </div>
 
                 <div class="col s12" style="max-height: 145px; margin-top: 50px">
@@ -46,8 +51,15 @@
                         <li class="collection-header"><h5>Informações da Coleta</h5></li>
                         <li class="collection-item">
                             <div>
+                                <i class="material-icons left">directions</i>
+                                <label class="my-label">Distância total das rotas:</label>
+                                <span id="totalRouteDistance">sem rota para calcular</span>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div>
                                 <i class="fa fa-arrows-h left" aria-hidden="true" style="font-size: 24px;"></i>
-                                <label class="my-label">Distância entre a origem e o destino:</label> ≅
+                                <label class="my-label">Distância entre a origem e o ponto selecionado:</label> ≅
                                 <span id="distanceBetweenPoints">0 km</span>
                             </div>
                         </li>
@@ -142,19 +154,28 @@
 </main>
 
 <!-- Modal para selecao de data e hora -->
-<!-- Modal Structure -->
 <div id="dateTimeToCollectModal" class="modal">
     <div class="modal-content">
+
         <h4>Seleção de data e hora</h4>
-        <div>
-            <p>Selecione a data e a hora da coleta:</p>
-            <p>
-                Data:
+        <p>Selecione a data e a hora da coleta:</p>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">today</i>
                 <input type="date" class="datepicker" id="txb-collect-date">
-                Hora:
-                <input id="txb-collect-time" class="timepicker" type="time" data-default="00:00:00">
-            </p>
+                <label for="txb-collect-date" class="active">Data:<span class="red-text">*</span></label>
+            </div>
         </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">schedule</i>
+                <input id="txb-collect-time" class="timepicker" type="time" data-default="00:00:00">
+                <input type="hidden" id="fld-collect-id"/>
+                <label for="txb-collect-time" class="active">Hora:<span class="red-text">*</span></label>
+            </div>
+        </div>
+
     </div>
     <div class="modal-footer">
         <a id="btn-schedule-collect" href="#!" class="waves-effect waves-green btn-flat">Marcar coleta</a>

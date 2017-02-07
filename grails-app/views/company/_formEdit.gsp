@@ -140,7 +140,7 @@
             setFocusSummaryErrorMessage()
         }
         if (data.success) {
-            clearInputs();
+            //clearInputs();
             //var successMessage = data.success;
             iziToast.success({
                 title: 'OK',

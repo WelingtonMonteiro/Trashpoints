@@ -164,13 +164,13 @@ function computeDistanceInKmBetweenPoints(myPosition, targetPosition) {
 }
 
 function computeTotalDistance(directions) {
-    var distanceBetweenPoints = 0;
+    var totalRouteDistance = 0;
     var myRoute = directions.routes[0];
     for (var i = 0; i < myRoute.legs.length; i++) {
-        distanceBetweenPoints += myRoute.legs[i].distance.value;
+        totalRouteDistance += myRoute.legs[i].distance.value;
     }
-    distanceBetweenPoints = (distanceBetweenPoints / 1000).toString().replace('.',',');
-    document.getElementById('distanceBetweenPoints').innerHTML = distanceBetweenPoints + ' km';
+    totalRouteDistance = (totalRouteDistance / 1000).toString().replace('.',',');
+    document.getElementById('totalRouteDistance').innerHTML = totalRouteDistance + ' km';
 }
 
 function drawLine() {
@@ -201,7 +201,9 @@ function createRoute(markerPosition){
             eraseLine();
             $("h6#infoRoute").show();
             window.localStorage.setItem('waypoints', JSON.stringify(response));
+            directionsDisplay.setMap(map);
             directionsDisplay.setDirections(response);
+            computeTotalDistance(directionsDisplay.getDirections());
         }
     });
 }
@@ -325,12 +327,12 @@ function getRoutesByLocalStorageAndDisplay() {
     var wayPoints = JSON.parse(window.localStorage.getItem('waypoints'));
     if (wayPoints) {
         directionsDisplay.setDirections(wayPoints);
-        //enableButtonCollectRecycling();
     }
 }
 
 function cleanRoutes() {
     window.localStorage.clear();
+    directionsDisplay.setMap(null);
 }
 
 $(document).ready(function () {
