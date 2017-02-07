@@ -321,12 +321,16 @@ function disableButtonsMap() {
     $('#btnCollectRecycling').addClass("disabled");
 }
 
-function getRoutesByLocalStorage() {
+function getRoutesByLocalStorageAndDisplay() {
     var wayPoints = JSON.parse(window.localStorage.getItem('waypoints'));
     if (wayPoints) {
         directionsDisplay.setDirections(wayPoints);
-        enableButtonCollectRecycling();
+        //enableButtonCollectRecycling();
     }
+}
+
+function cleanRoutes() {
+    window.localStorage.clear();
 }
 
 $(document).ready(function () {
@@ -400,7 +404,8 @@ $(document).ready(function () {
         $('.picker').appendTo('body');
     });
 
-    getRoutesByLocalStorage();
+    getRoutesByLocalStorageAndDisplay();
+    $("#btnCleanRoute").click(cleanRoutes);
 });
 
 

@@ -33,15 +33,17 @@
                     </g:each>
                 </td>
                 <td>${collect?.orderDate?.format("dd/MM/yyyy")}</td>
-                <td>${collect?.scheduleDateCollect?.format("dd/MM/yyyy HH:mm")}</td>
-            <td>
-                <g:if test="${collect?.isCollected}">
-                    ${collect?.collectedDate?.format("dd/MM/yyyy")}
-                    </td>
-                </g:if>
-                <g:else>
-                    <p id="collectedDate${collect.id}">-</p>
-                </g:else>
+                <td>
+                    <span id="scheduleDateCollect${collect.id}">${collect?.scheduleDateCollect?.format("dd/MM/yyyy HH:mm")} </span>
+                </td>
+                <td>
+                    <g:if test="${collect?.isCollected}">
+                        ${collect?.collectedDate?.format("dd/MM/yyyy")}
+                    </g:if>
+                    <g:else>
+                        <p id="collectedDate${collect.id}">-</p>
+                    </g:else>
+                </td>
                 <td>
                     <g:if test="${collect?.isCollected}">
                         <p title="Foi coletada?">
@@ -196,17 +198,25 @@
 <div id="dateTimeToCollectModal" class="modal">
     <div class="modal-content">
         <h4>Seleção de data e hora</h4>
-        <div>
-            <p>Selecione a data e a hora da coleta:</p>
-            <p>
-                Data:
+        <p>Selecione a data e a hora da coleta:</p>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">today</i>
                 <input type="date" class="datepicker" id="txb-collect-date">
-                Hora:
+                <label for="txb-collect-date" class="active">Data:<span class="red-text">*</span></label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">schedule</i>
                 <input id="txb-collect-time" class="timepicker" type="time" data-default="00:00:00">
-                <input type="hidden" id="fld-collect-id" />
-            </p>
+                <input type="hidden" id="fld-collect-id"/>
+                <label for="txb-collect-time" class="active">Hora:<span class="red-text">*</span></label>
+            </div>
         </div>
     </div>
+
     <div class="modal-footer">
         <a id="btn-schedule-collect" href="#!" class="waves-effect waves-green btn-flat">Remarcar coleta</a>
         <a id="btn-cancel-datetime-collect" href="#!" class="waves-effect waves-green btn-flat">Cancelar</a>
@@ -336,7 +346,7 @@
         $("input[type=checkbox]#isCollected" + collectId).prop("disabled", true).removeAttr("onchange")
     }
 
-    function openModalUpdateScheduleDate(dateTimeCollect, collectId){
+    function openModalUpdateScheduleDate(dateTimeCollect, collectId) {
         $('#txb-collect-date').val(moment(dateTimeCollect).format('DD/MM/YYYY'));
         $('#txb-collect-time').val(moment(dateTimeCollect).format('HH:mm'));
         $('#fld-collect-id').val(collectId);
@@ -346,9 +356,10 @@
             endingTop: '2%'
         });
         $('#dateTimeToCollectModal').modal('open');
+        Materialize.updateTextFields();
     }
 
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('.datepicker').pickadate({
             selectMonths: false,
             selectYears: 3,
@@ -361,26 +372,26 @@
             default: '00:00:00',
             donetext: 'OK'
         });
-        $('#txb-collect-date').on('focus', function(){
+        $('#txb-collect-date').on('focus', function () {
             $('.picker').appendTo('body');
         });
-        $('#txb-collect-time').on('focus', function(){
+        $('#txb-collect-time').on('focus', function () {
             $('.picker').appendTo('body');
         });
 
         // ** Configuracao dos eventos de clique dos botoes no modal de data e hora
-        $('#btn-cancel-datetime-collect').on('click', function(){
+        $('#btn-cancel-datetime-collect').on('click', function () {
             $('#dateTimeToCollectModal').modal('close');
         });
-        $('#btn-schedule-collect').on('click', function(){
-            if ($('#txb-collect-date').val() == ''){
+        $('#btn-schedule-collect').on('click', function () {
+            if ($('#txb-collect-date').val() == '') {
                 iziToast.error({
                     title: 'Erro',
                     message: 'Por favor, selecione a data planejada para coleta.',
                 });
                 return false;
             }
-            if ($('#txb-collect-time').val() == ''){
+            if ($('#txb-collect-time').val() == '') {
                 iziToast.error({
                     title: 'Erro',
                     message: 'Por favor, selecione a hora planejada para coleta.',
@@ -388,7 +399,7 @@
                 return false;
             }
             var selectedDate = moment($('#txb-collect-date').val(), 'DD/MM/YYYY').toDate();
-            if (moment(new Date()).isAfter(selectedDate, 'day')){
+            if (moment(new Date()).isAfter(selectedDate, 'day')) {
                 iziToast.error({
                     title: 'Erro',
                     message: 'A data de coleta planejada deve ser maior ou igual que a data de hoje',
@@ -423,8 +434,10 @@
                             message: 'Sucesso ao salvar!',
                             iconText: "check"
                         });
-                        window.location.reload(true);
-                    }else if(data.error) {
+                        //window.location.reload(true);
+                        var dateTime = $('#txb-collect-date').val() + " " + $('#txb-collect-time').val();
+                        $("#scheduleDateCollect" + $('#fld-collect-id').val()).text(dateTime);
+                    } else if (data.error) {
                         iziToast.error({
                             title: 'Erro',
                             message: 'Operação ilegal!',

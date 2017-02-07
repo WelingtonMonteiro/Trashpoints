@@ -123,8 +123,7 @@
         selectMonths: true, // Creates a dropdown to control month
         selectYears: 100,// Creates a dropdown of 15 years to control year
         format: 'dd/mm/yyyy',
-//        min: 30, //get last 30 day range
-//        max: true,
+//        max: new Date(),
         closeOnSelect: true,
         closeOnClear: true,
     });
