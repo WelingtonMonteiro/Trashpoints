@@ -341,8 +341,9 @@ function disableButtonsMap() {
 }
 
 function getRoutesByLocalStorageAndDisplay() {
-    var wayPoints = JSON.parse(window.localStorage.getItem('waypoints'));
-    if (wayPoints) {
+    var wayPoints = window.localStorage.getItem('waypoints');
+    if (wayPoints != undefined && wayPoints != "undefined") {
+        wayPoints = JSON.parse(wayPoints);
         directionsDisplay.setDirections(wayPoints);
     }
 }

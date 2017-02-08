@@ -14,7 +14,7 @@ class CollectController {
 //// render a file
 // //render(file: new File(absolutePath), fileName: "book.pdf")
     transient springSecurityService
-
+    //private static final int MAX_POINTS_SELECTED = 20;
     private static final acceptImages = ['image/png', 'image/jpeg', 'image/gif']
 
     private invalidToken(message) {
@@ -36,10 +36,11 @@ class CollectController {
     }
 
     private hasMaterialTypes(instanceCollect) {
-        String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
         def listErrors = []
 
         if (instanceCollect.materialTypes.size() == 0) {
+            String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
+
             listErrors += "Selecione pelo menos uma opção"
             def response = [error: listErrors, newToken: newToken]
             render response as JSON
@@ -62,8 +63,9 @@ class CollectController {
     }
 
     private isCollectSelected(instanceCollect) {
-        String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
         if (instanceCollect.company) {
+            String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
+
             def error = "Coleta já selecionada por outra empresa"
             def response = [error: error, newToken: newToken]
             render response as JSON
@@ -214,7 +216,10 @@ class CollectController {
     @Transactional
     def collectRecycling() {
         withForm {
-            Integer collectId = params.id.toInteger()
+            String ids = params.id
+            def collectIds = ids.split(',').collect{it as int}
+            collectIds.unique()
+
             User currentUser = springSecurityService.getCurrentUser()
             Company currentCompany = currentUser.company
             Date collectDate = new Date().parse("dd/MM/yyyy", params.scheduleDate.toString())
@@ -222,13 +227,16 @@ class CollectController {
             collectDate.setHours(splittedHours[0].toInteger())
             collectDate.setMinutes(splittedHours[1].toInteger())
 
-            Collect collect = Collect.findById(collectId)
-            if (collect && isCollectSelected(collect) == false) {
-                collect.company = currentCompany
-                collect.setScheduleDateCollect(collectDate)
-                collect.save(flush: true)
-                successToken("")
+            for (collectId in collectIds) {
+                Collect collect = Collect.findById(collectId)
+                if (collect && isCollectSelected(collect) == false) {
+                    collect.company = currentCompany
+                    collect.setScheduleDateCollect(collectDate)
+                    collect.save(flush: true)
+                }
             }
+            successToken("")
+
         }.invalidToken {
             invalidToken("")
         }
