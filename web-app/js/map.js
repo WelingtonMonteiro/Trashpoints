@@ -4,10 +4,12 @@ var directionsDisplay;
 var latLngBounds;
 var myLatLng;
 var selectedMarker;
-var collectIdSelected;
+var allSelectedMarkers = [];
+var selectedCollectIds = [];
 var isActiveToggle = false;
 var line;
 var waypoints = [];
+var responseDirectionsService;
 
 function initMap() {
     var latLng = new google.maps.LatLng(-22.19496980839918, -47.32420171249998);
@@ -72,22 +74,29 @@ function createMarkersOfCollections(locations) {
         });
         var markerCluster = new MarkerClusterer(map, markersClusters, {imagePath: '/Trashpoints/images/m'});
         markerCluster.setMaxZoom(10);
-        ajustMapZoom();
+        ajustZoomMap();
     }
 }
 
 function createListenerClickMarker(collectId, marker){
     //Listener to marker one point of collect
     marker.addListener('click', function () {
+        changeMarkerIcon(this, collectId);
         getInfoCollect(collectId, marker);
-        if (selectedMarker)
-            selectedMarker.setIcon(); //set Default icon
-        selectedMarker = this;
-        selectedMarker.setIcon('/Trashpoints/images/map_marker_selected.png');
-        collectIdSelected = collectId
-        if(myLatLng != undefined)
-            computeDistanceInKmBetweenPoints(myLatLng, marker.getPosition());
+        computeDistanceInKmBetweenPoints(myLatLng, marker.getPosition());
     });
+}
+
+function changeMarkerIcon(clickedMarker, collectId) {
+    if(selectedMarker == clickedMarker){
+        deselectMarker(collectId);
+        return;
+    }
+
+    selectedMarker = clickedMarker;
+    selectedMarker.setIcon('/Trashpoints/images/map_marker_selected.png');
+
+    addCollectIdIfNotExist(collectId);
 }
 
 function getInfoCollect(collectId, marker) {
@@ -154,13 +163,16 @@ function showInfoCollect(data) {
     if(!isActiveToggle) {
         $('.collection').toggle("slow");
         isActiveToggle = true;
-    }
+    }else
+        $('.collection').show("slow");
 }
 
 function computeDistanceInKmBetweenPoints(myPosition, targetPosition) {
-    var distanceBetweenPoints = (google.maps.geometry.spherical.computeDistanceBetween(myPosition, targetPosition) / 1000).toFixed(2);
-    document.getElementById('distanceBetweenPoints').innerHTML = distanceBetweenPoints.toString().replace('.',',') + ' km';
-    drawLine();
+    if(myLatLng != undefined && selectedMarker) {
+        var distanceBetweenPoints = (google.maps.geometry.spherical.computeDistanceBetween(myPosition, targetPosition) / 1000).toFixed(2);
+        document.getElementById('distanceBetweenPoints').innerHTML = distanceBetweenPoints.toString().replace('.',',') + ' km';
+        drawLine();
+    }
 }
 
 function computeTotalDistance(directions) {
@@ -183,9 +195,7 @@ function eraseLine() {
     line.setMap(null);
 }
 
-function createRoute(markerPosition){
-    var destinationLatLng = markerPosition;
-    waypoints.push({ location: destinationLatLng });
+function createRoute(){
 
     var request = {
         origin: myLatLng,
@@ -200,7 +210,7 @@ function createRoute(markerPosition){
         if (status == 'OK') {
             eraseLine();
             $("h6#infoRoute").show();
-            window.localStorage.setItem('waypoints', JSON.stringify(response));
+            responseDirectionsService = response;
             directionsDisplay.setMap(map);
             directionsDisplay.setDirections(response);
             computeTotalDistance(directionsDisplay.getDirections());
@@ -232,7 +242,7 @@ function createMarkerMyLocation() {
         title: 'Minha localização'
     });
     latLngBounds.extend(myLatLng); //Adjust bounds of map
-    ajustMapZoom();
+    ajustZoomMap();
 
     //Listener for set zoom when click in my marker position
     markerMyPosition.addListener('click', function() {
@@ -264,17 +274,17 @@ function errorGeolocation(error){
     });
 };
 
-function ajustMapZoom() {
+function ajustZoomMap() {
     map.fitBounds(latLngBounds);
 }
 
-function collectRecycling(collectIdSelected) {
+function collectRecycling(collectIds) {
     var formData = $("form[name=formPlacesCollect]").serializeArray();
-    var id = {
+    var ids = {
         name: "id",
-        value: collectIdSelected
+        value: collectIds
     };
-    formData.push(id);
+    formData.push(ids);
 
     var date = {
         name: 'scheduleDate',
@@ -293,6 +303,9 @@ function collectRecycling(collectIdSelected) {
         method: "post",
         success: function (data) {
             if (data.success) {
+                removeAllCollectIdsSelected();
+                window.localStorage.setItem('waypoints', JSON.stringify(responseDirectionsService));
+
                 iziToast.success({
                     title: 'OK',
                     message: 'Sucesso ao salvar!',
@@ -318,6 +331,10 @@ function enableButtonCollectRecycling() {
     $('#btnCollectRecycling').removeClass("disabled");
 }
 
+function disableButtonCollectRecycling() {
+    $('#btnCollectRecycling').addClass("disabled");
+}
+
 function disableButtonsMap() {
     $('#btnCreateRoute').addClass("disabled");
     $('#btnCollectRecycling').addClass("disabled");
@@ -333,13 +350,67 @@ function getRoutesByLocalStorageAndDisplay() {
 function cleanRoutes() {
     window.localStorage.clear();
     directionsDisplay.setMap(null);
+    eraseLine();
+    deselectAllMarkers();
+    disableButtonsMap();
+    $('.collection').hide("slow");
+    $('#totalRouteDistance').text("sem rota para calcular");
+}
+
+function deselectMarker(collectId) {
+    if(selectedMarker) {
+        selectedMarker.setIcon(); //set Default icon
+        removeCollectId(collectId);
+        removeWayPointRoute();
+    }
+}
+
+function deselectAllMarkers() {
+    for(var i = 0; i < allSelectedMarkers.length; i++){
+        allSelectedMarkers[i].setIcon(); //set Default icon
+    }
+
+    removeAllCollectIdsSelected();
+    removeAllWayPointRoute();
+}
+
+function addCollectIdIfNotExist(collectId) {
+    if (selectedCollectIds.indexOf(collectId) === -1) {
+        selectedCollectIds.push(collectId);
+        waypoints.push({ location: selectedMarker.position });
+        allSelectedMarkers.push(selectedMarker);
+    }
+}
+
+function removeWayPointRoute() {
+    var index = waypoints.indexOf(selectedMarker.position);
+    waypoints.splice(index, 1);
+    allSelectedMarkers.splice(index, 1);
+    selectedMarker = null;
+}
+
+function removeAllWayPointRoute() {
+    waypoints = [];
+    allSelectedMarkers = [];
+}
+
+function removeCollectId(collectId) {
+    var index = selectedCollectIds.indexOf(collectId);
+    if (index != -1)
+        selectedCollectIds.splice(index, 1);
+}
+
+function removeAllCollectIdsSelected() {
+    selectedCollectIds = [];
+    selectedMarker = null;
+    disableButtonCollectRecycling();
 }
 
 $(document).ready(function () {
     initMap();
     $('#btnCreateRoute').click(function(){
-        if(selectedMarker && myLatLng != undefined) {
-            createRoute(selectedMarker.position);
+        if(allSelectedMarkers.length > 0 && myLatLng != undefined) {
+            createRoute();
         }
     });
     $('#btnCollectRecycling').click(function(){
@@ -383,7 +454,7 @@ $(document).ready(function () {
             return false;
         }
         if(selectedMarker) {
-            collectRecycling(collectIdSelected);
+            collectRecycling(selectedCollectIds);
             $('#dateTimeToCollectModal').modal('close');
         }
     });
@@ -409,5 +480,3 @@ $(document).ready(function () {
     getRoutesByLocalStorageAndDisplay();
     $("#btnCleanRoute").click(cleanRoutes);
 });
-
-
