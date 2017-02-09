@@ -329,8 +329,9 @@
                         message: 'Sucesso ao salvar!',
                         iconText: "check"
                     });
-                    disabledCheckBoxClicked(collectId)
-                    $("#collectedDate" + collectId).text(data.collectedDate)
+                    disableCheckBoxClicked(collectId);
+                    $("#collectedDate" + collectId).text(data.collectedDate);
+                    //window.localStorage.clear();
                 }
                 $("#SYNCHRONIZER_TOKEN").val(data.newToken);
             }
@@ -342,7 +343,7 @@
         $("input[type=checkbox]#isCollected" + collectId).prop("checked", false)
     }
 
-    function disabledCheckBoxClicked(collectId) {
+    function disableCheckBoxClicked(collectId) {
         $("input[type=checkbox]#isCollected" + collectId).prop("disabled", true).removeAttr("onchange")
     }
 

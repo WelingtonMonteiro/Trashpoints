@@ -81,22 +81,10 @@ function createMarkersOfCollections(locations) {
 function createListenerClickMarker(collectId, marker){
     //Listener to marker one point of collect
     marker.addListener('click', function () {
-        changeMarkerIcon(this, collectId);
         getInfoCollect(collectId, marker);
+        changeMarkerIcon(this, collectId);
         computeDistanceInKmBetweenPoints(myLatLng, marker.getPosition());
     });
-}
-
-function changeMarkerIcon(clickedMarker, collectId) {
-    if(selectedMarker == clickedMarker){
-        deselectMarker(collectId);
-        return;
-    }
-
-    selectedMarker = clickedMarker;
-    selectedMarker.setIcon('/Trashpoints/images/map_marker_selected.png');
-
-    addCollectIdIfNotExist(collectId);
 }
 
 function getInfoCollect(collectId, marker) {
@@ -126,14 +114,13 @@ function showInfoWindowCollect(data, marker) {
             '<p><strong>Data Pedido: </strong>' + data.infoCollect.orderDate + '</p>' +
             '<p><strong>Tipo da Coleta: </strong>' + materialTypes +'</p>';
 
-        selectedMarker.setIcon('/Trashpoints/images/map_marker_selected.png');
         disableButtonsMap();
     }else{
         contentString =
             '<p><strong>Endereço: </strong>' + address + '</p>' +
             '<p><strong>Data Pedido: </strong>' + data.infoCollect.orderDate + '</p>' +
             '<p><strong>Tipo da Coleta: </strong>' + materialTypes +'</p>';
-        if(myLatLng != undefined)
+        if(myLatLng != undefined && hasSelectedMarker())
             enableButtonsMap();
     }
 
@@ -142,7 +129,7 @@ function showInfoWindowCollect(data, marker) {
     });
 
     infoWindow.open(map, marker);
-    setTimeout(function () { infoWindow.close(); }, 10000);
+    setTimeout(function () { infoWindow.close(); }, 9000);
 }
 
 function showInfoCollect(data) {
@@ -196,7 +183,6 @@ function eraseLine() {
 }
 
 function createRoute(){
-
     var request = {
         origin: myLatLng,
         destination: myLatLng,
@@ -270,9 +256,9 @@ function errorGeolocation(error){
 
     iziToast.error({
         title: 'Erro',
-        message: errorDescription,
+        message: errorDescription
     });
-};
+}
 
 function ajustZoomMap() {
     map.fitBounds(latLngBounds);
@@ -358,12 +344,25 @@ function cleanRoutes() {
     $('#totalRouteDistance').text("sem rota para calcular");
 }
 
-function deselectMarker(collectId) {
-    if(selectedMarker) {
-        selectedMarker.setIcon(); //set Default icon
-        removeCollectId(collectId);
-        removeWayPointRoute();
+function changeMarkerIcon(clickedMarker, collectId) {
+    if(isSeletedMarker(clickedMarker)){
+        deselectMarker(clickedMarker, collectId);
+        return;
     }
+
+    selectedMarker = clickedMarker;
+    selectedMarker.setIcon('/Trashpoints/images/map_marker_selected.png');
+
+    addCollectIdIfNotExist(collectId);
+}
+
+function deselectMarker(clickedMarker, collectId) {
+    clickedMarker.setIcon(); //set Default icon
+    removeCollectId(collectId);
+    removeWayPointRoute(clickedMarker);
+
+    if(!hasSelectedMarker())
+        disableButtonsMap();
 }
 
 function deselectAllMarkers() {
@@ -383,10 +382,27 @@ function addCollectIdIfNotExist(collectId) {
     }
 }
 
-function removeWayPointRoute() {
-    var index = waypoints.indexOf(selectedMarker.position);
-    waypoints.splice(index, 1);
-    allSelectedMarkers.splice(index, 1);
+function removeCollectId(collectId) {
+    var index = selectedCollectIds.indexOf(collectId);
+    if (index != -1)
+        selectedCollectIds.splice(index, 1);
+}
+
+function removeWayPointRoute(clickedMarker) {
+    var index = -1;
+    for(var i = 0, len = waypoints.length; i < len; i++) {
+        if (waypoints[i].location === clickedMarker.position) {
+            index = i;
+            break;
+        }
+    }
+    if(index != -1)
+        waypoints.splice(index, 1);
+
+    index = allSelectedMarkers.indexOf(clickedMarker);
+    if(index != -1)
+        allSelectedMarkers.splice(index, 1);
+
     selectedMarker = null;
 }
 
@@ -395,27 +411,32 @@ function removeAllWayPointRoute() {
     allSelectedMarkers = [];
 }
 
-function removeCollectId(collectId) {
-    var index = selectedCollectIds.indexOf(collectId);
-    if (index != -1)
-        selectedCollectIds.splice(index, 1);
-}
-
 function removeAllCollectIdsSelected() {
     selectedCollectIds = [];
     selectedMarker = null;
     disableButtonCollectRecycling();
 }
 
+function hasSelectedMarker() {
+    return allSelectedMarkers.length > 0;
+}
+
+function isSeletedMarker(clickedMarker) {
+    if (allSelectedMarkers.indexOf(clickedMarker) != -1)
+        return true;
+    else
+        return false;
+}
+
 $(document).ready(function () {
     initMap();
     $('#btnCreateRoute').click(function(){
-        if(allSelectedMarkers.length > 0 && myLatLng != undefined) {
+        if(hasSelectedMarker() && myLatLng != undefined) {
             createRoute();
         }
     });
     $('#btnCollectRecycling').click(function(){
-        if(selectedMarker && myLatLng != undefined) {
+        if(hasSelectedMarker() && myLatLng != undefined) {
 			// Exibe modal de data e hora
 			$('#txb-collect-date').val('');
 			$('#dateTimeToCollectModal').modal({
