@@ -19,7 +19,7 @@
         <div class="container-fluid">
 
             <div class="row">
-                <div class="col s12" style="height: 500px; position: relative;">
+                <div id="containerMap" class="col s12" style="height: 500px; position: relative;">
                     <h5 class="header">Locais para coletar</h5>
 
                     <div id="map"></div>

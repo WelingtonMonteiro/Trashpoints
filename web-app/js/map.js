@@ -448,6 +448,12 @@ function collectHasCompanyToCollect(data) {
     return data.infoCollect.companyName;
 }
 
+function setFocusMap() {
+    $("html, body").animate({
+        scrollTop: $("#containerMap").offset().top
+    }, 350);
+}
+
 /*function allCollectionsHasCompanyToCollect() {
     var leastOneCollectHasCompanyToCollect = getInfoCollections();
     if (leastOneCollectHasCompanyToCollect) {
@@ -496,6 +502,7 @@ $(document).ready(function () {
     });
     // ** Configuracao dos eventos de clique dos botoes no modal de data e hora
     $('#btn-cancel-datetime-collect').on('click', function(){
+        setFocusMap();
         $('#dateTimeToCollectModal').modal('close');
     });
     $('#btn-schedule-collect').on('click', function(){
@@ -527,6 +534,7 @@ $(document).ready(function () {
         }
         if(selectedMarker) {
             collectRecycling(selectedCollectIds);
+            setFocusMap();
             $('#dateTimeToCollectModal').modal('close');
         }
     });
