@@ -97,13 +97,11 @@ function getInfoCollect(collectId, marker) {
             showInfoWindowCollect(data, marker);
 
             if (!collectHasCompanyToCollect(data)) {
-                changeMarkerIcon(marker, collectId);
-                showInfoCollect(data);
-                computeDistanceInKmBetweenPoints(myLatLng, marker.getPosition());
+                changeMarkerIcon(marker, collectId, data);
+
                 if(hasSelectedMarker())
                     enableButtonsMap();
             }else {
-                //disableButtonsMap();
                 hideInfoCollect();
                 eraseLine();
             }
@@ -176,7 +174,7 @@ function computeTotalDistance(directions) {
         totalRouteDistance += myRoute.legs[i].distance.value;
     }
     totalRouteDistance = (totalRouteDistance / 1000).toString().replace('.',',');
-    document.getElementById('totalRouteDistance').innerHTML = totalRouteDistance + ' km';
+    document.getElementById('totalRouteDistance').innerHTML = '≅' + totalRouteDistance + ' km';
 }
 
 function drawLine() {
@@ -217,7 +215,8 @@ function getMyLocation(){
     } else {
         iziToast.error({
             title: 'Erro',
-            message: 'Geolocalização não é suportada para este navegador.'
+            message: 'Geolocalização não é suportada para este navegador.',
+            iconText: "block"
         });
     }
 }
@@ -263,7 +262,8 @@ function errorGeolocation(error){
 
     iziToast.error({
         title: 'Erro',
-        message: errorDescription
+        message: errorDescription,
+        iconText: "block"
     });
 }
 
@@ -308,6 +308,7 @@ function collectRecycling(collectIds) {
                 iziToast.error({
                     title: 'Erro',
                     message: 'Operação ilegal!',
+                    iconText: "block"
                 });
             }
             $("#SYNCHRONIZER_TOKEN").val(data.newToken);
@@ -351,7 +352,7 @@ function cleanRoutes() {
     $('#totalRouteDistance').text("sem rota para calcular");
 }
 
-function changeMarkerIcon(clickedMarker, collectId) {
+function changeMarkerIcon(clickedMarker, collectId, dataCollect) {
     if(isSelectedMarker(clickedMarker)){
         deselectMarker(clickedMarker, collectId);
         return;
@@ -361,6 +362,8 @@ function changeMarkerIcon(clickedMarker, collectId) {
     selectedMarker.setIcon('/Trashpoints/images/map_marker_selected.png');
 
     addCollectIdIfNotExist(collectId);
+    showInfoCollect(dataCollect);
+    computeDistanceInKmBetweenPoints(myLatLng, clickedMarker.getPosition());
 }
 
 function deselectMarker(clickedMarker, collectId) {
@@ -500,6 +503,7 @@ $(document).ready(function () {
             iziToast.error({
                 title: 'Erro',
                 message: 'Por favor, selecione a data planejada para coleta.',
+                iconText: "block"
             });
             return false;
         }
@@ -507,6 +511,7 @@ $(document).ready(function () {
             iziToast.error({
                 title: 'Erro',
                 message: 'Por favor, selecione a hora planejada para coleta.',
+                iconText: "block"
             });
             return false;
         }
@@ -516,6 +521,7 @@ $(document).ready(function () {
             iziToast.error({
                 title: 'Erro',
                 message: 'A data de coleta planejada deve ser maior ou igual que a data de hoje',
+                iconText: "block"
             });
             return false;
         }

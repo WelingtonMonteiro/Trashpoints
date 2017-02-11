@@ -218,8 +218,8 @@
     </div>
 
     <div class="modal-footer">
-        <a id="btn-schedule-collect" href="#!" class="waves-effect waves-green btn-flat">Remarcar coleta</a>
-        <a id="btn-cancel-datetime-collect" href="#!" class="waves-effect waves-green btn-flat">Cancelar</a>
+        <a id="btn-schedule-collect" href="#!" class="waves-effect waves-light btn-flat">Remarcar coleta</a>
+        <a id="btn-cancel-datetime-collect" href="#!" class="waves-effect waves-light btn-flat">Cancelar</a>
     </div>
 </div>
 
@@ -389,6 +389,7 @@
                 iziToast.error({
                     title: 'Erro',
                     message: 'Por favor, selecione a data planejada para coleta.',
+                    iconText: "block"
                 });
                 return false;
             }
@@ -396,6 +397,7 @@
                 iziToast.error({
                     title: 'Erro',
                     message: 'Por favor, selecione a hora planejada para coleta.',
+                    iconText: "block"
                 });
                 return false;
             }
@@ -404,6 +406,7 @@
                 iziToast.error({
                     title: 'Erro',
                     message: 'A data de coleta planejada deve ser maior ou igual que a data de hoje',
+                    iconText: "block"
                 });
                 return false;
             }
@@ -442,6 +445,7 @@
                         iziToast.error({
                             title: 'Erro',
                             message: 'Operação ilegal!',
+                            iconText: "block"
                         });
                     }
                     $("#SYNCHRONIZER_TOKEN").val(data.newToken);

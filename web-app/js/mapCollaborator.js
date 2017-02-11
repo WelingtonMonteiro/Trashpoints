@@ -200,7 +200,8 @@ function showNotifySucess(message) {
 function showNotifyError(message) {
     iziToast.error({
         title: 'Erro',
-        message: message
+        message: message,
+        iconText: "block"
     });
 }
 

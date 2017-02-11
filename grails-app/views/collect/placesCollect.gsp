@@ -178,8 +178,8 @@
 
     </div>
     <div class="modal-footer">
-        <a id="btn-schedule-collect" href="#!" class="waves-effect waves-green btn-flat">Marcar coleta</a>
-        <a id="btn-cancel-datetime-collect" href="#!" class="waves-effect waves-green btn-flat">Cancelar</a>
+        <a id="btn-schedule-collect" href="#!" class="waves-effect waves-light btn-flat">Marcar coleta</a>
+        <a id="btn-cancel-datetime-collect" href="#!" class="waves-effect waves-light btn-flat">Cancelar</a>
     </div>
 </div>
 
