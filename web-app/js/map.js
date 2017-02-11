@@ -10,6 +10,7 @@ var isActiveToggle = false;
 var line;
 var waypoints = [];
 var responseDirectionsService;
+//const MAX_POINTS_SELECTED;
 
 function initMap() {
     var latLng = new google.maps.LatLng(-22.19496980839918, -47.32420171249998);
@@ -81,9 +82,7 @@ function createMarkersOfCollections(locations) {
 function createListenerClickMarker(collectId, marker){
     //Listener to marker one point of collect
     marker.addListener('click', function () {
-        getInfoCollect(collectId, marker);
-        changeMarkerIcon(this, collectId);
-        computeDistanceInKmBetweenPoints(myLatLng, marker.getPosition());
+        getInfoCollect(collectId, this);
     });
 }
 
@@ -95,8 +94,20 @@ function getInfoCollect(collectId, marker) {
         },
         method: "post",
         success: function (data) {
-            showInfoCollect(data);
             showInfoWindowCollect(data, marker);
+
+            if (!collectHasCompanyToCollect(data)) {
+                changeMarkerIcon(marker, collectId);
+                showInfoCollect(data);
+                computeDistanceInKmBetweenPoints(myLatLng, marker.getPosition());
+                if(hasSelectedMarker())
+                    enableButtonsMap();
+            }else {
+                //disableButtonsMap();
+                hideInfoCollect();
+                eraseLine();
+            }
+
         }
     });
 }
@@ -113,15 +124,11 @@ function showInfoWindowCollect(data, marker) {
             '<p><strong>Empresa: ' + companyName + ', já selecionou que vai recolher essa coleta </strong> </p>'+
             '<p><strong>Data Pedido: </strong>' + data.infoCollect.orderDate + '</p>' +
             '<p><strong>Tipo da Coleta: </strong>' + materialTypes +'</p>';
-
-        disableButtonsMap();
     }else{
         contentString =
             '<p><strong>Endereço: </strong>' + address + '</p>' +
             '<p><strong>Data Pedido: </strong>' + data.infoCollect.orderDate + '</p>' +
             '<p><strong>Tipo da Coleta: </strong>' + materialTypes +'</p>';
-        if(myLatLng != undefined && hasSelectedMarker())
-            enableButtonsMap();
     }
 
     var infoWindow = new google.maps.InfoWindow({
@@ -340,12 +347,12 @@ function cleanRoutes() {
     eraseLine();
     deselectAllMarkers();
     disableButtonsMap();
-    $('.collection').hide("slow");
+    hideInfoCollect();
     $('#totalRouteDistance').text("sem rota para calcular");
 }
 
 function changeMarkerIcon(clickedMarker, collectId) {
-    if(isSeletedMarker(clickedMarker)){
+    if(isSelectedMarker(clickedMarker)){
         deselectMarker(clickedMarker, collectId);
         return;
     }
@@ -361,7 +368,7 @@ function deselectMarker(clickedMarker, collectId) {
     removeCollectId(collectId);
     removeWayPointRoute(clickedMarker);
 
-    if(!hasSelectedMarker())
+    if(hasSelectedMarker() == false)
         disableButtonsMap();
 }
 
@@ -379,6 +386,7 @@ function addCollectIdIfNotExist(collectId) {
         selectedCollectIds.push(collectId);
         waypoints.push({ location: selectedMarker.position });
         allSelectedMarkers.push(selectedMarker);
+        //allCollectionsHasCompanyToCollect();
     }
 }
 
@@ -421,12 +429,48 @@ function hasSelectedMarker() {
     return allSelectedMarkers.length > 0;
 }
 
-function isSeletedMarker(clickedMarker) {
+function isSelectedMarker(clickedMarker) {
+    // Check if the current marker is selected(blue marker)
     if (allSelectedMarkers.indexOf(clickedMarker) != -1)
         return true;
     else
         return false;
 }
+
+function hideInfoCollect() {
+    $('.collection').hide("slow");
+}
+
+function collectHasCompanyToCollect(data) {
+    return data.infoCollect.companyName;
+}
+
+/*function allCollectionsHasCompanyToCollect() {
+    var leastOneCollectHasCompanyToCollect = getInfoCollections();
+    if (leastOneCollectHasCompanyToCollect) {
+        disableButtonsMap();
+        return;
+    }
+    enableButtonsMap();
+}*/
+
+/*function getInfoCollections() {
+    var formData = $("form[name=formPlacesCollect]").serializeArray();
+    var ids = {
+        name: "ids",
+        value: selectedCollectIds
+    };
+    formData.push(ids);
+
+    $.ajax({
+        url: "/Trashpoints/Collect/leastOneCollectHasCompanyToCollect/",
+        data: formData,
+        method: "post",
+        success: function (data) {
+            return data.leastOneCollectHasCompanyToCollect;
+        }
+    });
+}*/
 
 $(document).ready(function () {
     initMap();
