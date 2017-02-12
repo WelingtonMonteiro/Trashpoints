@@ -19,7 +19,6 @@ class CollectIntegrationSpec extends Specification {
 
     void "List Places to Collect"() {
         when:
-        def companyColRole = Role.findByAuthority('ROLE_COMPANY_COLLECT') ?: new Role('ROLE_COMPANY_COLLECT').save(flush: true)
 
         Address address = new Address()
         address.city = "Lorena"
@@ -226,7 +225,7 @@ class CollectIntegrationSpec extends Specification {
         controller.response.json.infoCollect.nameColaborator == "João da Silva"
     }
 
-    void "Mark that the company will collect recycling"() {
+    void "Mark that the company will collect one recycling"() {
         when:
         CollectController controller = new CollectController()
 
@@ -252,6 +251,57 @@ class CollectIntegrationSpec extends Specification {
             controller.params[SynchronizerTokensHolder.TOKEN_KEY] = tokenHolder.generateToken(controller.params[SynchronizerTokensHolder.TOKEN_URI])
 
             controller.params.id = collect.id
+            controller.params.scheduleDate = new Date().format('dd/MM/yyyy')
+            controller.params.scheduleHour = '10:00'
+            controller.collectRecycling()
+        }
+
+        then:
+        controller.response.json.success == 'sucesso'
+    }
+
+    void "Mark that the company will collect two recycling"() {
+        when:
+        CollectController controller = new CollectController()
+
+        Collect collect1 = new Collect()
+        collect1.orderDate = new Date()
+        collect1.collectedDate = new Date()
+        collect1.imageUpload = "teste.png"
+        collect1.isCollected = false
+        collect1.collaborator = Collaborator.findByName("welington monteiro")
+        collect1.company = null
+
+        collect1.validate()
+        if (!collect1.hasErrors())
+            collect1 = collect1.save(flush: true)
+        else {
+            print collect1.errors.allErrors
+            throw new Exception("error collect 1")
+        }
+
+        Collect collect2 = new Collect()
+        collect2.orderDate = new Date()
+        collect2.collectedDate = new Date()
+        collect2.imageUpload = "teste.png"
+        collect2.isCollected = false
+        collect2.collaborator = Collaborator.findByName("welington monteiro")
+        collect2.company = null
+
+        collect2.validate()
+        if (!collect2.hasErrors())
+            collect2 = collect2.save(flush: true)
+        else {
+            print collect2.errors.allErrors
+            throw new Exception("error collect 2")
+        }
+
+        SpringSecurityUtils.doWithAuth("ccoleta@trashpoints.com.br") {
+            def tokenHolder = SynchronizerTokensHolder.store(RequestContextHolder.currentRequestAttributes().session)
+            controller.params[SynchronizerTokensHolder.TOKEN_URI] = '/collect/collectRecycling'
+            controller.params[SynchronizerTokensHolder.TOKEN_KEY] = tokenHolder.generateToken(controller.params[SynchronizerTokensHolder.TOKEN_URI])
+
+            controller.params.id = collect1.id + "," + collect2.id
             controller.params.scheduleDate = new Date().format('dd/MM/yyyy')
             controller.params.scheduleHour = '10:00'
             controller.collectRecycling()
