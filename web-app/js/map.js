@@ -10,6 +10,7 @@ var isActiveToggle = false;
 var line;
 var waypoints = [];
 var responseDirectionsService;
+var currentInfoWindowOpen;
 //const MAX_POINTS_SELECTED;
 
 function initMap() {
@@ -134,6 +135,8 @@ function showInfoWindowCollect(data, marker) {
     });
 
     infoWindow.open(map, marker);
+    if(currentInfoWindowOpen) currentInfoWindowOpen.close();
+    currentInfoWindowOpen = infoWindow;
     setTimeout(function () { infoWindow.close(); }, 9000);
 }
 

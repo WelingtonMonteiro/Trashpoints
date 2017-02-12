@@ -223,8 +223,8 @@
     </div>
 </div>
 
-<script src="/Trashpoints/js/materialize.clockpicker.js" type="text/javascript"></script>
-<script src="/Trashpoints/js/moment.js" type="text/javascript"></script>
+<script src="/Trashpoints/js/materialize.clockpicker.min.js" type="text/javascript"></script>
+<script src="/Trashpoints/js/moment.min.js" type="text/javascript"></script>
 
 <script type="text/javascript">
     var global_collect_id;
