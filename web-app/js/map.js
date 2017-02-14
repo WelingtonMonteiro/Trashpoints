@@ -63,19 +63,40 @@ function getLocationsOfCollections(){
     });
 }
 
+function checkMarkersForDuplicatePosition(latLng) {
+    //Check Markers array for duplicate position and offset a little
+    if (markersClusters.length != 0) {
+        for (var i = 0; i < markersClusters.length; i++) {
+            var existingMarker = markersClusters[i];
+            var position = existingMarker.getPosition();
+            if (latLng.equals(position)) {
+                var a = 360.0 / markersClusters.length;
+                var newLat = position.lat() + -.00004 * Math.cos((+a * i) / 180 * Math.PI);  //x
+                var newLng = position.lng() + -.00004 * Math.sin((+a * i) / 180 * Math.PI);  //Y
+                latLng = new google.maps.LatLng(newLat, newLng);
+            }
+        }
+    }
+    return latLng;
+}
+
 function createMarkersOfCollections(locations) {
     if(locations) {
         $.each(locations, function (index, location) {
+            var latLng = new google.maps.LatLng(location.lat, location.lng);
+            latLng = checkMarkersForDuplicatePosition(latLng);
+
             var marker = new google.maps.Marker({
-                position: new google.maps.LatLng(location.lat, location.lng)
+                position: latLng
             });
 
             latLngBounds.extend(marker.position); //Adjust bounds of map
             markersClusters.push(marker);
-            createListenerClickMarker(location.collectId, marker)
+            createListenerClickMarker(location.collectId, marker);
         });
-        var markerCluster = new MarkerClusterer(map, markersClusters, {imagePath: '/Trashpoints/images/m'});
-        markerCluster.setMaxZoom(10);
+
+        var markerCluster = new MarkerClusterer(map, markersClusters, {maxZoom: 17, zoomOnClick: true, imagePath: '/Trashpoints/images/m'});
+
         ajustZoomMap();
     }
 }
@@ -95,7 +116,6 @@ function getInfoCollect(collectId, marker) {
         },
         method: "post",
         success: function (data) {
-            showInfoWindowCollect(data, marker);
 
             if (!collectHasCompanyToCollect(data)) {
                 changeMarkerIcon(marker, collectId, data);
@@ -365,6 +385,7 @@ function changeMarkerIcon(clickedMarker, collectId, dataCollect) {
     selectedMarker.setIcon('/Trashpoints/images/map_marker_selected.png');
 
     addCollectIdIfNotExist(collectId);
+    showInfoWindowCollect(dataCollect, clickedMarker);
     showInfoCollect(dataCollect);
     computeDistanceInKmBetweenPoints(myLatLng, clickedMarker.getPosition());
 }
