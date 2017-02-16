@@ -26,7 +26,7 @@ class CollaboratorIntegrationSpec extends Specification {
         collect1.imageUpload = "teste.png"
         collect1.isCollected = true
         collect1.collaborator = Collaborator.findByName("welington monteiro")
-        collect1.company = Company.findByIdentificationNumber("22.222.222/2222-22")
+        collect1.company = Company.findByIdentificationNumber("11.111.111/1111-11")
         collect1.quantityOfCoins = 5
 
         collect1.validate()
@@ -43,7 +43,7 @@ class CollaboratorIntegrationSpec extends Specification {
         collect2.imageUpload = "teste.png"
         collect2.isCollected = true
         collect2.collaborator = Collaborator.findByName("welington monteiro")
-        collect2.company = Company.findByIdentificationNumber("22.222.222/2222-22")
+        collect2.company = Company.findByIdentificationNumber("11.111.111/1111-11")
         collect2.quantityOfCoins = 5
 
         collect2.validate()

@@ -20,7 +20,7 @@
         </div>
 
         <div class="row">
-            <div class="input-field col s12 m4">
+            <div class="input-field col s12 m6 l6">
                 <i class="material-icons prefix">contact_phone</i>
                 <input id="phone" name="phone" type="tel" class="validate" required>
                 <label for="phone">Telefone <span class="red-text">*</span></label>

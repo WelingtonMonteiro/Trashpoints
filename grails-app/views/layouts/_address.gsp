@@ -6,7 +6,7 @@
     </div>
 
     <div class="input-field col s12 m4">
-        <select id="states" disabled required class="validate browser-default" name="states">
+        <select id="states" disabled required class="validate browser-default" name="states" style="margin-top: 5px">
             <option value="" disabled selected>Selecione</option>
             <option value="AC">AC</option>
             <option value="AL">AL</option>
