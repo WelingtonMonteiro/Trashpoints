@@ -114,3 +114,9 @@ fieldset {
 input[type=text][readonly="readonly"] {
 	pointer-events: none;
 }
+
+.my-badge {
+	font-size: 1rem !important;
+	margin-left: 0 !important;
+	float: left !important;
+}

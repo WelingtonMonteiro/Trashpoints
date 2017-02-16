@@ -212,37 +212,6 @@ class CollectController {
         render response as JSON
     }
 
-    /*@Secured(['ROLE_COMPANY_COLLECT'])
-    def leastOneCollectHasCompanyToCollect() {
-        String ids = params.ids
-        def collectIds = ids.split(',').collect{it as int}
-        collectIds.unique()
-
-        def infoCollections = Collect.createCriteria().list {
-            resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
-            createAlias("company", "comp", CriteriaSpecification.LEFT_JOIN)
-
-            projections {
-                property("comp.companyName", "companyName")
-            }
-            'in'("id", collectIds)
-        }
-
-        boolean leastOneCollectHasCompanyToCollect = false
-
-        for(infoCollect in infoCollections){
-            if(infoCollect.companyName){
-                leastOneCollectHasCompanyToCollect = true
-                break;
-            }
-        }
-
-        def response = ["leastOneCollectHasCompanyToCollect": leastOneCollectHasCompanyToCollect]
-
-        render response as JSON
-    }*/
-
-
     @Secured(['ROLE_COMPANY_COLLECT'])
     @Transactional
     def collectRecycling() {
@@ -288,5 +257,33 @@ class CollectController {
         successToken("")
     }
 
+    /*@Secured(['ROLE_COMPANY_COLLECT'])
+    def leastOneCollectHasCompanyToCollect() {
+        String ids = params.ids
+        def collectIds = ids.split(',').collect{it as int}
+        collectIds.unique()
 
+        def infoCollections = Collect.createCriteria().list {
+            resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
+            createAlias("company", "comp", CriteriaSpecification.LEFT_JOIN)
+
+            projections {
+                property("comp.companyName", "companyName")
+            }
+            'in'("id", collectIds)
+        }
+
+        boolean leastOneCollectHasCompanyToCollect = false
+
+        for(infoCollect in infoCollections){
+            if(infoCollect.companyName){
+                leastOneCollectHasCompanyToCollect = true
+                break;
+            }
+        }
+
+        def response = ["leastOneCollectHasCompanyToCollect": leastOneCollectHasCompanyToCollect]
+
+        render response as JSON
+    }*/
 }

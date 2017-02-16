@@ -12,7 +12,11 @@
 	<ul id="side-menu" class="side-nav fixed">
 		<li><a class="waves-effect hide-on-large-only"><sec:loggedInUserInfo field="username"/><i class="material-icons">account_circle</i></a></li>
 		<li class="active"><a class="waves-effect active" href="/Trashpoints">Home<i class="material-icons">home</i></a></li>
-		<li><a class="waves-effect" href="#">Meus TrashPoints<i class="material-icons">monetization_on</i></a></li>
+		<li>
+			<a class="waves-effect" href="#" title="Meus TrashPoints">
+				<i class="material-icons">monetization_on</i> <span class="new badge my-badge bold" data-badge-caption="" id="quantityOfCoins"></span>
+			</a>
+		</li>
 		<li><div class="divider"></div></li>
 		<li><a class="subheader">Editar meus dados</a></li>
 		<li class="no-padding">
@@ -35,3 +39,15 @@
 		<li><a class="waves-effect" href="/Trashpoints/j_spring_security_logout">Sair<i class="fa fa-2x fa-sign-out" aria-hidden="true"></i></a></li>
 	</ul>
 </header>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$.ajax({
+			type: "post",
+			url: "/Trashpoints/Collaborator/sumQuantityOfCoins/",
+			success: function (data) {
+				$("#quantityOfCoins").text(data.quantityOfCoins);
+			}
+		})
+	});
+</script>

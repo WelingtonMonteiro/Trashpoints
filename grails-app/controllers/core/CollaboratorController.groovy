@@ -187,7 +187,22 @@ class CollaboratorController {
         }
     }
 
+    def sumQuantityOfCoins() {
+        User currentUser = springSecurityService.loadCurrentUser()
+        Collaborator currentCollaborator = currentUser.collaborator
 
+        Double quantityOfCoins = Collect.createCriteria().get {
+            createAlias("collaborator", "c")
+
+            projections {
+                sum('quantityOfCoins')
+            }
+            eq("c.id", currentCollaborator.id)
+        }
+        def response = ["quantityOfCoins": quantityOfCoins]
+
+        render response as JSON
+    }
 
 
 }

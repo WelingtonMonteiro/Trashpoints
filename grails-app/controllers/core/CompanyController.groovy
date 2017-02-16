@@ -119,10 +119,12 @@ class CompanyController {
     }
 
     def myCollections() {
-        //User currentUser = springSecurityService.currentUser
-        //Company currentCompany = currentUser.company
+        User currentUser = springSecurityService.loadCurrentUser()
+        Company currentCompany = currentUser.company
         //def companyCollections = currentCompany?.collects.sort{it.orderDate}
         def companyCollections = Collect.createCriteria().list {
+            createAlias("company", "c")
+            eq("c.id", currentCompany.id)
             order("orderDate")
         }
 
@@ -146,6 +148,7 @@ class CompanyController {
                 collect.collectedDate = new Date()
                 collect.company = currentCompany
                 def collectedDateWithOutHour = collect.collectedDate.format("dd/MM/yyyy")
+                collect.quantityOfCoins = 5.0
                 collect.save(flush: true)
 
                 successToken([collectedDate: collectedDateWithOutHour])

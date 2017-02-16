@@ -7,12 +7,14 @@ class Collect {
     Date collectedDate
     String imageUpload
     Boolean isCollected
+    Date scheduleDateCollect
+    Double quantityOfCoins
     Collaborator collaborator
     Company company
-    Date scheduleDateCollect
 
     Collect(){
         isCollected = false
+        quantityOfCoins = 0.0
     }
 
     static hasMany = [materialTypes : MaterialType]
@@ -26,5 +28,6 @@ class Collect {
         company nullable: true
         collaborator nullable: false
         scheduleDateCollect nullable: true
+        quantityOfCoins nullable: false
     }
 }

@@ -123,6 +123,7 @@ function getInfoCollect(collectId, marker) {
                 if(hasSelectedMarker())
                     enableButtonsMap();
             }else {
+                showInfoWindowCollect(data, marker);
                 hideInfoCollect();
                 eraseLine();
             }
