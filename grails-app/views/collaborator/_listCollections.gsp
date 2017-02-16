@@ -8,6 +8,7 @@
             <th data-field="collectedDate">Data Coletada</th>
             <th data-field="isCollected">Foi Coletada?</th>
             <th data-field="CompanyDetails">Empresa</th>
+            <th data-field="quantityOfCoins">Trashpoints</th>
         </tr>
         </thead>
 
@@ -16,7 +17,8 @@
             <tr>
                 <td>
                     <!-- Modal Trigger -->
-                    <a class="waves-effect waves-light" onclick="openModalViewCollectImage(${collect.id})" title="Ver Imagem da coleta">
+                    <a class="waves-effect waves-light" onclick="openModalViewCollectImage(${collect.id})"
+                       title="Ver Imagem da coleta">
                         <i class="fa fa-file-image-o fa-2x"></i>
                     </a>
                 </td>
@@ -25,39 +27,36 @@
                         <span>${materialType.name}</span><br/>
                     </g:each>
                 </td>
-                <td>${collect?.orderDate?.format("dd/MM/yyyy")}</td>
-                <td>
-                    <g:if test="${collect?.isCollected}">
+                <td>${collect?.orderDate.format("dd/MM/yyyy")}</td>
+
+                <g:if test="${collect?.isCollected}">
+                    <td>
                         ${collect?.collectedDate?.format("dd/MM/yyyy")}
-                    </g:if>
-                    <g:else>
-                        <p id="collectedDate${collect.id}"> _ </p>
-                    </g:else>
-                </td>
-                <td>
-                    <g:if test="${collect?.isCollected}">
-                        <input type="checkbox" class="disabled" checked="checked" disabled="disabled" />
+                    </td>
+                    <td>
+                        <input type="checkbox" class="disabled" checked="checked" disabled="disabled"/>
                         <label></label>
-                    </g:if>
-                    <g:else>
-                        <input type="checkbox" class="disabled" disabled="disabled" />
-                        <label></label>
-                    </g:else>
-                </td>
-                <td>
-                    <g:if test="${collect?.isCollected}">
+                    </td>
+                    <td>
                         <!-- Modal Trigger -->
                         <a class="waves-effect waves-light" onclick="openModalCompanyDetails(${collect?.company?.id})"
                            title="Detalhes da empresa">
                             <i class="material-icons fa-2x">list</i>
                         </a>
-                    </g:if>
-                    <g:else>
-                        <a class="disabled grey-text">
-                            <i class="material-icons fa-2x">list</i>
-                        </a>
-                    </g:else>
-                </td>
+                    </td>
+                    <td>
+                        <p style="text-align: left; margin-left: 2rem;" id="quantityOfCoins${collect.id}">
+                            <i class="material-icons left" style="margin-right: 2px">monetization_on</i> ${collect.quantityOfCoins}
+                        </p>
+                    </td>
+                </g:if>
+                <g:else>
+                    <td><p id="collectedDate${collect.id}">_</p></td>
+                    <td><p>Não foi coletado ainda</p></td>
+                    <td><a class="disabled grey-text"><i class="material-icons fa-2x">list</i></a></td>
+                    <td><p id="quantityOfCoins${collect.id}">_</p></td>
+                </g:else>
+
             </tr>
 
         </g:each>
@@ -80,57 +79,68 @@
     <a class="modal-action modal-close waves-effect waves-light btn-flat right">
         <i class="material-icons">close</i>
     </a>
+
     <div class="modal-content">
         <h5>Detalhes da Empresa</h5>
+
         <div class="center-align">
             <div class="preloader-wrapper big active">
                 <div class="spinner-layer spinner-blue-only">
                     <div class="circle-clipper left">
                         <div class="circle"></div>
                     </div>
+
                     <div class="gap-patch">
                         <div class="circle"></div>
                     </div>
+
                     <div class="circle-clipper right">
                         <div class="circle"></div>
                     </div>
                 </div>
             </div>
         </div>
+
         <div id="companyDetails" class="center-align">
             <p>
-                <label class="my-label"> Razão Social: </label>
+                <label class="my-label">Razão Social:</label>
                 <span id="companyName"></span>
             </p>
 
             <p>
-                <label class="my-label"> Nome Fantasia: </label>
+                <label class="my-label">Nome Fantasia:</label>
                 <span id="tradingName"></span>
             </p>
+
             <p>
-                <label class="my-label"> Telefone: </label>
+                <label class="my-label">Telefone:</label>
                 <span id="phone"></span>
             </p>
-            <p><label class="my-label"> Site: </label>
+
+            <p><label class="my-label">Site:</label>
                 <span id="site"></span>
             </p>
+
             <p>
-                <label class="my-label">CEP: </label>
+                <label class="my-label">CEP:</label>
                 <span id="zipCode"></span>
             </p>
+
             <p>
-                <label class="my-label">Rua: </label><span id="street"></span>
-                <label class="my-label"> &nbsp; Número: </label><span id="number"></span>
+                <label class="my-label">Rua:</label><span id="street"></span>
+                <label class="my-label">&nbsp; Número:</label><span id="number"></span>
             </p>
+
             <p>
-                <label class="my-label">Bairro: </label><span id="neighborhood"></span>
+                <label class="my-label">Bairro:</label><span id="neighborhood"></span>
             </p>
             <span>
-                <label class="my-label">Cidade: </label><span id="city"></span>
-                <label class="my-label"> &nbsp; Estado: </label><span id="state"></span>
+                <label class="my-label">Cidade:</label><span id="city"></span>
+                <label class="my-label">&nbsp; Estado:</label><span id="state"></span>
             </span>
         </div>
     </div>
+
     <div class="modal-footer">
         <a class=" modal-action modal-close waves-effect light btn-flat">Fechar</a>
     </div>
@@ -141,19 +151,24 @@
     <a class="modal-action modal-close waves-effect waves-light btn-flat right">
         <i class="material-icons">close</i>
     </a>
+
     <div class="modal-content">
         <h4>Foto da coleta</h4>
+
         <div id="collectImage" class="center-align">
         </div>
+
         <div class="center-align">
             <div class="preloader-wrapper big active">
                 <div class="spinner-layer spinner-blue-only">
                     <div class="circle-clipper left">
                         <div class="circle"></div>
                     </div>
+
                     <div class="gap-patch">
                         <div class="circle"></div>
                     </div>
+
                     <div class="circle-clipper right">
                         <div class="circle"></div>
                     </div>
@@ -161,6 +176,7 @@
             </div>
         </div>
     </div>
+
     <div class="modal-footer">
         <a class=" modal-action modal-close waves-effect light btn-flat">Fechar</a>
     </div>
@@ -194,9 +210,9 @@
                 if (data.imagePath) {
                     var UPLOAD_FOLDER_PATH = "/Trashpoints/images/uploads/" + data.imagePath;
 
-                    var imageUpload = "<img src='" + UPLOAD_FOLDER_PATH +"' style='max-height: 284px;'>"
+                    var imageUpload = "<img src='" + UPLOAD_FOLDER_PATH + "' style='max-height: 284px;'>"
                     $("#collectImage").append(imageUpload)
-                }else{
+                } else {
                     var imageUpload = "<i class='fa fa-file-image-o fa-5x center-align'></i>"
                     $("#collectImage").append(imageUpload)
                 }
@@ -226,7 +242,7 @@
                     $("#companyDetails #phone").text(company.phone)
                     $("#companyDetails #site").text(company.site)
                 }
-                if (address){
+                if (address) {
                     $("#collaboratorDetails span#zipCode").text(address.zipCode)
                     $("#collaboratorDetails span#street").text(address.street)
                     $("#collaboratorDetails span#number").text(address.number)
