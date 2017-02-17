@@ -229,7 +229,7 @@ class CollectController {
 
             for (collectId in collectIds) {
                 Collect collect = Collect.findById(collectId)
-                if (collect && isCollectSelected(collect) == false) {
+                if (collect && isCollectSelected(collect) == false && isValidDate(collectDate)) {
                     collect.company = currentCompany
                     collect.setScheduleDateCollect(collectDate)
                     collect.save(flush: true)
@@ -253,8 +253,22 @@ class CollectController {
 
         Collect collect = Collect.findById(collectId)
         collect.setScheduleDateCollect(collectDate)
-        collect.save(flush: true)
-        successToken("")
+        if(isValidDate(collect.scheduleDateCollect)) {
+            collect.save(flush: true)
+            successToken("")
+        }
+    }
+
+    private isValidDate(scheduleDateCollect) {
+        if (scheduleDateCollect >= new Date().clearTime() && scheduleDateCollect <= new Date() + 5)
+            return true
+        else {
+            String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
+
+            def error = "Data inválida"
+            def response = [error: error, newToken: newToken]
+            render response as JSON
+        }
     }
 
     /*@Secured(['ROLE_COMPANY_COLLECT'])

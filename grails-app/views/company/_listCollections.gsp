@@ -331,7 +331,7 @@
                     });
                     disableCheckBoxClicked(collectId);
                     $("#collectedDate" + collectId).text(data.collectedDate);
-                    //window.localStorage.clear();
+                    //window.localStorage.removeItem("")
                 }
                 $("#SYNCHRONIZER_TOKEN").val(data.newToken);
             }
@@ -361,10 +361,13 @@
     }
 
     $(document).ready(function () {
+        var MAX_DATE = moment().add(5, 'day').toDate();
+
         $('.datepicker').pickadate({
             selectMonths: false,
             selectYears: 3,
-            min: new Date()
+            min: new Date(),
+            max: MAX_DATE
         });
 
         $('.timepicker').pickatime({

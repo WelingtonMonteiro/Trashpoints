@@ -507,6 +507,7 @@ function setFocusMap() {
 }*/
 
 $(document).ready(function () {
+    var MAX_DATE = moment().add(5, 'day').toDate();
     initMap();
     $('#btnCreateRoute').click(function(){
         if(hasSelectedMarker() && myLatLng != undefined) {
@@ -567,7 +568,8 @@ $(document).ready(function () {
     $('.datepicker').pickadate({
         selectMonths: false,
         selectYears: 3,
-        min: new Date()
+        min: new Date(),
+        max: MAX_DATE
     });
     $('.timepicker').pickatime({
         autoclose: false,
