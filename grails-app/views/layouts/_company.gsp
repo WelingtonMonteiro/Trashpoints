@@ -3,9 +3,6 @@
 		<a class="page-title" href="/Trashpoints">TrashPoints</a>
 		<ul class="right">
 			<li>
-				<i class="material-icons">announcement</i>
-			</li>
-			<li>
 				<a class="hide-on-small-only"><sec:loggedInUserInfo field="username"/></a>
 			</li>
 		</ul>
