@@ -217,9 +217,8 @@ class CollectController {
     def collectRecycling() {
         withForm {
             String ids = params.id
-            def collectIds = ids.split(',').collect{it as int}
+            def collectIds = ids.split(',').collect { it as int }
             collectIds.unique()
-
             User currentUser = springSecurityService.getCurrentUser()
             Company currentCompany = currentUser.company
             Date collectDate = new Date().parse("dd/MM/yyyy", params.scheduleDate.toString())
@@ -233,6 +232,12 @@ class CollectController {
                     collect.company = currentCompany
                     collect.setScheduleDateCollect(collectDate)
                     collect.save(flush: true)
+                    Notification notification = new Notification()
+                    notification.header = "Uma coleta foi registrada para você"
+                    notification.body = "A empresa ${currentCompany.companyName} irá realizar sua coleta no dia ${collect.scheduleDateCollect.format("dd/MM/yyyy")} às ${collect.scheduleDateCollect.format("HH:mm:ss")}"
+                    notification.username = collect.collaborator.user.username
+                    notification.wasRead = 0
+                    notification.save()
                 }
             }
             successToken("")
@@ -250,12 +255,20 @@ class CollectController {
         String[] splittedHours = params.scheduleHour.toString().split(':')
         collectDate.setHours(splittedHours[0].toInteger())
         collectDate.setMinutes(splittedHours[1].toInteger())
-
         Collect collect = Collect.findById(collectId)
         collect.setScheduleDateCollect(collectDate)
         if(isValidDate(collect.scheduleDateCollect)) {
             collect.save(flush: true)
-            successToken("")
+            collect.save(flush: true)
+			User currentUser = springSecurityService.getCurrentUser()
+			Company currentCompany = currentUser.company
+			Notification notification = new Notification()
+			notification.header = "Alteração da data e hora da coleta"
+			notification.body = "A empresa ${currentCompany.companyName} alterou uma de suas coletas para o dia ${collect.scheduleDateCollect.format("dd/MM/yyyy")} às ${collect.scheduleDateCollect.format("HH:mm:ss")}"
+			notification.username = collect.collaborator.user.username
+			notification.wasRead = 0
+			notification.save(flush: true)
+			successToken("")
         }
     }
 
