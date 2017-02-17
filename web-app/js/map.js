@@ -395,6 +395,8 @@ function deselectMarker(clickedMarker, collectId) {
     clickedMarker.setIcon(); //set Default icon
     removeCollectId(collectId);
     removeWayPointRoute(clickedMarker);
+    hideInfoCollect();
+    eraseLine();
 
     if(hasSelectedMarker() == false)
         disableButtonsMap();
