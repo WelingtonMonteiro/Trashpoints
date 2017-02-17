@@ -1,6 +1,8 @@
 <header>
 	<nav id="top-menu" class="indigo accent-2">
-		<a class="page-title" href="/Trashpoints">TrashPoints</a>
+		<a  href="/Trashpoints" class="brand-logo left margin-left-3rem">
+			<img src="/Trashpoints/images/trashPoints_logo_miniatura_alpha.png" class="img-responsive" />
+		</a>
 		<ul class="right">
 			<li>
 				<a class="hide-on-small-only"><sec:loggedInUserInfo field="username"/></a>

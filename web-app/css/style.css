@@ -120,3 +120,11 @@ input[type=text][readonly="readonly"] {
 	margin-left: 0 !important;
 	float: left !important;
 }
+
+.margin-left-3rem {
+	margin-left: 3rem;
+}
+
+.img-responsive {
+	max-width: 10rem;
+}

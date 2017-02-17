@@ -1,6 +1,8 @@
 <header>
     <nav id="top-menu" class="indigo accent-2">
-        <a href="/Trashpoints" class="page-title">TrashPoints</a>
+        <a  href="/Trashpoints" class="brand-logo left margin-left-3rem">
+            <img src="/Trashpoints/images/trashPoints_logo_miniatura_alpha.png" class="img-responsive" />
+        </a>
         <ul class="right">
             <li>
                 <a href="/Trashpoints/userManager/login" class="hide-on-small-only waves-effect waves-light">
@@ -60,8 +62,8 @@
 
 
 <style>
-header, main, footer {
-    padding-left: 0px;
-}
+    header, main, footer {
+        padding-left: 0px;
+    }
 </style>
 
