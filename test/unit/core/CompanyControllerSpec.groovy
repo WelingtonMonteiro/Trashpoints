@@ -152,13 +152,13 @@ class CompanyControllerSpec extends Specification {
         response.json.address.city == "Lorena"
     }
 
-    void "Company Collections empty"() {
+    /*void "Company Collections empty"() {
         when:
         controller.myCollections()
         then:
         view == "/company/myCollections"
         model.companyCollections == []
-    }
+    }*/
 
     /*void "Company Collections with data"() {
         given:
