@@ -147,8 +147,9 @@ class CollaboratorController {
     @Transactional
     def saveEditCollaborator() {
         withForm {
-            // TODO: PEGAR COLLABORATOR da sessão do spring
-            Collaborator collaborator = Collaborator.get(params.id)
+            User currentUser = springSecurityService.loadCurrentUser()
+            Collaborator collaborator = currentUser.collaborator
+
             Address addressCollect = collaborator.address
             // TODO: verificar a questão da foto
             collaborator.name = params.name

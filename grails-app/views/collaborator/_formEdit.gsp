@@ -17,7 +17,7 @@
                 <i class="material-icons prefix">today</i>
                 <input id="dateOfBirth" name="dateOfBirth" type="text" placeholder="dd/mm/aaaa"
                        class="valid datepicker" value="<g:formatDate date="${currentCollaborator?.dateOfBirth}"
-                                                                        format="dd/MM/yyyy"></g:formatDate>"/>
+                                                                     format="dd/MM/yyyy"></g:formatDate>"/>
                 <label for="dateOfBirth" class="active">Data Nascimento<span class="red-text">*</span></label>
             </div>
         </div>
@@ -45,6 +45,38 @@
             <g:else>
                 <g:render template="../layouts/address"/>
             </g:else>
+
+            <div class="row">
+                <div class="col s12">
+                    <div id="panel-warning-location" class="card-panel grey lighten-5 center hidden">
+                        <i class="material-icons left orange-text">warning</i>
+                        <span class="black-text justify-align bolder">
+                            Não foi possível encontrar sua localização pelo endereço!<br/>
+                            Clique no botão abaixo para permitir que possamos pegar sua localização.
+                            <br/>
+                        </span>
+                        <br/>
+                        <button id="btn-enable-location" type="button"
+                                class="btn btn-large waves-effect waves-light blue darken-3">
+                            <i class="material-icons left">my_location</i>Minha Localização
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div id="col-map" class="col s12 hidden" style="height: 500px; margin-bottom: 50px;">
+
+                    <h5>
+                        <i class="material-icons left">my_location</i>Minha localização
+                    </h5>
+                    <h6 class="bolder blue-text">Você pode arrastar o marcador da sua localização para ajustá-lo.</h6>
+
+                    <div id="map"></div>
+
+                </div>
+            </div>
+
         </div>
     </fieldset>
     <br>
@@ -64,7 +96,7 @@
     <div class="row">
         <div class="input-field col s12">
 
-            <button type="submit" class="btn-large waves-effect waves-light blue darken-3" >
+            <button type="submit" class="btn-large waves-effect waves-light blue darken-3">
                 <i class="material-icons left">check</i>Salvar
             </button>
 
@@ -92,8 +124,7 @@
         selectMonths: true, // Creates a dropdown to control month
         selectYears: 100,// Creates a dropdown of 15 years to control year
         format: 'dd/mm/yyyy',
-//        min: 30, //get last 30 day range
-//        max: true,
+        max: new Date(),
         closeOnSelect: true,
         closeOnClear: true
     });
@@ -144,18 +175,21 @@
         Materialize.updateTextFields();
     }
 
-    $("form").submit(function(e) {
+    $("form").submit(function (e) {
         e.preventDefault();
-        var urlData = $(this).serialize();
-        $.ajax({
-            type: "post",
-            url: "/Trashpoints/Collaborator/saveEditCollaborator/",
-            data: urlData,
-            success: function(data)
-            {
-                showMessage(data)
-            }
-        });
+
+        if ($('#latitude').val() && $('#longitude').val()) {
+            var urlData = $(this).serialize();
+            $.ajax({
+                type: "post",
+                url: "/Trashpoints/Collaborator/saveEditCollaborator/",
+                data: urlData,
+                success: function (data) {
+                    showMessage(data)
+                }
+            });
+        }else
+            showNotifyError("Precisamos ter sua localização para poder cadastrar");
     });
 
 </script>
