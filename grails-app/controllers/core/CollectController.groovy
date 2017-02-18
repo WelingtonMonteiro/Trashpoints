@@ -119,7 +119,10 @@ class CollectController {
             }
 
             def fileUpload = request.getFile("imageUpload")
-            def fileName = fileUpload.getOriginalFilename()
+            def fileName = null
+            if (fileUpload != null) {
+                fileName = fileUpload.getOriginalFilename()
+            }
 
             if (fileName)
                 upload(collect)
