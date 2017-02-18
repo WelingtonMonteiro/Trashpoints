@@ -16,12 +16,19 @@
                         <fieldset>
                             <legend><h4 class="header">&nbsp;Login&nbsp;</h4></legend>
                             <form action='${request.contextPath}/j_spring_security_check' method='POST' class="section">
+
                                 <g:render template="authLogin"></g:render>
+
+                                <div class="row right-align ">
+                                <g:link controller="userManager" action="forgotPasswordView"><b>Esqueceu a Senha?</b></g:link>
+                                </div>
+
                                 <g:if test="${error == "1"}">
                                     <div id="divErrorMessage" class="row red-text center-align">
                                         <span id="errorMessage">Usuário ou senha incorretos</span>
                                     </div>
                                 </g:if>
+
                                 <div class="row">
                                     <div class="input-field col s12 center">
                                         <button class="btn-large waves-effect waves-light blue darken-3" type="submit"
@@ -30,7 +37,9 @@
                                         </button>
                                     </div>
                                 </div>
+
                             </form>
+
                         </fieldset>
                     </div>
                 </div>

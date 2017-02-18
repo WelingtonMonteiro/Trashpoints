@@ -68,8 +68,8 @@ grails {
     mail {
         host = "smtp.gmail.com"
         port = 465
-        username = "youracount@gmail.com"
-        password = "yourpassword"
+        username = "info.trashpoints@gmail.com"
+        password = "trashpoints0101"
         props = ["mail.smtp.auth":"true",
                  "mail.smtp.socketFactory.port":"465",
                  "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
@@ -149,6 +149,7 @@ grails.plugin.springsecurity.dao.hideUserNotFoundExceptions = false
 grails.plugin.springsecurity.adh.errorPage="/j_spring_security_logout"
 grails.plugin.springsecurity.password.algorithm = 'bcrypt'
 grails.plugin.springsecurity.errors.login.fail = "Usuário ou senha incorretos"
+grails.plugin.springsecurity.ui.forgotPassword.postResetUrl = '/userManager/forgotPassword'
 
 grails.plugin.springsecurity.securityConfigType = "Annotation"
 

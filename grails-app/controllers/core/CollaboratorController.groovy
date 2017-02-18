@@ -1,6 +1,7 @@
 package core
 
 import grails.converters.JSON
+import grails.plugin.mail.MailService
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 import org.codehaus.groovy.grails.web.servlet.mvc.SynchronizerTokensHolder
@@ -11,6 +12,7 @@ import org.hibernate.criterion.CriteriaSpecification
 class CollaboratorController {
 
     def springSecurityService
+    MailService mailService
 
     @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def create() {
@@ -100,6 +102,13 @@ class CollaboratorController {
                 UserRole.withSession {
                     it.flush()
                     it.clear()
+                }
+
+                mailService.sendMail {
+                    to params.j_username
+                    from 'info.trahspoints@gmail.com'
+                    subject "Cadastro no Sistema Trashpoints"
+                    text "Você está recebendo esse email, por que você foi cadastrado no Sistema Trashpoints. "
                 }
 
                 successToken([success: 'Dados cadastrais salvos com sucesso'])
