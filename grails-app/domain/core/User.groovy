@@ -20,6 +20,7 @@ class User implements Serializable {
 	boolean passwordExpired
 	Company company
 	Collaborator collaborator
+	String token = null
 
 //	static belongsTo = [Company, Collaborator]
 
@@ -29,6 +30,7 @@ class User implements Serializable {
 		emailVerified nullable: true
 		collaborator nullable: true
 		company nullable: true
+		token nullable: true
 	}
 
 	User(String username, String password) {

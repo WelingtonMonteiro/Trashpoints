@@ -3,7 +3,6 @@ package core
 import grails.converters.JSON
 import grails.plugin.mail.MailService
 import grails.plugin.springsecurity.annotation.Secured
-import grails.plugin.springsecurity.ui.strategy.MailStrategy
 import org.codehaus.groovy.grails.web.servlet.mvc.SynchronizerTokensHolder
 
 @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
@@ -67,13 +66,17 @@ class UserManagerController {
 
     def forgotPassword() {
         withForm {
-            //def user = findUserByUsername(params.username)
 
-            User user = User.findWhere(username: params.username)
+            User user = User.findByUsername(params.username)
+            Long key = (new Date().time + Math.floor(Math.random() * 24 * 3600) )
+
+            user.token = key.toString()
 
             if(!user) return invalidToken()
 
-            def link = "http://localhost:8080/Trashpoints/userManager/resetPasswordView?key="+ user.id
+
+
+            def link = "http://localhost:8080/Trashpoints/userManager/resetPasswordView?key="+ key
 
             mailService.sendMail {
                 to params.username
@@ -94,9 +97,11 @@ class UserManagerController {
     def resetPassword() {
         withForm {
 
-            User user = User.get(params.id.toInteger())
+            User user = User.findByToken(params.id)
 
             user.password = params.j_password
+
+            user.token = null
 
             user.validate()
 

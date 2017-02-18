@@ -24,6 +24,9 @@
 
 <script type="text/javascript">
 
+    $(document).ready(function(){
+        Materialize.updateTextFields();
+    })
     function showPassword() {
         $("#password").attr("type", "text");
     }
