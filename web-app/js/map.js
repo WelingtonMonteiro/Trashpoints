@@ -227,10 +227,36 @@ function createRoute(){
             $("h6#infoRoute").show();
             responseDirectionsService = response;
             directionsDisplay.setMap(map);
+            numberMarkers();
             directionsDisplay.setDirections(response);
             computeTotalDistance(directionsDisplay.getDirections());
         }
     });
+}
+
+function numberMarkers() {
+    var number = 1;
+    for (var i = 0; i < allSelectedMarkers.length; i++) {
+        var labelMarker = {
+            color: 'white',
+            fontSize: '15px',
+            fontWeight: 'bold',
+            text: number.toString()
+        };
+        allSelectedMarkers[i].setLabel(labelMarker);
+
+        number++;
+    }
+}
+
+function removeMarkerNumber(clickedMarker) {
+    clickedMarker.setLabel(null);
+}
+
+function removeMarkersNumber() {
+    for (var i = 0; i < allSelectedMarkers.length; i++) {
+        allSelectedMarkers[i].setLabel(null);
+    }
 }
 
 function getMyLocation(){
@@ -393,6 +419,7 @@ function changeMarkerIcon(clickedMarker, collectId, dataCollect) {
 
 function deselectMarker(clickedMarker, collectId) {
     clickedMarker.setIcon(); //set Default icon
+    removeMarkerNumber(clickedMarker);
     removeCollectId(collectId);
     removeWayPointRoute(clickedMarker);
     hideInfoCollect();
@@ -407,6 +434,7 @@ function deselectAllMarkers() {
         allSelectedMarkers[i].setIcon(); //set Default icon
     }
 
+    removeMarkersNumber();
     removeAllCollectIdsSelected();
     removeAllWayPointRoute();
 }
@@ -416,7 +444,6 @@ function addCollectIdIfNotExist(collectId) {
         selectedCollectIds.push(collectId);
         waypoints.push({ location: selectedMarker.position });
         allSelectedMarkers.push(selectedMarker);
-        //allCollectionsHasCompanyToCollect();
     }
 }
 
@@ -480,33 +507,6 @@ function setFocusMap() {
         scrollTop: $("#containerMap").offset().top
     }, 350);
 }
-
-/*function allCollectionsHasCompanyToCollect() {
-    var leastOneCollectHasCompanyToCollect = getInfoCollections();
-    if (leastOneCollectHasCompanyToCollect) {
-        disableButtonsMap();
-        return;
-    }
-    enableButtonsMap();
-}*/
-
-/*function getInfoCollections() {
-    var formData = $("form[name=formPlacesCollect]").serializeArray();
-    var ids = {
-        name: "ids",
-        value: selectedCollectIds
-    };
-    formData.push(ids);
-
-    $.ajax({
-        url: "/Trashpoints/Collect/leastOneCollectHasCompanyToCollect/",
-        data: formData,
-        method: "post",
-        success: function (data) {
-            return data.leastOneCollectHasCompanyToCollect;
-        }
-    });
-}*/
 
 $(document).ready(function () {
     var MAX_DATE = moment().add(5, 'day').toDate();

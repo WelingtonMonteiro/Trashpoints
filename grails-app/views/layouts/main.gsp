@@ -57,17 +57,18 @@
             icon: "material-icons",
             layout: 2
         });
+
+        window.addEventListener('resize', function(){
+            if (window.innerWidth <= 600) {
+                $('a.brand-logo').removeClass('left').addClass('center');
+            } else {
+                $('a.brand-logo').removeClass('center').addClass('left');
+            }
+
+        })
     });
 
-    window.matchMedia('only screen and (min-width: 600px)').addListener(function()
-    {
-        $('a.brand-logo').removeClass('left').addClass('center');
-    })
 
-    window.matchMedia('only screen and (max-width: 601px)').addListener(function()
-    {
-        $('a.brand-logo').removeClass('center').addClass('left');
-    })
 </script>
 </body>
 </html>

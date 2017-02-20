@@ -6,38 +6,20 @@
 
 <!-- Notifications -->
 <ul id="notification-list" class="dropdown-content">
-    <li>
-        <a href="#!">
-            <sub>Alteração da data de coleta</sub><br/>
-            A empresa <b>BBB</b> irá realizar sua coleta em <b>01/01/01</b>, às <b>00h00min</b>
-        </a>
-    </li>
-    <li>
-        <a href="#!">
-            <sub>Alteração da data de coleta</sub><br/>
-            A empresa <b>BBB</b> irá realizar sua coleta em <b>01/01/01</b>, às <b>00h00min</b>
-        </a>
-    </li>
-    <li>
-        <a href="#!">
-            <sub>Alteração da data de coleta</sub><br/>
-            A empresa <b>BBB</b> irá realizar sua coleta em <b>01/01/01</b>, às <b>00h00min</b>
-        </a>
-    </li>
     <li class="divider"></li>
 </ul>
 
 <header>
     <nav id="top-menu" class="indigo accent-2">
-        <a  href="/Trashpoints" class="brand-logo left margin-left-3rem">
-            <img src="/Trashpoints/images/trashPoints_logo_miniatura_alpha.png" class="img-responsive" />
+        <a href="/Trashpoints" class="brand-logo left margin-left-3rem ">
+            <img src="/Trashpoints/images/trashPoints_logo_miniatura_alpha.png" class="img-responsive"/>
         </a>
         <ul class="right">
             <li>
-            <li><a class="dropdown-button" href="#!" data-activates="notification-list"
-                   id="btn-show-notification">Notificações <span class="new badge red" id="bdg-qtde-notifications"
-                                                                 data-badge-caption="novas">4</span></a></li>
-        </li>
+                <a class="dropdown-button" href="#!" data-activates="notification-list" id="btn-show-notification">Notificações
+                    <span class="new badge red" id="bdg-qtde-notifications" data-badge-caption="novas">4</span>
+                </a>
+            </li>
             <li>
                 <a class="hide-on-small-only"><sec:loggedInUserInfo field="username"/></a>
             </li>
@@ -95,7 +77,7 @@
     $(document).ready(function () {
         // Loading notifications
         $('#bdg-qtde-notifications').removeClass('red').text('??');
-        $('#notification-list').find('li:lt(3)').remove();
+        //$('#notification-list').find('li:lt(3)').remove();
         $.ajax({
             type: 'get',
             url: "/Trashpoints/Notification/getNotifications",
@@ -103,10 +85,10 @@
                 if (data.length > 0) {
                     var newNotifications = 0;
                     $.each(data, function (idx, obj) {
-                        if (obj.wasRead == 0){
+                        if (obj.wasRead == 0) {
                             newNotifications++;
                         }
-                        if (obj.wasRead == 0){
+                        if (obj.wasRead == 0) {
                             $('#notification-list').find('li.divider')
                                     .before('<li style="background-color: #ddd;">' +
                                             '   <a href="#!"> ' +
@@ -154,7 +136,7 @@
         });
 
         $('#btn-show-notification').on('click', function () {
-            if (notificationsAlreadyAccessed){
+            if (notificationsAlreadyAccessed) {
                 $('#notification-list > li').css({'background-color': 'white'});
             }
             while (!$('#notification-list').is(':visible')) {
