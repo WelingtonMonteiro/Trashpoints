@@ -13,6 +13,7 @@
            onmousedown="showPassword()" onmouseup="hidePassword()">
             <i class="fa fa-eye"></i>
         </a>
+
         <i class="material-icons prefix">lock</i>
         <input id="password" name="j_password" type="password" class="validate"
                required minlength="6">
@@ -20,8 +21,12 @@
     </div>
 </div>
 
+
 <script type="text/javascript">
 
+    $(document).ready(function(){
+        Materialize.updateTextFields();
+    })
     function showPassword() {
         $("#password").attr("type", "text");
     }

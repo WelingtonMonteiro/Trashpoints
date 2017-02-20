@@ -22,6 +22,7 @@ grails.project.fork = [
     console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
 ]
 
+
 grails.project.dependency.resolver = "maven" // or ivy
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
@@ -42,20 +43,30 @@ grails.project.dependency.resolution = {
         grailsCentral()
         mavenCentral()
         // uncomment these (or add new ones) to enable remote dependency resolution from public Maven repositories
+        mavenRepo "http://repository.springsource.com/maven/bundles/release"
+        mavenRepo "http://repository.springsource.com/maven/bundles/external"
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
+//        mavenRepo 'http://repo.spring.io/milestone'
     }
 
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
         runtime 'mysql:mysql-connector-java:5.1.27'
         // runtime 'org.postgresql:postgresql:9.3-1100-jdbc41'
+
     }
 
     plugins {
         //Plugin Spring Security Core
         compile "org.grails.plugins:spring-security-core:2.0.0"
+
+
+        //extensao do plugin Spring Security Core UI
+//        compile 'org.grails.plugins:spring-security-ui:1.0-RC3'
+
+//        compile 'org.grails.plugins:mail:2.0.0.RC6'
 
         //Provides Mail support to a running Grails application: https://grails.org/plugin/mail
         compile "org.grails.plugins:mail:1.0.7"

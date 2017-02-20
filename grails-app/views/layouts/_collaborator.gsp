@@ -34,7 +34,7 @@
         <li class="active"><a class="waves-effect active" href="/Trashpoints">Home<i class="material-icons">home</i></a>
         </li>
         <li>
-            <a class="waves-effect" href="/Trashpoints/Collaborator/MyCollections" title="Meus TrashPoints">
+            <a class="waves-effect" href="/Trashpoints/Collaborator/MyCollections" title="Meus TrashCoins">
                 <i class="material-icons">monetization_on</i> <span class="new badge my-badge bold"
                                                                     data-badge-caption="" id="quantityOfCoins"></span>
             </a>
