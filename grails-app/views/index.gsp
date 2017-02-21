@@ -69,7 +69,7 @@
 						<h5 class="header">Tipos de metais recicláveis</h5>
 						<div class="card horizontal">
 							<div class="card-image">
-								<img src="~/images/metals.png">
+								<img src="${resource(dir: 'images', file: 'metals.png')}">
 							</div>
 							<div class="card-stacked">
 								<div class="card-content">
