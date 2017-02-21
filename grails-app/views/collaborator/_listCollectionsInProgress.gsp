@@ -5,10 +5,8 @@
             <th data-field="photo">Foto Coleta</th>
             <th data-field="types">Tipo(s)</th>
             <th data-field="orderDate">Data Pedido</th>
-            <th data-field="collectedDate">Data Coletada</th>
-            <th data-field="isCollected">Foi Coletada?</th>
+            <th data-field="scheduleDateCollect">Data Agendada</th>
             <th data-field="CompanyDetails">Empresa</th>
-            <th data-field="quantityOfCoins">Trashpoints</th>
         </tr>
         </thead>
 
@@ -28,35 +26,11 @@
                     </g:each>
                 </td>
                 <td>${collect?.orderDate.format("dd/MM/yyyy")}</td>
-
-                <g:if test="${collect?.isCollected}">
-                    <td>
-                        ${collect?.collectedDate?.format("dd/MM/yyyy")}
-                    </td>
-                    <td>
-                        <input type="checkbox" class="disabled" checked="checked" disabled="disabled"/>
-                        <label></label>
-                    </td>
-                    <td>
-                        <!-- Modal Trigger -->
-                        <a class="waves-effect waves-light" onclick="openModalCompanyDetails(${collect?.company?.id})"
-                           title="Detalhes da empresa">
-                            <i class="material-icons fa-2x">list</i>
-                        </a>
-                    </td>
-                    <td>
-                        <p style="text-align: left; margin-left: 2rem;" id="quantityOfCoins${collect.id}">
-                            <i class="material-icons left" style="margin-right: 2px">monetization_on</i> ${collect.quantityOfCoins}
-                        </p>
-                    </td>
-                </g:if>
-                <g:else>
-                    <td><p id="collectedDate${collect.id}">_</p></td>
-                    <td><p>Não foi coletado ainda</p></td>
-                    <td><a class="disabled grey-text"><i class="material-icons fa-2x">list</i></a></td>
-                    <td><p id="quantityOfCoins${collect.id}">_</p></td>
-                </g:else>
-
+                <td>
+                    <g:if test="${collect?.scheduleDateCollect}">${collect?.scheduleDateCollect?.format("dd/MM/yyyy HH:mm")}</g:if>
+                    <g:else>_</g:else>
+                </td>
+                <td><a class="disabled grey-text"><i class="material-icons fa-2x">list</i></a></td>
             </tr>
 
         </g:each>

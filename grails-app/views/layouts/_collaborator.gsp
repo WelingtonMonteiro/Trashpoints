@@ -11,7 +11,7 @@
 
 <header>
     <nav id="top-menu" class="indigo accent-2">
-        <a href="/Trashpoints" class="brand-logo left margin-left-3rem ">
+        <a href="${application.contextPath}" class="brand-logo left margin-left-3rem ">
             <img src="${resource(dir: 'images', file: 'trashPoints_logo_miniatura_alpha.png')}" class="img-responsive"/>
         </a>
         <ul class="right">
@@ -31,10 +31,10 @@
     <ul id="side-menu" class="side-nav fixed">
         <li><a class="waves-effect hide-on-large-only"><sec:loggedInUserInfo field="username"/><i
                 class="material-icons">account_circle</i></a></li>
-        <li class="active"><a class="waves-effect active" href="/Trashpoints">Home<i class="material-icons">home</i></a>
+        <li class="active"><a class="waves-effect active" href="${application.contextPath}">Home<i class="material-icons">home</i></a>
         </li>
         <li>
-            <a class="waves-effect" href="/Trashpoints/Collaborator/MyCollections" title="Meus TrashCoins">
+            <a class="waves-effect" href="${application.contextPath}/Collaborator/MyCollections" title="Meus TrashCoins">
                 <i class="material-icons">monetization_on</i> <span class="new badge my-badge bold"
                                                                     data-badge-caption="" id="quantityOfCoins"></span>
             </a>
@@ -70,8 +70,8 @@
 
                     <div class="collapsible-body">
                         <ul>
-                            <li><a class="waves-effect" href="${application.contextPath}/Collaborator/MyCollections">Coletadas<i class="fa fa-recycle fa-2x" aria-hidden="true"></i></a></li>
-                            <li><a class="waves-effect" href="${application.contextPath}/Collaborator/MyCollections">A Recolher<i class="material-icons fa-2x">edit_location</i></a></li>
+                            <li><a class="waves-effect" href="${application.contextPath}/Collaborator/myCollectedCollections">Coletadas<i class="fa fa-recycle fa-2x" aria-hidden="true"></i></a></li>
+                            <li><a class="waves-effect" href="${application.contextPath}/Collaborator/myCollectionsInProgress">A Recolher<i class="material-icons fa-2x">event_note</i></a></li>
                         </ul>
                     </div>
                 </li>

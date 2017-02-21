@@ -206,7 +206,6 @@ function showNotifyError(message) {
 }
 
 $(document).ready(function () {
-
     $("#btn-enable-location").click(function () {
         getMyLocation();
     });
