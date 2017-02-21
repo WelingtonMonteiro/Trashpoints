@@ -29,13 +29,13 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="input-field col s12 m12">
-                <i class="material-icons prefix">business</i>
-                <input id="segment" name="segment" type="text" class="validate" required>
-                <label for="segment">Segmento <span class="red-text">*</span></label>
-            </div>
-        </div>
+        %{--<div class="row">--}%
+            %{--<div class="input-field col s12 m12">--}%
+                %{--<i class="material-icons prefix">business</i>--}%
+                %{--<input id="segment" name="segment" type="text" class="validate" required>--}%
+                %{--<label for="segment">Segmento <span class="red-text">*</span></label>--}%
+            %{--</div>--}%
+        %{--</div>--}%
 
         <div class="row">
             <div class="input-field col s12 m12">

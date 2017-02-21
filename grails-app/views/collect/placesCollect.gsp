@@ -167,14 +167,15 @@
                 <label for="txb-collect-date" class="active">Data:<span class="red-text">*</span></label>
             </div>
         </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <i class="material-icons prefix">schedule</i>
-                <input id="txb-collect-time" class="timepicker" type="time" data-default="00:00:00">
-                <input type="hidden" id="fld-collect-id"/>
-                <label for="txb-collect-time" class="active">Hora:<span class="red-text">*</span></label>
-            </div>
-        </div>
+
+        %{--<div class="row">--}%
+            %{--<div class="input-field col s12">--}%
+                %{--<i class="material-icons prefix">schedule</i>--}%
+                %{--<input id="txb-collect-time" class="timepicker" type="time" data-default="00:00:00">--}%
+                %{--<input type="hidden" id="fld-collect-id"/>--}%
+                %{--<label for="txb-collect-time" class="active">Hora:<span class="red-text">*</span></label>--}%
+            %{--</div>--}%
+        %{--</div>--}%
 
     </div>
     <div class="modal-footer">

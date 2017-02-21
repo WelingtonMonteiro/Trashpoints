@@ -197,7 +197,7 @@
 %{--<div id="dateTimeToCollectModal" class="modal">
     <div class="modal-content">
         <h4>Seleção de data e hora</h4>
-        <p>Selecione a data e a hora da coleta:</p>
+        <p>Selecione a data da coleta:</p>
 
         <div class="row">
             <div class="input-field col s12">
@@ -206,14 +206,15 @@
                 <label for="txb-collect-date" class="active">Data:<span class="red-text">*</span></label>
             </div>
         </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <i class="material-icons prefix">schedule</i>
-                <input id="txb-collect-time" class="timepicker" type="time" data-default="00:00:00">
-                <input type="hidden" id="fld-collect-id"/>
-                <label for="txb-collect-time" class="active">Hora:<span class="red-text">*</span></label>
-            </div>
-        </div>
+
+        %{--<div class="row">--}%
+            %{--<div class="input-field col s12">--}%
+                %{--<i class="material-icons prefix">schedule</i>--}%
+                %{--<input id="txb-collect-time" class="timepicker" type="time" data-default="00:00:00">--}%
+                %{--<input type="hidden" id="fld-collect-id"/>--}%
+                %{--<label for="txb-collect-time" class="active">Hora:<span class="red-text">*</span></label>--}%
+            %{--</div>--}%
+        %{--</div>--}%
     </div>
 
     <div class="modal-footer">

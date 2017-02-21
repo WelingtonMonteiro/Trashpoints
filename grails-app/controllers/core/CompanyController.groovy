@@ -79,7 +79,7 @@ class CompanyController {
             company.companyName = params.companyName
             company.identificationNumber = params.identificationNumber
             company.tradingName = params.tradingName
-            company.segment = params.segment
+//            company.segment = params.segment
             company.typeOfCompany = params.typeOfCompany
             company.phone = params.phone
             company.site = params.site
@@ -191,7 +191,7 @@ class CompanyController {
             company.companyName = params.companyName
             company.identificationNumber = params.identificationNumber
             company.tradingName = params.tradingName
-            company.segment = params.segment
+//            company.segment = params.segment
 //            company.typeOfCompany = params.typeOfCompany
             company.phone = params.phone
             company.site = params.site
