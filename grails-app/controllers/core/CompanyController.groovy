@@ -118,20 +118,39 @@ class CompanyController {
 
     }
 
-    def myCollections() {
+    def myCollectedCollections() {
         User currentUser = springSecurityService.loadCurrentUser()
         Company currentCompany = currentUser.company
-        //def companyCollections = currentCompany?.collects.sort{it.orderDate}
+
         def companyCollections = Collect.createCriteria().list {
             createAlias("company", "c")
             eq("c.id", currentCompany.id)
-            order("orderDate")
+            eq("isCollected", true)
+            order("orderDate", "desc")
         }
 
         if (companyCollections == null) {
-            render(view: "myCollections", model: ["companyCollections": []])
+            render(view: "myCollectedCollections", model: ["companyCollections": []])
         } else {
-            render(view: "myCollections", model: ["companyCollections": companyCollections])
+            render(view: "myCollectedCollections", model: ["companyCollections": companyCollections])
+        }
+    }
+
+    def myCollectionsInProgress() {
+        User currentUser = springSecurityService.loadCurrentUser()
+        Company currentCompany = currentUser.company
+
+        def companyCollections = Collect.createCriteria().list {
+            createAlias("company", "c")
+            eq("c.id", currentCompany.id)
+            eq("isCollected", false)
+            order("orderDate", "desc")
+        }
+
+        if (companyCollections == null) {
+            render(view: "myCollectionsInProgress", model: ["companyCollections": []])
+        } else {
+            render(view: "myCollectionsInProgress", model: ["companyCollections": companyCollections])
         }
     }
 

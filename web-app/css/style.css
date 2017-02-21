@@ -128,3 +128,7 @@ input[type=text][readonly="readonly"] {
 .img-responsive {
 	max-width: 10rem;
 }
+
+.header {
+	text-transform: uppercase;
+}

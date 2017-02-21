@@ -7,7 +7,7 @@
                 </a>
             </div>
             <div class="col l8 s12">
-                <p class="grey-text text-lighten-4">
+                <p class="grey-text text-lighten-4" style="margin-left: 1.9rem">
                     Sistema voltado para gestão de coleta de lixo reciclável.
                 </p>
             </div>

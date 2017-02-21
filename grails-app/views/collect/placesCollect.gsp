@@ -4,9 +4,9 @@
     <meta name="layout" content="main"/>
     <title>Locais para coletar</title>
     <style>
-        .picker__holder {
-            overflow: hidden !important;
-        }
+    .picker__holder {
+        overflow: hidden !important;
+    }
     </style>
     <link href="/Trashpoints/css/materialize.clockpicker.css" rel="stylesheet">
 </head>
@@ -41,7 +41,8 @@
                 </div>
 
                 <div class="col s12" style="max-height: 145px; margin-top: 50px">
-                    <div id="panelMap"><h6 id="infoRoute" class="center-align bold hidden">Informações sobre a rota</h6></div>
+                    <div id="panelMap"><h6 id="infoRoute" class="center-align bold hidden">Informações sobre a rota</h6>
+                    </div>
                 </div>
             </div>
 
@@ -132,17 +133,18 @@
             <div class="row">
                 <div class="col s12 offset-m2 m8">
                     <div class="card-panel grey lighten-5">
-                        <i class="material-icons left blue-text">info</i> <strong>Legenda</strong><br />
+                        <i class="material-icons left blue-text">info</i> <strong>Legenda</strong><br/>
+
                         <div class="row">
                             <div class="col s12 offset-m2 m8">
                                 <img src="/Trashpoints/images/icon_my_location_38.png">
-                                <span style="vertical-align: super;"> - Representa sua localização</span><br/>
+                                <span style="vertical-align: super;">- Representa sua localização</span><br/>
 
                                 <img src="/Trashpoints/images/map_marker.png">
-                                <span style="vertical-align: super;"> - Representa um ponto de coleta</span><br/>
+                                <span style="vertical-align: super;">- Representa um ponto de coleta</span><br/>
 
                                 <img src="/Trashpoints/images/map_marker_selected.png">
-                                <span style="vertical-align: super;"> - Representa um ponto selecionado</span>
+                                <span style="vertical-align: super;">- Representa um ponto selecionado</span>
                             </div>
                         </div>
                     </div>
@@ -157,8 +159,9 @@
 <div id="dateTimeToCollectModal" class="modal">
     <div class="modal-content">
 
-        <h4>Seleção de data e hora</h4>
-        <p>Selecione a data e a hora da coleta:</p>
+        <h5 class="header">Seleção de data</h5>
+
+        <p>Selecione a data da coleta:</p>
 
         <div class="row">
             <div class="input-field col s12">
@@ -168,16 +171,17 @@
             </div>
         </div>
 
-        %{--<div class="row">--}%
-            %{--<div class="input-field col s12">--}%
-                %{--<i class="material-icons prefix">schedule</i>--}%
-                %{--<input id="txb-collect-time" class="timepicker" type="time" data-default="00:00:00">--}%
-                %{--<input type="hidden" id="fld-collect-id"/>--}%
-                %{--<label for="txb-collect-time" class="active">Hora:<span class="red-text">*</span></label>--}%
-            %{--</div>--}%
-        %{--</div>--}%
+        %{--<div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">schedule</i>
+                <input id="txb-collect-time" class="timepicker" type="time" data-default="00:00:00">
+                <input type="hidden" id="fld-collect-id"/>
+                <label for="txb-collect-time" class="active">Hora:<span class="red-text">*</span></label>
+            </div>
+        </div>--}%
 
     </div>
+
     <div class="modal-footer">
         <a id="btn-schedule-collect" href="#!" class="waves-effect waves-light btn-flat">Marcar coleta</a>
         <a id="btn-cancel-datetime-collect" href="#!" class="waves-effect waves-light btn-flat">Cancelar</a>

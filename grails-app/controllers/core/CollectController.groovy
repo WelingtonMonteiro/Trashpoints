@@ -11,11 +11,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest
 @Transactional(readOnly = true)
 @Secured(['ROLE_COLLABORATOR'])
 class CollectController {
-//// render a file
-// //render(file: new File(absolutePath), fileName: "book.pdf")
+    //render(file: new File(absolutePath), fileName: "book.pdf")
     transient springSecurityService
-    //private static final int MAX_POINTS_SELECTED = 20;
     private static final acceptImages = ['image/png', 'image/jpeg', 'image/gif']
+    private static final int MAX_DATE_SCHEDULE = 3;
+    //private static final int MAX_POINTS_SELECTED = 20;
 
     private invalidToken(message) {
         def response = [:]
@@ -225,9 +225,9 @@ class CollectController {
             User currentUser = springSecurityService.getCurrentUser()
             Company currentCompany = currentUser.company
             Date collectDate = new Date().parse("dd/MM/yyyy", params.scheduleDate.toString())
-            String[] splittedHours = params.scheduleHour.toString().split(':')
-            collectDate.setHours(splittedHours[0].toInteger())
-            collectDate.setMinutes(splittedHours[1].toInteger())
+            //String[] splittedHours = params.scheduleHour.toString().split(':')
+            //collectDate.setHours(splittedHours[0].toInteger())
+            //collectDate.setMinutes(splittedHours[1].toInteger())
 
             for (collectId in collectIds) {
                 Collect collect = Collect.findById(collectId)
@@ -237,7 +237,7 @@ class CollectController {
                     collect.save(flush: true)
                     Notification notification = new Notification()
                     notification.header = "Uma coleta foi registrada para você"
-                    notification.body = "A empresa ${currentCompany.companyName} irá realizar sua coleta no dia ${collect.scheduleDateCollect.format("dd/MM/yyyy")} às ${collect.scheduleDateCollect.format("HH:mm:ss")}"
+                    notification.body = "A empresa ${currentCompany.companyName} irá realizar sua coleta no dia ${collect.scheduleDateCollect.format("dd/MM/yyyy")}"
                     notification.username = collect.collaborator.user.username
                     notification.wasRead = 0
                     notification.save()
@@ -250,7 +250,7 @@ class CollectController {
         }
     }
 
-    @Secured(['ROLE_COMPANY_COLLECT'])
+    /*@Secured(['ROLE_COMPANY_COLLECT'])
     @Transactional
     def updateDateTimeCollect() {
         Integer collectId = params.id.toInteger()
@@ -273,10 +273,10 @@ class CollectController {
 			notification.save(flush: true)
 			successToken("")
         }
-    }
+    }*/
 
     private isValidDate(scheduleDateCollect) {
-        if (scheduleDateCollect >= new Date().clearTime() && scheduleDateCollect <= new Date() + 5)
+        if (scheduleDateCollect >= new Date().clearTime() && scheduleDateCollect <= new Date() + MAX_DATE_SCHEDULE)
             return true
         else {
             String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
