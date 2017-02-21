@@ -107,12 +107,13 @@ class UserManagerController {
 
                 user.save(flush: true)
 
-                mailService.sendMail {
-                    to user.username
-                    from 'info.trahspoints@gmail.com'
-                    subject "Alteração de Senha do Sistema Trashpoints"
-                    text "Você está recebendo esse email, pois sua senha do Sistema Trashpoints foi alterada."
-                }
+                //Todo: descobrir uma forma de enviar assincrono o email
+//                mailService.sendMail {
+//                    to user.username
+//                    from 'info.trahspoints@gmail.com'
+//                    subject "Alteração de Senha do Sistema Trashpoints"
+//                    text "Você está recebendo esse email, pois sua senha do Sistema Trashpoints foi alterada."
+//                }
 
                 successToken([success: 'Senha alterada com sucesso'])
             }
