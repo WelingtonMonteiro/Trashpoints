@@ -41,6 +41,23 @@
                                         </div>
                                     </div>
 
+
+                                    <div class="preloader-wrapper big active">
+                                        <div class="spinner-layer spinner-blue-only">
+                                            <div class="circle-clipper left">
+                                                <div class="circle"></div>
+                                            </div>
+
+                                            <div class="gap-patch">
+                                                <div class="circle"></div>
+                                            </div>
+
+                                            <div class="circle-clipper right">
+                                                <div class="circle"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="row">
                                         <div class="input-field col s12 center">
                                             <button class="btn-large waves-effect waves-light blue darken-3"
@@ -50,6 +67,7 @@
                                             </button>
                                         </div>
                                     </div>
+
                                 </g:else>
                             </g:form>
 
@@ -83,7 +101,10 @@
                 title: 'Recuperar Senha',
                 message: 'Link de recuperação enviado no email.',
                 iconText: "check",
-                onClose: function () { window.location.href = "${application.contextPath}/userManager/login" ; }
+                onClose: function () {
+                    window.location.href = ""
+                    window.location.href = "${application.contextPath}/userManager/login/";
+                }
             });
         }
         $("#SYNCHRONIZER_TOKEN").val(data.newToken);
@@ -100,15 +121,26 @@
         Materialize.updateTextFields();
     }
 
-    $("form").submit(function(e) {
+    $(".preloader-wrapper").hide();
+
+
+    $("form").submit(function (e) {
+        $(".btn-large").prop("disabled",true);
+        $(".btn-large").html($(".preloader-wrapper").show());
+
+        $(".btn-large").disabled(true);
+
         e.preventDefault();
+
         var urlData = $(this).serialize();
         $.ajax({
             type: "post",
             url: "${application.contextPath}/userManager/forgotPassword/",
             data: urlData,
-            success: function(data)
-            {
+            success: function (data) {
+                $(".preloader-wrapper").hide();
+                $(".btn-large").prop("disabled",false);
+
                 showMessage(data)
             }
         });

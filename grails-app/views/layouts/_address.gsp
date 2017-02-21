@@ -1,6 +1,7 @@
 <div class="row">
     <div class="input-field col s12 m4">
-        <input id="zipCode" name="zipCode" type="text" value="${currentAddress?.zipCode}" maxlength="9" class="validate" required>
+        <input id="zipCode" name="zipCode" type="text" value="${currentAddress?.zipCode}" maxlength="9" class="validate"
+               required>
         <label for="zipCode">CEP <span class="red-text">*</span></label>
         <span id="zipCodeErrorMessage" class="red-text"></span>
     </div>
@@ -60,7 +61,8 @@
 
 <div class="row">
     <div class="input-field col s12 m8">
-        <input id="street" name="street" type="text" value="${currentAddress?.street}" class="validate" required disabled>
+        <input id="street" name="street" type="text" value="${currentAddress?.street}" class="validate" required
+               disabled>
         <label for="street">Rua <span class="red-text">*</span></label>
     </div>
 
@@ -72,7 +74,8 @@
 
 <div class="row">
     <div class="input-field col s12 m7">
-        <input id="neighborhood" name="neighborhood" type="text" value="${currentAddress?.neighborhood}" class="validate" required disabled>
+        <input id="neighborhood" name="neighborhood" type="text" value="${currentAddress?.neighborhood}"
+               class="validate" required disabled>
         <label for="neighborhood">Bairro <span class="red-text">*</span></label>
     </div>
 
@@ -85,13 +88,15 @@
 <div class="row">
     <div class="input-field col s6 m6">
         <i class="material-icons prefix grey-text">my_location</i>
-        <input id="latitude" name="latitude" type="text" value="${currentAddress?.latitude}" class="validate" required readonly="readonly">
+        <input id="latitude" name="latitude" type="text" value="${currentAddress?.latitude}" class="validate" required
+               readonly="readonly">
         <label for="latitude">Latitude <span class="red-text">*</span></label>
     </div>
 
     <div class="input-field col s6 m6">
         <i class="material-icons prefix grey-text">my_location</i>
-        <input id="longitude" name="longitude" type="text" value="${currentAddress?.longitude}" class="validate" required readonly="readonly">
+        <input id="longitude" name="longitude" type="text" value="${currentAddress?.longitude}" class="validate"
+               required readonly="readonly">
         <label for="longitude">Longitude <span class="red-text">*</span></label>
     </div>
 </div>
@@ -171,7 +176,7 @@
         });
 
         <sec:ifLoggedIn >
-            enableAddressInputs();
+        enableAddressInputs();
         </sec:ifLoggedIn>
 
         $("#states").val('${currentAddress?.state}');

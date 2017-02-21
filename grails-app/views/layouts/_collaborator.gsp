@@ -34,7 +34,7 @@
         <li class="active"><a class="waves-effect active" href="${application.contextPath}">Home<i class="material-icons">home</i></a>
         </li>
         <li>
-            <a class="waves-effect" href="${application.contextPath}/Collaborator/MyCollections" title="Meus TrashCoins">
+            <a class="waves-effect" href="${application.contextPath}/Collaborator/myCollectedCollections" title="Meus TrashCoins">
                 <i class="material-icons">monetization_on</i> <span class="new badge my-badge bold"
                                                                     data-badge-caption="" id="quantityOfCoins"></span>
             </a>
@@ -148,6 +148,7 @@
             type: "post",
             url: "${application.contextPath}/Collaborator/sumQuantityOfCoins/",
             success: function (data) {
+                if(!data) return  $("#quantityOfCoins").text(0);
                 $("#quantityOfCoins").text(data.quantityOfCoins);
             }
         });
