@@ -103,40 +103,40 @@
 
         <div id="companyDetails" class="center-align">
             <p>
-                <label class="my-label">Razão Social:</label>
+                <label class="my-label">Razão Social: </label>
                 <span id="companyName"></span>
             </p>
 
             <p>
-                <label class="my-label">Nome Fantasia:</label>
+                <label class="my-label">Nome Fantasia: </label>
                 <span id="tradingName"></span>
             </p>
 
             <p>
-                <label class="my-label">Telefone:</label>
+                <label class="my-label">Telefone: </label>
                 <span id="phone"></span>
             </p>
 
-            <p><label class="my-label">Site:</label>
+            <p><label class="my-label">Site: </label>
                 <span id="site"></span>
             </p>
 
             <p>
-                <label class="my-label">CEP:</label>
+                <label class="my-label">CEP: </label>
                 <span id="zipCode"></span>
             </p>
 
             <p>
-                <label class="my-label">Rua:</label><span id="street"></span>
-                <label class="my-label">&nbsp; Número:</label><span id="number"></span>
+                <label class="my-label">Rua: </label><span id="street"></span>
+                <label class="my-label">&nbsp; Número: </label><span id="number"></span>
             </p>
 
             <p>
-                <label class="my-label">Bairro:</label><span id="neighborhood"></span>
+                <label class="my-label">Bairro: </label><span id="neighborhood"></span>
             </p>
             <span>
-                <label class="my-label">Cidade:</label><span id="city"></span>
-                <label class="my-label">&nbsp; Estado:</label><span id="state"></span>
+                <label class="my-label">Cidade: </label><span id="city"></span>
+                <label class="my-label">&nbsp; Estado: </label><span id="state"></span>
             </span>
         </div>
     </div>

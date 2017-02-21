@@ -10,7 +10,6 @@ class UserManagerController {
 
     MailService mailService
 
-
     def index() {}
 
     private invalidToken() {
@@ -74,19 +73,16 @@ class UserManagerController {
 
             if(!user) return invalidToken()
 
-
-
             def link = "http://localhost:8080/Trashpoints/userManager/resetPasswordView?key="+ key
 
             mailService.sendMail {
                 to params.username
                 from 'info.trahspoints@gmail.com'
                 subject "Recuperação de Senha Sistema Trashpoints"
-                text "Voce está recebendo um link para recuperar a senha do Sistema Trashpoints. Por favor click no link abaixo: <br>" + link
+                text "Você está recebendo um link para recuperar a senha do Sistema Trashpoints. Por favor clique no link abaixo: <br>" + link
             }
 
-
-            successToken([success: 'Link para recuperação de senha enviando.'])
+            successToken([success: 'Link para recuperação de senha sendo enviado.'])
 
         }.invalidToken {
             invalidToken()
@@ -115,7 +111,7 @@ class UserManagerController {
                     to user.username
                     from 'info.trahspoints@gmail.com'
                     subject "Alteração de Senha do Sistema Trashpoints"
-                    text "Voce está recebendo esse email, pois sua senha do Sistema Trashpoints foi alterada."
+                    text "Você está recebendo esse email, pois sua senha do Sistema Trashpoints foi alterada."
                 }
 
                 successToken([success: 'Senha alterada com sucesso'])

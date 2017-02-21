@@ -13,7 +13,7 @@
             <th data-field="collectedDate">Data Coletada</th>
             <th data-field="isCollected">Foi Coletada?</th>
             <th data-field="detailsCompany">Colaborador</th>
-            <th>Ações</th>
+            <!-- <th>Ações</th> -->
         </tr>
         </thead>
 
@@ -67,13 +67,13 @@
                         <i class="material-icons fa-2x">list</i>
                     </a>
                 </td>
-                <td>
+                %{--<td>
                     <a class="waves-effect waves-light"
                        onclick="openModalUpdateScheduleDate('${collect?.scheduleDateCollect}', ${collect?.id})"
                        title="Alterar data de coleta agendada">
                         <i class="material-icons fa-2x">query_builder</i>
                     </a>
-                </td>
+                </td>--}%
             </tr>
 
         </g:each>
@@ -119,21 +119,21 @@
         </div>
 
         <div id="collaboratorDetails" class="center-align">
-            <p><label class="my-label">Nome:</label><span id="name"></span></p>
+            <p><label class="my-label">Nome: </label><span id="name"></span></p>
 
-            <p><label class="my-label">Telefone:</label><span id="phone"></span></p>
+            <p><label class="my-label">Telefone: </label><span id="phone"></span></p>
 
-            <p><label class="my-label">CEP:</label><span id="zipCode"></span></p>
+            <p><label class="my-label">CEP: </label><span id="zipCode"></span></p>
 
             <p>
-                <label class="my-label">Rua:</label><span id="street"></span>
-                <label class="my-label">&nbsp; Número:</label><span id="number"></span>
+                <label class="my-label">Rua: </label><span id="street"></span>
+                <label class="my-label">&nbsp; Número: </label><span id="number"></span>
             </p>
 
-            <p><label class="my-label">Bairro:</label><span id="neighborhood"></span></p>
+            <p><label class="my-label">Bairro: </label><span id="neighborhood"></span></p>
             <span>
-                <label class="my-label">Cidade:</label><span id="city"></span>
-                <label class="my-label">&nbsp; Estado:</label><span id="state"></span>
+                <label class="my-label">Cidade: </label><span id="city"></span>
+                <label class="my-label">&nbsp; Estado: </label><span id="state"></span>
             </span>
         </div>
     </div>
@@ -194,8 +194,7 @@
 </div>
 
 <!-- Modal para selecao de data e hora -->
-<!-- Modal Structure -->
-<div id="dateTimeToCollectModal" class="modal">
+%{--<div id="dateTimeToCollectModal" class="modal">
     <div class="modal-content">
         <h4>Seleção de data e hora</h4>
         <p>Selecione a data e a hora da coleta:</p>
@@ -221,10 +220,10 @@
         <a id="btn-schedule-collect" href="#!" class="waves-effect waves-light btn-flat">Remarcar coleta</a>
         <a id="btn-cancel-datetime-collect" href="#!" class="waves-effect waves-light btn-flat">Cancelar</a>
     </div>
-</div>
+</div>--}%
 
-<script src="/Trashpoints/js/materialize.clockpicker.min.js" type="text/javascript"></script>
-<script src="/Trashpoints/js/moment.min.js" type="text/javascript"></script>
+%{-- <script src="/Trashpoints/js/materialize.clockpicker.min.js" type="text/javascript"></script>
+<script src="/Trashpoints/js/moment.min.js" type="text/javascript"></script> --}%
 
 <script type="text/javascript">
     var global_collect_id;
@@ -347,7 +346,7 @@
         $("input[type=checkbox]#isCollected" + collectId).prop("disabled", true).removeAttr("onchange")
     }
 
-    function openModalUpdateScheduleDate(dateTimeCollect, collectId) {
+    /*function openModalUpdateScheduleDate(dateTimeCollect, collectId) {
         $('#txb-collect-date').val(moment(dateTimeCollect).format('DD/MM/YYYY'));
         $('#txb-collect-time').val(moment(dateTimeCollect).format('HH:mm'));
         $('#fld-collect-id').val(collectId);
@@ -359,9 +358,15 @@
         $('#dateTimeToCollectModal').modal('open');
         Materialize.updateTextFields();
     }
+    */
 
-    $(document).ready(function () {
-        var MAX_DATE = moment().add(5, 'day').toDate();
+    /*function updateScheduleDateCollect() {
+        var dateTime = $('#txb-collect-date').val() + " " + $('#txb-collect-time').val();
+        $("#scheduleDateCollect" + $('#fld-collect-id').val()).text(dateTime);
+    }*/
+
+    /*$(document).ready(function () {
+        var MAX_DATE = moment().add(3, 'day').toDate();
 
         $('.datepicker').pickadate({
             selectMonths: false,
@@ -376,6 +381,7 @@
             default: '00:00:00',
             donetext: 'OK'
         });
+
         $('#txb-collect-date').on('focus', function () {
             $('.picker').appendTo('body');
         });
@@ -387,6 +393,7 @@
         $('#btn-cancel-datetime-collect').on('click', function () {
             $('#dateTimeToCollectModal').modal('close');
         });
+
         $('#btn-schedule-collect').on('click', function () {
             if ($('#txb-collect-date').val() == '') {
                 iziToast.error({
@@ -441,9 +448,7 @@
                             message: 'Sucesso ao salvar!',
                             iconText: "check"
                         });
-                        //window.location.reload(true);
-                        var dateTime = $('#txb-collect-date').val() + " " + $('#txb-collect-time').val();
-                        $("#scheduleDateCollect" + $('#fld-collect-id').val()).text(dateTime);
+                        updateScheduleDateCollect();
                     } else if (data.error) {
                         iziToast.error({
                             title: 'Erro',
@@ -454,9 +459,10 @@
                     $("#SYNCHRONIZER_TOKEN").val(data.newToken);
                 }
             });
+
             $('#dateTimeToCollectModal').modal('close');
         });
-    });
+    });*/
 
 
 </script>

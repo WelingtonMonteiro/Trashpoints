@@ -509,7 +509,7 @@ function setFocusMap() {
 }
 
 $(document).ready(function () {
-    var MAX_DATE = moment().add(5, 'day').toDate();
+    var MAX_DATE = moment().add(3, 'day').toDate();
     initMap();
     $('#btnCreateRoute').click(function(){
         if(hasSelectedMarker() && myLatLng != undefined) {
