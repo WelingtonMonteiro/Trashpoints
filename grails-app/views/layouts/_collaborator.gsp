@@ -59,8 +59,22 @@
             </ul>
         </li>
         <li><div class="divider"></div></li>
-        <li><a class="waves-effect" href="/Trashpoints/Collaborator/MyCollections">Minhas Coletas<i
-                class="fa fa-recycle fa-2x" aria-hidden="true"></i></a></li>
+
+
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a class="collapsible-header waves-effect">Minhas Coletas<i class="material-icons fa-2x">arrow_drop_down</i></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a class="waves-effect" href="/Trashpoints/Collaborator/MyCollections">Coletadas<i class="fa fa-recycle fa-2x" aria-hidden="true"></i></a></li>
+                            <li><a class="waves-effect" href="/Trashpoints/Collaborator/MyCollections">À Recolher<i class="material-icons fa-2x">edit_location</i></a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+
         <li><a class="waves-effect" href="/Trashpoints/Collect/Create">Tenho uma Coleta<i class="fa fa-bullhorn fa-2x"
                                                                                           aria-hidden="true"></i></a>
         </li>
