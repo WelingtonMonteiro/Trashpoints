@@ -48,6 +48,17 @@ environments {
             url = "jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/heroku_59708ed98b6d28a?reconnect=true"
             username = 'b5e9766e76d8b2'
             password = '0bf0b575'
+            properties {
+                maxActive = -1
+                minEvictableIdleTimeMillis=1800000
+                timeBetweenEvictionRunsMillis=1800000
+                numTestsPerEvictionRun=3
+                testOnBorrow=true
+                testWhileIdle=true
+                testOnReturn=false
+                validationQuery="SELECT 1"
+                jdbcInterceptors="ConnectionState"
+            }
         }
     }
 }
