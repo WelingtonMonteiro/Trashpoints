@@ -83,7 +83,7 @@
                 title: 'Recuperar Senha',
                 message: 'Link de recuperação enviado no email.',
                 iconText: "check",
-                onClose: function () { window.location.href = "/Trashpoints/userManager/login" ; }
+                onClose: function () { window.location.href = "${application.contextPath}/userManager/login" ; }
             });
         }
         $("#SYNCHRONIZER_TOKEN").val(data.newToken);
@@ -105,7 +105,7 @@
         var urlData = $(this).serialize();
         $.ajax({
             type: "post",
-            url: "/Trashpoints/userManager/forgotPassword/",
+            url: "${application.contextPath}/userManager/forgotPassword/",
             data: urlData,
             success: function(data)
             {

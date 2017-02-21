@@ -182,7 +182,7 @@
             var urlData = $(this).serialize();
             $.ajax({
                 type: "post",
-                url: "/Trashpoints/Collaborator/saveEditCollaborator/",
+                url: "${application.contextPath}/Collaborator/saveEditCollaborator/",
                 data: urlData,
                 success: function (data) {
                     showMessage(data)

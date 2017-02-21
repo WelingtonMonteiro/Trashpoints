@@ -173,7 +173,7 @@
         var urlData = $(this).serialize();
         $.ajax({
             type: "post",
-            url: "/Trashpoints/Company/saveEditCompany/",
+            url: "${application.contextPath}/Company/saveEditCompany/",
             data: urlData,
             success: function(data)
             {

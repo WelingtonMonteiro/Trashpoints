@@ -96,7 +96,7 @@
                 title: 'Resetar Senha',
                 message: 'Senha alterada com sucesso',
                 iconText: "check",
-                onClose: function () { window.location.href = "/Trashpoints/userManager/login" ; }
+                onClose: function () { window.location.href = "${application.contextPath}/userManager/login" ; }
             });
         }
         $("#SYNCHRONIZER_TOKEN").val(data.newToken);
@@ -118,7 +118,7 @@
         var urlData = $(this).serialize();
         $.ajax({
             type: "post",
-            url: "/Trashpoints/userManager/resetPassword/",
+            url: "${application.contextPath}/userManager/resetPassword/",
             data: urlData,
             success: function (data) {
                 showMessage(data)

@@ -199,7 +199,7 @@
         $(".preloader-wrapper").show();
 
         $.ajax({
-            url: "/Trashpoints/Collect/loadCollectImage/",
+            url: "${application.contextPath}/Collect/loadCollectImage/",
             data: {
                 id: collectId
             },
@@ -208,7 +208,7 @@
                 $("#collectImage").html("")
 
                 if (data.imagePath) {
-                    var UPLOAD_FOLDER_PATH = "/Trashpoints/images/uploads/" + data.imagePath;
+                    var UPLOAD_FOLDER_PATH = "${application.contextPath}/images/uploads/" + data.imagePath;
 
                     var imageUpload = "<img src='" + UPLOAD_FOLDER_PATH + "' style='max-height: 284px;'>"
                     $("#collectImage").append(imageUpload)
@@ -227,7 +227,7 @@
         $(".preloader-wrapper").show();
 
         $.ajax({
-            url: "/Trashpoints/Collaborator/loadCompanyDetails/",
+            url: "${application.contextPath}/Collaborator/loadCompanyDetails/",
             data: {
                 id: companyId
             },
