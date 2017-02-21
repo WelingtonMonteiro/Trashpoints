@@ -19,6 +19,7 @@ environments {
             username = "trashpoints"
             password = "trashpoints"
         }
+
         hibernate {
             show_sql = false
         }
@@ -34,12 +35,19 @@ environments {
     }
 
     production {
+//        dataSource {
+//            dbCreate = "update"
+//            uri = new URI(System.env.CLEARDB_DATABASE_URL?:"us-cdbr-iron-east-04.cleardb.net/heroku_59708ed98b6d28a?reconnect=true")
+//            url = "jdbc:mysql://" + uri.host + ":" + uri.port + uri.path
+//            username = uri.userInfo.split(":")[0]
+//            password = uri.userInfo.split(":")[1]
+//        }
+
         dataSource {
             dbCreate = "update"
-            uri = new URI(System.env.CLEARDB_DATABASE_URL?:"mysql://b5e9766e76d8b2:0bf0b575@us-cdbr-iron-east-04.cleardb.net/heroku_59708ed98b6d28a?reconnect=true")
-            url = "jdbc:mysql://" + uri.host + ":" + uri.port + uri.path
-            username = uri.userInfo.split(":")[0]
-            password = uri.userInfo.split(":")[1]
+            url = "jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/heroku_59708ed98b6d28a?reconnect=true"
+            username = 'b5e9766e76d8b2'
+            password = '0bf0b575'
         }
     }
 }
