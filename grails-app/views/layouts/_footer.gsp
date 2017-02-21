@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col l2 s12">
                 <a href="/Trashpoints" class="brand-logo">
-                    <img src="/Trashpoints/images/trashPoints_logo_miniatura_alpha.png" class="img-responsive"/>
+                    <img src="${resource(dir: 'images', file: 'trashPoints_logo_miniatura_alpha.png')}" class="img-responsive"/>
                 </a>
             </div>
             <div class="col l8 s12">

@@ -1,7 +1,7 @@
 <header>
     <nav id="top-menu" class="indigo accent-2">
         <a  href="/Trashpoints" class="brand-logo left margin-left-3rem">
-            <img src="/Trashpoints/images/trashPoints_logo_miniatura_alpha.png" class="img-responsive" />
+            <img src="${resource(dir: 'images', file: 'trashPoints_logo_miniatura_alpha.png')}" class="img-responsive" />
         </a>
         <ul class="right">
             <li>

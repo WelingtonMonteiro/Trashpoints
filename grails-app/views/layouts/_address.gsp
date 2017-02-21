@@ -194,5 +194,5 @@
 
 </script>
 
-<script src="/Trashpoints/js/mapCollaborator.js" type="text/javascript"></script>
+<script src="${resource(dir: 'js', file: 'mapCollaborator.js')}" type="text/javascript"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6W1hTA1qEYPC1qi4V3dvDkIcg75yUc68"></script>

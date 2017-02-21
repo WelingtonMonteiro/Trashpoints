@@ -16,10 +16,10 @@
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'font-awesome.min.css')}" type="text/css">
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'style.css')}" type="text/css">
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'iziToast.min.css')}" type="text/css">
-    <script src="/Trashpoints/js/iziToast.min.js" type="text/javascript"></script>
-    <script src="/Trashpoints/js/jquery-2.1.1.min.js" type="text/javascript"></script>
-    <script src="/Trashpoints/js/materialize.min.js" type="text/javascript"></script>
-    <script src="/Trashpoints/js/jquery.maskedinput.min.js" type="text/javascript"></script>
+    <script src="${resource(dir: 'js', file: 'iziToast.min.js')}" type="text/javascript"></script>
+    <script src="${resource(dir: 'js', file: 'jquery-2.1.1.min.js')}" type="text/javascript"></script>
+    <script src="${resource(dir: 'js', file: 'materialize.min.js')}" type="text/javascript"></script>
+    <script src="${resource(dir: 'js', file: 'jquery.maskedinput.min.js')}" type="text/javascript"></script>
     <g:layoutHead/>
     <g:javascript library="application"/>
     <r:layoutResources />

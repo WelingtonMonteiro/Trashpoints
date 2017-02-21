@@ -15,7 +15,7 @@
 						<h5 class="header">Tipos de vidros recicláveis</h5>
 						<div class="card horizontal">
 							<div class="card-image">
-								<img src="/Trashpoints/images/glasses.png">
+								<img src="${resource(dir: 'images', file: 'glasses.png')}">
 							</div>
 							<div class="card-stacked">
 								<div class="card-content">
@@ -33,7 +33,7 @@
 						<h5 class="header">Tipos de papéis recicláveis</h5>
 						<div class="card horizontal">
 							<div class="card-image">
-								<img src="/Trashpoints/images/papers.png">
+								<img src="${resource(dir: 'images', file: 'papers.png')}">
 							</div>
 							<div class="card-stacked">
 								<div class="card-content">
@@ -51,7 +51,7 @@
 						<h5 class="header">Tipos de plásticos recicláveis</h5>
 						<div class="card horizontal">
 							<div class="card-image">
-								<img src="/Trashpoints/images/plastics.png">
+								<img src="${resource(dir: 'images', file: 'plastics.png')}">
 							</div>
 							<div class="card-stacked">
 								<div class="card-content">
@@ -89,7 +89,7 @@
 						<h5 class="header">Tipos de orgânicos</h5>
 						<div class="card horizontal">
 							<div class="card-image">
-								<img src="/Trashpoints/images/organics.png">
+								<img src="${resource(dir: 'images', file: 'organics.png')}">
 							</div>
 							<div class="card-stacked">
 								<div class="card-content">
