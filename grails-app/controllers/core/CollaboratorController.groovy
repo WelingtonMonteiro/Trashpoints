@@ -104,12 +104,13 @@ class CollaboratorController {
                     it.clear()
                 }
 
-                mailService.sendMail {
-                    to params.j_username
-                    from 'info.trahspoints@gmail.com'
-                    subject "Cadastro no Sistema Trashpoints"
-                    text "Você está recebendo esse email, por que você foi cadastrado no Sistema Trashpoints. "
-                }
+                //Todo: descobrir uma forma de enviar assincrono o email
+//                mailService.sendMail {
+//                    to params.j_username
+//                    from 'info.trahspoints@gmail.com'
+//                    subject "Cadastro no Sistema Trashpoints"
+//                    text "Você está recebendo esse email, por que você foi cadastrado no Sistema Trashpoints. "
+//                }
 
                 successToken([success: 'Dados cadastrais salvos com sucesso'])
             }
