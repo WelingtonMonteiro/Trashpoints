@@ -12,13 +12,35 @@ class BootStrap {
 
     def init = { servletContext ->
         //criando os materiais recicláveis
-        MaterialType.findByName('PLÁSTICO') ?: new MaterialType(name: 'PLÁSTICO').save()
-        MaterialType.findByName('PAPEL') ?: new MaterialType(name: 'PAPEL').save()
-        MaterialType.findByName('VIDRO') ?: new MaterialType(name: 'VIDRO').save()
-        MaterialType.findByName('METAL') ?: new MaterialType(name: 'METAL').save()
-        MaterialType.findByName('ALUMÍNIO') ?: new MaterialType(name: 'ALUMÍNIO').save()
-        MaterialType.findByName('ORGÂNICO') ?: new MaterialType(name: 'ORGÂNICO').save()
-        MaterialType.findByName('QUÍMICO') ?: new MaterialType(name: 'QUÍMICO').save()
+
+        def plastic = MaterialType.findByName('PLÁSTICO') ? MaterialType.findByName('PLÁSTICO') : new MaterialType(name: 'PLÁSTICO', url: '/Trashpoints/images/plastics.png')
+        def paper = MaterialType.findByName('PAPEL') ? MaterialType.findByName('PAPEL') : new MaterialType(name: 'PAPEL', url: '/Trashpoints/images/papers.png')
+        def glasses = MaterialType.findByName('VIDRO') ? MaterialType.findByName('VIDRO') : new MaterialType(name: 'VIDRO', url: '/Trashpoints/images/glasses.png')
+        def metal = MaterialType.findByName('METAL') ? MaterialType.findByName('METAL') : new MaterialType(name: 'METAL', url: '/Trashpoints/images/metal.png')
+        def aluminium = MaterialType.findByName('ALUMÍNIO') ? MaterialType.findByName('ALUMÍNIO') : new MaterialType(name: 'ALUMÍNIO', url: '/Trashpoints/images/metal.png')
+        def organic = MaterialType.findByName('ORGÂNICO') ? MaterialType.findByName('ORGÂNICO') : new MaterialType(name: 'ORGÂNICO', url: '/Trashpoints/images/organics.png')
+        def chemich = MaterialType.findByName('QUÍMICO') ? MaterialType.findByName('QUÍMICO') : new MaterialType(name: 'QUÍMICO', url: '/Trashpoints/images/plastics.png')
+        def entulho = MaterialType.findByName('ENTULHO') ? MaterialType.findByName('ENTULHO') : new MaterialType(name: 'ENTULHO', url: '/Trashpoints/images/plastics.png')
+
+
+        plastic.url = '/Trashpoints/images/plastics.png'
+        paper.url = '/Trashpoints/images/papers.png'
+        glasses.url = '/Trashpoints/images/glasses.png'
+        metal.url = '/Trashpoints/images/metal.png'
+        aluminium.url = '/Trashpoints/images/metal.png'
+        organic.url = '/Trashpoints/images/organics.png'
+        chemich.url = '/Trashpoints/images/plastics.png'
+        entulho.url = '/Trashpoints/images/plastics.png'
+
+
+        plastic.save()
+        paper.save()
+        glasses.save()
+        metal.save()
+        aluminium.save()
+        organic.save()
+        chemich.save()
+        entulho.save()
 
         //criando permissões
         def userRole = Role.findByAuthority('ROLE_COLLABORATOR') ?: new Role('ROLE_COLLABORATOR').save()
@@ -88,7 +110,7 @@ class BootStrap {
 
         //criando usuários e ralcionando com o tipos
         def user = User.findByUsername('colaborador@trashpoints.com.br') ?
-                User.findByUsername('colaborador@trashpoints.com.br'):
+                User.findByUsername('colaborador@trashpoints.com.br') :
                 new User('colaborador@trashpoints.com.br', 'colaborador')
 
         user.collaborator = collaborator
