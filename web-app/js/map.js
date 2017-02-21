@@ -510,12 +510,15 @@ function setFocusMap() {
 
 $(document).ready(function () {
     var MAX_DATE = moment().add(3, 'day').toDate();
+
     initMap();
+
     $('#btnCreateRoute').click(function(){
         if(hasSelectedMarker() && myLatLng != undefined) {
             createRoute();
         }
     });
+
     $('#btnCollectRecycling').click(function(){
         if(hasSelectedMarker() && myLatLng != undefined) {
 			// Exibe modal de data e hora
@@ -528,11 +531,13 @@ $(document).ready(function () {
 			$('#dateTimeToCollectModal').modal('open');
 		}
     });
+
     // ** Configuracao dos eventos de clique dos botoes no modal de data e hora
     $('#btn-cancel-datetime-collect').on('click', function(){
         setFocusMap();
         $('#dateTimeToCollectModal').modal('close');
     });
+
     $('#btn-schedule-collect').on('click', function(){
         if ($('#txb-collect-date').val() == ''){
             iziToast.error({
@@ -542,25 +547,26 @@ $(document).ready(function () {
             });
             return false;
         }
-        if ($('#txb-collect-time').val() == ''){
+        /*if ($('#txb-collect-time').val() == ''){
             iziToast.error({
                 title: 'Erro',
                 message: 'Por favor, selecione a hora planejada para coleta.',
                 iconText: "block"
             });
             return false;
-        }
+        }*/
+
         var selectedDate = moment($('#txb-collect-date').val(), 'DD/MM/YYYY').toDate();
 
         if (moment(new Date()).isAfter(selectedDate, 'day')){
             iziToast.error({
                 title: 'Erro',
-                message: 'A data de coleta planejada deve ser maior ou igual que a data de hoje',
+                message: 'A data de coleta planejada deve ser maior ou igual a data de hoje',
                 iconText: "block"
             });
             return false;
         }
-        if(selectedMarker) {
+        if(hasSelectedMarker()) {
             collectRecycling(selectedCollectIds);
             setFocusMap();
             $('#dateTimeToCollectModal').modal('close');
@@ -573,18 +579,18 @@ $(document).ready(function () {
         min: new Date(),
         max: MAX_DATE
     });
-    $('.timepicker').pickatime({
+    /*$('.timepicker').pickatime({
         autoclose: false,
         twelvehour: false,
         default: '00:00:00',
         donetext: 'OK'
-    });
+    });*/
     $('#txb-collect-date').on('focus', function(){
         $('.picker').appendTo('body');
     });
-    $('#txb-collect-time').on('focus', function(){
+    /*$('#txb-collect-time').on('focus', function(){
         $('.picker').appendTo('body');
-    });
+    });*/
 
     getRoutesByLocalStorageAndDisplay();
     $("#btnCleanRoute").click(cleanRoutes);

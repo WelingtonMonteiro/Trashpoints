@@ -46,7 +46,7 @@
                                             <button class="btn-large waves-effect waves-light blue darken-3"
                                                     type="submit"
                                                     name="submit">
-                                                <i class="fa fa-sign-in left"></i>Enviar
+                                                <i class="material-icons left">mail_outline</i>Enviar
                                             </button>
                                         </div>
                                     </div>

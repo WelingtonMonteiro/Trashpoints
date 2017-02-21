@@ -68,7 +68,7 @@
                     <div class="collapsible-body">
                         <ul>
                             <li><a class="waves-effect" href="/Trashpoints/Collaborator/MyCollections">Coletadas<i class="fa fa-recycle fa-2x" aria-hidden="true"></i></a></li>
-                            <li><a class="waves-effect" href="/Trashpoints/Collaborator/MyCollections">À Recolher<i class="material-icons fa-2x">edit_location</i></a></li>
+                            <li><a class="waves-effect" href="/Trashpoints/Collaborator/MyCollections">A Recolher<i class="material-icons fa-2x">edit_location</i></a></li>
                         </ul>
                     </div>
                 </li>
