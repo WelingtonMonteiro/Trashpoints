@@ -50,7 +50,7 @@
                     <div class="collapsible-body">
                         <ul>
                             <li><a class="waves-effect"
-                                   href="/Trashpoints/collaborator/editCollaborator">Editar Perfil<i
+                                   href="${application.contextPath}/collaborator/editCollaborator">Editar Perfil<i
                                         class="material-icons">account_circle</i></a></li>
                             <!-- <li><a class="waves-effect" href="#">Editar Endereço<i class="material-icons">edit_location</i></a></li> -->
                         </ul>
@@ -70,27 +70,19 @@
 
                     <div class="collapsible-body">
                         <ul>
-                            <li>
-                                <a class="waves-effect" href="/Trashpoints/Collaborator/MyCollectedCollections">Coletadas
-                                    <i class="fa fa-recycle fa-2x" aria-hidden="true"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="waves-effect" href="/Trashpoints/Collaborator/MyCollectionsInProgress">A Recolher
-                                    <i class="material-icons fa-2x">event_note</i>
-                                </a>
-                            </li>
+                            <li><a class="waves-effect" href="${application.contextPath}/Collaborator/MyCollections">Coletadas<i class="fa fa-recycle fa-2x" aria-hidden="true"></i></a></li>
+                            <li><a class="waves-effect" href="${application.contextPath}/Collaborator/MyCollections">A Recolher<i class="material-icons fa-2x">edit_location</i></a></li>
                         </ul>
                     </div>
                 </li>
             </ul>
         </li>
 
-        <li><a class="waves-effect" href="/Trashpoints/Collect/Create">Tenho uma Coleta<i class="fa fa-bullhorn fa-2x"
+        <li><a class="waves-effect" href="${application.contextPath}/Collect/Create">Tenho uma Coleta<i class="fa fa-bullhorn fa-2x"
                                                                                           aria-hidden="true"></i></a>
         </li>
         <li><a class="waves-effect" href="#">Notificações<i class="material-icons">notifications</i></a></li>
-        <li><a class="waves-effect" href="/Trashpoints/j_spring_security_logout">Sair<i class="fa fa-2x fa-sign-out"
+        <li><a class="waves-effect" href="${application.contextPath}/j_spring_security_logout">Sair<i class="fa fa-2x fa-sign-out"
                                                                                         aria-hidden="true"></i></a></li>
     </ul>
 </header>
@@ -105,7 +97,7 @@
         //$('#notification-list').find('li:lt(3)').remove();
         $.ajax({
             type: 'get',
-            url: "/Trashpoints/Notification/getNotifications",
+            url: "${application.contextPath}/Notification/getNotifications",
             success: function (data) {
                 if (data.length > 0) {
                     var newNotifications = 0;
@@ -154,7 +146,7 @@
 
         $.ajax({
             type: "post",
-            url: "/Trashpoints/Collaborator/sumQuantityOfCoins/",
+            url: "${application.contextPath}/Collaborator/sumQuantityOfCoins/",
             success: function (data) {
                 $("#quantityOfCoins").text(data.quantityOfCoins);
             }
@@ -169,7 +161,7 @@
             $('#notification-list').css({'top': '52px'});
             $('#notification-list').css({'width': '350px'});
             if ($('#bdg-qtde-notifications').text() != '0') {
-                $.post("/Trashpoints/Notification/setLastNotificationsAsRead/");
+                $.post("${application.contextPath}/Notification/setLastNotificationsAsRead/");
             }
             $('#bdg-qtde-notifications').removeClass('red').text('0');
             if (!notificationsAlreadyAccessed) {

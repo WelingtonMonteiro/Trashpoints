@@ -142,7 +142,7 @@
                 title: 'OK',
                 message: 'Sucesso ao salvar!',
                 iconText: "check",
-                onClose: function () { window.location.href = "/Trashpoints/userManager/login" ; }
+                onClose: function () { window.location.href = "${application.contextPath}/userManager/login" ; }
             });
         }
         $("#SYNCHRONIZER_TOKEN").val(data.newToken);
@@ -168,7 +168,7 @@
         var urlData = $(this).serialize();
         $.ajax({
             type: "post",
-            url: "/Trashpoints/Company/save/",
+            url: "${application.contextPath}/Company/save/",
             data: urlData,
             success: function(data)
             {

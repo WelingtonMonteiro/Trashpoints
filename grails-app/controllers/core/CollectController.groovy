@@ -90,10 +90,13 @@ class CollectController {
         }
 
         if (!file.empty) {
+
+            def webRootDir = servletContext.getRealPath("/")
+
             nameUpload = nameUpload + "." + file.contentType.replace("image/", "")
             collectInstance.imageUpload = nameUpload
 
-            file.transferTo(new File("web-app/images/uploads/${nameUpload}"))
+            file.transferTo(new File("${webRootDir}/images/uploads/${nameUpload}"))
 
         } else {
             print "não foi possível transferir o arquivo"

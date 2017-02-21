@@ -5,19 +5,19 @@
         </a>
         <ul class="right">
             <li>
-                <a href="/Trashpoints/userManager/login" class="hide-on-small-only waves-effect waves-light">
+                <a href="${application.contextPath}/userManager/login" class="hide-on-small-only waves-effect waves-light">
                     <i class="fa fa-2x fa-sign-in" style="margin-right: 15px;"></i>Logar
                 </a>
             </li>
             <!-- Dropdown Structure -->
             <ul id="dropdown-creates" class="dropdown-content hide-on-small-only">
                 <li>
-                    <a href="/Trashpoints/Collaborator/Create" class="hide-on-small-only waves-effect waves-light">
+                    <a href="${application.contextPath}/Collaborator/Create" class="hide-on-small-only waves-effect waves-light">
                         <i class="material-icons left">person_add</i>Colaborador
                     </a>
                 </li>
                 <li>
-                    <a href="/Trashpoints/Company/Create" class="hide-on-small-only waves-effect waves-light">
+                    <a href="${application.contextPath}/Company/Create" class="hide-on-small-only waves-effect waves-light">
                         <i class="material-icons left">business</i>Empresa
                     </a>
                 </li>
@@ -34,7 +34,7 @@
 
     <ul id="side-menu" class="side-nav">
         <li class="active"><a class="waves-effect active" href="/Trashpoints">Home<i class="material-icons">home</i></a></li>
-        <li><a class="waves-effect hide-on-large-only" href="/Trashpoints/userManager/login"><i class="fa fa-2x fa-sign-in"></i>Logar</a></li>
+        <li><a class="waves-effect hide-on-large-only" href="${application.contextPath}/userManager/login"><i class="fa fa-2x fa-sign-in"></i>Logar</a></li>
 
         <li class="no-padding">
             <ul class="collapsible collapsible-accordion">
@@ -43,11 +43,11 @@
                     <div class="collapsible-body">
                         <ul>
                             <li>
-                                <a class="waves-effect hide-on-large-only" href="/Trashpoints/Collaborator/Create"><i class="material-icons left">person_add</i>Cadastrar Cidadão
+                                <a class="waves-effect hide-on-large-only" href="${application.contextPath}/Collaborator/Create"><i class="material-icons left">person_add</i>Cadastrar Cidadão
                                 </a>
                             </li>
                             <li>
-                                <a class="waves-effect hide-on-large-only" href="/Trashpoints/Company/Create"><i class="material-icons left">business</i>Cadastrar Empresa
+                                <a class="waves-effect hide-on-large-only" href="${application.contextPath}/Company/Create"><i class="material-icons left">business</i>Cadastrar Empresa
                                 </a>
                             </li>
                         </ul>
