@@ -44,7 +44,7 @@ environments {
 //        }
 
         dataSource {
-            dbCreate = "create-drop"
+            dbCreate = "update"
             url = "jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/heroku_59708ed98b6d28a?reconnect=true"
             username = 'b5e9766e76d8b2'
             password = '0bf0b575'
