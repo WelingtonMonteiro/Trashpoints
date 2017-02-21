@@ -3,6 +3,7 @@ dataSource {
     driverClassName = "com.mysql.jdbc.Driver"
     dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
 }
+
 hibernate {
     cache.use_second_level_cache = true
     cache.use_query_cache = true
@@ -18,10 +19,12 @@ environments {
             username = "trashpoints"
             password = "trashpoints"
         }
+
         hibernate {
-            show_sql = true
+            show_sql = false
         }
     }
+
     test {
         dataSource {
             dbCreate = "update" // one of 'create', 'create-drop','update'
@@ -30,23 +33,21 @@ environments {
             password = "trashpoints"
         }
     }
+
     production {
+//        dataSource {
+//            dbCreate = "update"
+//            uri = new URI(System.env.CLEARDB_DATABASE_URL?:"us-cdbr-iron-east-04.cleardb.net/heroku_59708ed98b6d28a?reconnect=true")
+//            url = "jdbc:mysql://" + uri.host + ":" + uri.port + uri.path
+//            username = uri.userInfo.split(":")[0]
+//            password = uri.userInfo.split(":")[1]
+//        }
+
         dataSource {
-            //dbCreate = "update"
-            url = "jdbc:mysql://localhost/trashpoints"
-            username = "trashpoints"
-            password = "trashpoints"
-            properties {
-                maxActive = -1
-                minEvictableIdleTimeMillis=1800000
-                timeBetweenEvictionRunsMillis=1800000
-                numTestsPerEvictionRun=3
-                testOnBorrow=true
-                testWhileIdle=true
-                testOnReturn=false
-                validationQuery="SELECT 1"
-                jdbcInterceptors="ConnectionState"
-            }
+            dbCreate = "update"
+            url = "jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/heroku_59708ed98b6d28a?reconnect=true"
+            username = 'b5e9766e76d8b2'
+            password = '0bf0b575'
         }
     }
 }
