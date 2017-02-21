@@ -17,6 +17,7 @@
             <g:each in="${materialTypes}" var="materialType">
                 <p>
                     <input type="checkbox" value="${materialType.id}" name="materialTypes" id="${materialType.name}"/>
+                    %{--<label for="${materialType.url}">${materialType?.url}</label>--}%
                     <label for="${materialType.name}">${materialType.name}</label>
                 </p>
             </g:each>
