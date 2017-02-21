@@ -5,10 +5,8 @@
             <th data-field="photo">Foto Coleta</th>
             <th data-field="types">Tipo(s)</th>
             <th data-field="orderDate">Data Pedido</th>
-            <th data-field="collectedDate">Data Coletada</th>
-            <th data-field="isCollected">Foi Coletada?</th>
+            <th data-field="scheduleDateCollect">Data Agendada</th>
             <th data-field="CompanyDetails">Empresa</th>
-            <th data-field="quantityOfCoins">Trashpoints</th>
         </tr>
         </thead>
 
@@ -28,35 +26,11 @@
                     </g:each>
                 </td>
                 <td>${collect?.orderDate.format("dd/MM/yyyy")}</td>
-
-                <g:if test="${collect?.isCollected}">
-                    <td>
-                        ${collect?.collectedDate?.format("dd/MM/yyyy")}
-                    </td>
-                    <td>
-                        <input type="checkbox" class="disabled" checked="checked" disabled="disabled"/>
-                        <label></label>
-                    </td>
-                    <td>
-                        <!-- Modal Trigger -->
-                        <a class="waves-effect waves-light" onclick="openModalCompanyDetails(${collect?.company?.id})"
-                           title="Detalhes da empresa">
-                            <i class="material-icons fa-2x">list</i>
-                        </a>
-                    </td>
-                    <td>
-                        <p style="text-align: left; margin-left: 2rem;" id="quantityOfCoins${collect.id}">
-                            <i class="material-icons left" style="margin-right: 2px">monetization_on</i> ${collect.quantityOfCoins}
-                        </p>
-                    </td>
-                </g:if>
-                <g:else>
-                    <td><p id="collectedDate${collect.id}">_</p></td>
-                    <td><p>Não foi coletado ainda</p></td>
-                    <td><a class="disabled grey-text"><i class="material-icons fa-2x">list</i></a></td>
-                    <td><p id="quantityOfCoins${collect.id}">_</p></td>
-                </g:else>
-
+                <td>
+                    <g:if test="${collect?.scheduleDateCollect}">${collect?.scheduleDateCollect?.format("dd/MM/yyyy HH:mm")}</g:if>
+                    <g:else>_</g:else>
+                </td>
+                <td><a class="disabled grey-text"><i class="material-icons fa-2x">list</i></a></td>
             </tr>
 
         </g:each>
@@ -182,79 +156,4 @@
     </div>
 </div>
 
-
-<script type="text/javascript">
-
-    function openModalViewCollectImage(collectId) {
-        $("#viewCollectImage").modal('open');
-        loadCollectImage(collectId)
-    }
-
-    function openModalCompanyDetails(companyId) {
-        $("#modalCompanyDetails").modal('open');
-        loadCompanyDetails(companyId)
-    }
-
-    function loadCollectImage(collectId) {
-        $(".preloader-wrapper").show();
-
-        $.ajax({
-            url: "/Trashpoints/Collect/loadCollectImage/",
-            data: {
-                id: collectId
-            },
-            method: "post",
-            success: function (data) {
-                $("#collectImage").html("")
-
-                if (data.imagePath) {
-                    var UPLOAD_FOLDER_PATH = "/Trashpoints/images/uploads/" + data.imagePath;
-
-                    var imageUpload = "<img src='" + UPLOAD_FOLDER_PATH + "' style='max-height: 284px;'>"
-                    $("#collectImage").append(imageUpload)
-                } else {
-                    var imageUpload = "<i class='fa fa-file-image-o fa-5x center-align'></i>"
-                    $("#collectImage").append(imageUpload)
-                }
-            },
-            complete: function () {
-                $(".preloader-wrapper").hide();
-            }
-        });
-    }
-
-    function loadCompanyDetails(companyId) {
-        $(".preloader-wrapper").show();
-
-        $.ajax({
-            url: "/Trashpoints/Collaborator/loadCompanyDetails/",
-            data: {
-                id: companyId
-            },
-            method: "post",
-            success: function (data) {
-                var company = data.company
-                var address = data.address
-
-                if (company) {
-                    $("#companyDetails #companyName").text(company.companyName)
-                    $("#companyDetails #tradingName").text(company.tradingName)
-                    $("#companyDetails #phone").text(company.phone)
-                    $("#companyDetails #site").text(company.site)
-                }
-                if (address) {
-                    $("#collaboratorDetails span#zipCode").text(address.zipCode)
-                    $("#collaboratorDetails span#street").text(address.street)
-                    $("#collaboratorDetails span#number").text(address.number)
-                    $("#collaboratorDetails span#neighborhood").text(address.neighborhood)
-                    $("#collaboratorDetails span#city").text(address.city)
-                    $("#collaboratorDetails span#state").text(address.state)
-                }
-            },
-            complete: function () {
-                $(".preloader-wrapper").hide();
-            }
-        });
-    }
-</script>
-
+<script src="${resource(dir: 'js/Collaborator', file: 'myCollections.js')}" type="text/javascript"></script>

@@ -10,6 +10,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title><g:layoutTitle default="TrashPoints"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TrashPoints, Sistema voltado para gestão de coleta de lixo reciclável.">
+    <meta name="keywords" content="TrashPoints, trash, points, trashpoints, lixo reciclável, coleta seletiva, gestão de coleta de lixo reciclável, guaratinguetá">
+    <meta name="author" content="Felipe Ayres, Marylene Guedes, Welington Monteiro">
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'trashPoints_logo_miniatura.ico')}" type="image/x-icon">
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'materialize.min.css')}" type="text/css" media="screen,projection">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
@@ -60,9 +63,9 @@
 
         window.addEventListener('resize', function(){
             if (window.innerWidth <= 600) {
-                $('a.brand-logo').removeClass('left').addClass('center');
+                $('a.brand-logo').removeClass('margin-left-3rem').removeClass('left').addClass('center');
             } else {
-                $('a.brand-logo').removeClass('center').addClass('left');
+                $('a.brand-logo').addClass('margin-left-3rem').removeClass('center').addClass('left');
             }
 
         })

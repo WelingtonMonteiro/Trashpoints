@@ -118,16 +118,39 @@ class CollaboratorController {
         }
     }
 
-    def myCollections() {
+    def myCollectedCollections() {
         User currentUser = springSecurityService.loadCurrentUser()
         Collaborator currentCollaborator = currentUser.collaborator
 
-        def collaboratorCollections = currentCollaborator?.collects?.sort { it.orderDate }
+        def collaboratorCollections = Collect.createCriteria().list {
+            createAlias("collaborator", "c")
+            eq("c.id", currentCollaborator.id)
+            eq("isCollected", true)
+            order("orderDate", "desc")
+        }
 
         if (collaboratorCollections == null) {
-            render(view: "myCollections", model: ["collaboratorCollections": []])
+            render(view: "myCollectedCollections", model: ["collaboratorCollections": []])
         } else {
-            render(view: "myCollections", model: ["collaboratorCollections": collaboratorCollections])
+            render(view: "myCollectedCollections", model: ["collaboratorCollections": collaboratorCollections])
+        }
+    }
+
+    def myCollectionsInProgress() {
+        User currentUser = springSecurityService.loadCurrentUser()
+        Collaborator currentCollaborator = currentUser.collaborator
+
+        def collaboratorCollections = Collect.createCriteria().list {
+            createAlias("collaborator", "c")
+            eq("c.id", currentCollaborator.id)
+            eq("isCollected", false)
+            order("orderDate", "desc")
+        }
+
+        if (collaboratorCollections == null) {
+            render(view: "myCollectionsInProgress", model: ["collaboratorCollections": []])
+        } else {
+            render(view: "myCollectionsInProgress", model: ["collaboratorCollections": collaboratorCollections])
         }
     }
 

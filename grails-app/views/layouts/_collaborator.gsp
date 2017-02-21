@@ -16,8 +16,8 @@
         </a>
         <ul class="right">
             <li>
-                <a class="dropdown-button" href="#!" data-activates="notification-list" id="btn-show-notification">Notificações
-                    <span class="new badge red" id="bdg-qtde-notifications" data-badge-caption="novas">4</span>
+                <a class="dropdown-button hide-on-small-only" href="#!" data-activates="notification-list" id="btn-show-notification">
+                    Notificações <span class="new badge red" id="bdg-qtde-notifications" data-badge-caption="novas">4</span>
                 </a>
             </li>
             <li>
@@ -58,17 +58,28 @@
                 </li>
             </ul>
         </li>
+
         <li><div class="divider"></div></li>
-
-
+        <li><a class="subheader">Minhas Coletas</a></li>
         <li class="no-padding">
             <ul class="collapsible collapsible-accordion">
                 <li>
-                    <a class="collapsible-header waves-effect">Minhas Coletas<i class="material-icons fa-2x">arrow_drop_down</i></a>
+                    <a class="collapsible-header waves-effect">
+                        Minhas Coletas<i class="material-icons fa-2x">arrow_drop_down</i>
+                    </a>
+
                     <div class="collapsible-body">
                         <ul>
-                            <li><a class="waves-effect" href="/Trashpoints/Collaborator/MyCollections">Coletadas<i class="fa fa-recycle fa-2x" aria-hidden="true"></i></a></li>
-                            <li><a class="waves-effect" href="/Trashpoints/Collaborator/MyCollections">A Recolher<i class="material-icons fa-2x">edit_location</i></a></li>
+                            <li>
+                                <a class="waves-effect" href="/Trashpoints/Collaborator/MyCollectedCollections">Coletadas
+                                    <i class="fa fa-recycle fa-2x" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="waves-effect" href="/Trashpoints/Collaborator/MyCollectionsInProgress">A Recolher
+                                    <i class="material-icons fa-2x">event_note</i>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>

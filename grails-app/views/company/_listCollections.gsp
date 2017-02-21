@@ -211,5 +211,5 @@
 
 %{-- <script src="/Trashpoints/js/materialize.clockpicker.min.js" type="text/javascript"></script>
 <script src="/Trashpoints/js/moment.min.js" type="text/javascript"></script> --}%
-<script src="/Trashpoints/js/Company/myCollections.js" type="text/javascript"></script>
+<script src="${resource(dir: 'js/Company', file: 'myCollections.js')}" type="text/javascript"></script>
 
