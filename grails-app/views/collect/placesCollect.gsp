@@ -8,7 +8,7 @@
         overflow: hidden !important;
     }
     </style>
-    <link href="/Trashpoints/css/materialize.clockpicker.css" rel="stylesheet">
+    <link href="${application.contextPath}/css/materialize.clockpicker.css" rel="stylesheet">
 </head>
 
 <body>
@@ -137,13 +137,13 @@
 
                         <div class="row">
                             <div class="col s12 offset-m2 m8">
-                                <img src="/Trashpoints/images/icon_my_location_38.png">
+                                <img src="${application.contextPath}/images/icon_my_location_38.png">
                                 <span style="vertical-align: super;">- Representa sua localização</span><br/>
 
-                                <img src="/Trashpoints/images/map_marker.png">
+                                <img src="${application.contextPath}/images/map_marker.png">
                                 <span style="vertical-align: super;">- Representa um ponto de coleta</span><br/>
 
-                                <img src="/Trashpoints/images/map_marker_selected.png">
+                                <img src="${application.contextPath}/images/map_marker_selected.png">
                                 <span style="vertical-align: super;">- Representa um ponto selecionado</span>
                             </div>
                         </div>
@@ -188,10 +188,10 @@
     </div>
 </div>
 
-<script src="/Trashpoints/js/map.js" type="text/javascript"></script>
-<script src="/Trashpoints/js/markerclusterer.min.js" type="text/javascript"></script>
-<script src="/Trashpoints/js/materialize.clockpicker.min.js" type="text/javascript"></script>
-<script src="/Trashpoints/js/moment.min.js" type="text/javascript"></script>
+<script src="${application.contextPath}/js/map.js" type="text/javascript"></script>
+<script src="${application.contextPath}/js/markerclusterer.min.js" type="text/javascript"></script>
+<script src="${application.contextPath}/js/materialize.clockpicker.min.js" type="text/javascript"></script>
+<script src="${application.contextPath}/js/moment.min.js" type="text/javascript"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6W1hTA1qEYPC1qi4V3dvDkIcg75yUc68"></script>
 
 </body>
