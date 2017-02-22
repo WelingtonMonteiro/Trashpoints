@@ -82,6 +82,7 @@
 
 
     function showMessage(data) {
+        $("#SYNCHRONIZER_TOKEN").val(data.newToken);
         clearErrorMessage()
 
         if (data.error) {
@@ -102,12 +103,11 @@
                 message: 'Link de recuperação enviado no email.',
                 iconText: "check",
                 onClose: function () {
-                    window.location.href = ""
-                    window.location.href = "${application.contextPath}/userManager/login/";
+                    window.location.href = "${application.contextPath}/userManager/login";
                 }
             });
         }
-        $("#SYNCHRONIZER_TOKEN").val(data.newToken);
+
     }
 
 
@@ -128,7 +128,6 @@
         $(".btn-large").prop("disabled",true);
         $(".btn-large").html($(".preloader-wrapper").show());
 
-        $(".btn-large").disabled(true);
 
         e.preventDefault();
 

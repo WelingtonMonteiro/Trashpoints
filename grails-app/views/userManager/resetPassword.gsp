@@ -36,7 +36,7 @@
 
                                     <span class="black-text">Entre com a nova senha!</span>
 
-                                    <g:hiddenField name='id' value='${token}'/>
+                                    <g:hiddenField name='token' value='${token}'/>
 
                                     <div class="row">
                                         <div class="input-field col s12">

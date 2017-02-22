@@ -67,13 +67,13 @@ class UserManagerController {
         withForm {
 
             User user = User.findByUsername(params.username)
-            Long key = (new Date().time + Math.floor(Math.random() * 24 * 3600) )
+            def token = java.util.UUID.randomUUID().toString()
 
-            user.token = key.toString()
+            user.token = token
 
             if(!user) return invalidToken()
 
-            def link = "http://localhost:8080/Trashpoints/userManager/resetPasswordView?key="+ key
+            def link = "http://localhost:8080/Trashpoints/userManager/resetPasswordView?key="+ token
 
             mailService.sendMail {
                 to params.username
@@ -93,10 +93,13 @@ class UserManagerController {
     def resetPassword() {
         withForm {
 
-            User user = User.findByToken(params.id)
+            //busco usuario com o token passado
+            User user = User.findByToken(params.token)
 
+            //altero a senha
             user.password = params.j_password
 
+            //deleto o token
             user.token = null
 
             user.validate()

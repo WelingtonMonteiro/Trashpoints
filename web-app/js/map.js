@@ -52,7 +52,7 @@ function initMap() {
 function getLocationsOfCollections(){
     var locations;
     $.ajax({
-        url: "/Trashpoints/Collect/listPlacesCollect/",
+        url: "${application.contextPath}/Collect/listPlacesCollect/",
         method: "post",
         success: function (data) {
             locations = data;
@@ -95,7 +95,7 @@ function createMarkersOfCollections(locations) {
             createListenerClickMarker(location.collectId, marker);
         });
 
-        var markerCluster = new MarkerClusterer(map, markersClusters, {maxZoom: 17, zoomOnClick: true, imagePath: '/Trashpoints/images/m'});
+        var markerCluster = new MarkerClusterer(map, markersClusters, {maxZoom: 17, zoomOnClick: true, imagePath: '${application.contextPath}/images/m'});
 
         ajustZoomMap();
     }
@@ -110,7 +110,7 @@ function createListenerClickMarker(collectId, marker){
 
 function getInfoCollect(collectId, marker) {
     $.ajax({
-        url: "/Trashpoints/Collect/listInfoCollect/",
+        url: "${application.contextPath}/Collect/listInfoCollect/",
         data: {
             id: collectId
         },
@@ -166,7 +166,7 @@ function showInfoCollect(data) {
     var materialTypes = data.materialTypes.join(", ");
 
     if (data.infoCollect.imageCollect){
-        var UPLOAD_FOLDER_PATH = "/Trashpoints/images/uploads/";
+        var UPLOAD_FOLDER_PATH = "${application.contextPath}/images/uploads/";
         $("#infoCollect #divCollectImage").html("<img src='" + UPLOAD_FOLDER_PATH + data.infoCollect.imageCollect +"' class='responsive-img' style='max-height: 284px;'>");
     }else{
         $("#infoCollect #divCollectImage").html("<i class='fa fa-file-image-o fa-5x center-align'></i>");
@@ -280,7 +280,7 @@ function createMarkerMyLocation() {
     var markerMyPosition = new google.maps.Marker({
         map: map,
         position: myLatLng,
-        icon: '/Trashpoints/images/icon_my_location.png',
+        icon: '${application.contextPath}/images/icon_my_location.png',
         title: 'Minha localização'
     });
     latLngBounds.extend(myLatLng); //Adjust bounds of map
@@ -341,7 +341,7 @@ function collectRecycling(collectIds) {
     formData.push(hour);
 
     $.ajax({
-        url: "/Trashpoints/Collect/collectRecycling/",
+        url: "${application.contextPath}/Collect/collectRecycling/",
         data: formData,
         method: "post",
         success: function (data) {
@@ -409,7 +409,7 @@ function changeMarkerIcon(clickedMarker, collectId, dataCollect) {
     }
 
     selectedMarker = clickedMarker;
-    selectedMarker.setIcon('/Trashpoints/images/map_marker_selected.png');
+    selectedMarker.setIcon('${application.contextPath}/images/map_marker_selected.png');
 
     addCollectIdIfNotExist(collectId);
     showInfoWindowCollect(dataCollect, clickedMarker);
