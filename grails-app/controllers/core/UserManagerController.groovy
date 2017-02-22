@@ -71,9 +71,9 @@ class UserManagerController {
 
             user.token = token
 
-            if(!user) return invalidToken()
+            if (!user) return invalidToken()
 
-            def link = "http://localhost:8080/Trashpoints/userManager/resetPasswordView?key="+ token
+            def link = createLink(action: "resetPasswordView", controller: "userManager", absolute: true) + "?key=" + token
 
             mailService.sendMail {
                 to params.username
