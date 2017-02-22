@@ -34,7 +34,7 @@
 
                                 <g:else>
 
-                                    <span class="black-text">Entre com a nova senha!</span>
+                                    <span class="black-text">Digite a nova senha</span>
 
                                     <g:hiddenField name='token' value='${token}'/>
 
@@ -49,16 +49,14 @@
                                             <i class="material-icons prefix">lock</i>
                                             <input id="password" name="j_password" type="password" class="validate"
                                                    required minlength="6">
-                                            <label for="password">Senha <span class="red-text">*</span></label>
+                                            <label for="password">Nova senha <span class="red-text">*</span></label>
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="input-field col s12 center">
-                                            <button class="btn-large waves-effect waves-light blue darken-3"
-                                                    type="submit"
-                                                    name="submit">
-                                                <i class="fa fa-sign-in left"></i>Enviar
+                                            <button name="submit" type="submit" class="btn-large waves-effect waves-light blue darken-3">
+                                                <i class="left material-icons">autorenew</i> Resetar
                                             </button>
                                         </div>
                                     </div>

@@ -41,30 +41,30 @@
                                         </div>
                                     </div>
 
-
-                                    <div class="preloader-wrapper big active">
-                                        <div class="spinner-layer spinner-blue-only">
-                                            <div class="circle-clipper left">
-                                                <div class="circle"></div>
-                                            </div>
-
-                                            <div class="gap-patch">
-                                                <div class="circle"></div>
-                                            </div>
-
-                                            <div class="circle-clipper right">
-                                                <div class="circle"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     <div class="row">
                                         <div class="input-field col s12 center">
                                             <button class="btn-large waves-effect waves-light blue darken-3"
                                                     type="submit"
                                                     name="submit">
                                                 <i class="material-icons left">mail_outline</i>Enviar
+                                                <span id="preloader-container" style="margin-left: 0.4rem;"></span>
                                             </button>
+
+                                            <div class="preloader-wrapper small right active hidden" style="margin-top: 0.5rem !important;">
+                                                <div class="spinner-layer spinner-blue-only">
+                                                    <div class="circle-clipper left">
+                                                        <div class="circle"></div>
+                                                    </div>
+
+                                                    <div class="gap-patch">
+                                                        <div class="circle"></div>
+                                                    </div>
+
+                                                    <div class="circle-clipper right">
+                                                        <div class="circle"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -121,12 +121,9 @@
         Materialize.updateTextFields();
     }
 
-    $(".preloader-wrapper").hide();
-
-
     $("form").submit(function (e) {
         $(".btn-large").prop("disabled",true);
-        $(".btn-large").html($(".preloader-wrapper").show());
+        $("#preloader-container").html($(".preloader-wrapper").show());
 
 
         e.preventDefault();
