@@ -12,7 +12,7 @@ function loadCollectImage(collectId) {
 	$(".preloader-wrapper").show();
 
 	$.ajax({
-		url: "/Trashpoints/Collect/loadCollectImage/",
+		url: window.domain + "/Collect/loadCollectImage/",
 		data: {
 			id: collectId
 		},
@@ -21,7 +21,7 @@ function loadCollectImage(collectId) {
 			$("#collectImage").html("")
 
 			if (data.imagePath) {
-				var UPLOAD_FOLDER_PATH = "/Trashpoints/images/uploads/" + data.imagePath;
+				var UPLOAD_FOLDER_PATH = window.domain + "/images/uploads/" + data.imagePath;
 
 				var imageUpload = "<img src='" + UPLOAD_FOLDER_PATH + "' style='max-height: 284px;'>"
 				$("#collectImage").append(imageUpload)
@@ -40,7 +40,7 @@ function loadCompanyDetails(companyId) {
 	$(".preloader-wrapper").show();
 
 	$.ajax({
-		url: "/Trashpoints/Collaborator/loadCompanyDetails/",
+		url: window.domain + "/Collaborator/loadCompanyDetails/",
 		data: {
 			id: companyId
 		},

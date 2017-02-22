@@ -108,4 +108,5 @@
 	</main>
 
 </body>
+<script type="text/javascript">window.domain = "${application.contextPath}"</script>
 </html>

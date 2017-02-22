@@ -52,7 +52,7 @@ function initMap() {
 function getLocationsOfCollections(){
     var locations;
     $.ajax({
-        url: domain + "/Collect/listPlacesCollect/",
+        url: window.domain + "/Collect/listPlacesCollect/",
         method: "post",
         success: function (data) {
             locations = data;
@@ -95,7 +95,7 @@ function createMarkersOfCollections(locations) {
             createListenerClickMarker(location.collectId, marker);
         });
 
-        var markerCluster = new MarkerClusterer(map, markersClusters, {maxZoom: 17, zoomOnClick: true, imagePath: domain + '/images/m'});
+        var markerCluster = new MarkerClusterer(map, markersClusters, {maxZoom: 17, zoomOnClick: true, imagePath: window.domain + '/images/m'});
 
         ajustZoomMap();
     }
@@ -110,7 +110,7 @@ function createListenerClickMarker(collectId, marker){
 
 function getInfoCollect(collectId, marker) {
     $.ajax({
-        url: domain + "/Collect/listInfoCollect/",
+        url: window.domain + "/Collect/listInfoCollect/",
         data: {
             id: collectId
         },
@@ -166,7 +166,7 @@ function showInfoCollect(data) {
     var materialTypes = data.materialTypes.join(", ");
 
     if (data.infoCollect.imageCollect){
-        var UPLOAD_FOLDER_PATH = domain + "/images/uploads/";
+        var UPLOAD_FOLDER_PATH = window.domain + "/images/uploads/";
         $("#infoCollect #divCollectImage").html("<img src='" + UPLOAD_FOLDER_PATH + data.infoCollect.imageCollect +"' class='responsive-img' style='max-height: 284px;'>");
     }else{
         $("#infoCollect #divCollectImage").html("<i class='fa fa-file-image-o fa-5x center-align'></i>");
@@ -280,7 +280,7 @@ function createMarkerMyLocation() {
     var markerMyPosition = new google.maps.Marker({
         map: map,
         position: myLatLng,
-        icon: domain + '/images/icon_my_location.png',
+        icon: window.domain + '/images/icon_my_location.png',
         title: 'Minha localização'
     });
     latLngBounds.extend(myLatLng); //Adjust bounds of map
@@ -341,7 +341,7 @@ function collectRecycling(collectIds) {
     formData.push(hour);
 
     $.ajax({
-        url: domain + "/Collect/collectRecycling/",
+        url: window.domain + "/Collect/collectRecycling/",
         data: formData,
         method: "post",
         success: function (data) {
@@ -409,7 +409,7 @@ function changeMarkerIcon(clickedMarker, collectId, dataCollect) {
     }
 
     selectedMarker = clickedMarker;
-    selectedMarker.setIcon(domain + "/images/map_marker_selected.png");
+    selectedMarker.setIcon(window.domain + "/images/map_marker_selected.png");
 
     addCollectIdIfNotExist(collectId);
     showInfoWindowCollect(dataCollect, clickedMarker);

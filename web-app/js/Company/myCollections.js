@@ -12,7 +12,7 @@ function loadCollectImage(collectId) {
 	$(".preloader-wrapper").show();
 
 	$.ajax({
-		url: "/Trashpoints/Collect/loadCollectImage/",
+		url: domain + "/Collect/loadCollectImage/",
 		data: {
 			id: collectId
 		},
@@ -21,7 +21,7 @@ function loadCollectImage(collectId) {
 			$("#collectImage").html("")
 
 			if (data.imagePath) {
-				var UPLOAD_FOLDER_PATH = "/Trashpoints/images/uploads/" + data.imagePath;
+				var UPLOAD_FOLDER_PATH = domain + "/images/uploads/" + data.imagePath;
 				var imageUpload = "<img src='" + UPLOAD_FOLDER_PATH + "' style='max-height: 284px;'>";
 				$("#collectImage").append(imageUpload)
 			} else {
@@ -47,7 +47,7 @@ function loadCollaboratorDetails(collaboratorId) {
 	$(".preloader-wrapper").show();
 
 	$.ajax({
-		url: "/Trashpoints/Company/loadCollaboratorDetails/",
+		url: domain + "/Company/loadCollaboratorDetails/",
 		data: {
 			id: collaboratorId
 		},
@@ -90,7 +90,7 @@ function markWasCollected() {
 	var formData = jQuery("form[name=formCollections]").serializeArray();
 
 	$.ajax({
-		url: "/Trashpoints/Company/markWasCollected/",
+		url: domain + "/Company/markWasCollected/",
 		data: formData,
 		method: "post",
 		success: function (data) {
@@ -210,7 +210,7 @@ function disableCheckBoxClicked(collectId) {
  formData.push(hour);
 
  $.ajax({
- url: "/Trashpoints/Collect/updateDateTimeCollect/",
+ url: domain + "/Collect/updateDateTimeCollect/",
  data: formData,
  method: "post",
  success: function (data) {
