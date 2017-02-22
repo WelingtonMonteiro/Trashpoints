@@ -44,37 +44,6 @@
 
         <div id="formAddress">
             <g:render template="../layouts/address"></g:render>
-
-            <div class="row">
-                <div class="col s12">
-                    <div id="panel-warning-location" class="card-panel grey lighten-5 center hidden">
-                        <i class="material-icons left orange-text">warning</i>
-                        <span class="black-text justify-align bolder">
-                            Não foi possível encontrar sua localização pelo endereço!<br/>
-                            Clique no botão abaixo para permitir que possamos pegar sua localização.
-                            <br />
-                        </span>
-                        <br/>
-                        <button id="btn-enable-location" type="button"
-                                class="btn btn-large waves-effect waves-light blue darken-3">
-                            <i class="material-icons left">my_location</i>Minha Localização
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div id="col-map" class="col s12 hidden" style="height: 500px; margin-bottom: 50px;">
-
-                    <h5>
-                        <i class="material-icons left">my_location</i>Minha localização
-                    </h5>
-                    <h6 class="bolder blue-text">Você pode arrastar o marcador da sua localização para ajustá-lo.</h6>
-
-                    <div id="map"></div>
-
-                </div>
-            </div>
         </div>
 
     </fieldset>
@@ -117,80 +86,4 @@
     </div>
 </div>
 
-<script type="text/javascript">
-
-    $('.datepicker').pickadate({
-        selectMonths: true, // Creates a dropdown to control month
-        selectYears: 100,// Creates a dropdown of 15 years to control year
-        format: 'dd/mm/yyyy',
-        max: new Date(),
-        closeOnSelect: true,
-        closeOnClear: true,
-    });
-
-    jQuery(function ($) {
-        $("#phone").mask("(99) 9999-9999");
-    });
-
-    function showMessage(data) {
-        clearErrorMessage()
-
-        if (data.error) {
-            $('#divErrorMessage').removeClass("hide")
-            var errors = data.error
-            $.each(errors, function (key, value) {
-                var errorMessage = value
-
-                var p = '<p>' + errorMessage + '</p>'
-                $('#divErrorMessage span#errorMessage').append(p)
-            });
-            setFocusSummaryErrorMessage()
-        }
-        if (data.success) {
-            clearInputs();
-            iziToast.success({
-                title: 'OK',
-                message: 'Sucesso ao salvar!',
-                iconText: "check",
-                onClose: function () {
-                    window.location.href = "${application.contextPath}/userManager/login";
-                }
-            });
-        }
-        $("#SYNCHRONIZER_TOKEN").val(data.newToken);
-    }
-
-    function setFocusSummaryErrorMessage() {
-        $(window).scrollTop($('#divErrorMessage').offset().top);
-    }
-
-    function clearErrorMessage() {
-        $('#divErrorMessage span#errorMessage').html("")
-    }
-
-    function clearInputs() {
-        $('#btnClear').click()
-        $("#password").val("");
-        $("#username").val("");
-        Materialize.updateTextFields();
-    }
-
-
-    $("form").submit(function (e) {
-        e.preventDefault();
-
-        if ($('#latitude').val() && $('#longitude').val()) {
-            var urlData = $(this).serialize();
-            $.ajax({
-                type: "post",
-                url: "${application.contextPath}/Collaborator/save/",
-                data: urlData,
-                success: function (data) {
-                    showMessage(data)
-                }
-            });
-        }else
-            showNotifyError("Precisamos ter sua localização para poder cadastrar");
-    });
-
-</script>
+<script src="${application.contextPath}/js/Collaborator/create.js" type="text/javascript"></script>

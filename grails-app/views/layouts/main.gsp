@@ -51,7 +51,9 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $(".button-collapse").sideNav();
+        ajustLogo();
         $('.modal').modal();
+
         iziToast.settings({
             timeout: 4000,
             resetOnHover: false,
@@ -62,16 +64,17 @@
         });
 
         window.addEventListener('resize', function(){
-            if (window.innerWidth <= 600) {
-                $('a.brand-logo').removeClass('margin-left-3rem').removeClass('left').addClass('center');
-            } else {
-                $('a.brand-logo').addClass('margin-left-3rem').removeClass('center').addClass('left');
-            }
-
+            ajustLogo();
         })
     });
 
-
+    function ajustLogo() {
+        if (window.innerWidth <= 600) {
+            $('a.brand-logo').removeClass('margin-left-3rem').removeClass('left').addClass('center');
+        } else {
+            $('a.brand-logo').addClass('margin-left-3rem').removeClass('center').addClass('left');
+        }
+    }
 </script>
 <script type="text/javascript">window.domain = "${application.contextPath}"</script>
 </body>

@@ -33,7 +33,7 @@ function setPosition(position) {
     createMarkerMyLocation(myLatLng);
     showNotifySucess('Sucesso ao encontrar sua localização!');
     showMap();
-    hidePanelWarningLocation();
+    hideModalGetLocation();
 }
 
 function setPositionByGeoCoder(latitude, longitude) {
@@ -54,6 +54,7 @@ function createMarkerMyLocation(myLatLng) {
     var markerMyPosition = new google.maps.Marker({
         map: map,
         draggable: true,
+        icon: window.domain + '/images/icon_my_location.png',
         title: 'Minha localização'
     });
 
@@ -141,7 +142,7 @@ function getMyLocationByAddress() {
                     setPositionByGeoCoder(latitude, longitude);
                 }
             }else
-                showPanelWarningLocation();
+                showModalGetLocation();
         });
 
     }
@@ -166,15 +167,18 @@ function getMyLocationByZipCode() {
     }
 }
 
-function showPanelWarningLocation(){
+function showModalGetLocation(){
     //showNotifyError("Não foi possível encontrar sua localização pelo endereço!");
     $("#panel-warning-location").show();
     $("html, body").animate({
         scrollTop: $("#latitude").offset().top
     }, 550);
+
+    $('#modalGetGeolocation').modal('open');
+
 }
 
-function hidePanelWarningLocation(){
+function hideModalGetLocation(){
     $("#panel-warning-location").hide();
 }
 

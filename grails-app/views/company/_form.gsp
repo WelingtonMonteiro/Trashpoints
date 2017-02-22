@@ -29,14 +29,6 @@
             </div>
         </div>
 
-        %{--<div class="row">--}%
-            %{--<div class="input-field col s12 m12">--}%
-                %{--<i class="material-icons prefix">business</i>--}%
-                %{--<input id="segment" name="segment" type="text" class="validate" required>--}%
-                %{--<label for="segment">Segmento <span class="red-text">*</span></label>--}%
-            %{--</div>--}%
-        %{--</div>--}%
-
         <div class="row">
             <div class="input-field col s12 m12">
                 <br/>
@@ -115,66 +107,4 @@
     </div>
 </div>
 
-<script type="text/javascript">
-
-    jQuery(function ($) {
-        $("#phone").mask("(99) 9999-9999");
-        $("#identificationNumber").mask("99.999.999/9999-99");
-    });
-
-    function showMessage(data) {
-        clearErrorMessage()
-
-        if (data.error) {
-            $('#divErrorMessage').removeClass("hide")
-            var errors = data.error
-            $.each(errors, function (key, value) {
-                var errorMessage = value
-
-                var p = '<p>' + errorMessage + '</p>'
-                $('#divErrorMessage span#errorMessage').append(p)
-            });
-            setFocusSummaryErrorMessage()
-        }
-        if (data.success) {
-            clearInputs();
-            iziToast.success({
-                title: 'OK',
-                message: 'Sucesso ao salvar!',
-                iconText: "check",
-                onClose: function () { window.location.href = "${application.contextPath}/userManager/login" ; }
-            });
-        }
-        $("#SYNCHRONIZER_TOKEN").val(data.newToken);
-    }
-
-    function setFocusSummaryErrorMessage() {
-        $(window).scrollTop($('#divErrorMessage').offset().top);
-    }
-
-    function clearErrorMessage() {
-        $('#divErrorMessage span#errorMessage').html("")
-    }
-
-    function clearInputs() {
-        $('#btnClear').click()
-        $("#password").val("");
-        $("#username").val("");
-        Materialize.updateTextFields();
-    }
-
-    $("form").submit(function(e) {
-        e.preventDefault();
-        var urlData = $(this).serialize();
-        $.ajax({
-            type: "post",
-            url: "${application.contextPath}/Company/save/",
-            data: urlData,
-            success: function(data)
-            {
-                showMessage(data)
-            }
-        });
-    });
-
-</script>
+<script src="${application.contextPath}/js/Company/create.js" type="text/javascript"></script>

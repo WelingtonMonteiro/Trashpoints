@@ -101,6 +101,48 @@
     </div>
 </div>
 
+<!-- Modal get geolocation -->
+<div id="modalGetGeolocation" class="modal">
+    <div class="modal-content">
+        <h5 class="header">Encontrar sua localização</h5>
+        <br/>
+        <div class="row">
+
+            <div class="col s12 offset-m2 m8 offset-l2 l8">
+                <div id="panel-warning-location" class="grey lighten-5 center">
+                    <i class="material-icons left orange-text">warning</i>
+                    <span class="black-text justify-align bolder">
+                        Não foi possível encontrar sua localização pelo endereço!<br/>
+                        Clique no botão abaixo para permitir que possamos pegar sua localização.
+                    </span>
+                    <br/><br/>
+                </div>
+            </div>
+            <div class="col s12 center">
+                <button id="btn-enable-location" type="button"
+                        class="btn btn-large waves-effect waves-light blue darken-3 modal-action modal-close">
+                    <i class="material-icons left">my_location</i>Minha Localização
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div id="col-map" class="col s12 hidden" style="height: 500px; margin-bottom: 50px;">
+
+        <h5 class="header">
+            <i class="material-icons left">my_location</i>Minha localização
+        </h5>
+        <h6 class="bolder blue-text">Você pode arrastar o marcador da sua localização para ajustá-lo.</h6>
+
+        <div id="map"></div>
+
+    </div>
+</div>
+
 <script type="text/javascript">
 
     jQuery(function ($) {
@@ -176,7 +218,7 @@
         });
 
         <sec:ifLoggedIn >
-        enableAddressInputs();
+            enableAddressInputs();
         </sec:ifLoggedIn>
 
         $("#states").val('${currentAddress?.state}');
@@ -199,5 +241,5 @@
 
 </script>
 
-<script src="${resource(dir: 'js', file: 'mapCollaborator.js')}" type="text/javascript"></script>
+<script src="${resource(dir: 'js', file: 'mapCreate.js')}" type="text/javascript"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6W1hTA1qEYPC1qi4V3dvDkIcg75yUc68"></script>
