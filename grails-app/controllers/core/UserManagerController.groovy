@@ -67,7 +67,7 @@ class UserManagerController {
     def forgotPassword() {
         withForm {
 
-            try {
+
                 User user = User.findByUsername(params.username)
 
 //            def token = randomUUID() as String
@@ -91,9 +91,7 @@ class UserManagerController {
                 }
 
                 successToken([success: 'Link para recuperação de senha sendo enviado.'])
-            }catch (e){
-                invalidToken()
-            }
+
 
 
         }.invalidToken {
