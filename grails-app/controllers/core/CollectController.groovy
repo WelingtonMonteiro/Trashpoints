@@ -5,6 +5,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 import org.codehaus.groovy.grails.web.servlet.mvc.SynchronizerTokensHolder
 import org.hibernate.criterion.CriteriaSpecification
+import static java.util.UUID.randomUUID
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
 
@@ -14,8 +15,8 @@ class CollectController {
     //render(file: new File(absolutePath), fileName: "book.pdf")
     transient springSecurityService
     private static final acceptImages = ['image/png', 'image/jpeg', 'image/gif']
-    private static final int MAX_DATE_SCHEDULE = 3;
-    //private static final int MAX_POINTS_SELECTED = 20;
+    private static final int MAX_DATE_SCHEDULE = 3
+    //private static final int MAX_POINTS_SELECTED = 20
 
     private invalidToken(message) {
         def response = [:]
@@ -80,7 +81,7 @@ class CollectController {
 
     def upload(collectInstance) {
 
-        def nameUpload = java.util.UUID.randomUUID().toString()
+        def nameUpload = randomUUID() as String
 
         def file = params.imageUpload
 
