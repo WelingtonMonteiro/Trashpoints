@@ -20,6 +20,13 @@ class UserManagerController {
         render response as JSON
     }
 
+    private invalidTokenMessage(message) {
+        def response = [:]
+        String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
+        response = [error: message, newToken: newToken]
+        render response as JSON
+    }
+
     private successToken(message) {
         def response = [:]
         String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
@@ -68,30 +75,28 @@ class UserManagerController {
         withForm {
 
 
-                User user = User.findByUsername(params.username)
+            User user = User.findByUsername(params.username)
 
-//            def token = randomUUID() as String
-                def token = (new Date().time * 24 * 3600 ) as String
+            def token = randomUUID() as String
+//            def token = (new Date().time * 24 * 3600) as String
 
+            if (!user) return invalidTokenMessage(['Usuário não encontrado!'])
 
-                user.token = token
+            user.token = token
 
-                if (!user) return invalidToken()
+            print 'TOKEN: ' + token
+            def link = createLink(action: "resetPasswordView", controller: "userManager", absolute: true) + "?key=" + token
 
-                print 'TOKEN: ' + token
-                def link = createLink(action: "resetPasswordView", controller: "userManager", absolute: true) + "?key=" + token
+            print 'LINK: ' + link
 
-                print 'LINK: ' + link
+            mailService.sendMail {
+                to params.username
+                from 'info.trahspoints@gmail.com'
+                subject "Recuperação de Senha Sistema Trashpoints"
+                text "Você está recebendo um link para recuperar a senha do Sistema Trashpoints. Por favor clique no link abaixo: <br>" + link
+            }
 
-                mailService.sendMail {
-                    to params.username
-                    from 'info.trahspoints@gmail.com'
-                    subject "Recuperação de Senha Sistema Trashpoints"
-                    text "Você está recebendo um link para recuperar a senha do Sistema Trashpoints. Por favor clique no link abaixo: <br>" + link
-                }
-
-                successToken([success: 'Link para recuperação de senha sendo enviado.'])
-
+            successToken([success: 'Link para recuperação de senha sendo enviado.'])
 
 
         }.invalidToken {

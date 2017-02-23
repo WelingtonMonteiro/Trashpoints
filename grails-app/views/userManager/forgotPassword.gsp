@@ -34,6 +34,10 @@
 
                                 <g:else>
 
+                                    <div id="divErrorMessage" class="row red-text center-align">
+                                        <span id="errorMessage"></span>
+                                    </div>
+
                                     <div class="row">
                                         <div class="input-field col s12">
                                             <i class="material-icons prefix">contact_mail</i>
