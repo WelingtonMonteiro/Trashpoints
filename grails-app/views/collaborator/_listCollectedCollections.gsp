@@ -23,9 +23,7 @@
                     </a>
                 </td>
                 <td>
-                    <g:each in="${collect.materialTypes}" var="materialType">
-                        <span>${materialType.name}</span><br/>
-                    </g:each>
+                    <g:join in="${collect.materialTypes.name}" delimiter=", " />
                 </td>
                 <td>${collect?.orderDate.format("dd/MM/yyyy")}</td>
 

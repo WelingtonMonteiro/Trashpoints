@@ -21,13 +21,13 @@
                     </a>
                 </td>
                 <td>
-                    <g:each in="${collect.materialTypes}" var="materialType">
-                        <span>${materialType.name}</span><br/>
-                    </g:each>
+                    <g:join in="${collect.materialTypes.name}" delimiter=", " />
                 </td>
                 <td>${collect?.orderDate.format("dd/MM/yyyy")}</td>
                 <td>
-                    <g:if test="${collect?.scheduleDateCollect}">${collect?.scheduleDateCollect?.format("dd/MM/yyyy HH:mm")}</g:if>
+                    <g:if test="${collect?.scheduleDateCollect}">
+                        ${collect?.scheduleDateCollect?.format("dd/MM/yyyy")}
+                    </g:if>
                     <g:else>_</g:else>
                 </td>
                 <td><a class="disabled grey-text"><i class="material-icons fa-2x">list</i></a></td>
