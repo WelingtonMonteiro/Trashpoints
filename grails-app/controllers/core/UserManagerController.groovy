@@ -1,5 +1,6 @@
 package core
 
+import static java.util.UUID.randomUUID
 import grails.converters.JSON
 import grails.plugin.mail.MailService
 import grails.plugin.springsecurity.annotation.Secured
@@ -68,7 +69,7 @@ class UserManagerController {
 
             User user = User.findByUsername(params.username)
 
-            def token = java.util.UUID.randomUUID().toString()
+            def token = randomUUID() as String
 
             user.token = token
 
