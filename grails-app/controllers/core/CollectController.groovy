@@ -94,7 +94,7 @@ class CollectController {
 
             def webRootDir = servletContext.getRealPath("/")
 
-            print webRootDir('DIRETORIO LOCAL: '+ webRootDir)
+            print ('DIRETORIO LOCAL: '+ webRootDir)
 
             nameUpload = nameUpload + "." + file.contentType.replace("image/", "")
             collectInstance.imageUpload = nameUpload
