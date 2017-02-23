@@ -79,52 +79,56 @@ class CollectController {
     }
 
     def upload(collectInstance) {
+        try {
+            def nameUpload = randomUUID() as String
 
-        def nameUpload = randomUUID() as String
+            def file = params.imageUpload
 
-        def file = params.imageUpload
-
-        // List of  mime-types
-        if (!acceptImages.contains(file.getContentType())) {
-            render(view: "/collect/create")
-        }
-
-        if (!file.empty) {
-            /**
-             * upload files S3:
-             * https://github.com/kevinostoll/kevins3/blob/master/grails-app/controllers/kevins3/BucketObjectController.groovy
-             * http://www.tothenew.com/blog/integrating-amazon-s3-in-grails-application/
-             */
-
-            nameUpload = nameUpload + "." + file.contentType.replace("image/", "")
-
-            def serveletContext = ServletContextHolder.servletContext
-            def storagePath = serveletContext.getRealPath( "images/uploads/")
-
-            def storagePathDirectory = new File( storagePath )
-
-            if( !storagePathDirectory.exists() ){
-                println("Criando diretório ${storagePath}")
-                if(storagePathDirectory.mkdirs()){
-                    println "Diretorio criado"
-                }else{
-                    println "Erro ao criar diretório"
-                }
+            // List of  mime-types
+            if (!acceptImages.contains(file.getContentType())) {
+                render(view: "/collect/create")
             }
 
+            if (!file.empty) {
+                /**
+                 * upload files S3:
+                 * https://github.com/kevinostoll/kevins3/blob/master/grails-app/controllers/kevins3/BucketObjectController.groovy
+                 * http://www.tothenew.com/blog/integrating-amazon-s3-in-grails-application/
+                 */
+
+                nameUpload = nameUpload + "." + file.contentType.replace("image/", "")
+
+                def serveletContext = ServletContextHolder.servletContext
+                def storagePath = serveletContext.getRealPath("images/uploads/")
+
+                def storagePathDirectory = new File(storagePath)
+
+                if (!storagePathDirectory.exists()) {
+                    println("Criando diretório ${storagePath}")
+                    if (storagePathDirectory.mkdirs()) {
+                        println "Diretorio criado"
+                    } else {
+                        println "Erro ao criar diretório"
+                    }
+                }
 
 //            print ('DIRETORIO LOCAL: '+ serveletContext)
-            print ('URL LOCAL: '+ storagePath)
+                print('URL LOCAL: ' + storagePath)
 
 
-            collectInstance.imageUpload = nameUpload
+                collectInstance.imageUpload = nameUpload
 
-            file.transferTo(new File("${storagePath}/${nameUpload}"))
+                file.transferTo(new File("${storagePath}/${nameUpload}"))
 
-        } else {
-            print "não foi possível transferir o arquivo"
-            render(view: "/collect/create")
+            } else {
+                print "não foi possível transferir o arquivo"
+                render(view: "/collect/create")
+            }
+        } catch (e) {
+            println ("Erro ao salvar arquivo: ${e}")
+            invalidToken(["Erro ao salvar arquivo: ${e}"])
         }
+
     }
 
     @Transactional
