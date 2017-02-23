@@ -1,121 +1,121 @@
 var global_collect_id;
 
 function openModalViewCollectImage(collectId) {
-	$("#modalViewCollectImage").modal({
-		dismissible: false
-	})
-	$("#modalViewCollectImage").modal('open');
-	loadCollectImage(collectId)
+    $("#modalViewCollectImage").modal({
+        dismissible: false
+    })
+    $("#modalViewCollectImage").modal('open');
+    loadCollectImage(collectId)
 }
 
 function loadCollectImage(collectId) {
-	$(".preloader-wrapper").show();
+    $(".preloader-wrapper").show();
 
-	$.ajax({
-		url: domain + "/Collect/loadCollectImage/",
-		data: {
-			id: collectId
-		},
-		method: "post",
-		success: function (data) {
-			$("#collectImage").html("")
+    $.ajax({
+        url: domain + "/Collect/loadCollectImage/",
+        data: {
+            id: collectId
+        },
+        method: "post",
+        success: function (data) {
+            $("#collectImage").html("")
+            var imageUpload = "<i class='fa fa-file-image-o fa-5x center-align'></i>"
 
-			if (data.imagePath) {
-				var UPLOAD_FOLDER_PATH = domain + "/images/uploads/" + data.imagePath;
-				var imageUpload = "<img src='" + UPLOAD_FOLDER_PATH + "' style='max-height: 284px;'>";
-				$("#collectImage").append(imageUpload)
-			} else {
-				var imageUpload = "<i class='fa fa-file-image-o fa-5x center-align'></i>"
-				$("#collectImage").append(imageUpload)
-			}
-		},
-		complete: function () {
-			$(".preloader-wrapper").hide();
-		}
-	});
+            if (data.imagePath) {
+                var UPLOAD_FOLDER_PATH = domain + "/images/uploads/" + data.imagePath;
+                imageUpload = "<img src='" + UPLOAD_FOLDER_PATH + "' style='max-height: 284px;'>";
+            }
+
+            $("#collectImage").append(imageUpload)
+
+        },
+        complete: function () {
+            $(".preloader-wrapper").hide();
+        }
+    });
 }
 
 function openModalCollaboratorDetails(collaboratorId) {
-	$("#modalCollaboratorDetails").modal({
-		dismissible: false
-	})
-	$("#modalCollaboratorDetails").modal('open');
-	loadCollaboratorDetails(collaboratorId)
+    $("#modalCollaboratorDetails").modal({
+        dismissible: false
+    })
+    $("#modalCollaboratorDetails").modal('open');
+    loadCollaboratorDetails(collaboratorId)
 }
 
 function loadCollaboratorDetails(collaboratorId) {
-	$(".preloader-wrapper").show();
+    $(".preloader-wrapper").show();
 
-	$.ajax({
-		url: domain + "/Company/loadCollaboratorDetails/",
-		data: {
-			id: collaboratorId
-		},
-		method: "post",
-		success: function (data) {
-			var collaborator = data.collaborator
-			var address = data.address
+    $.ajax({
+        url: domain + "/Company/loadCollaboratorDetails/",
+        data: {
+            id: collaboratorId
+        },
+        method: "post",
+        success: function (data) {
+            var collaborator = data.collaborator
+            var address = data.address
 
-			if (collaborator) {
-				$("#collaboratorDetails span#name").text(collaborator.name)
-				$("#collaboratorDetails span#phone").text(collaborator.phone)
-			}
-			if (address) {
-				$("#collaboratorDetails span#zipCode").text(address.zipCode)
-				$("#collaboratorDetails span#street").text(address.street)
-				$("#collaboratorDetails span#number").text(address.number)
-				$("#collaboratorDetails span#neighborhood").text(address.neighborhood)
-				$("#collaboratorDetails span#city").text(address.city)
-				$("#collaboratorDetails span#state").text(address.state)
-			}
-		},
-		complete: function () {
-			$(".preloader-wrapper").hide();
-		}
+            if (collaborator) {
+                $("#collaboratorDetails span#name").text(collaborator.name)
+                $("#collaboratorDetails span#phone").text(collaborator.phone)
+            }
+            if (address) {
+                $("#collaboratorDetails span#zipCode").text(address.zipCode)
+                $("#collaboratorDetails span#street").text(address.street)
+                $("#collaboratorDetails span#number").text(address.number)
+                $("#collaboratorDetails span#neighborhood").text(address.neighborhood)
+                $("#collaboratorDetails span#city").text(address.city)
+                $("#collaboratorDetails span#state").text(address.state)
+            }
+        },
+        complete: function () {
+            $(".preloader-wrapper").hide();
+        }
 
-	});
+    });
 }
 
 function openModalConfirmation(collectId) {
-	global_collect_id = collectId
-	$("input[type=hidden]#collectId").val(collectId)
-	$("#modalConfirmationCollect").modal({
-		dismissible: false
-	})
-	$("#modalConfirmationCollect").modal('open');
+    global_collect_id = collectId
+    $("input[type=hidden]#collectId").val(collectId)
+    $("#modalConfirmationCollect").modal({
+        dismissible: false
+    })
+    $("#modalConfirmationCollect").modal('open');
 }
 
 function markWasCollected() {
-	var collectId = global_collect_id
-	var formData = jQuery("form[name=formCollections]").serializeArray();
+    var collectId = global_collect_id
+    var formData = jQuery("form[name=formCollections]").serializeArray();
 
-	$.ajax({
-		url: domain + "/Company/markWasCollected/",
-		data: formData,
-		method: "post",
-		success: function (data) {
-			if (data.success) {
-				iziToast.success({
-					title: 'OK',
-					message: 'Sucesso ao salvar!',
-					iconText: "check"
-				});
-				disableCheckBoxClicked(collectId);
-				$("#collectedDate" + collectId).text(data.collectedDate);
-				//window.localStorage.removeItem("")
-			}
-			$("#SYNCHRONIZER_TOKEN").val(data.newToken);
-		}
-	});
+    $.ajax({
+        url: domain + "/Company/markWasCollected/",
+        data: formData,
+        method: "post",
+        success: function (data) {
+            if (data.success) {
+                iziToast.success({
+                    title: 'OK',
+                    message: 'Sucesso ao salvar!',
+                    iconText: "check"
+                });
+                disableCheckBoxClicked(collectId);
+                $("#collectedDate" + collectId).text(data.collectedDate);
+                //window.localStorage.removeItem("")
+            }
+            $("#SYNCHRONIZER_TOKEN").val(data.newToken);
+        }
+    });
 }
 
 function wasNotCollected() {
-	var collectId = global_collect_id
-	$("input[type=checkbox]#isCollected" + collectId).prop("checked", false)
+    var collectId = global_collect_id
+    $("input[type=checkbox]#isCollected" + collectId).prop("checked", false)
 }
 
 function disableCheckBoxClicked(collectId) {
-	$("input[type=checkbox]#isCollected" + collectId).prop("disabled", true).removeAttr("onchange")
+    $("input[type=checkbox]#isCollected" + collectId).prop("disabled", true).removeAttr("onchange")
 }
 
 /*function openModalUpdateScheduleDate(dateTimeCollect, collectId) {

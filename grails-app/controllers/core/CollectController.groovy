@@ -101,8 +101,17 @@ class CollectController {
             def serveletContext = ServletContextHolder.servletContext
             def storagePath = serveletContext.getRealPath( "images/uploads/")
 
-//            def webRootDir = servletContext.getRealPath("/")
-//            String localPath = "${webRootDir}/images/uploads/${nameUpload}"
+            def storagePathDirectory = new File( storagePath )
+
+            if( !storagePathDirectory.exists() ){
+                println("Criando diretório ${storagePath}")
+                if(storagePathDirectory.mkdirs()){
+                    println "Diretorio criado"
+                }else{
+                    println "Erro ao criar diretório"
+                }
+            }
+
 
 //            print ('DIRETORIO LOCAL: '+ serveletContext)
             print ('URL LOCAL: '+ storagePath)
