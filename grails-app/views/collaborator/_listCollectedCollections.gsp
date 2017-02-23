@@ -23,7 +23,7 @@
                     </a>
                 </td>
                 <td>
-                    <g:join in="${collect.materialTypes.name}" delimiter=", " />
+                    <g:join in="${collect.materialTypes.name}" delimiter=", "/>
                 </td>
                 <td>${collect?.orderDate.format("dd/MM/yyyy")}</td>
 
@@ -171,3 +171,8 @@
 </div>
 
 <script src="${resource(dir: 'js/Collaborator', file: 'myCollections.js')}" type="text/javascript"></script>
+<script type="text/javascript">
+    function setActiveItemMenu() {
+        $('#myCollectedCollections').addClass('active');
+    }
+</script>

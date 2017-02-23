@@ -67,3 +67,7 @@ function loadCompanyDetails(companyId) {
 		}
 	});
 }
+
+$(document).ready(function () {
+	setActiveItemMenu();
+});

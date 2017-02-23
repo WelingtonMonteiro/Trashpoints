@@ -4,7 +4,7 @@ $('.datepicker').pickadate({
     format: 'dd/mm/yyyy',
     max: new Date(),
     closeOnSelect: true,
-    closeOnClear: true,
+    closeOnClear: true
 });
 
 jQuery(function ($) {
@@ -27,14 +27,10 @@ function showMessage(data) {
         setFocusSummaryErrorMessage()
     }
     if (data.success) {
-        clearInputs();
         iziToast.success({
             title: 'OK',
             message: 'Sucesso ao salvar!',
-            iconText: "check",
-            onClose: function () {
-                window.location.href = window.domain + "/userManager/login";
-            }
+            iconText: "check"
         });
     }
     $("#SYNCHRONIZER_TOKEN").val(data.newToken);
@@ -62,7 +58,7 @@ $("form").submit(function (e) {
         var urlData = $(this).serialize();
         $.ajax({
             type: "post",
-            url: window.domain + "/Collaborator/save/",
+            url: window.domain + "/Collaborator/saveEditCollaborator/",
             data: urlData,
             success: function (data) {
                 showMessage(data)
@@ -73,5 +69,5 @@ $("form").submit(function (e) {
 });
 
 function setActiveItemMenu() {
-    $('li#createCollaborator').addClass('active');
+    $('#editProfile').addClass('active');
 }

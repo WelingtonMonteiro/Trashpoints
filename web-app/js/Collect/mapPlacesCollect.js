@@ -518,6 +518,10 @@ function setFocusMap() {
     }, 350);
 }
 
+function setActiveItemMenu() {
+    $('li#placesCollect').addClass('active');
+}
+
 $(document).ready(function () {
     var MAX_DATE = moment().add(3, 'day').toDate();
 
@@ -604,4 +608,5 @@ $(document).ready(function () {
 
     getRoutesByLocalStorageAndDisplay();
     $("#btnCleanRoute").click(cleanRoutes);
+    setActiveItemMenu();
 });

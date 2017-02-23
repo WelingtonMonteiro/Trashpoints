@@ -188,7 +188,7 @@
     </div>
 </div>
 
-<script src="${application.contextPath}/js/map.js" type="text/javascript"></script>
+<script src="${application.contextPath}/js/Collect/mapPlacesCollect.js" type="text/javascript"></script>
 <script src="${application.contextPath}/js/markerclusterer.min.js" type="text/javascript"></script>
 <script src="${application.contextPath}/js/materialize.clockpicker.min.js" type="text/javascript"></script>
 <script src="${application.contextPath}/js/moment.min.js" type="text/javascript"></script>

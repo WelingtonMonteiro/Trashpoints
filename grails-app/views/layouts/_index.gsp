@@ -33,8 +33,8 @@
     </nav>
 
     <ul id="side-menu" class="side-nav">
-        <li class="active"><a class="waves-effect active" href="${application.contextPath}">Home<i class="material-icons">home</i></a></li>
-        <li><a class="waves-effect hide-on-large-only" href="${application.contextPath}/userManager/login"><i class="fa fa-2x fa-sign-in"></i>Logar</a></li>
+        <li id="home"><a class="waves-effect" href="${application.contextPath}">Home<i class="material-icons">home</i></a></li>
+        <li id="login"><a class="waves-effect hide-on-large-only" href="${application.contextPath}/userManager/login"><i class="fa fa-2x fa-sign-in"></i>Logar</a></li>
 
         <li class="no-padding">
             <ul class="collapsible collapsible-accordion">
@@ -42,11 +42,11 @@
                     <a class="collapsible-header waves-effect">Cadastrar<i class="material-icons">arrow_drop_down</i></a>
                     <div class="collapsible-body">
                         <ul>
-                            <li>
+                            <li id="createCollaborator">
                                 <a class="waves-effect hide-on-large-only" href="${application.contextPath}/Collaborator/Create"><i class="material-icons left">person_add</i>Cadastrar Cidadão
                                 </a>
                             </li>
-                            <li>
+                            <li id="createCompany">
                                 <a class="waves-effect hide-on-large-only" href="${application.contextPath}/Company/Create"><i class="material-icons left">business</i>Cadastrar Empresa
                                 </a>
                             </li>
@@ -66,4 +66,6 @@
         padding-left: 0px;
     }
 </style>
+
+
 

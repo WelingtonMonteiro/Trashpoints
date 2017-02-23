@@ -2,6 +2,7 @@ jQuery(function ($) {
 	$("#phone").mask("(99) 9999-9999");
 	$("#identificationNumber").mask("99.999.999/9999-99");
 	clearInputs();
+	setActiveItemMenu();
 });
 
 function showMessage(data) {
@@ -61,3 +62,7 @@ $("form").submit(function(e) {
 	}else
 		showNotifyError("Precisamos ter sua localização para poder cadastrar");
 });
+
+function setActiveItemMenu() {
+	$('li#createCompany').addClass('active');
+}

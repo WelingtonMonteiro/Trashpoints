@@ -187,4 +187,8 @@
 %{-- <script src="${application.contextPath}/js/materialize.clockpicker.min.js" type="text/javascript"></script>
 <script src="${application.contextPath}/js/moment.min.js" type="text/javascript"></script> --}%
 <script src="${application.contextPath}/js/Company/myCollections.js" type="text/javascript"></script>
-
+<script type="text/javascript">
+    function setActiveItemMenu() {
+        $('li#myCollectionsInProgress').addClass('active');
+    }
+</script>

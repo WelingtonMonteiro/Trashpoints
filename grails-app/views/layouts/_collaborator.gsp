@@ -31,12 +31,11 @@
     <ul id="side-menu" class="side-nav fixed">
         <li><a class="waves-effect hide-on-large-only"><sec:loggedInUserInfo field="username"/><i
                 class="material-icons">account_circle</i></a></li>
-        <li class="active"><a class="waves-effect active" href="${application.contextPath}">Home<i class="material-icons">home</i></a>
-        </li>
+        <li id="home"><a class="waves-effect" href="${application.contextPath}">Home<i class="material-icons">home</i></a></li>
         <li>
             <a class="waves-effect" href="${application.contextPath}/Collaborator/myCollectedCollections" title="Meus TrashCoins">
-                <i class="material-icons">monetization_on</i> <span class="new badge my-badge bold"
-                                                                    data-badge-caption="" id="quantityOfCoins"></span>
+                <i class="material-icons">monetization_on</i>
+                <span id="quantityOfCoins" class="new badge my-badge bold" data-badge-caption="" ></span>
             </a>
         </li>
         <li><div class="divider"></div></li>
@@ -44,14 +43,15 @@
         <li class="no-padding">
             <ul class="collapsible collapsible-accordion">
                 <li>
-                    <a class="collapsible-header waves-effect">Meus dados<i class="material-icons">arrow_drop_down</i>
-                    </a>
+                    <a class="collapsible-header waves-effect">Meus dados<i class="material-icons">arrow_drop_down</i></a>
 
                     <div class="collapsible-body">
                         <ul>
-                            <li><a class="waves-effect"
-                                   href="${application.contextPath}/collaborator/editCollaborator">Editar Perfil<i
-                                        class="material-icons">account_circle</i></a></li>
+                            <li id="editProfile">
+                                <a class="waves-effect" href="${application.contextPath}/collaborator/editCollaborator">
+                                    Editar Perfil<i class="material-icons">account_circle</i>
+                                </a>
+                            </li>
                             <!-- <li><a class="waves-effect" href="#">Editar Endereço<i class="material-icons">edit_location</i></a></li> -->
                         </ul>
                     </div>
@@ -70,16 +70,18 @@
 
                     <div class="collapsible-body">
                         <ul>
-                            <li><a class="waves-effect" href="${application.contextPath}/Collaborator/myCollectedCollections">Coletadas<i class="fa fa-recycle fa-2x" aria-hidden="true"></i></a></li>
-                            <li><a class="waves-effect" href="${application.contextPath}/Collaborator/myCollectionsInProgress">A Recolher<i class="material-icons fa-2x">event_note</i></a></li>
+                            <li id="myCollectedCollections"><a class="waves-effect" href="${application.contextPath}/Collaborator/myCollectedCollections">Coletadas<i class="fa fa-recycle fa-2x" aria-hidden="true"></i></a></li>
+                            <li id="myCollectionsInProgress"><a class="waves-effect" href="${application.contextPath}/Collaborator/myCollectionsInProgress">A Recolher<i class="material-icons fa-2x">event_note</i></a></li>
                         </ul>
                     </div>
                 </li>
             </ul>
         </li>
 
-        <li><a class="waves-effect" href="${application.contextPath}/Collect/Create">Tenho uma Coleta<i class="fa fa-bullhorn fa-2x"
-                                                                                          aria-hidden="true"></i></a>
+        <li id="createCollect">
+            <a class="waves-effect" href="${application.contextPath}/Collect/Create">
+                Tenho uma Coleta<i class="fa fa-bullhorn fa-2x" aria-hidden="true"></i>
+            </a>
         </li>
         <li><a class="waves-effect" href="#">Notificações<i class="material-icons">notifications</i></a></li>
         <li><a class="waves-effect" href="${application.contextPath}/j_spring_security_logout">Sair<i class="fa fa-2x fa-sign-out"

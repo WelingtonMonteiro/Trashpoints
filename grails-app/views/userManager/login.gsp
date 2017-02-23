@@ -48,8 +48,14 @@
     </div>
 </main>
 
-<script type="text/javascript">
+<script>
+    function setActiveItemMenu() {
+        $('li#login').addClass('active');
+    }
 
+    $(document).ready(function () {
+        setActiveItemMenu();
+    });
 </script>
 
 </body>

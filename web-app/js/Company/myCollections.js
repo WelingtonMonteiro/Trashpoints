@@ -118,6 +118,10 @@ function disableCheckBoxClicked(collectId) {
     $("input[type=checkbox]#isCollected" + collectId).prop("disabled", true).removeAttr("onchange")
 }
 
+$(document).ready(function () {
+    setActiveItemMenu();
+});
+
 /*function openModalUpdateScheduleDate(dateTimeCollect, collectId) {
  $('#txb-collect-date').val(moment(dateTimeCollect).format('DD/MM/YYYY'));
  $('#txb-collect-time').val(moment(dateTimeCollect).format('HH:mm'));

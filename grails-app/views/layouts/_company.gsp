@@ -13,7 +13,7 @@
 
 	<ul id="side-menu" class="side-nav fixed">
 		<li><a class="waves-effect hide-on-large-only"><sec:loggedInUserInfo field="username"/><i class="material-icons fa-2x">account_circle</i></a></li>
-		<li class="active"><a class="waves-effect active" href="${application.contextPath}">Home<i class="material-icons fa-2x">home</i></a></li>
+		<li id="home"><a class="waves-effect" href="${application.contextPath}">Home<i class="material-icons fa-2x">home</i></a></li>
 		<li><a class="waves-effect" href="#">Relatórios<i class="fa fa-line-chart fa-2x" aria-hidden="true"></i></a></li>
 		<li><div class="divider"></div></li>
 		<li><a class="subheader">Editar meus dados</a></li>
@@ -23,7 +23,7 @@
 					<a class="collapsible-header waves-effect">Meus dados<i class="material-icons fa-2x">arrow_drop_down</i></a>
 					<div class="collapsible-body">
 						<ul>
-							<li><a class="waves-effect" href="${application.contextPath}/Company/editCompany">Editar Perfil<i class="material-icons fa-2x">account_circle</i></a></li>
+							<li id="editProfile"><a class="waves-effect" href="${application.contextPath}/Company/editCompany">Editar Perfil<i class="material-icons fa-2x">account_circle</i></a></li>
 							%{--<li><a class="waves-effect" href="#">Editar Endereço<i class="material-icons fa-2x">edit_location</i></a></li>--}%
 						</ul>
 					</div>
@@ -38,15 +38,15 @@
 					<a class="collapsible-header waves-effect">Minhas Coletas<i class="material-icons fa-2x">arrow_drop_down</i></a>
 					<div class="collapsible-body">
 						<ul>
-							<li><a class="waves-effect" href="${application.contextPath}/Company/myCollectedCollections">Coletadas<i class="fa fa-recycle fa-2x" aria-hidden="true"></i></a></li>
-							<li><a class="waves-effect" href="${application.contextPath}/Company/myCollectionsInProgress">A Recolher<i class="material-icons fa-2x">event_note</i></a></li>
+							<li id="myCollectedCollections"><a class="waves-effect" href="${application.contextPath}/Company/myCollectedCollections">Coletadas<i class="fa fa-recycle fa-2x" aria-hidden="true"></i></a></li>
+							<li id="myCollectionsInProgress"><a class="waves-effect" href="${application.contextPath}/Company/myCollectionsInProgress">A Recolher<i class="material-icons fa-2x">event_note</i></a></li>
 						</ul>
 					</div>
 				</li>
 			</ul>
 		</li>
 
-		<li><a class="waves-effect" href="${application.contextPath}/Collect/placesCollect">Locais para coletar<i class="material-icons fa-2x">local_shipping</i></a></li>
+		<li id="placesCollect"><a class="waves-effect" href="${application.contextPath}/Collect/placesCollect">Locais para coletar<i class="material-icons fa-2x">local_shipping</i></a></li>
 
 
 		<li><a class="waves-effect" href="#">Notificações<i class="material-icons fa-2x">notifications</i></a></li>
