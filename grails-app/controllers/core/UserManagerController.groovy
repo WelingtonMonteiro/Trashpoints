@@ -67,13 +67,17 @@ class UserManagerController {
         withForm {
 
             User user = User.findByUsername(params.username)
+
             def token = java.util.UUID.randomUUID().toString()
 
             user.token = token
 
             if (!user) return invalidToken()
 
+            print 'TOKEN: ' + token
             def link = createLink(action: "resetPasswordView", controller: "userManager", absolute: true) + "?key=" + token
+
+            print 'LINK: ' + link
 
             mailService.sendMail {
                 to params.username
