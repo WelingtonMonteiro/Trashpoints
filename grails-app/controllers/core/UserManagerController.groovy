@@ -71,7 +71,7 @@ class UserManagerController {
                 User user = User.findByUsername(params.username)
 
 //            def token = randomUUID() as String
-                def token = (new Date().time + Math.floor(Math.random() * 24 * 3600) ) as String
+                def token = (new Date().time * 24 * 3600 ) as String
 
 
                 user.token = token
