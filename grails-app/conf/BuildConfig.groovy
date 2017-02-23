@@ -71,6 +71,8 @@ grails.project.dependency.resolution = {
         //Provides Mail support to a running Grails application: https://grails.org/plugin/mail
         compile "org.grails.plugins:mail:1.0.7"
 
+//        compile "org.grails.plugins:amazon-s3:0.8.2"
+
 
         // plugins for the build system only
         build ":tomcat:7.0.52.1"

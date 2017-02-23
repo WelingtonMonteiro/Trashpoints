@@ -3,11 +3,10 @@ package core
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
+import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.codehaus.groovy.grails.web.servlet.mvc.SynchronizerTokensHolder
 import org.hibernate.criterion.CriteriaSpecification
 import static java.util.UUID.randomUUID
-import org.springframework.web.multipart.MultipartFile
-import org.springframework.web.multipart.MultipartHttpServletRequest
 
 @Transactional(readOnly = true)
 @Secured(['ROLE_COLLABORATOR'])
@@ -91,19 +90,27 @@ class CollectController {
         }
 
         if (!file.empty) {
+            /**
+             * upload files S3:
+             * https://github.com/kevinostoll/kevins3/blob/master/grails-app/controllers/kevins3/BucketObjectController.groovy
+             * http://www.tothenew.com/blog/integrating-amazon-s3-in-grails-application/
+             */
 
             nameUpload = nameUpload + "." + file.contentType.replace("image/", "")
 
-            def webRootDir = servletContext.getRealPath("/")
-            String localPath = "${webRootDir}/images/uploads/${nameUpload}"
+            def serveletContext = ServletContextHolder.servletContext
+            def storagePath = serveletContext.getRealPath( "images/uploads/")
 
-            print ('DIRETORIO LOCAL: '+ webRootDir)
-            print ('URL LOCAL: '+ webRootDir)
+//            def webRootDir = servletContext.getRealPath("/")
+//            String localPath = "${webRootDir}/images/uploads/${nameUpload}"
+
+//            print ('DIRETORIO LOCAL: '+ serveletContext)
+            print ('URL LOCAL: '+ storagePath)
 
 
             collectInstance.imageUpload = nameUpload
 
-            file.transferTo(new File(localPath))
+            file.transferTo(new File("${storagePath}/${nameUpload}"))
 
         } else {
             print "não foi possível transferir o arquivo"
