@@ -10,8 +10,6 @@
             <th data-field="types">Tipo(s)</th>
             <th data-field="orderDate">Data Pedido</th>
             <th data-field="scheduleDateCollect">Data Agendada</th>
-            <th data-field="collectedDate">Data Coletada</th>
-            <th data-field="isCollected">Foi Coletada?</th>
             <th data-field="detailsCompany">Colaborador</th>
             <!-- <th>Ações</th> -->
         </tr>
@@ -24,40 +22,17 @@
                     <!-- Modal Trigger -->
                     <a class="waves-effect waves-light" onclick="openModalViewCollectImage(${collect.id})"
                        title="Ver Imagem da coleta">
-                        <i class="fa fa-file-image-o fa-2x"></i>
+                        <i class="fa fa-file-image-o fa-2x left"></i>
                     </a>
                 </td>
                 <td>
-                    <g:each in="${collect.materialTypes}" var="materialType">
-                        <span>${materialType.name}</span><br/>
-                    </g:each>
+                    <g:join in="${collect.materialTypes.name}" delimiter=", " />
                 </td>
                 <td>${collect?.orderDate?.format("dd/MM/yyyy")}</td>
                 <td>
-                    <span id="scheduleDateCollect${collect.id}">${collect?.scheduleDateCollect?.format("dd/MM/yyyy HH:mm")} </span>
-                </td>
-                <td>
-                    <g:if test="${collect?.isCollected}">
-                        ${collect?.collectedDate?.format("dd/MM/yyyy")}
-                    </g:if>
-                    <g:else>
-                        <p id="collectedDate${collect.id}">-</p>
-                    </g:else>
-                </td>
-                <td>
-                    <g:if test="${collect?.isCollected}">
-                        <p title="Foi coletada?">
-                            <input type="checkbox" checked="checked" disabled="disabled"/>
-                            <label></label>
-                        </p>
-                    </g:if>
-                    <g:else>
-                        <p title="Foi coletada?">
-                            <input type="checkbox" id="isCollected${collect.id}"
-                                   onchange="openModalConfirmation(${collect.id})"/>
-                            <label for="isCollected${collect.id}"></label>
-                        </p>
-                    </g:else>
+                    <g:if test="${collect?.scheduleDateCollect}">
+                        ${collect?.scheduleDateCollect?.format("dd/MM/yyyy")}</g:if>
+                    <g:else>_</g:else>
                 </td>
                 <td>
                     <!-- Modal Trigger -->

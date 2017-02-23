@@ -26,6 +26,7 @@ function initMap() {
 
     getLocationsOfCollections();
     getMyLocation();
+    //getMyLocationByGeolocation();
 
     //Setup Directions Renderer(Used in routes)
     directionsDisplay = new google.maps.DirectionsRenderer({
@@ -259,9 +260,9 @@ function removeMarkersNumber() {
     }
 }
 
-function getMyLocation(){
+function getMyLocationByGeolocation(){
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(setPosition, errorGeolocation);
+        navigator.geolocation.getCurrentPosition(setPositionByGeolocation, errorGeolocation);
     } else {
         iziToast.error({
             title: 'Erro',
@@ -271,8 +272,17 @@ function getMyLocation(){
     }
 }
 
-function setPosition(position) {
+function getMyLocation(){
+    $.post( window.domain + "/Company/getMyLocation/", setPosition);
+}
+
+function setPositionByGeolocation(position) {
     myLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+    createMarkerMyLocation();
+}
+
+function setPosition(position) {
+    myLatLng = new google.maps.LatLng(position.latitude, position.longitude)
     createMarkerMyLocation();
 }
 

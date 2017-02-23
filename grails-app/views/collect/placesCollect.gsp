@@ -188,7 +188,6 @@
     </div>
 </div>
 
-<script type="text/javascript">var domain = "${application.contextPath}"</script>
 <script src="${application.contextPath}/js/map.js" type="text/javascript"></script>
 <script src="${application.contextPath}/js/markerclusterer.min.js" type="text/javascript"></script>
 <script src="${application.contextPath}/js/materialize.clockpicker.min.js" type="text/javascript"></script>

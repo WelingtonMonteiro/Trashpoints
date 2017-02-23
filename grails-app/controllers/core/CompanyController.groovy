@@ -4,6 +4,7 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 import org.codehaus.groovy.grails.web.servlet.mvc.SynchronizerTokensHolder
+import org.hibernate.criterion.CriteriaSpecification
 
 @Transactional(readOnly = true)
 @Secured(['ROLE_COMPANY_COLLECT'])
@@ -234,6 +235,22 @@ class CompanyController {
         }.invalidToken {
             invalidToken()
         }
+    }
+
+    def getMyLocation() {
+        User currentUser = springSecurityService.loadCurrentUser()
+        Company currentCompany = currentUser.company
+
+        def location = Company.createCriteria().get {
+            resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
+            createAlias("address", "adr")
+            projections {
+                property("adr.latitude", "latitude")
+                property("adr.longitude", "longitude")
+            }
+            idEq(currentCompany.id)
+        }
+        render location as JSON
     }
 
     /*def list() {
