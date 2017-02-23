@@ -18,17 +18,15 @@ function loadCollectImage(collectId) {
 		},
 		method: "post",
 		success: function (data) {
-			$("#collectImage").html("")
+            $("#collectImage").html("")
+            var imageUpload = "<i class='fa fa-file-image-o fa-5x center-align'></i>"
 
-			if (data.imagePath) {
-				var UPLOAD_FOLDER_PATH = window.domain + "/images/uploads/" + data.imagePath;
+            if (data.imagePath) {
+                var UPLOAD_FOLDER_PATH = domain + "/images/uploads/" + data.imagePath;
+                imageUpload = "<img src='" + UPLOAD_FOLDER_PATH + "' style='max-height: 284px;'>";
+            }
 
-				var imageUpload = "<img src='" + UPLOAD_FOLDER_PATH + "' style='max-height: 284px;'>"
-				$("#collectImage").append(imageUpload)
-			} else {
-				var imageUpload = "<i class='fa fa-file-image-o fa-5x center-align'></i>"
-				$("#collectImage").append(imageUpload)
-			}
+            $("#collectImage").append(imageUpload)
 		},
 		complete: function () {
 			$(".preloader-wrapper").hide();
