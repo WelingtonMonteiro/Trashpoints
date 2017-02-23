@@ -118,7 +118,7 @@
 
     function clearInputs() {
         $('#btnClear').click();
-        $("#username").val("");
+        $("#email").val("");
         Materialize.updateTextFields();
     }
 
