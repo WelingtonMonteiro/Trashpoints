@@ -67,27 +67,34 @@ class UserManagerController {
     def forgotPassword() {
         withForm {
 
-            User user = User.findByUsername(params.username)
+            try {
+                User user = User.findByUsername(params.username)
 
-            def token = randomUUID() as String
+//            def token = randomUUID() as String
+                def token = (new Date().time + Math.floor(Math.random() * 24 * 3600) ) as String
 
-            user.token = token
 
-            if (!user) return invalidToken()
+                user.token = token
 
-            print 'TOKEN: ' + token
-            def link = createLink(action: "resetPasswordView", controller: "userManager", absolute: true) + "?key=" + token
+                if (!user) return invalidToken()
 
-            print 'LINK: ' + link
+                print 'TOKEN: ' + token
+                def link = createLink(action: "resetPasswordView", controller: "userManager", absolute: true) + "?key=" + token
 
-            mailService.sendMail {
-                to params.username
-                from 'info.trahspoints@gmail.com'
-                subject "Recuperação de Senha Sistema Trashpoints"
-                text "Você está recebendo um link para recuperar a senha do Sistema Trashpoints. Por favor clique no link abaixo: <br>" + link
+                print 'LINK: ' + link
+
+                mailService.sendMail {
+                    to params.username
+                    from 'info.trahspoints@gmail.com'
+                    subject "Recuperação de Senha Sistema Trashpoints"
+                    text "Você está recebendo um link para recuperar a senha do Sistema Trashpoints. Por favor clique no link abaixo: <br>" + link
+                }
+
+                successToken([success: 'Link para recuperação de senha sendo enviado.'])
+            }catch (e){
+                invalidToken()
             }
 
-            successToken([success: 'Link para recuperação de senha sendo enviado.'])
 
         }.invalidToken {
             invalidToken()
