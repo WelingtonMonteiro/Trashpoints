@@ -99,7 +99,7 @@ class CollectController {
                 nameUpload = nameUpload + "." + file.contentType.replace("image/", "")
 
                 def serveletContext = ServletContextHolder.servletContext
-                def storagePath = serveletContext.getRealPath("images/uploads/")
+                def storagePath = serveletContext.getRealPath("images\\uploads\\")
 
                 def storagePathDirectory = new File(storagePath)
 
@@ -118,7 +118,7 @@ class CollectController {
 
                 collectInstance.imageUpload = nameUpload
 
-                file.transferTo(new File("${storagePath}/${nameUpload}"))
+                file.transferTo(new File("${storagePath}\\${nameUpload}"))
 
             } else {
                 print "não foi possível transferir o arquivo"
