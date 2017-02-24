@@ -73,5 +73,6 @@ $("form").submit(function (e) {
 });
 
 function setActiveItemMenu() {
+    $('li#home').removeClass('active');
     $('li#createCollaborator').addClass('active');
 }

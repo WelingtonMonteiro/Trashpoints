@@ -519,6 +519,7 @@ function setFocusMap() {
 }
 
 function setActiveItemMenu() {
+    $('li#home').removeClass('active');
     $('li#placesCollect').addClass('active');
 }
 

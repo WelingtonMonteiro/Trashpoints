@@ -62,5 +62,6 @@ $("form").submit(function(e) {
 });
 
 function setActiveItemMenu() {
+    $('li#home').removeClass('active');
     $('#editProfile').addClass('active');
 }

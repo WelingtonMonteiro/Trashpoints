@@ -69,7 +69,7 @@ class CollaboratorController {
             collaborator.phone = params.phone
             collaborator.photo = params.photo
             collaborator.isAddressEqual = params.isAddressEqual
-            if(params.dateOfBirth)
+            if (params.dateOfBirth)
                 collaborator.dateOfBirth = Date.parse('dd/MM/yyyy', params.dateOfBirth)
 
             addressCollect.zipCode = params.zipCode
@@ -160,21 +160,21 @@ class CollaboratorController {
         Company company = Company.findById(companyId)
         Address address = company?.address
 
-        if(company) {
+        if (company) {
             def response = ["company": company, "address": address]
             render response as JSON
-        }else{
+        } else {
             def response = ["company": [], "address": []]
             render response as JSON
         }
     }
 
-    def editCollaborator(){
+    def editCollaborator() {
         User currentUser = springSecurityService.getCurrentUser() as User
         // TODO: verificar no contexto do Spring como atualizar o vínculo entre usuário e companhia
         Collaborator currentCollaborator = currentUser.collaborator
         currentCollaborator = Collaborator.get(currentCollaborator.id)
-        render(view: "edit", model: ["currentCollaborator" : currentCollaborator])
+        render(view: "edit", model: ["currentCollaborator": currentCollaborator])
     }
 
     @Transactional
@@ -188,12 +188,12 @@ class CollaboratorController {
             collaborator.name = params.name
             collaborator.phone = params.phone
             //collaborator.photo = params.photo
-            if (params.isAddressEqual == null){
+            if (params.isAddressEqual == null) {
                 collaborator.isAddressEqual = false
             } else {
                 collaborator.isAddressEqual = params.isAddressEqual
             }
-            if(params.dateOfBirth)
+            if (params.dateOfBirth)
                 collaborator.dateOfBirth = Date.parse('dd/MM/yyyy', params.dateOfBirth)
 
             addressCollect.zipCode = params.zipCode
@@ -238,5 +238,61 @@ class CollaboratorController {
         render response as JSON
     }
 
+    def ranking() {
+        def rankingTop10 = Collect.createCriteria().list {
+            resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
+            createAlias("collaborator", "c")
+
+            projections {
+                property("c.name", "name")
+                sum("quantityOfCoins", "score")
+                groupProperty("c.id")
+            }
+
+            maxResults(10)
+            and {
+                order("score", "desc")
+                order("c.name")
+            }
+        }
+
+        if (rankingTop10.size() > 0)
+            rankingTop10 = setPosition(rankingTop10)
+
+        //def response = ["rankingTop10": rankingTop10]
+        //render response as JSON
+
+        render(view: "ranking", model: ["rankingTop10": rankingTop10])
+
+    }
+
+    private setPosition(ranking) {
+        def previousScorer = [:]
+        Integer position = 1
+
+        ranking.eachWithIndex { scorer, i ->
+
+            // SETANDO O MAIOR PONTUADOR COMO PRIMEIRO
+            if (i == 0) {
+                scorer.putAt("position", position)
+                previousScorer = scorer
+            }
+
+            //SE O PONTUADOR ATUAL TEM A MESMA PONTUAÇÃO DO ANTERIOR ENTÃO ELES TÊM A MESMA POSIÇÃO
+            if (scorer.get("score") == previousScorer.get("score"))
+                scorer.putAt("position", position)
+            else {
+                position++;
+                scorer.putAt("position", position)
+            }
+
+            previousScorer = scorer
+        }
+
+        return ranking;
+    }
 
 }
+
+
+

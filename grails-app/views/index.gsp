@@ -125,13 +125,4 @@
 
 </body>
 <script type="text/javascript">    window.domain = "${application.contextPath}" </script>
-<script>
-    function setActiveItemMenu() {
-        $('li#home').addClass('active');
-    }
-
-    $(document).ready(function () {
-        setActiveItemMenu();
-    });
-</script>
 </html>

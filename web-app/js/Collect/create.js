@@ -83,6 +83,7 @@ function hasLeastOneMaterialTypeChecked() {
 }
 
 function setActiveItemMenu() {
+    $('li#home').removeClass('active');
     $('li#createCollect').addClass('active');
 }
 

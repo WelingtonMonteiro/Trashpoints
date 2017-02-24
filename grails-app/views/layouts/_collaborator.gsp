@@ -31,7 +31,7 @@
     <ul id="side-menu" class="side-nav fixed">
         <li><a class="waves-effect hide-on-large-only"><sec:loggedInUserInfo field="username"/><i
                 class="material-icons">account_circle</i></a></li>
-        <li id="home"><a class="waves-effect" href="${application.contextPath}">Home<i class="material-icons">home</i></a></li>
+        <li id="home" class="active"><a class="waves-effect" href="${application.contextPath}">Home<i class="material-icons">home</i></a></li>
         <li>
             <a class="waves-effect" href="${application.contextPath}/Collaborator/myCollectedCollections" title="Meus TrashCoins">
                 <i class="material-icons">monetization_on</i>
@@ -83,9 +83,9 @@
                 Tenho uma Coleta<i class="fa fa-bullhorn fa-2x" aria-hidden="true"></i>
             </a>
         </li>
-        <li><a class="waves-effect" href="#">Notificações<i class="material-icons">notifications</i></a></li>
-        <li><a class="waves-effect" href="${application.contextPath}/j_spring_security_logout">Sair<i class="fa fa-2x fa-sign-out"
-                                                                                        aria-hidden="true"></i></a></li>
+        <li id="ranking"><a class="waves-effect" href="${application.contextPath}/Collaborator/ranking">Ranking Top 10<i class="material-icons">insert_chart</i></a></li>
+        <li id="notifications"><a class="waves-effect" href="#">Notificações<i class="material-icons">notifications</i></a></li>
+        <li><a class="waves-effect" href="${application.contextPath}/j_spring_security_logout">Sair<i class="fa fa-2x fa-sign-out" aria-hidden="true"></i></a></li>
     </ul>
 </header>
 

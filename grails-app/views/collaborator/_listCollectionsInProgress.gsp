@@ -159,6 +159,7 @@
 <script src="${resource(dir: 'js/Collaborator', file: 'myCollections.js')}" type="text/javascript"></script>
 <script type="text/javascript">
     function setActiveItemMenu() {
+        $('li#home').removeClass('active');
         $('li#myCollectionsInProgress').addClass('active');
     }
 </script>

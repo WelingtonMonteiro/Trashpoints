@@ -191,6 +191,7 @@
 <script src="${application.contextPath}/js/company/myCollections.js" type="text/javascript"></script>
 <script type="text/javascript">
     function setActiveItemMenu() {
+        $('li#home').removeClass('active');
         $('li#myCollectedCollections').addClass('active');
     }
 </script>
