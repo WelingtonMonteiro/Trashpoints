@@ -63,9 +63,9 @@ class CompanyController {
             user.username = params.j_username
             user.password = params.j_password
 
-            if(params.typeOfCompany && params.typeOfCompany == "coleta"){
+            if (params.typeOfCompany && params.typeOfCompany == "coleta") {
                 String userRole = Role.findByAuthority('ROLE_COMPANY_COLLECT')
-            }else{
+            } else {
                 String userRole = Role.findByAuthority('ROLE_COMPANY_PARTNER')
             }
 
@@ -124,35 +124,47 @@ class CompanyController {
         User currentUser = springSecurityService.loadCurrentUser()
         Company currentCompany = currentUser.company
 
-        def companyCollections = Collect.createCriteria().list {
+        Integer pageIndex = params.pageIndex ? params.pageIndex.toInteger() : 1
+        pageIndex = pageIndex <= 0 ? 1 : pageIndex
+        Integer offset = 5, maxResult = 5
+
+        def companyCollections = Collect.createCriteria().list(max: maxResult, offset: (pageIndex - 1 * offset)) {
             createAlias("company", "c")
             eq("c.id", currentCompany.id)
             eq("isCollected", true)
             order("orderDate", "desc")
         }
 
-        if (companyCollections == null) {
+        Integer totalCount = companyCollections.getTotalCount()
+
+        if (companyCollections == null)
             render(view: "myCollectedCollections", model: ["companyCollections": []])
-        } else {
-            render(view: "myCollectedCollections", model: ["companyCollections": companyCollections])
-        }
+        else
+            render(view: "myCollectedCollections", model: ["companyCollections": companyCollections, "numberOfPages": totalCount / maxResult])
+
     }
 
     def myCollectionsInProgress() {
         User currentUser = springSecurityService.loadCurrentUser()
         Company currentCompany = currentUser.company
 
-        def companyCollections = Collect.createCriteria().list {
+        Integer pageIndex = params.pageIndex ? params.pageIndex.toInteger() : 1
+        pageIndex = pageIndex <= 0 ? 1 : pageIndex
+        Integer offset = 5, maxResult = 5
+
+        def companyCollections = Collect.createCriteria().list(max: maxResult, offset: (pageIndex - 1 * offset)) {
             createAlias("company", "c")
             eq("c.id", currentCompany.id)
             eq("isCollected", false)
             order("orderDate", "desc")
         }
 
+        Integer totalCount = companyCollections.getTotalCount()
+
         if (companyCollections == null) {
             render(view: "myCollectionsInProgress", model: ["companyCollections": []])
         } else {
-            render(view: "myCollectionsInProgress", model: ["companyCollections": companyCollections])
+            render(view: "myCollectionsInProgress", model: ["companyCollections": companyCollections, "numberOfPages": totalCount / maxResult])
         }
     }
 
@@ -189,16 +201,16 @@ class CompanyController {
         render response as JSON
     }
 
-    def editCompany(){
+    def editCompany() {
         User currentUser = springSecurityService.currentUser as User
         // TODO: verificar no contexto do Spring como atualizar o vínculo entre usuário e companhia
         Company currentCompany = currentUser.company
         currentCompany = Company.findById(currentCompany.id)
-        render(view: "edit", model: ["currentCompany" : currentCompany])
+        render(view: "edit", model: ["currentCompany": currentCompany])
     }
 
     @Transactional
-    def saveEditCompany(){
+    def saveEditCompany() {
         // TODO: controlar transação entre companhia e endereço
         withForm {
             Company company = Company.get(params.id)
@@ -225,7 +237,7 @@ class CompanyController {
                     company.address = address
                     company.save(flush: true)
                     successToken([success: 'Dados cadastrais salvos com sucesso'])
-                } catch (Exception ex){
+                } catch (Exception ex) {
                     def response = [:]
                     String newToken = SynchronizerTokensHolder.store(session).generateToken(params.SYNCHRONIZER_URI)
                     response = [error: ex.message, newToken: newToken]
@@ -253,12 +265,29 @@ class CompanyController {
         render location as JSON
     }
 
-    /*def list() {
-        def companies = Company.createCriteria().list(){
-            address {
+    def list() {
+        User currentUser = springSecurityService.loadCurrentUser()
+        Company currentCompany = currentUser.company
+
+        Integer pageIndex = 1; //params.pageIndex.toInteger()
+        Integer offset = 5, maxResult = 1
+
+        def companyCollections = Collect.createCriteria().list(max: maxResult, offset: (pageIndex - 1 * offset)) {
+            createAlias("company", "c")
+
+            projections {
+                property("id", "id")
             }
+
+            eq("c.id", currentCompany.id)
+            eq("isCollected", true)
+            order("orderDate", "desc")
         }
-        render companies as JSON
-    }*/
+
+        Integer totalCount = companyCollections.getTotalCount()
+        def response = ["companyCollections": companyCollections, "numberOfPages": totalCount / maxResult]
+
+        render response as JSON
+    }
 
 }
