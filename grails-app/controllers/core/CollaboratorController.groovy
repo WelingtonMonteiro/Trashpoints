@@ -123,17 +123,23 @@ class CollaboratorController {
         User currentUser = springSecurityService.loadCurrentUser()
         Collaborator currentCollaborator = currentUser.collaborator
 
-        def collaboratorCollections = Collect.createCriteria().list {
+        Integer pageIndex = params.pageIndex ? params.pageIndex.toInteger() : 1
+        pageIndex = pageIndex <= 0 ? 1 : pageIndex
+        Integer offset = 5, maxResult = 5
+
+        def collaboratorCollections = Collect.createCriteria().list(max: maxResult, offset: (pageIndex - 1 * offset)) {
             createAlias("collaborator", "c")
             eq("c.id", currentCollaborator.id)
             eq("isCollected", true)
             order("orderDate", "desc")
         }
 
+        Integer totalCount = collaboratorCollections.getTotalCount()
+
         if (collaboratorCollections == null) {
             render(view: "myCollectedCollections", model: ["collaboratorCollections": []])
         } else {
-            render(view: "myCollectedCollections", model: ["collaboratorCollections": collaboratorCollections])
+            render(view: "myCollectedCollections", model: ["collaboratorCollections": collaboratorCollections, "numberOfPages": totalCount / maxResult])
         }
     }
 
@@ -141,17 +147,23 @@ class CollaboratorController {
         User currentUser = springSecurityService.loadCurrentUser()
         Collaborator currentCollaborator = currentUser.collaborator
 
-        def collaboratorCollections = Collect.createCriteria().list {
+        Integer pageIndex = params.pageIndex ? params.pageIndex.toInteger() : 1
+        pageIndex = pageIndex <= 0 ? 1 : pageIndex
+        Integer offset = 1, maxResult = 1
+
+        def collaboratorCollections = Collect.createCriteria().list(max: maxResult, offset: (pageIndex - 1 * offset)) {
             createAlias("collaborator", "c")
             eq("c.id", currentCollaborator.id)
             eq("isCollected", false)
             order("orderDate", "desc")
         }
 
+        Integer totalCount = collaboratorCollections.getTotalCount()
+
         if (collaboratorCollections == null) {
             render(view: "myCollectionsInProgress", model: ["collaboratorCollections": []])
         } else {
-            render(view: "myCollectionsInProgress", model: ["collaboratorCollections": collaboratorCollections])
+            render(view: "myCollectionsInProgress", model: ["collaboratorCollections": collaboratorCollections, "numberOfPages": totalCount / maxResult])
         }
     }
 

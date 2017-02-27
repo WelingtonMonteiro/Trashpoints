@@ -27,7 +27,7 @@
                 </td>
                 <td>${collect?.orderDate.format("dd/MM/yyyy")}</td>
 
-                <td>${collect?.scheduleDateCollect?.format("dd/MM/yyyy HH:mm")}</td>
+                <td>${collect?.scheduleDateCollect?.format("dd/MM/yyyy")}</td>
                 <td>
                     ${collect?.collectedDate?.format("dd/MM/yyyy")}
                 </td>
@@ -50,6 +50,65 @@
         </g:each>
         </tbody>
     </table>
+
+    <br/>
+    <ul class="pagination center">
+        <%
+            Integer pageIndex = params.pageIndex ? params.pageIndex.toInteger() : 1
+            pageIndex = pageIndex <= 0 ? 1 : pageIndex
+        %>
+
+        <g:if test="${pageIndex <= 1}">
+            <li class="disabled btn-disabled">
+                <g:link>
+                    <i class="material-icons">chevron_left</i>
+                </g:link>
+            </li>
+        </g:if>
+        <g:else>
+            <li class="waves-effect">
+                <g:link action="myCollectedCollections" controller="collaborator"
+                        params="[pageIndex: pageIndex - 1]">
+                    <i class="material-icons">chevron_left</i>
+                </g:link>
+            </li>
+        </g:else>
+
+        <g:each in="${(1..numberOfPages)}" var="number">
+            <g:if test="${number == pageIndex}">
+                <li class="active btn-disabled">
+                    <g:link action="myCollectedCollections" controller="collaborator" params="[pageIndex: number]">
+                        ${number}
+                    </g:link>
+                </li>
+            </g:if>
+            <g:else>
+                <li class="waves-effect">
+                    <g:link action="myCollectedCollections" controller="collaborator" params="[pageIndex: number]">
+                        ${number}
+                    </g:link>
+                </li>
+            </g:else>
+        </g:each>
+
+        <g:if test="${pageIndex >= numberOfPages}">
+            <li class="disabled btn-disabled">
+                <g:link>
+                    <i class="material-icons">chevron_right</i>
+                </g:link>
+            </li>
+        </g:if>
+        <g:else>
+            <li class="waves-effect">
+                <g:link action="myCollectedCollections" controller="collaborator"
+                        params="[pageIndex: pageIndex + 1]">
+                    <i class="material-icons">chevron_right</i>
+                </g:link>
+            </li>
+        </g:else>
+
+    </ul>
+
 </g:if>
 <g:else>
     <div id="infoMessage" class="row">
