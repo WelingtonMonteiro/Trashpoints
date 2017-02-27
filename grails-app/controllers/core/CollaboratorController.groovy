@@ -1,4 +1,4 @@
-package core
+﻿package core
 
 import grails.converters.JSON
 import grails.plugin.mail.MailService
@@ -149,7 +149,7 @@ class CollaboratorController {
 
         Integer pageIndex = params.pageIndex ? params.pageIndex.toInteger() : 1
         pageIndex = pageIndex <= 0 ? 1 : pageIndex
-        Integer offset = 1, maxResult = 1
+        Integer offset = 5, maxResult = 5
 
         def collaboratorCollections = Collect.createCriteria().list(max: maxResult, offset: (pageIndex - 1 * offset)) {
             createAlias("collaborator", "c")
