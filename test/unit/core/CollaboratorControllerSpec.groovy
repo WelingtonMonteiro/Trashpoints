@@ -1,12 +1,9 @@
 package core
 
 import grails.plugin.springsecurity.SpringSecurityService
-import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
-import org.codehaus.groovy.grails.web.servlet.mvc.SynchronizerTokensHolder
 import spock.lang.Specification
-import spock.util.mop.Use
 
 /**
  * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions

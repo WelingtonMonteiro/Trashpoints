@@ -1,4 +1,4 @@
-﻿package core
+package core
 
 import grails.converters.JSON
 import grails.plugin.mail.MailService
@@ -305,6 +305,3 @@ class CollaboratorController {
     }
 
 }
-
-
-

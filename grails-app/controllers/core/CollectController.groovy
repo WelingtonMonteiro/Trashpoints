@@ -6,6 +6,7 @@ import grails.transaction.Transactional
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.codehaus.groovy.grails.web.servlet.mvc.SynchronizerTokensHolder
 import org.hibernate.criterion.CriteriaSpecification
+
 import static java.util.UUID.randomUUID
 
 @Transactional(readOnly = true)

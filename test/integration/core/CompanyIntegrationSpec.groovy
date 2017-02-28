@@ -1,10 +1,7 @@
 package core
 
-import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
-import org.codehaus.groovy.grails.web.servlet.mvc.SynchronizerTokensHolder
-import org.springframework.web.context.request.RequestContextHolder
-import spock.lang.*
+import spock.lang.Specification
 
 /**
  *

@@ -1,10 +1,4 @@
-import core.Address
-import core.Collaborator
-import core.Company
-import core.MaterialType
-import core.Role
-import core.User
-import core.UserRole
+import core.*
 
 class BootStrap {
 

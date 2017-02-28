@@ -1,10 +1,11 @@
 package core
 
-import static java.util.UUID.randomUUID
 import grails.converters.JSON
 import grails.plugin.mail.MailService
 import grails.plugin.springsecurity.annotation.Secured
 import org.codehaus.groovy.grails.web.servlet.mvc.SynchronizerTokensHolder
+
+import static java.util.UUID.randomUUID
 
 @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
 class UserManagerController {

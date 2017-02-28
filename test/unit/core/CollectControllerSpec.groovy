@@ -1,9 +1,7 @@
 package core
 
-import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
-import org.codehaus.groovy.grails.web.servlet.mvc.SynchronizerTokensHolder
 import spock.lang.Specification
 
 /**
