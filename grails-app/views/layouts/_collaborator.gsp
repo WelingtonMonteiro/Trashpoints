@@ -84,8 +84,10 @@
             </a>
         </li>
         <li id="ranking"><a class="waves-effect" href="${application.contextPath}/Collaborator/ranking">Ranking Top 10<i class="material-icons">equalizer</i></a></li>
-        <li id="notifications"><a class="waves-effect" href="#">Notificações<i class="material-icons">notifications</i></a></li>
-        <li><a class="waves-effect" href="${application.contextPath}/j_spring_security_logout">Sair<i class="fa fa-2x fa-sign-out" aria-hidden="true"></i></a></li>
+        <li><a class="waves-effect" href="#">Notificações<i class="material-icons">notifications</i></a></li>
+        <li><a class="waves-effect" href="${application.contextPath}/ContactUs/index">Fale conosco<i class="material-icons">hearing</i></a></li>
+        <li><a class="waves-effect" href="${application.contextPath}/j_spring_security_logout">Sair<i class="fa fa-2x fa-sign-out"
+                                                                                        aria-hidden="true"></i></a></li>
     </ul>
 </header>
 

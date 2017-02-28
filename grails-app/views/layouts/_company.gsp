@@ -50,6 +50,7 @@
 
 
 		<li><a class="waves-effect" href="#">Notificações<i class="material-icons fa-2x">notifications</i></a></li>
+		<li><a class="waves-effect" href="${application.contextPath}/ContactUs/index">Fale conosco<i class="material-icons">hearing</i></a></li>
 		<li><a class="waves-effect" href="${application.contextPath}/j_spring_security_logout">Sair<i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a></li>
 	</ul>
 </header>
