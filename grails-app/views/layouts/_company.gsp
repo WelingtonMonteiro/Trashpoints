@@ -14,7 +14,7 @@
 	<ul id="side-menu" class="side-nav fixed">
 		<li><a class="waves-effect hide-on-large-only"><sec:loggedInUserInfo field="username"/><i class="material-icons fa-2x">account_circle</i></a></li>
 		<li id="home"><a class="waves-effect" href="${application.contextPath}">Home<i class="material-icons fa-2x">home</i></a></li>
-		<li><a class="waves-effect" href="#">Relatórios<i class="fa fa-line-chart fa-2x" aria-hidden="true"></i></a></li>
+		<li><a class="waves-effect" href="${application.contextPath}/Report/companyCollections">Relatórios<i class="fa fa-line-chart fa-2x" aria-hidden="true"></i></a></li>
 		<li><div class="divider"></div></li>
 		<li><a class="subheader">Editar meus dados</a></li>
 		<li class="no-padding">

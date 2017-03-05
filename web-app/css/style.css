@@ -60,7 +60,7 @@ fieldset {
 
 .my-label {
 	font-size: 1em;
-	font-weight: bold !important;
+	font-weight: 900 !important;
 }
 
 .no-margin {
@@ -130,5 +130,16 @@ input[type=text][readonly="readonly"] {
 }
 
 .header {
+	text-transform: uppercase;
+	/*background-color: rgb(242, 242, 242);
+	padding: 0.5rem;*/
+}
+
+.padding-sides {
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+}
+
+.uppercase {
 	text-transform: uppercase;
 }

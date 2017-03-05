@@ -271,11 +271,7 @@ class CollaboratorController {
         if (rankingTop10.size() > 0)
             rankingTop10 = setPosition(rankingTop10)
 
-        //def response = ["rankingTop10": rankingTop10]
-        //render response as JSON
-
         render(view: "ranking", model: ["rankingTop10": rankingTop10])
-
     }
 
     private setPosition(ranking) {

@@ -266,28 +266,6 @@ class CompanyController {
     }
 
     def list() {
-        User currentUser = springSecurityService.loadCurrentUser()
-        Company currentCompany = currentUser.company
 
-        Integer pageIndex = 1; //params.pageIndex.toInteger()
-        Integer offset = 5, maxResult = 1
-
-        def companyCollections = Collect.createCriteria().list(max: maxResult, offset: (pageIndex - 1 * offset)) {
-            createAlias("company", "c")
-
-            projections {
-                property("id", "id")
-            }
-
-            eq("c.id", currentCompany.id)
-            eq("isCollected", true)
-            order("orderDate", "desc")
-        }
-
-        Integer totalCount = companyCollections.getTotalCount()
-        def response = ["companyCollections": companyCollections, "numberOfPages": totalCount / maxResult]
-
-        render response as JSON
     }
-
 }

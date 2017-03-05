@@ -10,6 +10,7 @@
             <th data-field="types">Tipo(s)</th>
             <th data-field="orderDate">Data Pedido</th>
             <th data-field="scheduleDateCollect">Data Agendada</th>
+            <th data-field="isCollected">Foi Coletada?</th>
             <th data-field="detailsCompany">Colaborador</th>
             <!-- <th>Ações</th> -->
         </tr>
@@ -41,6 +42,13 @@
                        title="Detalhes do colaborador">
                         <i class="material-icons fa-2x">list</i>
                     </a>
+                </td>
+                <td>
+                    <p title="Foi coletada?">
+                        <input type="checkbox" id="isCollected${collect.id}"
+                               onchange="openModalConfirmation(${collect.id})"/>
+                        <label for="isCollected${collect.id}"></label>
+                    </p>
                 </td>
                 %{--<td>
                     <a class="waves-effect waves-light"
