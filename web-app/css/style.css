@@ -143,3 +143,8 @@ input[type=text][readonly="readonly"] {
 .uppercase {
 	text-transform: uppercase;
 }
+
+.chart {
+  width: 100%; 
+  min-height: 450px;
+}

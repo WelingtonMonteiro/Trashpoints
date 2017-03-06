@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta name="layout" content="main"/>
@@ -28,7 +28,7 @@
                         <label class="my-label uppercase">Total coletado:</label> <span id="totalCollected"></span><br/>
                     </div>
 
-                    <div id="column_chart_div" class="col s12">
+                    <div id="column_chart_div" class="chart">
                         <div class="preloader-wrapper big active" style="margin-left: auto !important; margin-right: auto !important; display: block;">
                             <div class="spinner-layer spinner-blue-only">
                                 <div class="circle-clipper left">

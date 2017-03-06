@@ -1,4 +1,4 @@
-var dataReport;
+﻿var dataReport;
 var months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 google.charts.load("current", {'packages':['corechart'], 'language': 'pt'});
 
@@ -51,8 +51,8 @@ function drawChart() {
 
     var options = {
         title: "Quantidade de coletas por mês do ano atual",
-        width: 600,
-        height: 400,
+        width: '100%',
+        height: '100%',
         //bar: {groupWidth: "95%"},
         legend: { position: "none" },
         hAxis: {
@@ -79,3 +79,7 @@ function isMonthWithoutCollect(currentIndex, biggerMonth) {
 function getNameOfMonth(monthIndex) {
     return months[monthIndex];
 }
+
+$(window).resize(function(){
+  drawChart();
+});
