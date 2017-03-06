@@ -28,7 +28,23 @@
                         <label class="my-label uppercase">Total coletado:</label> <span id="totalCollected"></span><br/>
                     </div>
 
-                    <div id="column_chart_div"></div>
+                    <div id="column_chart_div" class="col s12">
+                        <div class="preloader-wrapper big active" style="margin-left: auto !important; margin-right: auto !important; display: block;">
+                            <div class="spinner-layer spinner-blue-only">
+                                <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                </div>
+
+                                <div class="gap-patch">
+                                    <div class="circle"></div>
+                                </div>
+
+                                <div class="circle-clipper right">
+                                    <div class="circle"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div id="reports" class="col s12">
