@@ -1,9 +1,11 @@
 ﻿var dataReport;
+var dataPieChart;
 var months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 google.charts.load("current", {'packages':['corechart'], 'language': 'pt'});
 
 $(document).ready(function () {
     $.post(window.domain + "/Report/reportByCurrentYear/", setInfoChart);
+    $.post(window.domain + "/Report/quantityOfMaterialTypesCollectedByYear/", setInfoPieChart);
     $.post(window.domain + "/Report/reportTotalCollectedByCurrentYear/", setInfoReport);
 });
 
@@ -24,6 +26,12 @@ function setInfoChart(data) {
     google.charts.setOnLoadCallback(drawChart);
 }
 
+function setInfoPieChart(data) {
+    dataPieChart = data;
+
+    google.charts.setOnLoadCallback(drawPieChart);
+}
+
 function isMonthWithoutCollect(currentIndex, biggerMonth) {
     for(var i = 0; i < biggerMonth; i++){
         if(months[currentIndex] === dataReport.quantityOfCollectByMonths[i].monthCollect)
@@ -34,7 +42,7 @@ function isMonthWithoutCollect(currentIndex, biggerMonth) {
 }
 
 function drawChart() {
-    $(".preloader-wrapper").hide();
+    $("#preloader_column_chart").hide();
 
     var data = new google.visualization.DataTable();
     data.addColumn("string", "Mês");
@@ -43,21 +51,6 @@ function drawChart() {
     $.each(dataReport.quantityOfCollectByMonths, function (i, obj) {
         data.addRow([obj.monthCollect, obj.quantityByMonth]);
     });
-
-    /*var options = {
-        chart: {
-            title: 'Quantidade de coletas por mês do ano atual',
-            subtitle: new Date().toLocaleTimeString("pt-BR", { day: '2-digit', month: 'long', year: 'numeric' })
-        },
-        series: {
-            0: { axis: 'Quantity' }, // Bind series 0 to an axis named 'Quantity'.
-        },
-        axes: {
-            y: {
-                Quantity: {label: 'Quantidade'}, // Left y-axis.
-            }
-        }
-    };*/
 
     var options = {
         title: "Quantidade de coletas por mês do ano atual",
@@ -77,10 +70,32 @@ function drawChart() {
     chart.draw(data, options);
 }
 
+function drawPieChart() {
+    $('#preloader_pie_chart').hide();
+
+    var data = new google.visualization.DataTable();
+    data.addColumn("string", "Tipo reciclável");
+    data.addColumn("number", "Quantidade");
+
+    $.each(dataPieChart.quantityOfMaterialTypesCollectedByYear, function (i, obj) {
+        data.addRow([obj.materialTypeName, obj.quantityCollected]);
+    });
+
+    var options = {
+        title: 'Quantidade de tipos de recicláveis coletados por ano',
+        is3D: true,
+        colors:['orange','#fec909', '#0998d0', '#ee1c25', '#079968']
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('pie_chart_div'));
+    chart.draw(data, options);
+}
+
 function getNameOfMonth(monthIndex) {
     return months[monthIndex];
 }
 
 $(window).resize(function resizeChart(){
-  drawChart();
+    drawChart();
+    drawPieChart();
 });

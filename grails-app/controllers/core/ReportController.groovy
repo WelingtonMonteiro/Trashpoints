@@ -92,6 +92,39 @@ class ReportController {
         render response as JSON
     }
 
+    def quantityOfMaterialTypesCollectedByYear() {
+        User currentUser = springSecurityService.loadCurrentUser()
+        Company currentCompany = currentUser.company
+
+        Calendar calendar = Calendar.getInstance();
+        Integer currentYear = calendar[calendar.YEAR]
+
+        def hqlQuantityOfMaterialTypesCollectedByYear = """
+                    SELECT new map(materialType.name as materialTypeName, COUNT(materialType.name) as quantityCollected)
+                    FROM MaterialType as materialType
+                    LEFT JOIN materialType.collects as collect
+                    WHERE collect.isCollected = true AND collect.company.id = :companyId AND YEAR(collect.collectedDate) = :currentYear
+                    GROUP BY materialType.name
+                    ORDER BY materialType.name
+                  """
+
+        def quantityOfMaterialTypesCollectedByYear = Collect.executeQuery(hqlQuantityOfMaterialTypesCollectedByYear, [companyId: currentCompany.id, currentYear: currentYear])
+
+        def response = ["quantityOfMaterialTypesCollectedByYear": quantityOfMaterialTypesCollectedByYear]
+
+        render response as JSON
+    }
+
+    /*
+    SELECT new map(m.name as materialTypeName, COUNT(m.name) as quantityCollected)
+    FROM MaterialType as m
+    LEFT JOIN material_type_collects as mc ON m.id = mc.material_type_id
+    INNER JOIN collect as c ON c.id = mc.collect_id
+    WHERE c.is_collected = true AND c.company_id = @company_id AND YEAR(c.collected_date) = @currentYear
+    GROUP BY m.name
+    ORDER BY m.name;
+    */
+
     private String getNameOfMonth(int monthIndex){
         def months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
 

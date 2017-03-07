@@ -29,7 +29,7 @@
                     </div>
 
                     <div id="column_chart_div" class="chart">
-                        <div class="preloader-wrapper big active" style="margin-left: auto !important; margin-right: auto !important; display: block;">
+                        <div id="preloader_column_chart" class="preloader-wrapper big active" style="margin-left: auto !important; margin-right: auto !important; display: block;">
                             <div class="spinner-layer spinner-blue-only">
                                 <div class="circle-clipper left">
                                     <div class="circle"></div>
@@ -45,6 +45,25 @@
                             </div>
                         </div>
                     </div>
+
+                    <div id="pie_chart_div" class="chart">
+                        <div id="preloader_pie_chart" class="preloader-wrapper big active" style="margin-left: auto !important; margin-right: auto !important; display: block;">
+                            <div class="spinner-layer spinner-blue-only">
+                                <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                </div>
+
+                                <div class="gap-patch">
+                                    <div class="circle"></div>
+                                </div>
+
+                                <div class="circle-clipper right">
+                                    <div class="circle"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div id="reports" class="col s12">
