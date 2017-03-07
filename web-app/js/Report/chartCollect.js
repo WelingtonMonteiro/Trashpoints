@@ -8,19 +8,29 @@ $(document).ready(function () {
 });
 
 function setInfoReport(data) {
-    //$('#totalCollections').text(data.quantityOfCollectByMonths.length);
-    $('#totalCollected').text(data.listInfoCollectedByYear[0].totalCollectedByYear);
+    $('#totalOrdersCollections').text(data.ordersCollectionsByYear[0].totalOrdersCollections);
+    $('#totalCollected').text(data.totalCollectionsCollectedByYear[0].totalCollectedByYear);
 }
 
 function setInfoChart(data) {
     dataReport = data;
 
-    for(var i = 0; i < dataReport.biggerMonth; i++) {
-        if(isMonthWithoutCollect(i, dataReport.biggerMonth)) {
-            dataReport.quantityOfCollectByMonths.splice(i, 0, {collectedDate: "", monthCollect: getNameOfMonth(i), quantityByMonth: 0});
+    for(var indexMonth = 0; indexMonth < dataReport.biggerMonth; indexMonth++) {
+        if(isMonthWithoutCollect(indexMonth, dataReport.biggerMonth)) {
+            //Quando o mês não tem coleta, adiciona-se o mês e atribui o valor 0 para a quantidade coletada por mês
+            dataReport.quantityOfCollectByMonths.splice(indexMonth, 0, {collectedDate: "", monthCollect: getNameOfMonth(indexMonth), quantityByMonth: 0});
         }
     }
     google.charts.setOnLoadCallback(drawChart);
+}
+
+function isMonthWithoutCollect(currentIndex, biggerMonth) {
+    for(var i = 0; i < biggerMonth; i++){
+        if(months[currentIndex] === dataReport.quantityOfCollectByMonths[i].monthCollect)
+            return false;
+    }
+
+    return true;
 }
 
 function drawChart() {
@@ -67,19 +77,10 @@ function drawChart() {
     chart.draw(data, options);
 }
 
-function isMonthWithoutCollect(currentIndex, biggerMonth) {
-    for(var j = 0; j < biggerMonth; j++){
-        if(months[currentIndex] === dataReport.quantityOfCollectByMonths[j].monthCollect)
-            return false;
-    }
-
-    return true;
-}
-
 function getNameOfMonth(monthIndex) {
     return months[monthIndex];
 }
 
-$(window).resize(function(){
+$(window).resize(function resizeChart(){
   drawChart();
 });

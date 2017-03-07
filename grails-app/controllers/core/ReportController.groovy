@@ -83,17 +83,11 @@ class ReportController {
         Calendar calendar = Calendar.getInstance();
         Integer currentYear = calendar[calendar.YEAR]
 
-        def hql = """
-                    SELECT new map(c.collectedDate as collectedDate, COUNT(*) as totalCollectedByYear)
-                    FROM Collect c
-                    WHERE c.isCollected = true and c.company.id = :companyId
-                    GROUP BY YEAR(c.collectedDate)
-                    HAVING YEAR(c.collectedDate) = :currentYear
-                  """
+        def totalCollectionsCollectedByYear = selectTotalCollectionsCollectedByYear(currentCompany.id, currentYear)
 
-        def listInfoCollectedByYear = Collect.executeQuery(hql, [companyId: currentCompany.id, currentYear: currentYear])
+        def ordersCollectionsByYear = selectOrdersCollectionsByYear(currentYear)
 
-        def response = ["listInfoCollectedByYear": listInfoCollectedByYear]
+        def response = ["totalCollectionsCollectedByYear": totalCollectionsCollectedByYear, "ordersCollectionsByYear": ordersCollectionsByYear]
 
         render response as JSON
     }
@@ -103,6 +97,30 @@ class ReportController {
 
         return months.get(monthIndex);
     }
+
+    private List<Collect> selectOrdersCollectionsByYear(int currentYear){
+        def hqlOrdersCollectionsByYear = """
+                    SELECT new map(c.orderDate as orderDate, COUNT(*) as totalOrdersCollections)
+                    FROM Collect c
+                    GROUP BY YEAR(c.orderDate)
+                    HAVING YEAR(c.orderDate) = :currentYear
+                  """
+
+        return Collect.executeQuery(hqlOrdersCollectionsByYear, [currentYear: currentYear])
+    }
+
+    private List<Collect> selectTotalCollectionsCollectedByYear(long companyId, int currentYear){
+        def hqlCollectedByYear = """
+                    SELECT new map(c.collectedDate as collectedDate, COUNT(*) as totalCollectedByYear)
+                    FROM Collect c
+                    WHERE c.isCollected = true and c.company.id = :companyId
+                    GROUP BY YEAR(c.collectedDate)
+                    HAVING YEAR(c.collectedDate) = :currentYear
+                  """
+
+        return Collect.executeQuery(hqlCollectedByYear, [companyId: companyId, currentYear: currentYear])
+    }
+
 
 }
 

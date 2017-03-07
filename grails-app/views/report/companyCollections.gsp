@@ -24,7 +24,7 @@
 
                 <div id="charts" class="col s12">
                     <div class="section padding-sides">
-                        <label class="my-label uppercase">Total de coletas:</label> <span id="totalCollections"></span><br/>
+                        <label class="my-label uppercase">Total de pedidos de coletas:</label> <span id="totalOrdersCollections"></span><br/>
                         <label class="my-label uppercase">Total coletado:</label> <span id="totalCollected"></span><br/>
                     </div>
 
