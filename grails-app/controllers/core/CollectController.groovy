@@ -191,8 +191,10 @@ class CollectController {
     }
 
     @Secured(['ROLE_COMPANY_COLLECT'])
+    @Transactional
     def listPlacesCollect() {
-        def collects = Collect.createCriteria().list {
+
+        def collections = Collect.createCriteria().list {
             resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
             createAlias("collaborator", "c")
             createAlias("c.address", "adr")
@@ -200,10 +202,21 @@ class CollectController {
                 property("id", "collectId")
                 property("adr.latitude", "lat")
                 property("adr.longitude", "lng")
+                property("scheduleDateCollect", "scheduleDateCollect")
             }
+
             eq("isCollected", false)
         }
-        render collects as JSON
+
+        collections.each { c ->
+            if(c.get('scheduleDateCollect') > new Date()){
+                Collect collect = Collect.get(c.get('collectId').toInteger())
+                collect.scheduleDateCollect = null
+                collect.company = null
+                collect.save(flush: true)
+            }
+        }
+        render collections as JSON
     }
 
     @Secured(['ROLE_COMPANY_COLLECT'])

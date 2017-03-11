@@ -3,7 +3,7 @@
         <h6>Selecione o tipo de contato: <span class="red-text">*</span></h6>
         <span id="errorRequired" class="red-text"></span>
         <!-- Dropdown Structure -->
-        <div class="col s6 m6">
+        <div class="col s12 m6">
             <select name="contactType" id="slt-contact-type">
                 <option value="-1" selected>Selecione</option>
                 <option value="1">Informações</option>
@@ -19,9 +19,9 @@
     <div class="row">
         <h6>Digite uma mensagem: <span class="red-text">*</span></h6>
 
-        <div class="input-field col s6">
+        <div class="input-field col s12 m6">
             <i class="material-icons prefix">mode_edit</i>
-            <textarea class="materialize-textarea" name="contactText" id="txb-contact-text"></textarea>
+            <textarea class="materialize-textarea" name="contactText" id="txb-contact-text" required></textarea>
             <label for="txb-contact-text">Mensagem</label>
         </div>
     </div>

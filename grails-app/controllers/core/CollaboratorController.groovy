@@ -143,6 +143,7 @@ class CollaboratorController {
         }
     }
 
+    @Transactional
     def myCollectionsInProgress() {
         User currentUser = springSecurityService.loadCurrentUser()
         Collaborator currentCollaborator = currentUser.collaborator
@@ -156,6 +157,15 @@ class CollaboratorController {
             eq("c.id", currentCollaborator.id)
             eq("isCollected", false)
             order("orderDate", "desc")
+        }
+
+        //FIND: schedule date exceeded
+        collaboratorCollections.each { collaboratorCollect ->
+            if(collaboratorCollect.scheduleDateCollect > new Date()){
+                collaboratorCollect.scheduleDateCollect = null
+                collaboratorCollect.company = null
+                collaboratorCollect.save(flush: true)
+            }
         }
 
         Integer totalCount = collaboratorCollections.getTotalCount()

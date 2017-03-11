@@ -144,6 +144,7 @@ class CompanyController {
 
     }
 
+    @Transactional
     def myCollectionsInProgress() {
         User currentUser = springSecurityService.loadCurrentUser()
         Company currentCompany = currentUser.company
@@ -157,6 +158,15 @@ class CompanyController {
             eq("c.id", currentCompany.id)
             eq("isCollected", false)
             order("orderDate", "desc")
+        }
+
+        //FIND: schedule date exceeded
+        companyCollections.each { companyCollect ->
+            if(companyCollect.scheduleDateCollect > new Date()){
+                companyCollect.scheduleDateCollect = null
+                companyCollect.company = null
+                companyCollect.save(flush: true)
+            }
         }
 
         Integer totalCount = companyCollections.getTotalCount()

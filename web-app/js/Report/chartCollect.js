@@ -23,7 +23,7 @@ function setInfoChart(data) {
             dataReport.quantityOfCollectByMonths.splice(indexMonth, 0, {collectedDate: "", monthCollect: getNameOfMonth(indexMonth), quantityByMonth: 0});
         }
     }
-    google.charts.setOnLoadCallback(drawChart);
+    google.charts.setOnLoadCallback(drawColumnChart);
 }
 
 function setInfoPieChart(data) {
@@ -41,7 +41,7 @@ function isMonthWithoutCollect(currentIndex, biggerMonth) {
     return true;
 }
 
-function drawChart() {
+function drawColumnChart() {
     $("#preloader_column_chart").hide();
 
     var data = new google.visualization.DataTable();
@@ -96,6 +96,6 @@ function getNameOfMonth(monthIndex) {
 }
 
 $(window).resize(function resizeChart(){
-    drawChart();
+    drawColumnChart();
     drawPieChart();
 });

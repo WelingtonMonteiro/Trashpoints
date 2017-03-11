@@ -20,7 +20,7 @@
                                 <g:render template="authLogin"></g:render>
 
                                 <div class="row right-align ">
-                                <g:link controller="userManager" action="forgotPasswordView"><b>Esqueceu a Senha?</b></g:link>
+                                <g:link controller="userManager" action="forgotPasswordView"><b>Esqueceu a senha?</b></g:link>
                                 </div>
 
                                 <g:if test="${error == "1"}">
