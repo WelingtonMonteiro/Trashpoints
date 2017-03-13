@@ -22,7 +22,8 @@ function loadCollectImage(collectId) {
             var imageUpload = "<i class='fa fa-file-image-o fa-5x center-align'></i>"
 
             if (data.imagePath) {
-                var UPLOAD_FOLDER_PATH = domain + "/images/uploads/" + data.imagePath;
+                // var UPLOAD_FOLDER_PATH = domain + "/images/uploads/" + data.imagePath;
+                var UPLOAD_FOLDER_PATH = 'https://firebasestorage.googleapis.com/v0/b/trashpoints-3fccf.appspot.com/o/images%2F'+ data.imagePath +'?alt=media';
                 imageUpload = "<img src='" + UPLOAD_FOLDER_PATH + "' style='max-height: 284px;'>";
             }
 

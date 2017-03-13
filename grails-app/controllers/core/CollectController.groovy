@@ -149,14 +149,21 @@ class CollectController {
                     collect.addToMaterialTypes(materialType)
             }
 
-            def fileUpload = request.getFile("imageUpload")
-            def fileName = null
-            if (fileUpload != null) {
-                fileName = fileUpload.getOriginalFilename()
-            }
+            if(params.imageUploadUrl)
+                collect.imageUpload = params.imageUploadUrl
 
-            if (fileName)
-                upload(collect)
+
+//            def fileUpload = request.getFile("imageUpload")
+//            def fileName = null
+//            if (fileUpload != null) {
+//                fileName = fileUpload.getOriginalFilename()
+//                fileName = params.fileName
+//            }
+
+//            if (fileName) {
+//                upload(collect)
+
+//            }
 
             collect.validate()
 

@@ -2,23 +2,40 @@
     return new FormData($("#imageUpload").val())
 }*/
 
+
 //enviando arquivo via form/data
 $('form[name=formCollect]').submit(function(e){
+
     e.preventDefault();
-    if(hasLeastOneMaterialTypeChecked() == true) {
-        var oData = new FormData(document.forms.namedItem("formCollect"));
-        var url = window.domain + "/Collect/save/";
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: oData,
-            processData: false,  // tell jQuery not to process the data
-            contentType: false,
-            success: function (data) {
-                showMessage(data)
-            }
-        });
-    }
+    var file = e.target.imageUpload.files[0];
+
+
+    uploadImage(file, function(err, imageName){
+        if(err) {
+            iziToast.error({
+                title: 'Erro Upload',
+                message: err,
+                iconText: "check"
+            })
+            return;
+        }
+
+        if(hasLeastOneMaterialTypeChecked() == true) {
+            var oData = new FormData(document.forms.namedItem("formCollect"));
+            var url = window.domain + "/Collect/save/";
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: oData,
+                processData: false,  // tell jQuery not to process the data
+                contentType: false,
+                success: function (data) {
+                    showMessage(data)
+                }
+            });
+        }
+    })
+
 });
 
 function showMessage(data) {

@@ -23,6 +23,7 @@
             </g:each>
         </div>
     </div>
+    <g:hiddenField name='imageUploadUrl'/>
 
    <div class="row">
         <div class="input-field col s12 m9">
@@ -61,4 +62,6 @@
     </div>
 </div>
 
+<script src="${application.contextPath}/js/firebase.js" type="text/javascript"></script>
 <script src="${application.contextPath}/js/Collect/create.js" type="text/javascript"></script>
+<script src="${application.contextPath}/js/Collect/storageFile.js" type="text/javascript"></script>
