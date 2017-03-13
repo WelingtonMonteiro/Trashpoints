@@ -44,11 +44,28 @@
         <div class="col s12">
             <button class="btn-large waves-effect waves-light blue darken-3" type="submit" name="submit">
                 <i class="material-icons left">check</i>Cadastrar
+                <span id="preloader-container" style="margin-left: 0.4rem;"></span>
             </button>
 
             <button class="btn-large waves-effect waves-light grey right" type="reset" id="btnClear">
                 <i class="material-icons left">delete_sweep</i>Limpar
             </button>
+
+            <div class="preloader-wrapper small right active hidden" style="margin-top: 0.5rem !important;">
+                <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </g:form >
