@@ -269,6 +269,8 @@ class CompanyController {
             projections {
                 property("adr.latitude", "latitude")
                 property("adr.longitude", "longitude")
+                property("adr.city", "city")
+                property("adr.state", "state")
             }
             idEq(currentCompany.id)
         }
