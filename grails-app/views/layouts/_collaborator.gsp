@@ -17,7 +17,7 @@
         <ul class="right">
             <li>
                 <a class="dropdown-button hide-on-small-only" href="#!" data-activates="notification-list" id="btn-show-notification">
-                    Notificações <span class="new badge red" id="bdg-qtde-notifications" data-badge-caption="novas">4</span>
+                    Notificações <span class="new badge red" id="bdg-qtde-notifications" data-badge-caption="novas">0</span>
                 </a>
             </li>
             <li>
