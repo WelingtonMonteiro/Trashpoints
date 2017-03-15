@@ -24,19 +24,20 @@
                 <a class="hide-on-small-only"><sec:loggedInUserInfo field="username"/></a>
             </li>
         </ul>
-        <a href="#" data-activates="side-menu" class="button-collapse hide-on-large-only"><i
-                class="material-icons">menu</i></a>
+        <a href="#" data-activates="side-menu" class="button-collapse hide-on-large-only"><i class="material-icons">menu</i></a>
     </nav>
 
     <ul id="side-menu" class="side-nav fixed">
-        <li><a class="waves-effect hide-on-large-only"><sec:loggedInUserInfo field="username"/><i
-                class="material-icons">account_circle</i></a></li>
+        <li>
+            <a class="waves-effect hide-on-large-only"><sec:loggedInUserInfo field="username"/>
+                <i class="material-icons">account_circle</i></a>
+        </li>
         <li id="home" class="active"><a class="waves-effect" href="${application.contextPath}/">Home<i class="material-icons">home</i></a></li>
         <li>
-            <a class="waves-effect" href="${application.contextPath}/Collaborator/myCollectedCollections" title="Meus TrashCoins">
+            <g:link controller="collaborator" action="myCollectedCollections" class="waves-effect" title="Meus TrashCoins">
                 <i class="material-icons">monetization_on</i>
                 <span id="quantityOfCoins" class="new badge my-badge bold" data-badge-caption="" ></span>
-            </a>
+            </g:link>
         </li>
         <li><div class="divider"></div></li>
         <li><a class="subheader">Editar meus dados</a></li>
@@ -48,9 +49,9 @@
                     <div class="collapsible-body">
                         <ul>
                             <li id="editProfile">
-                                <a class="waves-effect" href="${application.contextPath}/collaborator/editCollaborator">
+                                <g:link controller="collaborator" action="editCollaborator" class="waves-effect">
                                     Editar Perfil<i class="material-icons">account_circle</i>
-                                </a>
+                                </g:link>
                             </li>
                             <!-- <li><a class="waves-effect" href="#">Editar Endereço<i class="material-icons">edit_location</i></a></li> -->
                         </ul>
@@ -70,8 +71,16 @@
 
                     <div class="collapsible-body">
                         <ul>
-                            <li id="myCollectedCollections"><a class="waves-effect" href="${application.contextPath}/Collaborator/myCollectedCollections">Coletadas<i class="fa fa-recycle fa-2x" aria-hidden="true"></i></a></li>
-                            <li id="myCollectionsInProgress"><a class="waves-effect" href="${application.contextPath}/Collaborator/myCollectionsInProgress">A Recolher<i class="material-icons fa-2x">event_note</i></a></li>
+                            <li id="myCollectedCollections">
+                                <g:link controller="collaborator" action="myCollectedCollections" class="waves-effect">
+                                    Coletadas<i class="fa fa-recycle fa-2x" aria-hidden="true"></i>
+                                </g:link>
+                            </li>
+                            <li id="myCollectionsInProgress">
+                                <g:link controller="collaborator" action="myCollectionsInProgress" class="waves-effect">
+                                    A Recolher<i class="material-icons fa-2x">event_note</i>
+                                </g:link>
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -79,15 +88,26 @@
         </li>
 
         <li id="createCollect">
-            <a class="waves-effect" href="${application.contextPath}/Collect/Create">
+            <g:link controller="collect" action="create" class="waves-effect">
                 Tenho uma Coleta<i class="fa fa-bullhorn fa-2x" aria-hidden="true"></i>
-            </a>
+            </g:link>
         </li>
-        <li id="ranking"><a class="waves-effect" href="${application.contextPath}/Collaborator/ranking">Ranking Top 10<i class="material-icons">equalizer</i></a></li>
-        <li><a class="waves-effect" href="#">Notificações<i class="material-icons">notifications</i></a></li>
-        <li><a class="waves-effect" href="${application.contextPath}/ContactUs/index">Fale conosco<i class="material-icons">hearing</i></a></li>
-        <li><a class="waves-effect" href="${application.contextPath}/j_spring_security_logout">Sair<i class="fa fa-2x fa-sign-out"
-                                                                                        aria-hidden="true"></i></a></li>
+        <li id="ranking">
+            <g:link controller="collaborator" action="ranking" class="waves-effect">
+                Ranking Top 10<i class="material-icons">equalizer</i>
+            </g:link>
+        </li>
+        <li>
+            <a class="waves-effect" href="#">Notificações<i class="material-icons">notifications</i></a>
+        </li>
+        <li>
+            <g:link controller="contactUs" action="index" class="waves-effect">
+                Fale conosco<i class="material-icons">hearing</i>
+            </g:link>
+        </li>
+        <li>
+            <a class="waves-effect" href="${application.contextPath}/j_spring_security_logout">Sair<i class="fa fa-2x fa-sign-out" aria-hidden="true"></i></a>
+        </li>
     </ul>
 </header>
 

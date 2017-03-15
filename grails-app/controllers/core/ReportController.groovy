@@ -11,7 +11,7 @@ class ReportController {
 
     transient springSecurityService
 
-    def CompanyCollections() {
+    def companyCollections() {
         render(view: "companyCollections")
     }
 

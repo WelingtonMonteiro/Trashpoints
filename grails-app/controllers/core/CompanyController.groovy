@@ -279,7 +279,4 @@ class CompanyController {
         render location as JSON
     }
 
-    def list() {
-
-    }
 }

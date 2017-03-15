@@ -14,7 +14,11 @@
 	<ul id="side-menu" class="side-nav fixed">
 		<li><a class="waves-effect hide-on-large-only"><sec:loggedInUserInfo field="username"/><i class="material-icons fa-2x">account_circle</i></a></li>
 		<li id="home"><a class="waves-effect" href="${application.contextPath}/">Home<i class="material-icons fa-2x">home</i></a></li>
-		<li><a class="waves-effect" href="${application.contextPath}/Report/companyCollections">Relatórios<i class="fa fa-line-chart fa-2x" aria-hidden="true"></i></a></li>
+		<li>
+			<g:link controller="report" action="companyCollections" class="waves-effect">
+				Relatórios<i class="fa fa-line-chart fa-2x" aria-hidden="true"></i>
+			</g:link>
+		</li>
 		<li><div class="divider"></div></li>
 		<li><a class="subheader">Editar meus dados</a></li>
 		<li class="no-padding">
@@ -23,7 +27,11 @@
 					<a class="collapsible-header waves-effect">Meus dados<i class="material-icons fa-2x">arrow_drop_down</i></a>
 					<div class="collapsible-body">
 						<ul>
-							<li id="editProfile"><a class="waves-effect" href="${application.contextPath}/Company/editCompany">Editar Perfil<i class="material-icons fa-2x">account_circle</i></a></li>
+							<li id="editProfile">
+								<g:link controller="company" action="editCompany" class="waves-effect">
+									Editar Perfil<i class="material-icons fa-2x">account_circle</i>
+								</g:link>
+							</li>
 							%{--<li><a class="waves-effect" href="#">Editar Endereço<i class="material-icons fa-2x">edit_location</i></a></li>--}%
 						</ul>
 					</div>
@@ -38,20 +46,39 @@
 					<a class="collapsible-header waves-effect">Minhas Coletas<i class="material-icons fa-2x">arrow_drop_down</i></a>
 					<div class="collapsible-body">
 						<ul>
-							<li id="myCollectedCollections"><a class="waves-effect" href="${application.contextPath}/Company/myCollectedCollections">Coletadas<i class="fa fa-recycle fa-2x" aria-hidden="true"></i></a></li>
-							<li id="myCollectionsInProgress"><a class="waves-effect" href="${application.contextPath}/Company/myCollectionsInProgress">A Recolher<i class="material-icons fa-2x">event_note</i></a></li>
+							<li id="myCollectedCollections">
+                                <g:link controller="company" action="myCollectedCollections" class="waves-effect">
+                                    Coletadas<i class="fa fa-recycle fa-2x" aria-hidden="true"></i>
+                                </g:link>
+                            </li>
+							<li id="myCollectionsInProgress">
+                                <g:link controller="company" action="myCollectionsInProgress" class="waves-effect">
+                                    A Recolher<i class="material-icons fa-2x">event_note</i>
+                                </g:link>
+                            </li>
 						</ul>
 					</div>
 				</li>
 			</ul>
 		</li>
 
-		<li id="placesCollect"><a class="waves-effect" href="${application.contextPath}/Collect/placesCollect">Locais para coletar<i class="material-icons fa-2x">local_shipping</i></a></li>
+		<li id="placesCollect">
+            <g:link controller="collect" action="placesCollect" class="waves-effect">
+                Locais para coletar<i class="material-icons fa-2x">local_shipping</i>
+            </g:link>
+        </li>
 
-
-		<li><a class="waves-effect" href="#">Notificações<i class="material-icons fa-2x">notifications</i></a></li>
-		<li><a class="waves-effect" href="${application.contextPath}/ContactUs/index">Fale conosco<i class="material-icons">hearing</i></a></li>
-		<li><a class="waves-effect" href="${application.contextPath}/j_spring_security_logout">Sair<i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a></li>
+		<li>
+            <a class="waves-effect" href="#">Notificações<i class="material-icons fa-2x">notifications</i></a>
+        </li>
+		<li>
+            <g:link controller="contactUs" action="index" class="waves-effect">
+                Fale conosco<i class="material-icons">hearing</i>
+            </g:link>
+        </li>
+		<li>
+            <a class="waves-effect" href="${application.contextPath}/j_spring_security_logout">Sair<i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a>
+        </li>
 	</ul>
 </header>
 

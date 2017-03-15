@@ -84,7 +84,7 @@ function drawPieChart() {
     var options = {
         title: 'Quantidade de tipos de recicláveis coletados por ano',
         is3D: true,
-        colors:['orange','#fec909', '#0998d0', '#ee1c25', '#079968']
+        colors:['#fec909', '#0998d0', '#ee1c25', '#079968']
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('pie_chart_div'));

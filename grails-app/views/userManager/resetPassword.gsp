@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Resetar Senha</title>
+    <title>Redefinir Senha</title>
 </head>
 
 <body>
@@ -15,7 +15,7 @@
 
                     <div id="formAuth">
                         <fieldset>
-                            <legend><h4 class="header">&nbsp;Resetar Senha&nbsp;</h4></legend>
+                            <legend><h4 class="header">&nbsp;Redefinir Senha&nbsp;</h4></legend>
 
 
                             <g:form name='resetPassword' useToken="true">
@@ -56,7 +56,7 @@
                                     <div class="row">
                                         <div class="input-field col s12 center">
                                             <button name="submit" type="submit" class="btn-large waves-effect waves-light blue darken-3">
-                                                <i class="left material-icons">autorenew</i> Resetar
+                                                <i class="left material-icons">autorenew</i> Redefinir
                                             </button>
                                         </div>
                                     </div>

@@ -5,16 +5,16 @@
         </a>
         <ul class="right">
             <li>
-                <a href="${application.contextPath}/userManager/login" class="hide-on-small-only waves-effect waves-light">
-                    <i class="fa fa-2x fa-sign-in" style="margin-right: 15px;"></i>Logar
-                </a>
+                <g:link controller="userManager" action="login" class="hide-on-small-only waves-effect waves-light">
+                    <i class="fa fa-2x fa-sign-in" style="margin-right: 15px; vertical-align: sub; margin-bottom: -7px;"></i>Logar
+                </g:link>
             </li>
             <!-- Dropdown Structure -->
             <ul id="dropdown-creates" class="dropdown-content hide-on-small-only">
                 <li>
-                    <a href="${application.contextPath}/Collaborator/Create" class="hide-on-small-only waves-effect waves-light">
+                    <g:link controller="collaborator" action="create" class="hide-on-small-only waves-effect waves-light">
                         <i class="material-icons left">person_add</i>Colaborador
-                    </a>
+                    </g:link>
                 </li>
                 <li>
                     <g:link controller="company" action="create" class="hide-on-small-only waves-effect waves-light">
@@ -34,7 +34,11 @@
 
     <ul id="side-menu" class="side-nav">
         <li id="home"><a class="waves-effect" href="${application.contextPath}/">Home<i class="material-icons">home</i></a></li>
-        <li id="login"><a class="waves-effect hide-on-large-only" href="${application.contextPath}/userManager/login"><i class="fa fa-2x fa-sign-in"></i>Logar</a></li>
+        <li id="login">
+            <g:link controller="userManager" action="login" class="waves-effect hide-on-large-only">
+                <i class="fa fa-2x fa-sign-in"></i>Logar
+            </g:link>
+        </li>
 
         <li class="no-padding">
             <ul class="collapsible collapsible-accordion">
@@ -43,8 +47,9 @@
                     <div class="collapsible-body">
                         <ul>
                             <li id="createCollaborator">
-                                <a class="waves-effect hide-on-large-only" href="${application.contextPath}/Collaborator/Create"><i class="material-icons left">person_add</i>Cadastrar Cidadão
-                                </a>
+                                <g:link controller="collaborator" action="create" class="waves-effect hide-on-large-only">
+                                    <i class="material-icons left">person_add</i>Cadastrar Cidadão
+                                </g:link>
                             </li>
                             <li id="createCompany">
                                 <g:link controller="company" action="create" class="waves-effect hide-on-large-only">
