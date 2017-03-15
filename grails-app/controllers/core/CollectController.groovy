@@ -152,17 +152,16 @@ class CollectController {
             if(params.imageUploadUrl)
                 collect.imageUpload = params.imageUploadUrl
 
-
 //            def fileUpload = request.getFile("imageUpload")
 //            def fileName = null
 //            if (fileUpload != null) {
 //                fileName = fileUpload.getOriginalFilename()
 //                fileName = params.fileName
 //            }
-
+//
 //            if (fileName) {
 //                upload(collect)
-
+//
 //            }
 
             collect.validate()
