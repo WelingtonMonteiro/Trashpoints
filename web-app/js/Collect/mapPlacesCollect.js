@@ -90,16 +90,14 @@ function createMarkersOfCollections(locations) {
 
 function checkMarkersForDuplicatePosition(latLng) {
     //Check Markers array for duplicate position and offset a little
-    if (markersClusters.length != 0) {
-        for (var i = 0; i < markersClusters.length; i++) {
-            var existingMarker = markersClusters[i];
-            var position = existingMarker.getPosition();
-            if (latLng.equals(position)) {
-                var a = 360.0 / markersClusters.length;
-                var newLat = position.lat() + -.00004 * Math.cos((+a * i) / 180 * Math.PI);  //x
-                var newLng = position.lng() + -.00004 * Math.sin((+a * i) / 180 * Math.PI);  //Y
-                latLng = new google.maps.LatLng(newLat, newLng);
-            }
+    for (var i = 0; i < markersClusters.length; i++) {
+        var existingMarker = markersClusters[i];
+        var position = existingMarker.getPosition();
+        if (latLng.equals(position)) {
+            var a = 360.0 / markersClusters.length + 1;
+            var newLat = position.lat() + -.00004 * Math.cos((+a * i) / 180 * Math.PI);  //x
+            var newLng = position.lng() + -.00007 * Math.sin((+a * i) / 180 * Math.PI);  //Y
+            latLng = new google.maps.LatLng(newLat, newLng);
         }
     }
     return latLng;
@@ -172,8 +170,9 @@ function showInfoCollect(data) {
     var materialTypes = data.materialTypes.join(", ");
 
     if (data.infoCollect.imageCollect) {
-        var UPLOAD_FOLDER_PATH = window.domain + "/images/uploads/";
-        $("#infoCollect #divCollectImage").html("<img src='" + UPLOAD_FOLDER_PATH + data.infoCollect.imageCollect + "' class='responsive-img' style='max-height: 284px;'>");
+        var UPLOAD_FOLDER_PATH = 'https://firebasestorage.googleapis.com/v0/b/trashpoints-3fccf.appspot.com/o/images%2F'+ data.infoCollect.imageCollect +'?alt=media';
+
+        $("#infoCollect #divCollectImage").html("<img src='" + UPLOAD_FOLDER_PATH + "' class='responsive-img' style='max-height: 284px;'>");
     } else {
         $("#infoCollect #divCollectImage").html("<i class='fa fa-file-image-o fa-5x center-align'></i>");
     }

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Home</title>
+    <title>Trashpoints</title>
 </head>
 
 <body>
