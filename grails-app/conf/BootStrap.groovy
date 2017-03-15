@@ -11,27 +11,26 @@ class BootStrap {
         def paper = MaterialType.findByName('PAPEL') ? MaterialType.findByName('PAPEL') : new MaterialType(name: 'PAPEL', url: '/Trashpoints/images/papers.png')
         def glasses = MaterialType.findByName('VIDRO') ? MaterialType.findByName('VIDRO') : new MaterialType(name: 'VIDRO', url: '/Trashpoints/images/glasses.png')
         def metal = MaterialType.findByName('METAL') ? MaterialType.findByName('METAL') : new MaterialType(name: 'METAL', url: '/Trashpoints/images/metal.png')
-        def aluminium = MaterialType.findByName('ALUMÍNIO') ? MaterialType.findByName('ALUMÍNIO') : new MaterialType(name: 'ALUMÍNIO', url: '/Trashpoints/images/metal.png')
         def organic = MaterialType.findByName('ORGÂNICO') ? MaterialType.findByName('ORGÂNICO') : new MaterialType(name: 'ORGÂNICO', url: '/Trashpoints/images/organics.png')
         def chemich = MaterialType.findByName('QUÍMICO') ? MaterialType.findByName('QUÍMICO') : new MaterialType(name: 'QUÍMICO', url: '/Trashpoints/images/plastics.png')
         def entulho = MaterialType.findByName('ENTULHO') ? MaterialType.findByName('ENTULHO') : new MaterialType(name: 'ENTULHO', url: '/Trashpoints/images/plastics.png')
 
+        if(MaterialType.findByName('ALUMÍNIO')) MaterialType.findByName('ALUMÍNIO').delete()
 
         plastic.url = '/Trashpoints/images/plastics.png'
         paper.url = '/Trashpoints/images/papers.png'
         glasses.url = '/Trashpoints/images/glasses.png'
         metal.url = '/Trashpoints/images/metal.png'
-        aluminium.url = '/Trashpoints/images/metal.png'
+        //aluminium.url = '/Trashpoints/images/metal.png'
         organic.url = '/Trashpoints/images/organics.png'
         chemich.url = '/Trashpoints/images/plastics.png'
         entulho.url = '/Trashpoints/images/plastics.png'
-
 
         plastic.save()
         paper.save()
         glasses.save()
         metal.save()
-        aluminium.save()
+        //aluminium.save()
         organic.save()
         chemich.save()
         entulho.save()

@@ -1,6 +1,6 @@
 <header>
     <nav id="top-menu" class="indigo accent-2">
-        <a  href="${application.contextPath}" class="brand-logo left margin-left-3rem">
+        <a  href="${application.contextPath}/" class="brand-logo left margin-left-3rem">
             <img src="${resource(dir: 'images', file: 'trashPoints_logo_miniatura_alpha.png')}" class="img-responsive" />
         </a>
         <ul class="right">
@@ -33,7 +33,7 @@
     </nav>
 
     <ul id="side-menu" class="side-nav">
-        <li id="home"><a class="waves-effect" href="${application.contextPath}">Home<i class="material-icons">home</i></a></li>
+        <li id="home"><a class="waves-effect" href="${application.contextPath}/">Home<i class="material-icons">home</i></a></li>
         <li id="login"><a class="waves-effect hide-on-large-only" href="${application.contextPath}/userManager/login"><i class="fa fa-2x fa-sign-in"></i>Logar</a></li>
 
         <li class="no-padding">

@@ -63,23 +63,6 @@ function getLocationsOfCollections() {
     });
 }
 
-function checkMarkersForDuplicatePosition(latLng) {
-    //Check Markers array for duplicate position and offset a little
-    if (markersClusters.length != 0) {
-        for (var i = 0; i < markersClusters.length; i++) {
-            var existingMarker = markersClusters[i];
-            var position = existingMarker.getPosition();
-            if (latLng.equals(position)) {
-                var a = 360.0 / markersClusters.length;
-                var newLat = position.lat() + -.00004 * Math.cos((+a * i) / 180 * Math.PI);  //x
-                var newLng = position.lng() + -.00004 * Math.sin((+a * i) / 180 * Math.PI);  //Y
-                latLng = new google.maps.LatLng(newLat, newLng);
-            }
-        }
-    }
-    return latLng;
-}
-
 function createMarkersOfCollections(locations) {
     if (locations) {
         $.each(locations, function (index, location) {
@@ -103,6 +86,23 @@ function createMarkersOfCollections(locations) {
 
         ajustZoomMap();
     }
+}
+
+function checkMarkersForDuplicatePosition(latLng) {
+    //Check Markers array for duplicate position and offset a little
+    if (markersClusters.length != 0) {
+        for (var i = 0; i < markersClusters.length; i++) {
+            var existingMarker = markersClusters[i];
+            var position = existingMarker.getPosition();
+            if (latLng.equals(position)) {
+                var a = 360.0 / markersClusters.length;
+                var newLat = position.lat() + -.00004 * Math.cos((+a * i) / 180 * Math.PI);  //x
+                var newLng = position.lng() + -.00004 * Math.sin((+a * i) / 180 * Math.PI);  //Y
+                latLng = new google.maps.LatLng(newLat, newLng);
+            }
+        }
+    }
+    return latLng;
 }
 
 function createListenerClickMarker(collectId, marker) {

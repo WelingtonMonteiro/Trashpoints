@@ -11,7 +11,7 @@
 
 <header>
     <nav id="top-menu" class="indigo accent-2">
-        <a href="${application.contextPath}" class="brand-logo left margin-left-3rem ">
+        <a href="${application.contextPath}/" class="brand-logo left margin-left-3rem ">
             <img src="${resource(dir: 'images', file: 'trashPoints_logo_miniatura_alpha.png')}" class="img-responsive"/>
         </a>
         <ul class="right">
@@ -31,7 +31,7 @@
     <ul id="side-menu" class="side-nav fixed">
         <li><a class="waves-effect hide-on-large-only"><sec:loggedInUserInfo field="username"/><i
                 class="material-icons">account_circle</i></a></li>
-        <li id="home" class="active"><a class="waves-effect" href="${application.contextPath}">Home<i class="material-icons">home</i></a></li>
+        <li id="home" class="active"><a class="waves-effect" href="${application.contextPath}/">Home<i class="material-icons">home</i></a></li>
         <li>
             <a class="waves-effect" href="${application.contextPath}/Collaborator/myCollectedCollections" title="Meus TrashCoins">
                 <i class="material-icons">monetization_on</i>

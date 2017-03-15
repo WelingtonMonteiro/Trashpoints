@@ -201,20 +201,26 @@ class CollectController {
     @Transactional
     def listPlacesCollect() {
 
+        User currentUser = springSecurityService.getCurrentUser()
+        Company currentCompany = currentUser.company
+        String stateCompany = currentCompany.address.state
+
         def collections = Collect.createCriteria().list {
             resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
-            createAlias("collaborator", "c")
-            createAlias("c.address", "adr")
+            createAlias("collaborator", "collaborator")
+            createAlias("collaborator.address", "address")
             projections {
                 property("id", "collectId")
-                property("adr.latitude", "lat")
-                property("adr.longitude", "lng")
+                property("address.latitude", "lat")
+                property("address.longitude", "lng")
                 property("scheduleDateCollect", "scheduleDateCollect")
             }
 
             eq("isCollected", false)
+            eq("address.state", stateCompany)
         }
 
+        //Checking if the scheduled collection date has exceeded
         collections.each { c ->
             if(c.get('scheduleDateCollect') > new Date()){
                 Collect collect = Collect.get(c.get('collectId').toInteger())
