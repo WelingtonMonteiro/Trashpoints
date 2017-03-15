@@ -261,6 +261,8 @@ class CompanyController {
 
     def getMyLocation() {
         User currentUser = springSecurityService.loadCurrentUser()
+        if(!currentUser) return;
+
         Company currentCompany = currentUser.company
 
         def location = Company.createCriteria().get {
