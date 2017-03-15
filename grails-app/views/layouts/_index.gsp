@@ -17,9 +17,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="${application.contextPath}/Company/Create" class="hide-on-small-only waves-effect waves-light">
+                    <g:link controller="company" action="create" class="hide-on-small-only waves-effect waves-light">
                         <i class="material-icons left">business</i>Empresa
-                    </a>
+                    </g:link>
                 </li>
             </ul>
             <li>
@@ -47,8 +47,9 @@
                                 </a>
                             </li>
                             <li id="createCompany">
-                                <a class="waves-effect hide-on-large-only" href="${application.contextPath}/Company/Create"><i class="material-icons left">business</i>Cadastrar Empresa
-                                </a>
+                                <g:link controller="company" action="create" class="waves-effect hide-on-large-only">
+                                    <i class="material-icons left">business</i>Cadastrar Empresa
+                                </g:link>
                             </li>
                         </ul>
                     </div>
@@ -59,7 +60,6 @@
 
     </ul>
 </header>
-
 
 <style>
     header, main, footer {
