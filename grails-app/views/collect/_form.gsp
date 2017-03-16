@@ -2,9 +2,9 @@
     <div class="input-field col s12 m6">
         <i class="material-icons prefix grey-text text-darken-2">today</i>
         <input id="orderDate" name="orderDate" type="text" disabled class="grey-text text-darken-2"
-               value="<g:formatDate date="${new java.util.Date()}" format="dd/MM/yyyy"></g:formatDate>"
-        >
-        <label for="orderDate" class="active grey-text text-darken-2">Data da Coleta <span class="red-text">*</span></label>
+               value="<g:formatDate date="${new java.util.Date()}" format="dd/MM/yyyy"></g:formatDate>">
+        <label for="orderDate" class="active grey-text text-darken-2">Data da Coleta <span class="red-text">*</span>
+        </label>
     </div>
 </div>
 
@@ -15,17 +15,19 @@
             <span id="errorRequired" class="red-text"></span>
 
             <g:each in="${materialTypes}" var="materialType">
-                <p>
+                <p class="margin-bottom">
                     <input type="checkbox" value="${materialType.id}" name="materialTypes" id="${materialType.name}"/>
-                    %{--<label for="${materialType.url}">${materialType?.url}</label>--}%
-                    <label for="${materialType.name}">${materialType.name}</label>
+                    <label>
+                        <img src="${materialType.url}" />
+                    </label>
+
                 </p>
             </g:each>
         </div>
     </div>
     <g:hiddenField name='imageUploadUrl'/>
 
-   <div class="row">
+    <div class="row">
         <div class="input-field col s12 m9">
             <div class="file-field input-field">
                 <div class="btn blue darken-3">
@@ -41,7 +43,7 @@
     </div>
 
     <div class="row">
-        <div class="col s12">
+        <div class="input-field col s12">
             <button class="btn-large waves-effect waves-light blue darken-3" type="submit" name="submit">
                 <i class="material-icons left">check</i>Cadastrar
                 <span id="preloader-container" style="margin-left: 0.4rem;"></span>
@@ -68,7 +70,7 @@
             </div>
         </div>
     </div>
-</g:form >
+</g:form>
 
 <div class="row">
     <div class="col s12 m8">
