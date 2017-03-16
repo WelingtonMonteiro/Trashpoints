@@ -7,23 +7,23 @@ class BootStrap {
     def init = { servletContext ->
         //criando os materiais recicláveis
 
-        def plastic = MaterialType.findByName('PLÁSTICO') ? MaterialType.findByName('PLÁSTICO') : new MaterialType(name: 'PLÁSTICO', url: '/Trashpoints/images/plastico.png')
-        def paper = MaterialType.findByName('PAPEL') ? MaterialType.findByName('PAPEL') : new MaterialType(name: 'PAPEL', url: '/Trashpoints/images/papel.png')
-        def glasses = MaterialType.findByName('VIDRO') ? MaterialType.findByName('VIDRO') : new MaterialType(name: 'VIDRO', url: '/Trashpoints/images/vidro.png')
-        def metal = MaterialType.findByName('METAL') ? MaterialType.findByName('METAL') : new MaterialType(name: 'METAL', url: '/Trashpoints/images/metal.png')
-        def organic = MaterialType.findByName('ORGÂNICO') ? MaterialType.findByName('ORGÂNICO') : new MaterialType(name: 'ORGÂNICO', url: '/Trashpoints/images/residuos_organicos.png')
-        def chemich = MaterialType.findByName('QUÍMICO') ? MaterialType.findByName('QUÍMICO') : new MaterialType(name: 'QUÍMICO', url: '/Trashpoints/images/residuos_radioativos.png')
-        def entulho = MaterialType.findByName('ENTULHO') ? MaterialType.findByName('ENTULHO') : new MaterialType(name: 'ENTULHO', url: '/Trashpoints/images/residuos_nao_reciclaveis.png')
+        def plastic = MaterialType.findByName('PLÁSTICO') ? MaterialType.findByName('PLÁSTICO') : new MaterialType(name: 'PLÁSTICO', url: 'images/plastico.png')
+        def paper = MaterialType.findByName('PAPEL') ? MaterialType.findByName('PAPEL') : new MaterialType(name: 'PAPEL', url: 'images/papel.png')
+        def glasses = MaterialType.findByName('VIDRO') ? MaterialType.findByName('VIDRO') : new MaterialType(name: 'VIDRO', url: 'images/vidro.png')
+        def metal = MaterialType.findByName('METAL') ? MaterialType.findByName('METAL') : new MaterialType(name: 'METAL', url: 'images/metal.png')
+        def organic = MaterialType.findByName('ORGÂNICO') ? MaterialType.findByName('ORGÂNICO') : new MaterialType(name: 'ORGÂNICO', url: 'images/residuos_organicos.png')
+        def chemich = MaterialType.findByName('QUÍMICO') ? MaterialType.findByName('QUÍMICO') : new MaterialType(name: 'QUÍMICO', url: 'images/residuos_radioativos.png')
+        def entulho = MaterialType.findByName('ENTULHO') ? MaterialType.findByName('ENTULHO') : new MaterialType(name: 'ENTULHO', url: 'images/residuos_nao_reciclaveis.png')
 
         if(MaterialType.findByName('ALUMÍNIO')) MaterialType.findByName('ALUMÍNIO').delete()
 
-        plastic.url = '/Trashpoints/images/plastico.png'
-        paper.url = '/Trashpoints/images/papel.png'
-        glasses.url = '/Trashpoints/images/vidro.png'
-        metal.url = '/Trashpoints/images/metal.png'
-        organic.url = '/Trashpoints/images/organico.png'
-        chemich.url = '/Trashpoints/images/residuos_radioativos.png'
-        entulho.url = '/Trashpoints/images/residuos_nao_reciclaveis.png'
+        plastic.url = 'images/plastico.png'
+        paper.url = 'images/papel.png'
+        glasses.url = 'images/vidro.png'
+        metal.url = 'images/metal.png'
+        organic.url = 'images/organico.png'
+        chemich.url = 'images/residuos_radioativos.png'
+        entulho.url = 'images/residuos_nao_reciclaveis.png'
 
         plastic.save()
         paper.save()
