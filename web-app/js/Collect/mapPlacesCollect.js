@@ -19,10 +19,11 @@ function initMap() {
     //Setup Map
     map = new google.maps.Map(document.getElementById('map'), {
         center: latLng,
-        zoom: 12,
-        minZoom: 11,
+        zoom: 11,
+        minZoom: 9,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
+
     latLngBounds = new google.maps.LatLngBounds();
 
     getLocationsOfCollections();
@@ -73,7 +74,7 @@ function createMarkersOfCollections(locations) {
                 position: latLng
             });
 
-            latLngBounds.extend(marker.position); //Adjust bounds of map
+            //latLngBounds.extend(marker.position); //Adjust bounds of map
             markersClusters.push(marker);
             createListenerClickMarker(location.collectId, marker);
         });
@@ -84,7 +85,7 @@ function createMarkersOfCollections(locations) {
             imagePath: window.domain + '/images/m'
         });
 
-        ajustZoomMap();
+        //ajustZoomMap();
     }
 }
 
@@ -298,8 +299,8 @@ function createMarkerMyLocation() {
         icon: window.domain + '/images/icon_my_location.png',
         title: 'Minha localização'
     });
-    latLngBounds.extend(myLatLng); //Adjust bounds of map
-    ajustZoomMap();
+    //latLngBounds.extend(myLatLng); //Adjust bounds of map
+    //ajustZoomMap();
 
     //Listener for set zoom when click in my marker position
     markerMyPosition.addListener('click', function () {
@@ -534,26 +535,83 @@ function getBoundsOfCity(city, state) {
                 var northeastLat = results[0].geometry.bounds.getNorthEast().lat();
                 var northeastLng = results[0].geometry.bounds.getNorthEast().lng();
 
-                setBoundsOfCity(northeastLat, northeastLng, southwestLat, southwestLng);
+                limitViewOfMap(northeastLat, northeastLng, southwestLat, southwestLng);
             }
         }
     });
+
+    var cityBoundsArea = getCityBoundsAreaByLocalStorage();
+
+    if(cityBoundsArea == null) {
+        $.getJSON("http://nominatim.openstreetmap.org/search?q=&city=" + city + "&state=" + state + "&format=json&polygon=1&addressdetails=0&limit=1&json_callback=?", function (data) {
+            setBoundsOfCity(data[0].polygonpoints);
+        });
+    }else
+        setBoundsOfCityByLocalStorage(cityBoundsArea);
 }
 
-function setBoundsOfCity(northeastLat, northeastLng, southwestLat, southwestLng) {
+function getCityBoundsAreaByLocalStorage() {
+    var cityBoundsArea = window.localStorage.getItem('cityBoundsArea');
+
+    if (cityBoundsArea != undefined && cityBoundsArea != "undefined")
+        return JSON.parse(cityBoundsArea);
+    else
+        return null;
+}
+
+function setBoundsOfCity(polygonPoints) {
+    var lengthArray = polygonPoints.length;
+    var cityBounds = [];
+    var lat, lng;
+
+    for (var i = 0; i < lengthArray; i++) {
+        lng = parseFloat(polygonPoints[i][0]);
+        lat = parseFloat(polygonPoints[i][1]);
+
+        cityBounds.push(new google.maps.LatLng(lat, lng));
+    }
+
+    var cityBoundsAreaPolygon = new google.maps.Polygon({
+        paths: cityBounds,
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 3,
+        fillColor: '#FF0000',
+        fillOpacity: 0.05
+    });
+
+    cityBoundsAreaPolygon.setMap(map);
+    map.setCenter(myLatLng);
+
+    //Save in localStorage cityBoundsArea
+    window.localStorage.setItem('cityBoundsArea', JSON.stringify(cityBounds));
+}
+
+function setBoundsOfCityByLocalStorage(polygonPoints) {
+
+    var cityBoundsAreaPolygon = new google.maps.Polygon({
+        paths: polygonPoints,
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 3,
+        fillColor: '#FF0000',
+        fillOpacity: 0.05
+    });
+
+    cityBoundsAreaPolygon.setMap(map);
+    map.setCenter(myLatLng);
+}
+
+function limitViewOfMap(northeastLat, northeastLng, southwestLat, southwestLng) {
     var cityBounds = new google.maps.LatLngBounds(
         new google.maps.LatLng(southwestLat, southwestLng),
         new google.maps.LatLng(northeastLat, northeastLng)
     );
 
-    var cityBoundsArea = new google.maps.Rectangle({
+    var cityBoundsAreaRectangle = new google.maps.Rectangle({
         map: map,
-        fillColor: "#ececec",
-        fillOpacity: 0,
-        strokeColor: "#FF0000",
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        bounds: cityBounds
+        bounds: cityBounds,
+        visible: false
     });
 
     var maxX = cityBounds.getNorthEast().lng(),

@@ -202,7 +202,7 @@ class CollectController {
 
         User currentUser = springSecurityService.getCurrentUser()
         Company currentCompany = currentUser.company
-        String stateCompany = currentCompany.address.state
+        String cityCompany = currentCompany.address.city
 
         def collections = Collect.createCriteria().list {
             resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
@@ -216,7 +216,7 @@ class CollectController {
             }
 
             eq("isCollected", false)
-            eq("address.state", stateCompany)
+            eq("address.city", cityCompany)
         }
 
         //Checking if the scheduled collection date has exceeded
