@@ -1,33 +1,31 @@
 /*function formData(){
-    return new FormData($("#imageUpload").val())
-}*/
+ return new FormData($("#imageUpload").val())
+ }*/
 
 
 //enviando arquivo via form/data
-$('form[name=formCollect]').submit(function(e){
+$('form[name=formCollect]').submit(function (e) {
 
     e.preventDefault();
-    $(".btn-large").prop("disabled",true);
-    $("#preloader-container").html($(".preloader-wrapper").show());
-
 
     var file = e.target.imageUpload.files[0];
 
+    if (hasLeastOneMaterialTypeChecked() == true) {
+        $(".btn-large").prop("disabled", true);
+        $("#preloader-container").html($(".preloader-wrapper").show());
 
-    uploadImage(file, function(err, imageName){
-        if(err) {
-            $(".preloader-wrapper").hide();
-            $(".btn-large").prop("disabled",false);
+        uploadImage(file, function (err, imageName) {
+            if (err) {
+                $(".preloader-wrapper").hide();
+                $(".btn-large").prop("disabled", false);
 
-            iziToast.error({
-                title: 'Erro Upload',
-                message: err,
-                iconText: "check"
-            })
-            return;
-        }
-
-        if(hasLeastOneMaterialTypeChecked() == true) {
+                iziToast.error({
+                    title: 'Erro Upload',
+                    message: err,
+                    iconText: "check"
+                })
+                return;
+            }
             var oData = new FormData(document.forms.namedItem("formCollect"));
             var url = window.domain + "/Collect/save/";
             $.ajax({
@@ -38,13 +36,14 @@ $('form[name=formCollect]').submit(function(e){
                 contentType: false,
                 success: function (data) {
                     $(".preloader-wrapper").hide();
-                    $(".btn-large").prop("disabled",false);
+                    $(".btn-large").prop("disabled", false);
 
                     showMessage(data)
                 }
             });
-        }
-    })
+        })
+    }
+
 
 });
 
@@ -93,13 +92,13 @@ function hasLeastOneMaterialTypeChecked() {
     var elementsCheckboxes = document.getElementsByName("materialTypes")
 
     for (var i = 0; i < elementsCheckboxes.length; i++) {
-        if( elementsCheckboxes[i].checked == true ) {
+        if (elementsCheckboxes[i].checked == true) {
             isChecked = true;
             break;
         }
     }
 
-    if(isChecked)
+    if (isChecked)
     //elementErrorRequired.setCustomValidity("");
         elementErrorRequired.innerHTML = "";
     else

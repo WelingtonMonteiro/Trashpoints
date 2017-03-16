@@ -41,6 +41,8 @@ var metadata = {
 
 
 function uploadImage(file, cb) {
+
+    if(!file) return cb(null, null);
     // Points to 'images/space.jpg'
 // Note that you can use variables to create child values
     fileName = generateUUID() + '.jpg';
