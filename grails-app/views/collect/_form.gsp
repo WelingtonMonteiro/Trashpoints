@@ -18,7 +18,7 @@
                 <p class="margin-bottom">
                     <input type="checkbox" value="${materialType.id}" name="materialTypes" id="${materialType.name}"/>
                     <label for="${materialType.name}">
-                        <img src="${materialType.url}" />
+                        <img src="${application.contextPath}/${materialType.url}" />
                     </label>
 
                 </p>
