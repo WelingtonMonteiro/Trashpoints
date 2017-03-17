@@ -409,7 +409,7 @@ function getRoutesByLocalStorageAndDisplay() {
 }
 
 function cleanRoutes() {
-    window.localStorage.clear();
+    window.localStorage.removeItem("waypoints");
     directionsDisplay.setMap(null);
     eraseLine();
     deselectAllMarkers();
@@ -525,20 +525,34 @@ function setFocusMap() {
 }
 
 function getBoundsOfCity(city, state) {
-    var geocoder = new google.maps.Geocoder();
 
-    geocoder.geocode({address: city + ", " + state, 'region': 'BR'}, function (results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-            if (results[0]) {
-                var southwestLat = results[0].geometry.bounds.getSouthWest().lat()
-                var southwestLng = results[0].geometry.bounds.getSouthWest().lng();
-                var northeastLat = results[0].geometry.bounds.getNorthEast().lat();
-                var northeastLng = results[0].geometry.bounds.getNorthEast().lng();
+    var cityBoundsAreaRectangle = getCityBoundsAreaRectangleByLocalStorage();
 
-                limitViewOfMap(northeastLat, northeastLng, southwestLat, southwestLng);
+    //Rectangle bounds to limit view of map
+    if(cityBoundsAreaRectangle == null){
+        var geocoder = new google.maps.Geocoder();
+
+        geocoder.geocode({address: city + "-" + state, 'region': 'BR'}, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                if (results[0]) {
+                    var marginOfError = 0.2;
+                    var southwestLat = results[0].geometry.bounds.getSouthWest().lat() - marginOfError;
+                    var southwestLng = results[0].geometry.bounds.getSouthWest().lng() - marginOfError;
+                    var northeastLat = results[0].geometry.bounds.getNorthEast().lat() + marginOfError;
+                    var northeastLng = results[0].geometry.bounds.getNorthEast().lng() + marginOfError;
+
+                    var cityBoundsAreaRectangle = [{"northEastLat":northeastLat, "northEastLng":northeastLng},
+                                                   {"southWestLat":southwestLat, "southWestLng":southwestLng}];
+
+                    limitViewOfMap(cityBoundsAreaRectangle);
+
+                    window.localStorage.setItem('cityBoundsAreaRectangle', JSON.stringify(cityBoundsAreaRectangle));
+                }
             }
-        }
-    });
+        });
+    }else
+        limitViewOfMap(cityBoundsAreaRectangle);
+
 
     var cityBoundsArea = getCityBoundsAreaByLocalStorage();
 
@@ -555,6 +569,15 @@ function getCityBoundsAreaByLocalStorage() {
 
     if (cityBoundsArea != undefined && cityBoundsArea != "undefined")
         return JSON.parse(cityBoundsArea);
+    else
+        return null;
+}
+
+function getCityBoundsAreaRectangleByLocalStorage() {
+    var cityBoundsAreaRectangle = window.localStorage.getItem('cityBoundsAreaRectangle');
+
+    if (cityBoundsAreaRectangle != undefined && cityBoundsAreaRectangle != "undefined")
+        return JSON.parse(cityBoundsAreaRectangle);
     else
         return null;
 }
@@ -577,13 +600,12 @@ function setBoundsOfCity(polygonPoints) {
         strokeOpacity: 0.8,
         strokeWeight: 3,
         fillColor: '#FF0000',
-        fillOpacity: 0.05
+        fillOpacity: 0,
+        map: map
     });
 
-    cityBoundsAreaPolygon.setMap(map);
     map.setCenter(myLatLng);
 
-    //Save in localStorage cityBoundsArea
     window.localStorage.setItem('cityBoundsArea', JSON.stringify(cityBounds));
 }
 
@@ -595,17 +617,18 @@ function setBoundsOfCityByLocalStorage(polygonPoints) {
         strokeOpacity: 0.8,
         strokeWeight: 3,
         fillColor: '#FF0000',
-        fillOpacity: 0.05
+        fillOpacity: 0,
+        map: map
     });
 
-    cityBoundsAreaPolygon.setMap(map);
     map.setCenter(myLatLng);
 }
 
-function limitViewOfMap(northeastLat, northeastLng, southwestLat, southwestLng) {
+function limitViewOfMap(cityBoundsArea) {
+
     var cityBounds = new google.maps.LatLngBounds(
-        new google.maps.LatLng(southwestLat, southwestLng),
-        new google.maps.LatLng(northeastLat, northeastLng)
+        new google.maps.LatLng(cityBoundsArea[1].southWestLat, cityBoundsArea[1].southWestLng),
+        new google.maps.LatLng(cityBoundsArea[0].northEastLat, cityBoundsArea[0].northEastLng)
     );
 
     var cityBoundsAreaRectangle = new google.maps.Rectangle({
