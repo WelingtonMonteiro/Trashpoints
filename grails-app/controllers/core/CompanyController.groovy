@@ -231,11 +231,13 @@ class CompanyController {
             address.neighborhood = params.neighborhood
             address.city = params.city
             address.state = params.states
+            address.latitude = params.latitude ? params.latitude.toFloat() : 0f
+            address.longitude = params.longitude ? params.longitude.toFloat() : 0f
             company.companyName = params.companyName
             company.identificationNumber = params.identificationNumber
             company.tradingName = params.tradingName
-//            company.segment = params.segment
-//            company.typeOfCompany = params.typeOfCompany
+            //company.segment = params.segment
+            //company.typeOfCompany = params.typeOfCompany
             company.phone = params.phone
             company.site = params.site
             address.validate()
