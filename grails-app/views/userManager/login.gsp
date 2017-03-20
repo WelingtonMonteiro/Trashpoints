@@ -20,7 +20,7 @@
                                 <g:render template="authLogin"></g:render>
 
                                 <div class="row right-align ">
-                                <g:link controller="userManager" action="forgotPasswordView"><b>Esqueceu a senha?</b></g:link>
+                                    <g:link controller="userManager" action="forgotPasswordView"><strong>Esqueceu a senha?</strong></g:link>
                                 </div>
 
                                 <g:if test="${error == "1"}">
@@ -36,6 +36,12 @@
                                             <i class="fa fa-sign-in left"></i>Entrar
                                         </button>
                                     </div>
+                                </div>
+
+                                <div class="row center-align ">
+                                    <strong>Ainda não está cadastrado?
+                                    <g:link controller="userManager" action="createUser">Cadastre-se</g:link>
+                                    </strong>
                                 </div>
 
                             </form>

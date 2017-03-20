@@ -71,7 +71,6 @@ class UserManagerController {
         render(view: "/userManager/resetPassword", model: [token: params.key])
     }
 
-
     def forgotPassword() {
         withForm {
 
@@ -141,4 +140,10 @@ class UserManagerController {
             invalidToken()
         }
     }
+
+    def createUser() {
+        render(view: "/userManager/createUser")
+    }
+
+
 }

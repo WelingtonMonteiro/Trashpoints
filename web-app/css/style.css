@@ -171,3 +171,10 @@ input[type=text][readonly="readonly"] {
 .margin-bottom {
     margin-bottom: 1.5rem !important;
 }
+
+.title-type-users {
+    font-size: 1.7rem;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.71);
+    -webkit-font-smoothing: antialiased;
+}

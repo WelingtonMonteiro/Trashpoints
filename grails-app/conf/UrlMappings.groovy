@@ -93,6 +93,11 @@ class UrlMappings {
             action = "resetPasswordView"
         }
 
+        "/usuario/cadastrar-usuario" {
+            controller = "userManager"
+            action = "createUser"
+        }
+
         "/"(view:"/index")
         "500"(view:'/error')
 
