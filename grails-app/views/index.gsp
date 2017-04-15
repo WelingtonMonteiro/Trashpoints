@@ -8,8 +8,36 @@
 <body>
 
 <main>
+
+    <div id="banner-index" class="blue-gradient full-height itens-center">
+        <div id="banner-image">
+            <img src="${resource(dir: 'images', file: 'trashPoints_logo_index_alpha.png')}" style="width: 100%;">
+        </div>
+        <div id="banner-text">
+            <h5 class="white-text center-align">Sistema voltado para gestão de coleta de lixo reciclável.</h5>
+        </div>
+    </div>
+
     <div class="section">
         <div class="container">
+
+            <div class="row">
+                <div class="col s12 m12 l12">
+                    <div class="card-panel white hoverable">
+                        <h5 class="bold indigo-text text-accent-1 uppercase">O que é o sistema Trashpoints?</h5>
+                        <hr style="border-color: rgba(140, 158, 255, 0.57) !important;" />
+                        <p style="text-align: justify; text-indent: 4ch; font-size: 1.03rem;">
+                            Um dos principais problemas hoje em dia é o lixo urbano. Contudo, a reciclagem é uma das soluções para esse problema.
+                            Mas muitas pessoas não sabem onde entregar e nem quando alguém vai poder retirar esse lixo de sua casa,
+                            causando falta de interesse na separação do lixo e consequentemente na degradação do meio ambiente.
+                        </p>
+                        <p style="text-align: justify; text-indent: 4ch; font-size: 1.03rem;">
+                            Pensando nisso, foi criado o sistema Trashpoints, onde os moradores podem avisar as empresas de coletas para que possam buscar suas coletas e
+                            as empresas coletoras visualizariam as coletas e poderiam definir a melhor rota, coletando mais em menos tempo.
+                        </p>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <!-- Vidros -->
                 <div class="col s12 m6">

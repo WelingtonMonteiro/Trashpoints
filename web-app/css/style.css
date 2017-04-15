@@ -178,3 +178,40 @@ input[type=text][readonly="readonly"] {
     color: rgba(0, 0, 0, 0.71);
     -webkit-font-smoothing: antialiased;
 }
+
+/*index*/
+/*@import url('https://fonts.googleapis.com/css?family=Didact+Gothic');*/
+
+nav#top-menu {
+    height: 65px;
+}
+
+#banner-index {
+    padding: 0 2rem;
+}
+
+.blue-gradient {
+    background: #536DFE;
+    background: linear-gradient(-85deg, #7A8CFE 0%, #516AF7 50%, #536DFE 100%);
+}
+
+.full-height {
+    height: 92vh;
+}
+
+.itens-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/*h1 {
+    margin-bottom: .5rem;
+    font-family: 'Didact Gothic', sans-serif;
+}
+
+#banner-text h5 {
+    font-family: 'Didact Gothic', sans-serif;
+}*/
+/*index*/
