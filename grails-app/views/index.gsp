@@ -174,7 +174,7 @@
             $.get("http://www.trashpoints.com.br/", function (data) {
                 console.log("reload index.");
             });
-        }, 1500000);
+        }, 900000);
     })
 </script>
 </html>
