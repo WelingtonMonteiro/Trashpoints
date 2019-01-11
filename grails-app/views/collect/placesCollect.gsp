@@ -192,7 +192,7 @@
 <script src="${application.contextPath}/js/markerclusterer.min.js" type="text/javascript"></script>
 <script src="${application.contextPath}/js/materialize.clockpicker.min.js" type="text/javascript"></script>
 <script src="${application.contextPath}/js/moment.min.js" type="text/javascript"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6W1hTA1qEYPC1qi4V3dvDkIcg75yUc68"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYjFfEQunWa0k8i_2z4NxEz2eqrQa0vMA"></script>
 
 </body>
 </html>
