@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <style>.async-hide { opacity: 0 !important} </style>
+    <script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+        h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+        (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+    })(window,document.documentElement,'async-hide','dataLayer',4000,
+        {'GTM-TK6MV8H':true});</script>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-114224285-1', 'auto');
+        ga('require', 'GTM-TK6MV8H');
+        ga('send', 'pageview');
+    </script>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-BCMRFGV');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="cache-control" content="no-cache"/>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="cache-control" content="max-age=0"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+
+    <title>e|Conform</title>
+
+    <link rel="icon" href="img/simbolo_quadrado.jpg">
+
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/loading.css">
+    <link rel="stylesheet" href="style/radiobutton.css">
+    <link rel="stylesheet" href="style/sidenav.css">
+    <link rel="stylesheet" href="style/topbar.css">
+    <link rel="stylesheet" href="style/tooltip.css">
+    <link rel="stylesheet" href="style/checkbox.css">
+    <link rel="stylesheet" href="style/calendar.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="lib/angular-toastr/dist/angular-toastr.css" type="text/css"/>
+    <link href="lib/open-iconic-master/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all"/>
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/ammap.css" type="text/css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.20.0/select.css" rel="stylesheet" />-->
+    <!--<link rel="stylesheet" href="https://cdn.rawgit.com/tonystar/bootstrap-float-label/v3.0.1/dist/bootstrap-float-label.min.css"/>-->
+</head>
+
+<body ng-app="app" ng-cloak>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-BCMRFGV"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="https://unpkg.com/angular-ui-router@1.0.3/release/angular-ui-router.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.17/angular-filter.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular-filter/0.4.7/angular-filter.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.20.0/select.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/i18n/pt-BR.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.6.4/angular-locale_pt-br.min.js"></script>
+
+
+<script src="lib/angular-toastr/dist/angular-toastr.tpls.js"></script>
+<script src="lib/angular-jwt/dist/angular-jwt.js"></script>
+<script src="lib/async/async.js"></script>
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+
+<!-- Google includes -->
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBfUs6Zfds7xzVm5X0nezU9t-zSiVc_g0&callback=initMap" defer></script>-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD33BmqULy-JQUPZlHt9fyAsOwsEvD2Gwg&libraries=places" defer></script>
+
+<!-- amCharts includes -->
+<script src="https://www.amcharts.com/lib/3/ammap.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<script src="https://www.amcharts.com/lib/3/maps/js/brazilLow.js"></script>
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<script src="style/map/dark.js"></script>
+<!--Raygun get errors-->
+<script type="text/javascript">
+    !function(a,b,c,d,e,f,g,h){a.RaygunObject=e,a[e]=a[e]||function(){
+        (a[e].o=a[e].o||[]).push(arguments)},f=b.createElement(c),g=b.getElementsByTagName(c)[0],
+        f.async=1,f.src=d,g.parentNode.insertBefore(f,g),h=a.onerror,a.onerror=function(b,c,d,f,g){
+        h&&h(b,c,d,f,g),g||(g=new Error(b)),a[e].q=a[e].q||[],a[e].q.push({
+            e:g})}}(window,document,"script","//cdn.raygun.io/raygun4js/raygun.min.js","rg4js");
+</script>
+
+<!--LOADING-->
+<div id="loading" class="row align-items-center black_screen">
+    <div class="col-md-4 offset-md-4 text-center">
+        <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+        </svg>
+        <!--<img src="img/gif-loading-repeat.gif" alt="">-->
+    </div>
+</div>
+
+<!--GREY DIV-->
+<div id='greyDiv' class="black_screen" style="display:none;"></div>
+
+<!--UI VIEW-->
+<ui-view id='uiView' style="min-height: 100vh;z-index: 1">
+
+</ui-view>
+
+<!-- envirement envs-->
+<script src="app/env.js"></script>
+
+
+<script type="text/javascript">
+    if(window.__env.typeEnv ===  'developer'){
+        rg4js('apiKey', 'Of+pYWsfK/3oDdza7p2AYQ==');
+        rg4js('enableCrashReporting', true);
+    }else if( window.__env.typeEnv === 'production') {
+        rg4js('apiKey', 'kEP/RnoDote+MG8MXRxNZA==');
+        rg4js('enableCrashReporting', true);
+    }
+</script>
+
+
+<!--APP-->
+<script src="app/app.module.js"></script>
+<script src="app/app.route.js"></script>
+
+<!--SERVICE-->
+<script src="service/service.module.js"></script>
+<script src="service/api.service.js"></script>
+
+<!--NOTIFICATION-->
+
+<script src="modules/notification-mails/notification.module.js"></script>
+<script src="modules/notification-mails/notification.route.js"></script>
+
+<!--LOGIN-->
+
+<script src="modules/login/login.module.js"></script>
+<script src="modules/login/login.route.js"></script>
+<script src="modules/login/login.service.js"></script>
+<script src="modules/login/login.controller.js"></script>
+
+<!--LOGIN-->
+
+<script src="modules/forgot-password/forgot-password.module.js"></script>
+<script src="modules/forgot-password/forgot-password.route.js"></script>
+<script src="modules/forgot-password/forgot-password.service.js"></script>
+<script src="modules/forgot-password/forgot-password.controller.js"></script>
+<script src="modules/forgot-password/change-password.controller.js"></script>
+
+<!--TOPBAR-->
+
+<script src="modules/topbar/topbar.module.js"></script>
+<script src="modules/topbar/topbar.service.js"></script>
+<script src="modules/topbar/topbar.controller.js"></script>
+
+<!--Register-->
+<script src="modules/register/register.module.js"></script>
+<script src="modules/register/register.route.js"></script>
+<script src="modules/register/register.service.js"></script>
+<script src="modules/register/form/form.controller.js"></script>
+<script src="modules/register/cnpj/cnpj.controller.js"></script>
+<script src="modules/register/license/license.controller.js"></script>
+
+<!--waiting-->
+<script src="modules/waiting/waiting.module.js"></script>
+<script src="modules/waiting/waiting.route.js"></script>
+
+<!--upload license-->
+<script src="modules/upload-license/upload.license.module.js"></script>
+<script src="modules/upload-license/upload.license.route.js"></script>
+<script src="modules/upload-license/upload.license.service.js"></script>
+<script src="modules/upload-license/upload.license.controller.js"></script>
+
+<!--Dashboard-->
+<script src="modules/dashboard/dashboard.module.js"></script>
+<script src="modules/dashboard/dashboard.route.js"></script>
+<script src="modules/dashboard/dashboard.service.js"></script>
+<script src="modules/dashboard/map/dashboard.map.controller.js"></script>
+<script src="modules/dashboard/list/dashboard.list.controller.js"></script>
+
+<!--Drive-->
+<script src="modules/drive/drive.module.js"></script>
+<script src="modules/drive/drive.route.js"></script>
+<script src="modules/drive/drive.service.js"></script>
+<script src="modules/drive/drive.controller.js"></script>
+
+<!--Company-->
+<script src="modules/company/company.module.js"></script>
+<script src="modules/company/company.route.js"></script>
+<script src="modules/company/company.service.js"></script>
+<script src="modules/company/company.controller.js"></script>
+
+<!--User-->
+<script src="modules/user-control/user-control.module.js"></script>
+<script src="modules/user-control/user-control.route.js"></script>
+<script src="modules/user-control/user-control.service.js"></script>
+<script src="modules/user-control/user-control.controller.js"></script>
+
+<!--Calendar-->
+<script src="modules/diary/diary.module.js"></script>
+<script src="modules/diary/diary.route.js"></script>
+<script src="modules/diary/diary.service.js"></script>
+<script src="modules/diary/diary.controller.js"></script>
+
+<!--Wizard-->
+<script src="modules/wizard/wizard.module.js"></script>
+<script src="modules/wizard/wizard.controller.js"></script>
+<script src="modules/wizard/wizard.service.js"></script>
+
+<!--ADM-->
+
+<!--LOGIN-->
+
+<script src="modules-adm/login/login.module.js"></script>
+<script src="modules-adm/login/login.route.js"></script>
+<script src="modules-adm/login/login.service.js"></script>
+<script src="modules-adm/login/login.controller.js"></script>
+
+<!--DASHBOARD-->
+
+<script src="modules-adm/dashboard/dashboard.module.js"></script>
+<script src="modules-adm/dashboard/dashboard.route.js"></script>
+<script src="modules-adm/dashboard/dashboard.service.js"></script>
+
+<script src="modules-adm/dashboard/manager-user/manger.users.controller.js"></script>
+<script src="modules-adm/dashboard/license-edition/license.edition.controller.js"></script>
+<script src="modules-adm/dashboard/license-remotion/license.remotion.controller.js"></script>
+
+<!--TOPBAR-->
+
+<script src="modules-adm/topbar/topbar.module.js"></script>
+<script src="modules-adm/topbar/topbar.controller.js"></script>
+<script src="modules-adm/topbar/topbar.service.js"></script>
+
+<!--POP-->
+
+<script src="modules-adm/pop/pop.module.js"></script>
+<script src="modules-adm/pop/pop.route.js"></script>
+
+<script src="modules-adm/pop/license-list/license.list.controller.js"></script>
+<script src="modules-adm/pop/sidenav/sidenav.controller.js"></script>
+<script src="modules-adm/pop/step1/step.one.controller.js"></script>
+<script src="modules-adm/pop/pricing/pricing.controller.js"></script>
+
+<script src="modules-adm/pop/step1/step.one.service.js"></script>
+
+<!--Analytics-->
+
+</body>
+</html>
+
