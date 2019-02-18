@@ -2,7 +2,6 @@
     window.__env = window.__env || {};
 
     // API url
-    // window.__env.apiUrl = 'https://e-conform-api.herokuapp.com/api';
     window.__env.apiUrl = 'http://localhost:3000/api';
 
     // Base url
