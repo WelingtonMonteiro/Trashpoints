@@ -1,13 +1,15 @@
-var loadMiddlewares = require('./bin/bin.middlewares');
-var loadServer = require('./bin/bin.server.js');
-var express = require('express');
-var app = express();
+const loadDb = require('./load/load.db.js');
+const loadMiddlewares = require('./load/load.middlewares');
+const loadRoutes = require('./load/load.routes.js');
+const loadSockets = require('./load/load.socket.io');
+const loadServer = require('./load/load.server.js');
+const express = require('express');
+const app = express();
 
-module.exports = app;
+const db = loadDb();
+const middeware = loadMiddlewares(app);
+loadRoutes(app);
 
-loadMiddlewares(app, onLoadMiddleware);
-
-function onLoadMiddleware() {
-    loadServer(app);
-}
-
+module.exports = {
+    app
+};
