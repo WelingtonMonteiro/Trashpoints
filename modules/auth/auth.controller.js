@@ -9,7 +9,6 @@ const Busboy = require('busboy');
 module.exports = {
 
     getTokenBitrix,
-    authBitrix,
 
     Upload: {
         onLoadFile,
@@ -19,91 +18,8 @@ module.exports = {
         empty,
         logged,
         roles
-    },
-    Socket: {
-        joinConsumer,
-        joinStore,
-        reconnect,
-        disconnect,
-        authenticate
     }
 };
-
-// --------- SOCKET ----------//
-function reconnect(socketId) {
-    console.log(`Reconectando ... : ${socketId}\n`);
-}
-
-function disconnect(io, socket, data) {
-
-    let online = io.sockets.clients();
-    let clientId = global.SOCKETS[socket.id];
-    let client = global.CLIENTS[clientId];
-
-    if (clientId) {
-
-        delete global.CLIENTS[clientId];
-        delete global.SOCKETS[socket.id];
-
-        socket.isLoggedChat = false;
-        socket.isLoggedChat = false;
-
-        console.log(`Cliente: ${client.name} saiu do chat ... \n`);
-    }
-
-
-    socket.disconnect();
-}
-
-function joinConsumer(socket, data) {
-
-    if (!global.CLIENTS[data.id]) {
-        socket.isLoggedChat = true;
-
-        data.isConsumer = true;
-        data.isLoggedChat = true;
-        data.socketId = socket.id;
-
-        global.CLIENTS[data.id] = data;
-        global.SOCKETS[socket.id] = data.id;
-
-        console.log(`Cliente: ${data.name} entrou ... \n`);
-    }
-}
-
-function joinStore(socket, data) {
-
-    if (!global.CLIENTS[data.id]) {
-        socket.isLoggedChat = true;
-
-        data.isStore = true;
-        data.isLoggedChat = true;
-        data.socketId = socket.id;
-
-        global.CLIENTS[data.id] = data;
-        global.SOCKETS[socket.id] = data.id;
-
-        console.log(`Loja: ${data.name} entrou ...\n`);
-    }
-}
-
-async function authBitrix(req, res) {
-    res.redirect(B24Service.bitrix24.auth.authorization_uri);
-}
-
-//get and save token bitrix in memory
-async function getTokenBitrix(req, res) {
-    try {
-        const code = req.query.code;
-
-        const result = await B24Service.bitrix24.auth.getToken(code);
-
-        return res.json(result);
-    } catch (err) {
-
-        return res.status(500).json({error: "Authentication Failed", message: err.message});
-    }
-}
 
 function authenticate(socket, data) {
     const token = data.token;
