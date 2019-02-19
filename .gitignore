@@ -101,3 +101,5 @@ public/WEB-INF/tld/c.tld
 public/WEB-INF/tld/fmt.tld
 
 /node_modules/*
+
+.vscode/*

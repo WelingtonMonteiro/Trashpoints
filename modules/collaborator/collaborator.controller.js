@@ -2,11 +2,9 @@ const CollaboratorService = require('./collaborator.service.js');
 const ApiResponseService = require('../../services/api.response.service.js');
 const StringService = require('../../services/string.service.js');
 
-
 module.exports = {
-    getAll
+    getAll, create
 };
-
 
 async function getAll(req, res) {
     let messageId = req.params.messageId;
@@ -22,4 +20,9 @@ async function getAll(req, res) {
     }
 
     await CollaboratorService.getAll(req, res);
+}
+
+async function create(req, res) {    
+
+    await CollaboratorService.create(req, res);
 }

@@ -19,6 +19,7 @@
     "forever-monitor": "1.7.1",
     "helmet": "3.6.0",
     "mongoose": "^5.4.13",
+    "morgan": "^1.9.1",
     "select2-bootstrap-theme": "0.1.0-beta.10"
   }
 }
