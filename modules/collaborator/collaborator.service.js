@@ -1,6 +1,5 @@
 const CollaboratorModel = require('./collaborator.model.js');
 const ApiReponseService = require('../../services/api.response.service.js');
-const SocketResponseService = require('../../services/socketio.response.service');
 const StringService = require('../../services/string.service.js');
 const Linq = require('linq');
 

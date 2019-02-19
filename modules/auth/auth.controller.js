@@ -1,15 +1,10 @@
 const ApiResponseService = require('../../services/api.response.service');
-const SocketResponseService = require('../../services/socketio.response.service');
 const ValidatorTokenService = require('../../services/token.service');
-const B24Service = require('../../services/bitrix24.service');
 const Busboy = require('busboy');
 
 
 //noinspection SpellCheckingInspection
 module.exports = {
-
-    getTokenBitrix,
-
     Upload: {
         onLoadFile,
     },

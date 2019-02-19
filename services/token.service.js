@@ -1,5 +1,5 @@
 const jsonwebtoken = require('jsonwebtoken');
-const config = require('../load/load.env');
+const config = require('../load/load.config');
 const RequestApi = require('./request.service');
 
 module.exports = {
