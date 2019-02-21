@@ -7,8 +7,12 @@ const app = express();
 
 const db = loadDb();
 const middeware = loadMiddlewares(app);
+const server = loadServer(app);
+
 loadRoutes(app);
 
 module.exports = {
     app
 };
+
+
