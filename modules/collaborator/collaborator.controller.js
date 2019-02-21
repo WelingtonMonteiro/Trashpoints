@@ -22,7 +22,6 @@ async function getAll(req, res) {
     await CollaboratorService.getAll(req, res);
 }
 
-async function create(req, res) {    
-
+async function create(req, res) {
     await CollaboratorService.create(req, res);
 }

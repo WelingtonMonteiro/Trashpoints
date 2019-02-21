@@ -50,7 +50,16 @@ async function getAll(req, res) {
 }
 
 async function create(req, res) {
-    try {       
+    try {    
+        let collaborator = new CollaboratorModel();
+        collaborator.name = req.params.name;
+        collaborator.phone = req.params.phone;
+        collaborator.photo = req.params.photo;
+        collaborator.dateOfBirth = req.params.dateOfBirth;
+        collaborator.isAddressEqual = req.params.isAddressEqual;
+
+        let error = collaborator.validateSync();
+        //assert.equal(error, null);
 
         return ApiReponseService.success(res, {
             message: 'Colaborador salvo com sucesso'
