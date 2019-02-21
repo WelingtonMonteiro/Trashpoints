@@ -1,4 +1,5 @@
-const CollaboratorModel = require('./collaborator.model.js');
+const Collaborator = require('./collaborator.model.js');
+const Address = require('../shared/address.model.js');
 const ApiReponseService = require('../../services/api.response.service.js');
 const StringService = require('../../services/string.service.js');
 const Linq = require('linq');
@@ -26,14 +27,14 @@ async function getAll(req, res) {
         }
 
 
-        let total = await CollaboratorModel
+        let total = await Collaborator
             .countDocuments(query);
 
         if (userId) {
-            let updated = await CollaboratorModel
+            let updated = await Collaborator
                 .updateMany(query, {$set: setUpdate});
         }
-        let comments = await CollaboratorModel
+        let comments = await Collaborator
             .find(query, {skip: skip * limit, limit: limit})
             .sort({dateTime: 1})
             .lean();
@@ -50,16 +51,16 @@ async function getAll(req, res) {
 }
 
 async function create(req, res) {
-    try {    
-        let collaborator = new CollaboratorModel();
-        collaborator.name = req.params.name;
-        collaborator.phone = req.params.phone;
-        collaborator.photo = req.params.photo;
-        collaborator.dateOfBirth = req.params.dateOfBirth;
-        collaborator.isAddressEqual = req.params.isAddressEqual;
+    try {   
+        let requestDTO = req.body; 
+
+        let address = new Address(requestDTO);
+        let collaborator = new Collaborator(requestDTO);
 
         let error = collaborator.validateSync();
-        //assert.equal(error, null);
+
+        if(error != null)
+            return ApiReponseService.error(res, {message: error});
 
         return ApiReponseService.success(res, {
             message: 'Colaborador salvo com sucesso'
