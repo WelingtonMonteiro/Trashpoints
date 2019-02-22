@@ -55,15 +55,27 @@ async function create(req, res) {
         let requestDTO = req.body; 
 
         let address = new Address(requestDTO);
+        address.normalizedName = StringService.searchName(address.state.concat(address.city).concat(address.suburb));
+
         let collaborator = new Collaborator(requestDTO);
 
-        let error = collaborator.validateSync();
+        let errorAddress = address.validateSync();
+        if(errorAddress != null)
+            return ApiReponseService.error(res, {message: errorAddress});
 
-        if(error != null)
-            return ApiReponseService.error(res, {message: error});
+        collaborator.addressId = address.id;
+        let errorCollaborator = collaborator.validateSync();
+
+        if(errorCollaborator != null)
+            return ApiReponseService.error(res, {message: errorCollaborator});
+
+        //send email        
+
+        await address.save(address);
+        await collaborator.save(collaborator);
 
         return ApiReponseService.success(res, {
-            message: 'Colaborador salvo com sucesso'
+            message: 'Dados salvos com sucesso'
         });
 
     } catch (error) {

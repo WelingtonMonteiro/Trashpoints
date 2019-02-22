@@ -2,7 +2,7 @@ let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 let ObjectId = Schema.Types.ObjectId;
 
-const addressSchema ={
+const addressSchema = {
     zipCode: {
         type: String,
         required: true,
@@ -57,6 +57,11 @@ const addressSchema ={
         min: -180.0,
         max: 180.0
     },
+    normalizedName: {
+        type: String,
+        trim: true,
+        required: true
+    }
 };
 
 module.exports = addressSchema;
