@@ -1,0 +1,144 @@
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-dark-green sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#!/companhia">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <img src="images/logos/trashPoints-logotipo-miniatura-alpha.png" height="50" alt="logo">
+        </div>
+        <div class="sidebar-brand-text mx-3">Companhia</div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Home -->
+    <li id="homeMenuItem" class="nav-item active">
+        <a class="nav-link menu-item" href="#!/companhia">
+            <i class="fas fa-fw fa-home"></i>
+            <span>Início</span>
+        </a>
+    </li>
+
+    <!-- Nav Item - Relatórios -->
+    <li id="relatorioMenuItem" class="nav-item">
+        <a class="nav-link menu-item" href="">
+            <i class="far fa-fw fa-chart-bar"></i>
+            <span>Relatórios</span>
+        </a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Coletas
+    </div>
+
+    <!-- Nav Item - Minhas Coletas Collapse Menu -->
+    <li class="nav-item collapse-menu">
+        <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+            aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-recycle"></i>
+            <span>Minhas Coletas</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <!-- <h6 class="collapse-header">Custom Components:</h6> -->
+                <a id="coletadasMenuItem" class="collapse-item" href="#!/companhia/minhas-coletas/coletadas">Coletadas</a>
+                <a id="aColetarMenuItem" class="collapse-item" href="#!/companhia/minhas-coletas/a-coletar">A recolher</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - Locais para coletar -->
+    <li id="locaisColetarMenuItem" class="nav-item">
+        <a class="nav-link menu-item" href="#">
+            <i class="fas fa-fw fa-truck"></i>
+            <span>Locais para coletar</span>
+        </a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Nav Item - Fale conosco -->
+    <li id="faleConoscoMenuItem" class="nav-item">
+        <a class="nav-link menu-item" href="#">
+            <i class="far fa-fw fa-comment-dots"></i>
+            <span>Fale conosco</span>
+        </a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button id="sidebarToggle" class="rounded-circle border-0 sidebar-toggle"></button>
+    </div>
+
+</ul>
+<!-- End of Sidebar -->
+
+<script>
+    (function ($) {
+        "use strict";
+        const MENU_ITEM_ID_CLICKED = 'menuItemIDClicked';
+        const MENU_ITEM_TYPE_CLICKED = 'menuItemTypeClicked';
+
+        function init() {
+            let menuItemID = sessionStorage.getItem(MENU_ITEM_ID_CLICKED);
+
+            if (menuItemID) {
+                let menuItemType = sessionStorage.getItem(MENU_ITEM_TYPE_CLICKED);
+                deactivateMenuItem();
+
+                if (menuItemType === 'menu-item') {                    
+                    activateMenuItem(document.getElementById(menuItemID));
+                } else {
+                    activateMenuItem(document.querySelector('li.collapse-menu'));                    
+                    activateMenuItem(document.getElementById(menuItemID));                    
+                }
+            }
+        }
+        init();
+
+        // Activate home menu item
+        $('.sidebar-brand').on('click', function (e) {
+            deactivateMenuItem();
+            activateMenuItem(document.getElementById('homeMenuItem'));
+            sessionStorage.setItem(MENU_ITEM_ID_CLICKED, 'homeMenuItem');
+            sessionStorage.setItem(MENU_ITEM_TYPE_CLICKED, 'menu-item');
+        });
+
+        // Activate menu item clicked
+        $('.menu-item').on('click', function (e) {
+            let linkElement = e.target;
+
+            if (e.target.tagName.toLowerCase() !== "a") { // ex: span
+                linkElement = e.target.parentNode;
+            }
+
+            deactivateMenuItem();
+            let liParent = linkElement.parentNode;
+            activateMenuItem(liParent);
+
+            sessionStorage.setItem(MENU_ITEM_ID_CLICKED, liParent.id);
+            sessionStorage.setItem(MENU_ITEM_TYPE_CLICKED, 'menu-item');
+        });
+
+        // Activate collapse menu item clicked
+        $('.collapse-item').on('click', function (e) {
+            deactivateMenuItem();
+            activateMenuItem(e.target);
+
+            let liParent = e.target.closest("li.nav-item");
+            activateMenuItem(liParent);
+
+            sessionStorage.setItem(MENU_ITEM_ID_CLICKED, e.target.id);
+            sessionStorage.setItem(MENU_ITEM_TYPE_CLICKED, 'collapse-item');
+        });
+    })(jQuery); 
+</script>

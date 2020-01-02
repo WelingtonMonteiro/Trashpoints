@@ -1,0 +1,25 @@
+{
+  "name": "trashpoints-front",
+  "version": "1.0.0",
+  "description": "TrashPoints, Sistema voltado para gestão de coleta de lixo reciclável.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "trashpoints",
+    "TrashPoints",
+    "sistema coleta seletiva",
+    "coleta seletiva"
+  ],
+  "author": "Felipe Ayres, Welington Monteiro",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.7.9",
+    "angular-route": "^1.7.9",
+    "angularfire": "^2.3.0",
+    "bootstrap": "^4.4.1",
+    "firebase": "^7.6.0",
+    "jquery": "^3.4.1"
+  }
+}

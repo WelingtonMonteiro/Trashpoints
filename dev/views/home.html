@@ -1,0 +1,56 @@
+<div id="home" class="d-flex flex-column justify-content-center align-items-center full-height">
+    <div id="banner-image">
+        <img src="images/logos/trashPoints-logotipo-alpha.svg" alt="logo" style="width: 100%;">
+    </div>
+
+    <div id="banner-text" class="p-2">
+        <h4 class="text-center">Sistema voltado para gestão de coleta de lixo reciclável.</h4>
+    </div>
+</div>
+
+<div class="container-fluid mb-4">
+    <hr />
+</div>
+
+<div class="container d-flex flex-column justify-content-center align-items-center full-height">
+    <!-- Card About -->
+    <div id="about" class="card shadow mb-4">
+        <div class="card-header py-3 bg-dark-green">
+            <h6 class="m-0 font-weight-bold text-gray-100">
+                O que é o sistema TrashPoints?
+            </h6>
+        </div>
+        <div class="card-body">
+            <p>
+                &emsp;Um dos principais problemas hoje em dia é o lixo urbano. Contudo, a reciclagem é
+                uma das soluções para esse problema. Mas muitas pessoas não sabem onde entregar e nem
+                quando alguém vai poder retirar esse lixo
+                de sua casa, causando falta de interesse na separação do lixo e consequentemente na
+                degradação do meio ambiente.
+            </p>
+            <p>
+                &emsp;Pensando nisso, foi criado o sistema Trashpoints, onde os moradores podem avisar as
+                empresas de coletas para que possam buscar suas coletas e as empresas coletoras visualizariam
+                as coletas e poderiam definir a melhor rota, coletando mais em menos tempo.
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function ($) {
+        "use strict";
+
+        // Scroll
+        $(document).on('click', '.nav-link', function (e) {
+            let target = $(this).data('target');
+            if(!target) return;
+           
+            $('html, body').stop().animate({
+                scrollTop: ($('#' + target).offset().top)
+            }, 1500, 'easeInOutExpo');
+            e.preventDefault();
+        });
+
+    })(jQuery);     
+</script>
