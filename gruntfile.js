@@ -65,7 +65,7 @@ module.exports = function(grunt) {
                 },
                 files: {
                     'dist/pages/shared/header.html': 'dev/pages/shared/header.html',
-                    'dist/pages/home.html': 'dev/pages/home.html',
+                    'dist/pages/home.html': 'dev/pages/company.html',
                     'dist/pages/login.html': 'dev/pages/login.html',
                     'dist/pages/post.html': 'dev/pages/post.html',
                 }

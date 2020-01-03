@@ -1,0 +1,11 @@
+{
+  "name": "Trashpoints api",
+  "version": "1.0.0",
+  "description": "API Node.js para Trashpoints v1.0.0",
+  "title": "Trashpoints",
+  "sampleUrl":"https://trashpoints.herokuapp.com",
+  "url":"https://trashpoints.herokuapp.com",
+  "template": {
+    "forceLanguage": "pt_br"
+  }
+}

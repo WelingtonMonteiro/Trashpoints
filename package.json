@@ -2,24 +2,49 @@
   "name": "trashpoints-front",
   "version": "1.0.0",
   "description": "TrashPoints, Sistema voltado para gestão de coleta de lixo reciclável.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "main": "app.js",
   "keywords": [
     "trashpoints",
     "TrashPoints",
     "sistema coleta seletiva",
     "coleta seletiva"
   ],
+  "scripts": {
+    "start": "node --optimize_for_size --max_old_space_size=8192 --gc_interval=100 ./app.js",
+    "doc": "apidoc -f \".*\\.doc\\.js\" -o public/doc",
+    "test": "mocha --timeout 10000"
+  },
+  "apidoc": {
+    "name": "Documentação - Trashpoints"
+  },
   "author": "Felipe Ayres, Welington Monteiro",
   "license": "ISC",
   "dependencies": {
-    "angular": "^1.7.9",
-    "angular-route": "^1.7.9",
-    "angularfire": "^2.3.0",
-    "bootstrap": "^4.4.1",
-    "firebase": "^7.6.0",
-    "jquery": "^3.4.1"
+    "mongodb": "2.2.19",
+    "body-parser": "1.17.2",
+    "busboy-body-parser": "^0.3.2",
+    "compression": "^1.7.3",
+    "connect-busboy": "0.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "6.2.0",
+    "ejs": "2.5.6",
+    "express": "4.15.3",
+    "forever-monitor": "^1.7.1",
+    "helmet": "3.15.0",
+    "mongoose": "5.x",
+    "morgan": "1.9.1",
+    "underscore": "^1.9.1",
+    "uuid": "^3.3.2",
+    "validator": "^10.11.0"
+  },
+  "devDependencies": {
+    "api-doc": "*",
+    "chai": "*",
+    "chai-http": "*",
+    "mocha": "*"
+  },
+  "engines": {
+    "node": "9.x.x",
+    "npm": "6.x.x"
   }
 }

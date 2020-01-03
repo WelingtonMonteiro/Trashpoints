@@ -16,7 +16,7 @@ bower_components/
 
 # IDEs and editors
 .idea/
-
+.vscode/
 # misc
 .sass-cache/
 connect.lock/
@@ -117,9 +117,6 @@ jspm_packages/
 
 # nuxt.js build output
 .nuxt
-
-# react / gatsby 
-public/
 
 # vuepress build output
 .vuepress/dist

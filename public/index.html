@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="trashpoints">
+
+<head>
+    <title>TrashPoints</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=assetsice-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="TrashPoints, Sistema voltado para gestão de coleta de lixo reciclável.">
+    <meta name="keywords"
+        content="TrashPoints, trash, points, trashpoints, lixo reciclável, coleta seletiva, gestão de coleta de lixo reciclável, guaratinguetá">
+    <meta name="author" content="Felipe Ayres, Welington Monteiro">
+
+    <!-- Favicon -->
+    <!-- <link rel="shortcut icon" href="images/favicons/favicon.ico" /> -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicons/favicon-16x16.png">
+    <link rel="manifest" href="assets/images/favicons/site.webmanifest">
+    <!-- Nunito Google Font -->
+    <link href="//fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <!-- FontAwesome Icon Font -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+        integrity="sha256-BtbhCIbtfeVWGsqxk1vOHEYXS6qcvQvLMZqjtpWUEx8=" crossorigin="anonymous" />
+    <!-- Custom styles for this template -->
+    <link href="assets/css/sb-admin-2.css" rel="stylesheet" />
+    <!-- My CSS -->
+    <link href="assets/css/styles.css" rel="stylesheet" />
+
+</head>
+
+<body id="page-top">
+
+    <!-- Header -->
+    <div ng-include="'views/shared/_topbarHome.html'" ng-if="!user"></div>
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar Companhia -->
+        <div ng-include="'views/shared/_sidebarCompanhia.html'" ng-if="user && user.role === 'COMPANHIA'"
+            class="d-flex"></div>
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <div ng-include="'views/shared/_topbar.html'" ng-if="user"></div>
+
+                <!-- Ng-View -->
+                <div ng-view class="d-flex flex-column"></div>
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <div ng-include="'views/shared/_footer.html'"></div>
+
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Sair do sistema?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Tem certeza que deseja sair do sistema?</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Não</button>
+                    <a class="btn btn-success" href="#!/login">Sim</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button-->
+    <button id="scrollTop" class="scroll-to-top btn">
+        <i class="fas fa-angle-up"></i>
+    </button>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="assets/scripts/jquery.easing.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="assets/scripts/utils.js"></script>
+    <script src="assets/scripts/sb-admin-2.js"></script>
+
+    <!-- Core AngularJS -->
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/firebase/firebase.js"></script>
+    <script src="bower_components/angularfire/dist/angularfire.min.js"></script>
+
+    <!-- My Scripts -->
+    <script src="app/app.js"></script>
+    <script src="app/company/controllers/company-controller.js"></script>
+    <script src="app/home/controllers/home-controller.js"></script>
+    <script src="app/home/controllers/login-controller.js"></script>
+    <script src="app/configs/routeConfig.js"></script>
+
+</body>
+
+</html>
