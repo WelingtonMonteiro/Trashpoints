@@ -2,11 +2,11 @@
     'use strict';
 
     angular.module('company')
-      .controller('CompanyCtrl', HomeEmpresaCtrl);
+      .controller('CompanyCtrl', CompanyCtrl);
 
-    HomeEmpresaCtrl.$inject = ['$scope', '$rootScope'];
+    CompanyCtrl.$inject = ['$scope', '$rootScope'];
 
-    function HomeEmpresaCtrl($scope, $rootScope) {
+    function CompanyCtrl($scope, $rootScope) {
         $rootScope.user = { id: '123456', role: 'COMPANHIA'};
         //var vm = this;
         console.log('HomeEmpresaCtrl');

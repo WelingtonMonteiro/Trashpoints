@@ -11,7 +11,7 @@ if (result.error) {
     console.error(colorService.FgRed, result.error);
     process.env.ENV = "";
 }
-console.log("\n\n", colorService.FgGreen, result.parsed);
+console.log("\n\n", colorService.FgGreen, JSON.stringify(result.parsed, null, 4));
 console.log(colorService.FgBlue);
 
 
