@@ -37,7 +37,7 @@
     <div id="wrapper">
 
         <!-- Sidebar Companhia -->
-        <div ng-include="'views/shared/_sidebarCompanhia.html'" ng-if="user && user.role === 'COMPANHIA'"
+        <div ng-include="'views/shared/_sidebarCompany.html'" ng-if="user && user.role === 'COMPANHIA'"
             class="d-flex"></div>
 
         <!-- Content Wrapper -->
@@ -108,6 +108,7 @@
     <script src="app/app.js"></script>
     <script src="app/home/controllers/home-controller.js"></script>
     <script src="app/home/controllers/login-controller.js"></script>
+    <script src="app/company/controllers/company-controller.js"></script>
     <!-- <script src="app/company/controllers/company-controller.js"></script> -->
     <script src="app/configs/routeConfig.js"></script>
 

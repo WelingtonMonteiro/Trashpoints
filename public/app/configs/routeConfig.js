@@ -28,11 +28,11 @@
 			})
 			.when("/companhia", {
 				templateUrl: "views/company/company.html",
-				controller: "HomeEmpresaCtrl"
+				controller: "CompanyCtrl"
 			})
 			.when("/companhia/minhas-coletas/coletadas", {
 				templateUrl: "views/collect/collect.html",
-				controller: "HomeEmpresaCtrl"
+				controller: "CompanyCtrl"
 			})
 			.when("/not-found", {
 				templateUrl: "views/commons/not-found.html",
