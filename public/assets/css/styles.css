@@ -27,7 +27,7 @@
 }
 
 .bg-login-image {
-    background: url("../logos/trashPoints-logotipo-alpha.png");
+    background: url("../images/logos/trashPoints-logotipo-alpha.png");
     background-position: center;
     background-size: contain;
     background-color: #26b17f;
@@ -35,13 +35,13 @@
   }
 
   .bg-register-image {
-    background: url("../logos/trashPoints-logotipo-alpha.png");
+    background: url("../images/logos/trashPoints-logotipo-alpha.png");
     background-position: center;
     background-size: cover;
   }
 
   .bg-password-image {
-    background: url("../logos/trashPoints-logotipo-alpha.png");
+    background: url("../images/logos/trashPoints-logotipo-alpha.png");
     background-position: center;
     background-size: cover;
   }

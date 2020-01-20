@@ -15,27 +15,27 @@
 
 		$routeProvider
 			.when("/", {
-				templateUrl: "views/company.html",
+				templateUrl: "views/home/home.html",
 				controller: "HomeCtrl"
 			})
 			.when("/home", {
-				templateUrl: "views/company.html",
+				templateUrl: "views/home/home.html",
 				controller: "HomeCtrl"
 			})
 			.when("/login", {
-				templateUrl: "views/login.html",
+				templateUrl: "views/auth/login.html",
 				controller: "LoginCtrl"
 			})
 			.when("/companhia", {
-				templateUrl: "views/companhia/company.html",
+				templateUrl: "views/company/company.html",
 				controller: "HomeEmpresaCtrl"
 			})
 			.when("/companhia/minhas-coletas/coletadas", {
-				templateUrl: "views/companhia/collect.html",
+				templateUrl: "views/collect/collect.html",
 				controller: "HomeEmpresaCtrl"
 			})
 			.when("/not-found", {
-				templateUrl: "views/not-found.html",
+				templateUrl: "views/commons/not-found.html",
 			})
 			.otherwise({ redirectTo: "/not-found" });
 
