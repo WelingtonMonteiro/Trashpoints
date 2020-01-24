@@ -32,7 +32,8 @@
 			})
 			.when("/companhia/minhas-coletas/coletadas", {
 				templateUrl: "views/collect/collect.html",
-				controller: "CompanyCtrl"
+				controller: "CompanyCtrl",
+				controllerAs: 'vm'
 			})
 			.when("/not-found", {
 				templateUrl: "views/commons/not-found.html",

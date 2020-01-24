@@ -1,39 +1,40 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
-    <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Coletadas</h1>
+   <!-- Page Heading -->
+   <h1 class="h3 mb-4 text-gray-800">Coletadas</h1>
 
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </table>
+
+   <table class="table table-striped">
+      <thead>
+         <tr>
+            <th scope="col">Foto Coleta</th>
+            <th scope="col">Tipo(s)</th>
+            <th scope="col">Data Pedido</th>
+            <th scope="col">Data Agendada</th>
+            <th scope="col">Data Coletada</th>
+            <th scope="col">Colaborador</th>
+         </tr>
+      </thead>
+      <tbody ng-controller="CompanyCtrl">
+         <tr ng-repeat="c in collects">
+            <td class="text-center">
+               <a ng-click='openModalImage("{{c.id}}")' title="Ver Imagem da coleta">
+                  <i class="far fa-image fa-2x"></i>
+               </a>
+            </td>
+            <td>{{ c.types }}</td>
+            <td>{{ c.orderDate.toLocaleDateString('pt-br') }}</td>
+            <td>{{ c.scheduleDate.toLocaleDateString('pt-br') }}</td>
+            <td>{{ c.collectedDate.toLocaleDateString('pt-br') }} </td>
+            <td class="text-center">
+               <a onclick="openModalCollaboratorDetails(2)" title="Detalhes do colaborador">
+                  <i class="far fa-list-alt fa-2x"></i>
+               </a>
+            </td>
+         </tr>
+      </tbody>
+   </table>
 
 </div>
 <!-- /.container-fluid -->
