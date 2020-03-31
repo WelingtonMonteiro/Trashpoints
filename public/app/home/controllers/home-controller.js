@@ -1,13 +1,20 @@
 (function () {
-    'use strict';
+    'use strict'
 
-    angular.module('trashpoints').controller('HomeCtrl', HomeCtrl);
+    angular
+      .module('home')
+      .controller('HomeCtrl', HomeCtrl);
 
     HomeCtrl.$inject = ['$scope', '$rootScope'];
 
-    function HomeCtrl($scope, $rootScope) {
-        $rootScope.user = null;
-        console.log('HomeCtrl');
-    }
+    /* @ngInject */
+    function HomeCtrl ($scope, $rootScope) {
+        var vm = this;
+        vm.searchFilter = {};
+        vm.OneFunctionSample = OneFunctionSample;
 
+        function OneFunctionSample () {
+            console.log(vm.searchFilter)
+        }
+    }
 })();

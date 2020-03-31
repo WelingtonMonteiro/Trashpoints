@@ -13,7 +13,7 @@
       };
 
       let vm = $scope;
-      
+
       vm.collects = [{
          id: '123',
          photo: 'assets/images/logos/trashPoints-logotipo-miniatura-alpha.png',

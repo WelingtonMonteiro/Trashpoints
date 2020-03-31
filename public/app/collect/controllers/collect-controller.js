@@ -2,13 +2,13 @@
   'use strict'
 
   angular
-    .module('collaborator')
-    .controller('CollaboratorCtrl', CollaboratorCtrl);
+    .module('collect')
+    .controller('CollectCtrl', CollectCtrl);
 
-  CollaboratorCtrl.$inject = ['$scope', '$rootScope'];
+  CollectCtrl.$inject = ['$scope', '$rootScope'];
 
   /* @ngInject */
-  function CollaboratorCtrl ($scope, $rootScope) {
+  function CollectCtrl ($scope, $rootScope) {
     let vm = this;
     vm.OneFunctionSample = OneFunctionSample;
 

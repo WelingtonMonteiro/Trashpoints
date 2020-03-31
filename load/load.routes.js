@@ -5,5 +5,5 @@
 module.exports = loadRoutes;
 
 async function loadRoutes(app) {
-    require('../modules/address/address.route')(app);
+    require('../api/address/address.route')(app);
 }
