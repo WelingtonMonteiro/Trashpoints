@@ -5,10 +5,9 @@ const loadServer = require('./load/load.server.js');
 const express = require('express');
 const app = express();
 
-const db = loadDb();
-const middeware = loadMiddlewares(app);
-const server = loadServer(app);
-
+loadDb();
+loadMiddlewares(app);
+loadServer(app);
 loadRoutes(app);
 
 module.exports = app;

@@ -30,8 +30,8 @@ const options = {
 mongoose.Promise = global.Promise;
 
 async function loadDB() {
-    // mongoose.set('debug', true);
-    return await mongoose.connect(Config.Db.url, options);
+    mongoose.set('debug', true);
+    return mongoose.connect(Config.Db.url, options);
 }
 
 module.exports = loadDB;
