@@ -1,124 +1,104 @@
-const mongoose = require('mongoose');
-const ObjectId = mongoose.Types.ObjectId;
-const uuid = require('uuid');
+const mongoose = require('mongoose')
+const ObjectId = mongoose.Types.ObjectId
+const uuid = require('uuid')
 
-module.exports = {
-    removeAccents,
-    isEmpty,
-    removeEspecialChar,
-    isObject,
-    isString,
-    isChar,
-    isNumber,
-    isBoolean,
-    isDate,
-    isArray,
-    isStringOrNumber,
-    zeroOnLeft: padLeft,
-    generateObjectId,
-    isValid,
-    isPopulate,
-    Guid
-};
+module.exports = class StringService {
+  static onlyNumbers(string) {
+    if (!string) return ''
+    if (typeof string !== 'string') string = string.toString()
 
-function generateObjectId(){
-    return  new ObjectId();
-}
+    return string.replace(/\D/gi, '')
+  }
 
-function isPopulate(field) {
-    "use strict";
-    let is = false;
-//console.log(Object.keys(campo));
-    if (!isEmpty(field) && typeof field === 'object' && field._id) {
-        is = true;
-    }
+  static removeAccents(string) {
+    if (!string || typeof string !== 'string') return ''
 
-    return is;
+    return string.normalize('NFD').replace(/[\u0300-\u036f]/g, "")
+  }
 
-}
-
-function Guid(){
-    return uuid.v4();
-}
-function isValid(string){
-    return  ObjectId.isValid(string);
-}
-
-function onlyNumbers(string) {
-    if (!string) return '';
-    if ( typeof string !== 'string') string = string.toString();
-
-    return string.replace(/\D/gi,'');
-}
-
-function removeAccents(string) {
-    if (!string || typeof string !== 'string') return '';
-
-    return string.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
-}
-
-function removeEspecialChar(string) {
-    if (!string || typeof string !== 'string') return '';
+  static removeEspecialChar(string) {
+    if (!string || typeof string !== 'string') return ''
 
     string = string
-        .replace(/[^\w\s]/gi, '');
+      .replace(/[^\w\s]/gi, '')
 
-    return string;
-}
+    return string
+  }
 
-
-function isEmpty(object) {
-    "use strict";
-    for (var field in object) {
-        return false
+  static isEmpty(object) {
+    "use strict"
+    for (let field in object) {
+      return false
     }
-    return true;
-}
+    return true
+  }
 
+  static isObject(Object) {
+    return Object && typeof Object === 'object'
+  }
 
-function isObject(Object) {
-    return Object && typeof Object === 'object';
-}
+  static isString(string) {
+    return string && typeof string === 'string'
+  }
 
-function isString(string) {
-    return string && typeof string === 'string';
-}
+  static isChar(string) {
+    return /^[A-Z]$/i.test(string)
+  }
 
-function isChar(string) {
-    return /^[A-Z]$/i.test(string);
-}
+  static isNumber(number) {
+    return number === 0 || (number && typeof number === 'number')
+  }
 
-function isNumber(number) {
-    return number === 0 || (number && typeof number === 'number');
-}
+  static generateObjectId() {
+    return new ObjectId()
+  }
 
-function isStringOrNumber(stringOrNumber) {
-    if (!stringOrNumber) return false;
+  static isValid(string) {
+    return ObjectId.isValid(string)
+  }
 
-    stringOrNumber = stringOrNumber.toString();
+  static isPopulate(field) {
+    "use strict"
+    let is = false
+//console.log(Object.keys(campo))
+    if (!isEmpty(field) && typeof field === 'object' && field._id) {
+      is = true
+    }
+    return is
+  }
 
-    return /^[0-9]*$/.test(stringOrNumber);
-}
+  static Guid() {
+    return uuid.v4()
+  }
 
-function isBoolean(boolean) {
-    return typeof boolean === 'boolean';
-}
+  static isStringOrNumber(stringOrNumber) {
+    if (!stringOrNumber) return false
 
-function isDate(date) {
-    return date && (typeof date === 'string' || date instanceof Date);
-}
+    stringOrNumber = stringOrNumber.toString()
 
-function isArray(array) {
-    return array && Array.isArray(array);
-}
+    return /^[0-9]*$/.test(stringOrNumber)
+  }
 
-function padLeft(number, tamanho) {
-    number = number.replace('null','');
+  static isBoolean(boolean) {
+    return typeof boolean === 'boolean'
+  }
 
-    let newNumber = number + '';
+  static isDate(date) {
+    return date && (typeof date === 'string' || date instanceof Date)
+  }
+
+  static isArray(array) {
+    return array && Array.isArray(array)
+  }
+
+  static zeroOnLeft(number, tamanho) {
+    number = number.replace('null', '')
+
+    let newNumber = number + ''
 
     while (newNumber.length < tamanho) {
-        newNumber = '0' + newNumber;
+      newNumber = '0' + newNumber
     }
-    return newNumber;
+    return newNumber
+  }
 }

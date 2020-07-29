@@ -6,7 +6,7 @@ const Service = ({repository = {}}) => serviceParam => {
     /**
      * @author Welington Monteiro
      * @description generic save
-     * @param {object} data
+     * @param {object} entity
      * @return {Promise<data>}
      */
     async save(entity) {

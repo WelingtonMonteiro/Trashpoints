@@ -30,7 +30,7 @@ function getErrorMessage(err) {
         return output;
     };
     if (err.code) {
-        switch (err.code) {
+         switch (err.code) {
             case 11000:
             case 11001:
                 message = getUniqueErrorMessage(err);
@@ -38,19 +38,22 @@ function getErrorMessage(err) {
             default:
                 message = 'Something went wrong';
         }
-    } else {
-        for (var errName in err.errors) {
-            if (err.errors[errName].message) {
-                message = err.errors[errName].message;
+        return message
+    }
+    if (get(err, 'errors', [])) {
+        for (let errName in get(err, 'errors', [])) {
+            if (err.errors[`${errName}`].message) {
+                message = err.errors[`${errName}`].message;
             }
         }
+        return message
     }
 
     return message;
 }
 
 function success(res, response) {
-    if (res.sended) return;
+    if (get(res, 'sended')) return;
     res.sended = true;
 
     response = response || {};
@@ -65,9 +68,6 @@ function success(res, response) {
         data: response.data || null
     };
 
-    if(response.hasOwnProperty("isExist")){
-        success.isExist = response.isExist
-    }
     if(response.hasOwnProperty("token") && response.token){
         success.access_token = response.token
     }
